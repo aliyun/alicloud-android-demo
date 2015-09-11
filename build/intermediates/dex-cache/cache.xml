@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\mas\git\code\dpa-demo-android\app\build\intermediates\exploded-aar\dpa-demo-android\mas-restful-demo\unspecified\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="25ac6d72827d2d423bcb3271f4ac19dd9c446edc">
+        <dex dex="D:\mas\git\code\dpa-demo-android\app\build\intermediates\pre-dexed\debug\classes-c9669f334a1137715d44d8253ee5410e1885aa74.jar" />
+    </item>
+    <item
+        jar="D:\mas\git\code\dpa-demo-android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
+        <dex dex="D:\mas\git\code\dpa-demo-android\app\build\intermediates\pre-dexed\debug\classes-174c731ee0c8958b6c0169debd5d6cb15b81bb5c.jar" />
+    </item>
+    <item
+        jar="D:\mas\git\code\dpa-demo-android\app\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\jars\libs\internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03">
+        <dex dex="D:\mas\git\code\dpa-demo-android\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-c9322d3db5345d5223996d55c7c1fa8bc6193254.jar" />
+    </item>
+    <item
+        jar="D:\mas\git\code\dpa-demo-android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\21.0.3\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="81d42bf983a8741f4888a6e333e454e4a5e0eeb7">
+        <dex dex="D:\mas\git\code\dpa-demo-android\app\build\intermediates\pre-dexed\debug\classes-041858ffb6dfad2a33f1c0d372558c1559117981.jar" />
+    </item>
+    <item
+        jar="D:\Users\xiongqiao.xq\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.3\support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex dex="D:\mas\git\code\dpa-demo-android\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-03ba318a89f281d61b31288d8a091c29e86b0f58.jar" />
+    </item>
+
+</items>

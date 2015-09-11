@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/dpa-demo-android.iml" filepath="$PROJECT_DIR$/dpa-demo-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mas-restful-demo/mas-restful-demo.iml" filepath="$PROJECT_DIR$/mas-restful-demo/mas-restful-demo.iml" />
+    </modules>
+  </component>
+</project>

@@ -53,15 +53,5 @@ public class MainActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*
-        try {
-            MASRestfulRawEditionUpload.main(this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appkey"),
-                    this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appsecret"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-         */
     }
 }
