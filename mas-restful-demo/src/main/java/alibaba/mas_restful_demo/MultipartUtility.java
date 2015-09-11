@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -144,6 +145,47 @@ public class MultipartUtility {
         }
 
         return response;
+    }
+
+    public static String toHex(byte[] digest) {
+        int i;
+        StringBuffer buf = new StringBuffer("");
+        for (int offset = 0; offset < digest.length; offset ++) {
+            i = digest[offset];
+            if (i < 0)
+                i += 256;
+            if (i < 16)
+                buf.append("0");
+            buf.append(Integer.toHexString(i));
+        }
+        String str = buf.toString();
+        return str;
+    }
+
+    /**
+     * Generate sign string with appKey, secretKey, content
+     *
+     * @param appkey
+     * @param secretKey
+     * @param type 类型
+     * @param content 需要上传的类容
+     */
+    public static byte[] getSign(String appkey, String secretKey, String type,
+                                 String content) throws Exception {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        MessageDigest sha1 = MessageDigest.getInstance("SHA1");
+        byte[] bytesOfContent = content.getBytes("UTF-8");
+        byte[] theDigest = md.digest(bytesOfContent);
+        String lsignData = appkey + type + toHex(theDigest);
+
+        byte[] byteOfmd5Message = lsignData.getBytes("UTF-8");
+        byte[] signValue = md.digest(byteOfmd5Message);
+        String sha1Content = secretKey + toHex(signValue) + secretKey;
+        byte[] bytesOfsha1Message = sha1Content.getBytes("UTF-8");
+        byte[] sha1Str = sha1.digest(bytesOfsha1Message);
+
+        return sha1Str;
     }
 
 }

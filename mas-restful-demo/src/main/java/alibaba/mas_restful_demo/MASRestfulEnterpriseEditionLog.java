@@ -5,8 +5,8 @@ package alibaba.mas_restful_demo;
  */
 public class MASRestfulEnterpriseEditionLog {
 
-    String lineSeparator = "\\x0A";
-    String columnSeparator = "\\x01";
+    String lineSeparator = "\n";
+    String columnSeparator = "\u0001";
 
     // Log field.
     String client_ip;
@@ -38,6 +38,7 @@ public class MASRestfulEnterpriseEditionLog {
     String reserve3;
     String reserve4;
     String reserve5;
+    String reserves;
     String local_time;
     String local_timestamp;
     String page;
@@ -84,6 +85,7 @@ public class MASRestfulEnterpriseEditionLog {
                 reserve3 + columnSeparator +
                 reserve4 + columnSeparator +
                 reserve5 + columnSeparator +
+                reserves + columnSeparator +
                 local_time + columnSeparator +
                 local_timestamp + columnSeparator +
                 page + columnSeparator +
