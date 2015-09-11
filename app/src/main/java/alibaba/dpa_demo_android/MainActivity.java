@@ -7,7 +7,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import alibaba.mas_restful_demo.MASRestfulEnterpriseEditionUpload;
-import alibaba.mas_restful_demo.MASRestfulRawEditionUpload;
 
 public class MainActivity extends ActionBarActivity {
 
