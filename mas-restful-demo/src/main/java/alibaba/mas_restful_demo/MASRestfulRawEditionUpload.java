@@ -11,9 +11,8 @@ public class MASRestfulRawEditionUpload {
         System.out.println("MASRESTful raw init.");
     }
 
-    public static void main(String appKey, String appSecret) {
-        appKey = "23223100";
-        appSecret = "832f592be971c1fb048814a66b74bc30";
+    public static void main(String appKeyTemp, String appSecret) {
+        String appKey = String.valueOf(appKeyTemp);
         String charset = "UTF-8";
         // RESTful service.
         String requestURL = "http://adash.mas.aliyuncs.com:80/rest/restful";
