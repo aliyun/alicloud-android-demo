@@ -1,1 +1,1 @@
-include ':mas_restful_demo'
+include ':mas_restful_demo', ':oss_android_demo'
