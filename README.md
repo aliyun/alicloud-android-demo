@@ -1,5 +1,7 @@
 # dpa-demo-android
 
+本工程给出了[阿里云移动开发平台](http://dpa.console.aliyun.com/)相关产品的使用DEMO，欢迎参考与使用。
+
 ## mas_restful_demo
 
 mas_restful_demo给出了MAS（数据服务）RESTful接口的使用示例。
