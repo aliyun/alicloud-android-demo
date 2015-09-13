@@ -1,4 +1,4 @@
-package alibaba.dpa_demo_android;
+package alibaba.mas_restful_demo;
 
 import android.content.pm.PackageManager;
 import android.support.v7.app.ActionBarActivity;
@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import alibaba.mas_restful_demo.MASRestfulEnterpriseEditionUpload;
-import alibaba.mas_restful_demo.MASRestfulRawEditionUpload;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -18,7 +16,14 @@ public class MainActivity extends ActionBarActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                dpaDemoBatch();
+                try {
+                    MASRestfulEnterpriseEditionUpload.main(getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
+                            getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appsecret"));
+                    MASRestfulRawEditionUpload.main(getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
+                            getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appsecret"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }).start();
     }
@@ -43,17 +48,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void dpaDemoBatch() {
-        // MAS RESTful demo
-        try {
-            MASRestfulEnterpriseEditionUpload.main(this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
-                    this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appsecret"));
-            MASRestfulRawEditionUpload.main(this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
-                    this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appsecret"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

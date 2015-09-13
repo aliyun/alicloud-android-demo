@@ -5,8 +5,8 @@ android {
     buildToolsVersion "21.1.1"
 
     defaultConfig {
-        applicationId "alibaba.dpa_demo_android"
-        minSdkVersion 8
+        applicationId "alibaba.mas_restful_demo"
+        minSdkVersion 9
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
@@ -22,5 +22,4 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
-    compile project(':mas-restful-demo')
 }

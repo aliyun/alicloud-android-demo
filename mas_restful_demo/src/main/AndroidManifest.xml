@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="alibaba.dpa_demo_android" >
+    package="alibaba.mas_restful_demo" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -25,5 +25,7 @@
         <meta-data android:name="com.alibaba.app.appsecret" android:value="********************************"></meta-data>
 
     </application>
+
+
 
 </manifest>

@@ -11,7 +11,7 @@ public class MASRestfulRawEditionUpload {
         System.out.println("MASRESTful raw init.");
     }
 
-    public static void main(String appKeyTemp, String appSecret) {
+    public static void main(int appKeyTemp, String appSecret) {
         String appKey = String.valueOf(appKeyTemp);
         String charset = "UTF-8";
         // RESTful service.
