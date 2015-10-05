@@ -24,9 +24,9 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="com.alibaba.app.ossak" android:value="<your access key>"></meta-data>
-        <meta-data android:name="com.alibaba.app.osssk" android:value="<your secret key>"></meta-data>
-        <meta-data android:name="com.alibaba.app.ossbucketname" android:value="<your bucket name>"></meta-data>
+        <meta-data android:name="com.alibaba.app.ossak" android:value="********"></meta-data>
+        <meta-data android:name="com.alibaba.app.osssk" android:value="********"></meta-data>
+        <meta-data android:name="com.alibaba.app.ossbucketname" android:value="********"></meta-data>
 
     </application>
 
