@@ -60,6 +60,7 @@ public class MANAndroidDemo {
             Map<String, String> requestInfo = new HashMap<String, String>();
             requestInfo.put("Host", url.getHost());
             requestInfo.put("Method", "GET");
+            byte[] buf = new byte[64 * 1024];
 
             // 打点记录请求开始
             manService.getMANNetwork().requestStart(requestInfo);
@@ -76,7 +77,7 @@ public class MANAndroidDemo {
             if (responseCode == 200) {
                 // 读尽响应内容
                 InputStream in = conn.getInputStream();
-                while ((loadBytes = in.read()) != -1) {
+                while ((loadBytes = in.read(buf)) != -1) {
                     totalBytes += loadBytes;
                 }
                 in.close();
