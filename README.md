@@ -52,3 +52,15 @@ mdns_android_demo给出了数据解析服务（Mobile DNS） Android SDK的使�
 <meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
 <meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
 ```
+
+## mac_android_demo
+
+mac_android_demo给出了移动加速服务 (Mobile Accelerator) Android SDK的使用示例。
+
+请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。同时，您需要到[MAC控制台](http://cas.console.aliyun.com)登录您的账户，在对应App中注册您需要加速的域名。
+
+```
+// *字段请用您的账号信息替换
+<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
+<meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
+```
