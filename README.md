@@ -64,3 +64,18 @@ mac_android_demo给出了移动加速服务 (Mobile Accelerator) Android SDK的�
 <meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
 <meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
 ```
+
+
+## ots_android_demo
+
+ots_android_demo给出了OTS Android SDK的使用示例。
+
+请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
+
+```
+// *字段请用您的账号信息替换
+<meta-data android:name="com.alibaba.app.accesskeyid" android:value="********"></meta-data>
+<meta-data android:name="com.alibaba.app.accesskeysecret" android:value="********"></meta-data>
+<meta-data android:name="com.alibaba.app.endpoint" android:value="********"></meta-data>
+<meta-data android:name="com.alibaba.app.instancename" android:value="********"></meta-data>
+```
