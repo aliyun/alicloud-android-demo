@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.alibaba.sdk.android.AlibabaSDK;
-import com.alibaba.sdk.android.cas.CASException;
-import com.alibaba.sdk.android.cas.CASService;
-import com.alibaba.sdk.android.cas.spdu.SpduLog;
+import com.alibaba.sdk.android.mac.MACException;
+import com.alibaba.sdk.android.mac.MACService;
+import com.alibaba.sdk.android.mac.spdu.SpduLog;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -15,7 +15,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
 import java.net.URL;
 
 public class MainActivity extends Activity {
@@ -51,7 +50,7 @@ public class MainActivity extends Activity {
     }
 
     public void getRequest() {
-        CASService casService = AlibabaSDK.getService(CASService.class);
+        MACService casService = AlibabaSDK.getService(MACService.class);
         byte[] buff = new byte[4096];
         String url = "http://m.taobao.com";
 
@@ -68,7 +67,7 @@ public class MainActivity extends Activity {
                 }
                 Log.d("Mainactivity", "[get] - " + sb.toString());
             }
-        } catch (CASException e) {
+        } catch (MACException e) {
             int errCode = e.getStatusCode();
             String errMsg = e.getMessage();
             String hostId = e.getHostId();
@@ -79,7 +78,7 @@ public class MainActivity extends Activity {
     }
 
     public void postRequest() {
-        CASService casService = AlibabaSDK.getService(CASService.class);
+        MACService casService = AlibabaSDK.getService(MACService.class);
         byte[] buff = new byte[4096];
         String url = "http://110.75.82.106/mbaas/test";
         InputStream in = null;
@@ -104,7 +103,7 @@ public class MainActivity extends Activity {
                     System.out.println(new String(buff, 0, len));
                 }
             }
-        } catch (CASException e) {
+        } catch (MACException e) {
             int errCode = e.getStatusCode();
             String errMsg = e.getMessage();
             String hostId = e.getHostId();

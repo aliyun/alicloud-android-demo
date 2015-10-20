@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.alibaba.sdk.android.AlibabaSDK;
 import com.alibaba.sdk.android.callback.InitResultCallback;
-import com.alibaba.sdk.android.cas.CASService;
+import com.alibaba.sdk.android.mac.MACService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -31,8 +31,8 @@ public class AppApplication extends Application {
             }
         });
 
-        // 初始化CAS，必须在OneSDK初始化之后
-        CASService casService = AlibabaSDK.getService(CASService.class);
+        // 初始化MAC，必须在OneSDK初始化之后
+        MACService casService = AlibabaSDK.getService(MACService.class);
         casService.setApplicationContext(getApplicationContext());
         // casService.disableAutoDegrade();  // 如果是在接入调试阶段，调用这个接口关闭自动降级，确保配置正确
         casService.enableInWIFIMode(); // WIFI下依旧开启云加速模式

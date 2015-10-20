@@ -5,15 +5,15 @@ import android.content.Context;
 import com.alibaba.sdk.android.AlibabaSDK;
 import com.alibaba.sdk.android.man.MANHitBuilders;
 import com.alibaba.sdk.android.man.MANService;
-import com.alibaba.sdk.android.man.model.MANCustomPerformance;
-import com.alibaba.sdk.android.man.model.MANNetworkErrorInfo;
+import com.alibaba.sdk.android.man.customperf.MANCustomPerformanceHitBuilder;
+import com.alibaba.sdk.android.man.network.MANNetworkErrorCodeBuilder;
+import com.alibaba.sdk.android.man.network.MANNetworkErrorInfo;
+import com.alibaba.sdk.android.man.network.MANNetworkPerformanceHitBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MANAndroidDemo {
 
@@ -52,61 +52,62 @@ public class MANAndroidDemo {
         // 用户注销埋点
         manService.getMANAnalytics().updateUserAccount("", "");
 
+        String urlString = "http://www.aliyun.com";
+        MANNetworkPerformanceHitBuilder networkPerformanceHitBuilder = new MANNetworkPerformanceHitBuilder("www.aliyun.com", "GET");
+
         /**
          * 进行网络事件埋点
          */
         try {
-            URL url = new URL("http://www.aliyun.com");
-            Map<String, String> requestInfo = new HashMap<String, String>();
-            requestInfo.put("Host", url.getHost());
-            requestInfo.put("Method", "GET");
+            URL url = new URL(urlString);
             byte[] buf = new byte[64 * 1024];
 
             // 打点记录请求开始
-            manService.getMANNetwork().requestStart(requestInfo);
+            networkPerformanceHitBuilder.hitRequestStart();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             // 建立连接
             conn.connect();
             // 打点记录建连时间
-            manService.getMANNetwork().requestFinishConnect();
+            networkPerformanceHitBuilder.hitConnectFinished();
             // 开始获取响应内容
             int responseCode = conn.getResponseCode();
             // 打点记录首包时间
-            manService.getMANNetwork().requestReceiveFirstByte();
-            int totalBytes = 0, loadBytes;
+            networkPerformanceHitBuilder.hitRecievedFirstByte();
+            long totalBytes = 0;
+            int len = 0;
             if (responseCode == 200) {
                 // 读尽响应内容
                 InputStream in = conn.getInputStream();
-                while ((loadBytes = in.read(buf)) != -1) {
-                    totalBytes += loadBytes;
+                while ((len = in.read(buf)) != -1) {
+                    totalBytes += len;
                 }
                 in.close();
             }
 
             // 打点标记请求结束
-            manService.getMANNetwork().requestEnd(totalBytes);
+            networkPerformanceHitBuilder.hitRequestEndWithLoadBytes(totalBytes);
         } catch (IOException e) {
             e.printStackTrace();
             // 按照文档5.1.3的说明选择默认网络异常类型或者自定义网络异常类型来上报网络异常
-            MANNetworkErrorInfo errorInfo = MANNetworkErrorInfo.MANNetworkErrorCodeBuilder.buildIOException()
-                    .withExtraInfo("error_url", "www.aliyun.com");
+            MANNetworkErrorInfo errorInfo = MANNetworkErrorCodeBuilder.buildIOException();
             //打点，记录出错情况
-            manService.getMANNetwork().reportRequestError(errorInfo);
+            networkPerformanceHitBuilder.hitRequestEndWithError(errorInfo);
         }
 
+        manService.getMANAnalytics().getDefaultTracker().send(networkPerformanceHitBuilder.build());
 
         /**
          * 进行自定义性能事件埋点
          */
         String labelKey = "fibonacci";
-        MANCustomPerformance.MANCustomPerformanceBuilder performanceBuilder = new MANCustomPerformance.MANCustomPerformanceBuilder(labelKey);
+        MANCustomPerformanceHitBuilder performanceHitBuilder = new MANCustomPerformanceHitBuilder(labelKey);
         // 记录自定义性能事件起始时间
-        performanceBuilder.hitStart();
+        performanceHitBuilder.hitStart();
         fibonacci(100);
         // 记录自定义性能事件结束时间
-        performanceBuilder.hitEnd();
+        performanceHitBuilder.hitEnd();
         // 上报自定义
-        manService.getMANAnalytics().sendCustomPerformance(performanceBuilder.build());
+        manService.getMANAnalytics().sendCustomPerformance(performanceHitBuilder.build());
 
         /**
          * 进行自定义事件（一般上报事件）埋点
