@@ -6,7 +6,7 @@
 
 ## man_restful_demo
 
-man_restful_demo给出了数据分析服务（Mobile Analytics）RESTful接口的使用示例。
+man_restful_demo给出了移动数据分析服务（Mobile Analytics）RESTful接口的使用示例。
 
 请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
@@ -31,7 +31,7 @@ oss_android_demo给出了OSS Android SDK的使用示例。
 
 ## man_android_demo
 
-man_android_demo给出了数据分析服务（Mobile Analytics） Android SDK的使用示例。
+man_android_demo给出了移动数据分析服务（Mobile Analytics） Android SDK的使用示例。
 
 请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
@@ -43,7 +43,7 @@ man_android_demo给出了数据分析服务（Mobile Analytics） Android SDK的
 
 ## mdns_android_demo
 
-mdns_android_demo给出了数据解析服务（Mobile DNS） Android SDK的使用示例。
+mdns_android_demo给出了移动域名解析服务（Mobile DNS） Android SDK的使用示例。
 
 请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
@@ -82,6 +82,6 @@ ots_android_demo给出了OTS Android SDK的使用示例。
 
 ## httpdns_restful_demo
 
-httpdns_restful_demo给出了HttpDNS RESTful接口的使用示例。
+httpdns_restful_demo给出了HTTPDNS服务的使用示例。
 
 
