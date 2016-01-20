@@ -41,18 +41,6 @@ man_android_demo给出了移动数据分析服务（Mobile Analytics） Android 
 <meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
 ```
 
-## mdns_android_demo
-
-mdns_android_demo给出了移动域名解析服务（Mobile DNS） Android SDK的使用示例。
-
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
-
-```
-// *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
-```
-
 ## mac_android_demo
 
 mac_android_demo给出了移动加速服务 (Mobile Accelerator) Android SDK的使用示例。
