@@ -13,39 +13,44 @@ import java.net.URL;
 public class NetworkRequestUsingHttpDNS {
 
     private static HttpDNS httpdnsService = HttpDNS.getInstance();
+    private static final String[] TEST_URL = {"http://www.aliyun.com", "http://www.taobao.com"};
 
-    public static void main(Context ctx) {
+    public static void main(final Context ctx) {
         try {
             HttpDNS.HttpDNSLog.enableLog(true);
+            // DegradationFilter用于自定义降级逻辑
+            // 通过实现shouldDegradeHttpDNS方法，可以根据需要，选择是否降级
+            DegradationFilter filter = new DegradationFilter() {
+                @Override
+                public boolean shouldDegradeHttpDNS(String hostName) {
+                    // 此处可以自定义降级逻辑，例如www.taobao.com不使用HttpDNS解析
+                    // 参照HttpDNS API文档，当存在中间HTTP代理时，应选择降级，使用Local DNS
+                    return hostName.equals("www.taobao.com") || detectIfProxyExist(ctx);
+                }
+            };
+            // 将filter传进httpdnsService，解析时会回调shouldDegradeHttpDNS方法，判断是否降级
+            httpdnsService.setDegradationFilter(filter);
 
             byte[] buff = new byte[4096];
-            HttpURLConnection conn = getHttpURLConnection("http://m.aliyun.com", ctx);
-            int responseCode = conn.getResponseCode();
-            if (responseCode == 200) {
-                InputStream in = conn.getInputStream();
-                DataInputStream dis = new DataInputStream(in);
-                int len = 0;
-                StringBuilder sb = new StringBuilder();
-                while ((len = dis.read(buff)) != -1) {
-                    sb.append(new String(buff, 0, len));
-                }
-                Log.d("HttpDNS Demo", "Get result: " + sb.toString());
-            }
-            conn.disconnect();
+            HttpURLConnection conn;
+            int responseCode;
 
-            Thread.sleep(3000);
-
-            conn = getHttpURLConnection("http://m.aliyun.com", ctx);
-            responseCode = conn.getResponseCode();
-            if (responseCode == 200) {
-                InputStream in = conn.getInputStream();
-                DataInputStream dis = new DataInputStream(in);
-                int len = 0;
-                StringBuilder sb = new StringBuilder();
-                while ((len = dis.read(buff)) != -1) {
-                    sb.append(new String(buff, 0, len));
+            for (int i = 0; i < 2; i++) {
+                conn = getHttpURLConnection(TEST_URL[i]);
+                responseCode = conn.getResponseCode();
+                if (responseCode == 200) {
+                    InputStream in = conn.getInputStream();
+                    DataInputStream dis = new DataInputStream(in);
+                    int len = 0;
+                    StringBuilder sb = new StringBuilder();
+                    while ((len = dis.read(buff)) != -1) {
+                        sb.append(new String(buff, 0, len));
+                    }
+                    Log.d("HttpDNS Demo", "Get result: " + sb.toString());
                 }
-                Log.d("HttpDNS Demo", "Get result: " + sb.toString());
+                conn.disconnect();
+
+                Thread.sleep(3000);
             }
 
         } catch (Exception e) {
@@ -53,29 +58,25 @@ public class NetworkRequestUsingHttpDNS {
         }
     }
 
-    public static HttpURLConnection getHttpURLConnection(String urlString, Context appContext)
+    public static HttpURLConnection getHttpURLConnection(String urlString)
             throws IOException {
         URL url = new URL(urlString);
+        String originHost = url.getHost();
+        HttpURLConnection conn;
 
-        // 默认情况下当系统使用代理时，走原生DNS逻辑。
-        if (!detectIfProxyExist(appContext)) {
-            HttpURLConnection conn;
-
-            String dstIp = httpdnsService.getIpByHost(url.getHost());
-            if (dstIp != null) {
-                Log.d("HttpDNS Demo", "Get IP from HttpDNS, " + url.getHost() + ": " + dstIp);
-                urlString = urlString.replaceFirst(url.getHost(), dstIp);
-                url = new URL(urlString);
-                conn = (HttpURLConnection) url.openConnection();
-                // 设置HTTP请求头HOST域
-                conn.setRequestProperty("Host", url.getHost());
-                return conn;
-            }
+        String dstIp = httpdnsService.getIpByHost(url.getHost());
+        if (dstIp != null) {
+            Log.d("HttpDNS Demo", "Get IP from HttpDNS, " + url.getHost() + ": " + dstIp);
+            urlString = urlString.replaceFirst(url.getHost(), dstIp);
+            url = new URL(urlString);
+            conn = (HttpURLConnection) url.openConnection();
+            // 设置HTTP请求头Host域
+            conn.setRequestProperty("Host", originHost);
+            return conn;
         } else {
-            Log.d("HttpDNS Demo", "Found proxy, downgrade to local DNS.");
+            Log.d("HttpDNS Demo", "Degrade to local DNS.");
+            return (HttpURLConnection) url.openConnection();
         }
-
-        return (HttpURLConnection) url.openConnection();
     }
 
     /**

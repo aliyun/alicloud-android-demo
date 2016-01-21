@@ -19,7 +19,8 @@ import java.util.concurrent.Future;
 
 public class HttpDNS {
 
-    private static final String SERVER_IP = "140.205.143.143";
+    private static final String SERVER_IP = "203.107.1.1";
+    private static final String ACCOUNT_ID = "100000";
     private static final int MAX_THREAD_NUM = 5;
     private static final int RESOLVE_TIMEOUT_IN_SEC = 10;
     private static final int MAX_HOLD_HOST_NUM = 100;
@@ -161,8 +162,7 @@ public class HttpDNS {
 
         @Override
         public String call() {
-            String chooseServerAddress = SERVER_IP;
-            String resolveUrl = "http://" + chooseServerAddress + "/d?host=" + hostName;
+            String resolveUrl = "http://" + SERVER_IP + "/" + ACCOUNT_ID + "/d?host=" + hostName;
             HttpDNSLog.logD("[QueryHostTask.call] - buildUrl: " + resolveUrl);
             try {
                 HttpURLConnection conn = (HttpURLConnection) new URL(resolveUrl).openConnection();
@@ -217,6 +217,7 @@ public class HttpDNS {
     private ConcurrentMap<String, HostObject> hostManager = new ConcurrentHashMap<String, HostObject>();
     private static HttpDNS instance = new HttpDNS();
     private ExecutorService pool = Executors.newFixedThreadPool(MAX_THREAD_NUM);
+    private DegradationFilter degradationFilter = null;
 
     private HttpDNS() {
     }
@@ -235,6 +236,11 @@ public class HttpDNS {
     }
 
     public String getIpByHost(String hostName) {
+        if (degradationFilter != null) {
+            if (degradationFilter.shouldDegradeHttpDNS(hostName)) {
+                return null;
+            }
+        }
         HostObject host = hostManager.get(hostName);
         if (host == null || (host.isExpired() && !isExpiredIpAvailable())) {
             HttpDNSLog.logD("[getIpByHost] - fetch result from network, host: " + hostName);
@@ -255,5 +261,9 @@ public class HttpDNS {
         }
         HttpDNSLog.logD("[getIpByHost] - fetch result from cache, host: " + hostName);
         return host.getIp();
+    }
+
+    public void setDegradationFilter(DegradationFilter filter) {
+        degradationFilter = filter;
     }
 }
