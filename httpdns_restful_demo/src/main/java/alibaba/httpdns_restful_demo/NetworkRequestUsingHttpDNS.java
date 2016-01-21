@@ -75,9 +75,8 @@ public class NetworkRequestUsingHttpDNS {
             return conn;
         } else {
             Log.d("HttpDNS Demo", "Degrade to local DNS.");
+            return (HttpURLConnection) url.openConnection();
         }
-
-        return (HttpURLConnection) url.openConnection();
     }
 
     /**
