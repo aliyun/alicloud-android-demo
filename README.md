@@ -45,7 +45,7 @@ man_android_demo给出了移动数据分析服务（Mobile Analytics） Android 
 
 mac_android_demo给出了移动加速服务 (Mobile Accelerator) Android SDK的使用示例。
 
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。同时，您需要到[MAC控制台](http://cas.console.aliyun.com)登录您的账户，在对应App中注册您需要加速的域名。
+请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。同时，您需要到[MAC控制台](http://mac.console.aliyun.com)登录您的账户，在对应App中添加您需要加速的域名，例如需要添加DEMO中Benchmark用到的域名macapibm.ams.aliyuncs.com。
 
 ```
 // *字段请用您的账号信息替换
@@ -53,6 +53,13 @@ mac_android_demo给出了移动加速服务 (Mobile Accelerator) Android SDK的�
 <meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
 ```
 
+DEMO中包含了Benchmark对比MAC和原生链路的平均RT对比，逻辑如下：
+
+1. 每次随机并发1到6个请求，其中最后一个是API请求（包含Header ```Cache-Control: no-cache, no-store, max-age=0, must-revalidate```），其余为静态资源请求（大小为20k，包含Header ```Cache-Control: max-age=60```）
+2. api请求的url是[http://macapibm.ams.aliyuncs.com/api_request](http://macapibm.ams.aliyuncs.com/api_request), 静态资源请求的url是每次从[http://macimg0bm.ams.aliyuncs.com/static_file/20k](http://macimg0bm.ams.aliyuncs.com/static_file/20k)和[http://macimg1bm.ams.aliyuncs.com/static_file/20k](http://macimg1bm.ams.aliyuncs.com/static_file/20k)中随机选择一个
+3. 每隔10s内的随机时间并发一次
+4. 一共发200个请求
+5. 统计所有HTTP状态码为200 OK的请求RT平均值
 
 ## ots_android_demo
 

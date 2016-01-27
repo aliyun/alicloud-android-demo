@@ -3,6 +3,10 @@ package com.alibaba.sdk.android.demo.mac;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.alibaba.sdk.android.AlibabaSDK;
 import com.alibaba.sdk.android.mac.MACException;
@@ -19,43 +23,54 @@ import java.net.URL;
 
 public class MainActivity extends Activity {
 
+    private static final String TEST_URL = "http://macbm.ams.aliyuncs.com/static_file/20k";
+    private static final String TEST_POST_URL = "http://macbm.ams.aliyuncs.com/mbaas/test";
+
+    private Button btnBenchmarkStartMAC, btnBenchmarkStartNative;
+    private TextView textViewMAC, textViewNative;
+    private ProgressBar bar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SpduLog.enableLog(true);
-
-        new Thread(new Runnable() {
+        btnBenchmarkStartMAC = (Button) this.findViewById(R.id.btnMAC);
+        btnBenchmarkStartNative = (Button) this.findViewById(R.id.btnNative);
+        textViewMAC = (TextView) this.findViewById(R.id.rtMAC);
+        textViewNative = (TextView) this.findViewById(R.id.rtNative);
+        bar = (ProgressBar) this.findViewById(R.id.progressBar);
+        bar.setEnabled(false);
+        btnBenchmarkStartMAC.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-
-                for (int i = 0; i < 5; i++) {
-
-                    Log.v("Mainactivity", "[run] - start requesting via cas - ");
-
-                    getRequest();
-
-                    postRequest();
-
-                    try {
-                        Thread.sleep(1 * 1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
+            public void onClick(View v) {
+                BasicTask basicTask = new BasicTask(btnBenchmarkStartMAC, btnBenchmarkStartNative, textViewMAC, bar, true);
+                basicTask.execute();
             }
-        }).start();
+        });
+
+        btnBenchmarkStartNative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BasicTask basicTask = new BasicTask(btnBenchmarkStartMAC, btnBenchmarkStartNative, textViewNative, bar, false);
+                basicTask.execute();
+            }
+        });
+
+        btnBenchmarkStartMAC.setEnabled(true);
+        btnBenchmarkStartNative.setEnabled(true);
+
+        SpduLog.enableLog(false);
+
     }
 
     public void getRequest() {
-        MACService casService = AlibabaSDK.getService(MACService.class);
+        MACService macService = AlibabaSDK.getService(MACService.class);
         byte[] buff = new byte[4096];
-        String url = "http://m.taobao.com";
+        String url = TEST_URL;
 
         try {
-            HttpURLConnection conn = casService.open(new URL(url));
+            HttpURLConnection conn = macService.open(new URL(url));
             int responseCode = conn.getResponseCode();
             if (responseCode == 200) {
                 InputStream in = conn.getInputStream();
@@ -73,20 +88,20 @@ public class MainActivity extends Activity {
             String hostId = e.getHostId();
             e.printStackTrace();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 
     public void postRequest() {
-        MACService casService = AlibabaSDK.getService(MACService.class);
+        MACService macService = AlibabaSDK.getService(MACService.class);
         byte[] buff = new byte[4096];
-        String url = "http://110.75.82.106/mbaas/test";
+        String url = TEST_POST_URL;
         InputStream in = null;
         OutputStream out = null;
         byte[] dataToPost = "This is some data to post.".getBytes();
 
         try {
-            HttpURLConnection conn = casService.open(new URL(url));
+            HttpURLConnection conn = macService.open(new URL(url));
             conn.setDoInput(true);
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
@@ -109,7 +124,8 @@ public class MainActivity extends Activity {
             String hostId = e.getHostId();
             e.printStackTrace();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
+
 }
