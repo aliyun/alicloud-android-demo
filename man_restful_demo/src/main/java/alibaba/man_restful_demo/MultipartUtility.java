@@ -164,28 +164,31 @@ public class MultipartUtility {
 
     /**
      * Generate sign string with appKey, secretKey, content
+     * Encryption algorithm :s = sha1{secretKey + md5[appKey + name1 + md5(content1) + name2 + md5(content2)] + secretKey}
      *
      * @param appkey
      * @param secretKey
-     * @param type 类型
+     * @param name 类型
      * @param content 需要上传的类容
      */
-    public static byte[] getSign(String appkey, String secretKey, String type,
+    public static byte[] getSign(String appkey, String secretKey, String name,
                                  String content) throws Exception {
 
         MessageDigest md = MessageDigest.getInstance("MD5");
         MessageDigest sha1 = MessageDigest.getInstance("SHA1");
-        byte[] bytesOfContent = content.getBytes("UTF-8");
-        byte[] theDigest = md.digest(bytesOfContent);
-        String lsignData = appkey + type + toHex(theDigest);
 
-        byte[] byteOfmd5Message = lsignData.getBytes("UTF-8");
-        byte[] signValue = md.digest(byteOfmd5Message);
-        String sha1Content = secretKey + toHex(signValue) + secretKey;
-        byte[] bytesOfsha1Message = sha1Content.getBytes("UTF-8");
-        byte[] sha1Str = sha1.digest(bytesOfsha1Message);
+        byte[] contentBytes = content.getBytes("UTF-8");
+        byte[] contentMd5 = md.digest(contentBytes);
 
-        return sha1Str;
+        String appkeyNameContentStr = appkey + name + toHex(contentMd5);
+        byte[] appkeyNameContentBytes = appkeyNameContentStr.getBytes("UTF-8");
+        byte[] appkeyNameContentMd5 = md.digest(appkeyNameContentBytes);
+
+        String signStr = secretKey + toHex(appkeyNameContentMd5) + secretKey;
+        byte[] signBytes = signStr.getBytes("UTF-8");
+        byte[] signSha1 = sha1.digest(signBytes);
+
+        return signSha1;
     }
 
 }
