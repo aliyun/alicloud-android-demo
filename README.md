@@ -72,4 +72,6 @@ ots_android_demo给出了OTS Android SDK的使用示例。
 
 httpdns_restful_demo给出了HTTPDNS服务的使用示例。
 
+## httpdns_android_demo
 
+httpdns_android_demo给出了HTTPDNS Android SDK的使用示例。
