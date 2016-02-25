@@ -1,6 +1,4 @@
 package alibaba.man_android_demo;
-
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.alibaba.sdk.android.AlibabaSDK;
@@ -9,10 +7,10 @@ import com.alibaba.sdk.android.man.MANService;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TestPageHitActivity extends AppCompatActivity {
+public class TestPageHitActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_page_hit);
 
