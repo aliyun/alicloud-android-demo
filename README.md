@@ -68,9 +68,9 @@ ots_android_demo给出了OTS Android SDK的使用示例。
 <meta-data android:name="com.alibaba.app.instancename" android:value="********"></meta-data>
 ```
 
-## httpdns_restful_demo
+## httpdns_api_demo
 
-httpdns_restful_demo给出了HTTPDNS服务的使用示例。
+httpdns_api_demo给出了HTTPDNS服务API接口的使用示例。
 
 ## httpdns_android_demo
 

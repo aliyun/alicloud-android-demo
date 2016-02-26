@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">httpdns_restful_demo</string>
+    <string name="app_name">httpdns_api_demo</string>
     <string name="action_settings">Settings</string>
 </resources>
