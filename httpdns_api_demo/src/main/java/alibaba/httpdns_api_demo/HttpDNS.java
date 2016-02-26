@@ -1,4 +1,4 @@
-package alibaba.httpdns_restful_demo;
+package alibaba.httpdns_api_demo;
 
 import android.util.Log;
 

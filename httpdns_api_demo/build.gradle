@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "alibaba.httpdns_restful_demo"
+        applicationId "alibaba.httpdns_api_demo"
         minSdkVersion 10
         targetSdkVersion 23
         versionCode 1
