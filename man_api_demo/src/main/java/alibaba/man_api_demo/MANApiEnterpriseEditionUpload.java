@@ -1,4 +1,4 @@
-package alibaba.man_restful_demo;
+package alibaba.man_api_demo;
 
 import java.security.MessageDigest;
 import java.util.List;
@@ -6,20 +6,20 @@ import java.util.List;
 /**
  * Created by ryan on 25/8/15.
  */
-public class MANRestfulEnterpriseEditionUpload {
+public class MANApiEnterpriseEditionUpload {
 
-    MANRestfulEnterpriseEditionUpload() {
-        System.out.println("MANRESTful Enterprise init.");
+    MANApiEnterpriseEditionUpload() {
+        System.out.println("MANAPI Enterprise init.");
     }
 
     public static void main(int appKeyTemp, String appSecret) {
         String appKey = String.valueOf(appKeyTemp);
         String charset = "UTF-8";
-        // RESTful service.
-        String requestURL = "http://adash.man.aliyuncs.com:80/rest/restful";
+        // api service.
+        String requestURL = "http://adash.man.aliyuncs.com:80/man/api";
 
         try {
-            MANRestfulEnterpriseEditionLog log1 = new MANRestfulEnterpriseEditionLog();
+            MANApiEnterpriseEditionLog log1 = new MANApiEnterpriseEditionLog();
             log1.client_ip = "102.35.23.5";
             log1.protocol_version = "2.3.3";
             log1.imei = "c1976429369bfe063ed8b3409db7c7e7d87196d9";
