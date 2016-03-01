@@ -1,21 +1,21 @@
-package alibaba.man_restful_demo;
+package alibaba.man_api_demo;
 
 import java.util.List;
 
 /**
  * Created by ryan on 25/8/15.
  */
-public class MANRestfulRawEditionUpload {
+public class MANApiRawEditionUpload {
 
-    MANRestfulRawEditionUpload() {
-        System.out.println("MANRESTful raw init.");
+    MANApiRawEditionUpload() {
+        System.out.println("MANAPI raw init.");
     }
 
     public static void main(int appKeyTemp, String appSecret) {
         String appKey = String.valueOf(appKeyTemp);
         String charset = "UTF-8";
-        // RESTful service.
-        String requestURL = "http://adash.man.aliyuncs.com:80/rest/restful";
+        // api service.
+        String requestURL = "http://adash.man.aliyuncs.com:80/man/api";
 
         try {
             String type = "Raw";

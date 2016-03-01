@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">mas_restful_demo</string>
+    <string name="app_name">man_api_demo</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

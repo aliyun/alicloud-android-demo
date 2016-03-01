@@ -1,4 +1,4 @@
-package alibaba.man_restful_demo;
+package alibaba.man_api_demo;
 
 import android.content.pm.PackageManager;
 import android.support.v7.app.ActionBarActivity;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import alibaba.man_restful_demo.R;
+import alibaba.man_api_demo.R;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -19,9 +19,9 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void run() {
                 try {
-                    MANRestfulEnterpriseEditionUpload.main(getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
+                    MANApiEnterpriseEditionUpload.main(getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
                             getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appsecret"));
-                    MANRestfulRawEditionUpload.main(getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
+                    MANApiRawEditionUpload.main(getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getInt("com.alibaba.app.appkey"),
                             getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA).metaData.getString("com.alibaba.app.appsecret"));
                 } catch (Exception e) {
                     e.printStackTrace();
