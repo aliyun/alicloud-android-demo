@@ -1,4 +1,4 @@
-package alibaba.man_restful_demo;
+package alibaba.man_api_demo;
 
 import java.io.BufferedReader;
 import java.io.File;
