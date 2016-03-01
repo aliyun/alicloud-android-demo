@@ -1,9 +1,9 @@
-package alibaba.man_restful_demo;
+package alibaba.man_api_demo;
 
 /**
  * Created by ryan on 24/8/15.
  */
-public class MANRestfulEnterpriseEditionLog {
+public class MANApiEnterpriseEditionLog {
 
     String lineSeparator = "\n";
     String columnSeparator = "\u0001";
