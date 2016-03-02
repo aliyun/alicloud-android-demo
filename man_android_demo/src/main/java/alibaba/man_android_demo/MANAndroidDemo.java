@@ -89,7 +89,7 @@ public class MANAndroidDemo {
         MANCustomPerformanceHitBuilder performanceHitBuilder = new MANCustomPerformanceHitBuilder(labelKey);
         // 记录自定义性能事件起始时间
         performanceHitBuilder.hitStart();
-        fibonacci(100);
+        fibonacci(30);
         // 记录自定义性能事件结束时间
         performanceHitBuilder.hitEnd();
         // 设置时长方法2
