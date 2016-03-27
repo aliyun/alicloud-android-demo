@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name">oss-android-demo</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">app</string>
     <string name="action_settings">Settings</string>
 </resources>
