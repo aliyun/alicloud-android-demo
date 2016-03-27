@@ -3,8 +3,8 @@ package alibaba.man_android_demo;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.alibaba.sdk.android.AlibabaSDK;
 import com.alibaba.sdk.android.man.MANService;
+import com.alibaba.sdk.android.man.MANServiceProvider;
 
 /**
  * Created by LK on 16/1/30.
@@ -19,14 +19,14 @@ public class BaseActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        MANService manService = AlibabaSDK.getService(MANService.class);
+        MANService manService = MANServiceProvider.getService();
         manService.getMANPageHitHelper().pageAppear(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        MANService manService = AlibabaSDK.getService(MANService.class);
+        MANService manService = MANServiceProvider.getService();
         manService.getMANPageHitHelper().pageDisAppear(this);
     }
 }
