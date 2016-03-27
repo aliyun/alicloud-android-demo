@@ -24,9 +24,11 @@ oss_android_demo给出了OSS Android SDK的使用示例。
 
 ```
 // *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.ossak" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.osssk" android:value="***********"></meta-data>
-<meta-data android:name="com.alibaba.app.ossbucketname" android:value="******"></meta-data>``
+<meta-data android:name="com.alibaba.app.oss_endpoint" android:value="*********"></meta-data>
+<meta-data android:name="com.alibaba.app.oss_bucketname" android:value="*********"></meta-data>
+<meta-data android:name="com.alibaba.app.oss_ak" android:value="*********"></meta-data>
+<meta-data android:name="com.alibaba.app.oss_sk" android:value="*********"></meta-data>
+<meta-data android:name="com.alibaba.app.oss_filepath" android:value="*********"></meta-data>
 ```
 
 ## man_android_demo

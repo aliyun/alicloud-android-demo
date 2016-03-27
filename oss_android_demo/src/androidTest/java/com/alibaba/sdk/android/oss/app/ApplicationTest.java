@@ -1,4 +1,4 @@
-package com.alibaba.sdk.android.dpa.oss_android_demo;
+package com.alibaba.sdk.android.oss.app;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
