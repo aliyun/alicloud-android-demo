@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class NetworkRequestUsingHttpDNS {
 
     private static HttpDnsService httpdns;
-    private static String accountID = "100000";
+    private static String accountID = "139450";
     private static final String[] TEST_URL = {"http://www.aliyun.com", "http://www.taobao.com"};
 
     public static void main(final Context ctx) {
@@ -52,6 +52,8 @@ public class NetworkRequestUsingHttpDNS {
                 Log.d("HTTPDNS Demo", "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
                 String newUrl = originalUrl.replaceFirst(url.getHost(), ip);
                 conn = (HttpURLConnection) new URL(newUrl).openConnection();
+                // 设置HTTP请求头Host域
+                conn.setRequestProperty("Host", url.getHost());
             }
             DataInputStream dis = new DataInputStream(conn.getInputStream());
             int len;
@@ -71,6 +73,8 @@ public class NetworkRequestUsingHttpDNS {
                 Log.d("HTTPDNS Demo", "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
                 String newUrl = originalUrl.replaceFirst(url.getHost(), ip);
                 conn = (HttpURLConnection) new URL(newUrl).openConnection();
+                // 设置HTTP请求头Host域
+                conn.setRequestProperty("Host", url.getHost());
             }
             len = 0;
             response = new StringBuilder();

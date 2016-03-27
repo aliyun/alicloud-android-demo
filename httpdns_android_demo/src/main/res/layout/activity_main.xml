@@ -24,6 +24,11 @@
 
     <include layout="@layout/content_main"/>
 
+    <WebView
+        android:id="@+id/wv_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

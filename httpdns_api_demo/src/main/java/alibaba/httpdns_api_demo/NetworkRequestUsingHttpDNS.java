@@ -38,6 +38,7 @@ public class NetworkRequestUsingHttpDNS {
             for (int i = 0; i < 2; i++) {
                 conn = getHttpURLConnection(TEST_URL[i]);
                 responseCode = conn.getResponseCode();
+                Log.d("HttpDNS Demo", "Response code: " + responseCode);
                 if (responseCode == 200) {
                     InputStream in = conn.getInputStream();
                     DataInputStream dis = new DataInputStream(in);
@@ -46,7 +47,7 @@ public class NetworkRequestUsingHttpDNS {
                     while ((len = dis.read(buff)) != -1) {
                         sb.append(new String(buff, 0, len));
                     }
-                    Log.d("HttpDNS Demo", "Get result: " + sb.toString());
+                    Log.d("HttpDNS Demo", "Get result: " + sb);
                 }
                 conn.disconnect();
 
