@@ -2,9 +2,10 @@ package alibaba.man_android_demo;
 
 import android.content.Context;
 
-import com.alibaba.sdk.android.AlibabaSDK;
 import com.alibaba.sdk.android.man.MANHitBuilders;
+import com.alibaba.sdk.android.man.MANPageHitBuilder;
 import com.alibaba.sdk.android.man.MANService;
+import com.alibaba.sdk.android.man.MANServiceProvider;
 import com.alibaba.sdk.android.man.customperf.MANCustomPerformanceHitBuilder;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorCodeBuilder;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorInfo;
@@ -14,13 +15,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MANAndroidDemo {
 
     public static void main(Context ctx) {
 
         // 获取MAN服务
-        MANService manService = AlibabaSDK.getService(MANService.class);
+        MANService manService = MANServiceProvider.getService();
 
         /**
          * 业务数据埋点
@@ -31,6 +34,23 @@ public class MANAndroidDemo {
         manService.getMANAnalytics().updateUserAccount("usernick", "userid");
         // 用户注销埋点
         manService.getMANAnalytics().updateUserAccount("", "");
+
+        /**
+         * 使用页面基础打点类进行页面事件埋点，见文档4.2.3
+         */
+        // 获取基础页面打点对象
+        MANPageHitBuilder pageHitBuilder = new MANPageHitBuilder("pageName");
+        // 设置来源页面名称
+        pageHitBuilder.setReferPage("referPageName");
+        // 设置页面停留时间
+        pageHitBuilder.setDurationOnPage(100);
+        // 设置页面属性
+        pageHitBuilder.setProperty("pageKey", "pageValue");
+        // Map<String, String> properties = new HashMap<>();
+        // properties.put("key1", "key2");
+        // pageHitBuilder.setProperties(properties);
+        // 上报页面埋点数据
+        manService.getMANAnalytics().getDefaultTracker().send(pageHitBuilder.build());
 
         /**
          * 进行网络事件埋点，见文档5.1和5.2
@@ -89,7 +109,7 @@ public class MANAndroidDemo {
         MANCustomPerformanceHitBuilder performanceHitBuilder = new MANCustomPerformanceHitBuilder(labelKey);
         // 记录自定义性能事件起始时间
         performanceHitBuilder.hitStart();
-        fibonacci(100);
+        fibonacci(30);
         // 记录自定义性能事件结束时间
         performanceHitBuilder.hitEnd();
         // 设置时长方法2

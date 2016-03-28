@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "alibaba.httpdns_android_demo"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"

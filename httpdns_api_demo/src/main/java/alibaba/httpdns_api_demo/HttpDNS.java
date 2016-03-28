@@ -20,7 +20,7 @@ import java.util.concurrent.Future;
 public class HttpDNS {
 
     private static final String SERVER_IP = "203.107.1.1";
-    private static final String ACCOUNT_ID = "100000";
+    private static final String ACCOUNT_ID = "139450";
     private static final int MAX_THREAD_NUM = 5;
     private static final int RESOLVE_TIMEOUT_IN_SEC = 10;
     private static final int MAX_HOLD_HOST_NUM = 100;
