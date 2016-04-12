@@ -2,9 +2,10 @@ package alibaba.man_android_demo;
 
 import android.content.Context;
 
-import com.alibaba.sdk.android.AlibabaSDK;
 import com.alibaba.sdk.android.man.MANHitBuilders;
+import com.alibaba.sdk.android.man.MANPageHitBuilder;
 import com.alibaba.sdk.android.man.MANService;
+import com.alibaba.sdk.android.man.MANServiceProvider;
 import com.alibaba.sdk.android.man.customperf.MANCustomPerformanceHitBuilder;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorCodeBuilder;
 import com.alibaba.sdk.android.man.network.MANNetworkErrorInfo;
@@ -14,33 +15,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MANAndroidDemo {
 
     public static void main(Context ctx) {
 
-        /**
-         * 初始化Mobile Analytics服务
-         */
-        // 初始化OneSDK
-        AlibabaSDK.asyncInit(ctx);
         // 获取MAN服务
-        MANService manService = AlibabaSDK.getService(MANService.class);
-
-        // 若需要关闭 SDK 的自动异常捕获功能可进行如下操作,详见文档5.4
-        // manService.getMANAnalytics().turnOffCrashHandler();
-
-        // 通过此接口关闭页面自动打点功能，详见文档4.2
-        // manService.getMANAnalytics().turnOffAutoPageTrack();
-
-        // 打开调试日志
-        manService.getMANAnalytics().turnOnDebug();
-
-        // 设置渠道（用以标记该app的分发渠道名称），如果不关心可以不设置即不调用该接口，渠道设置将影响控制台【渠道分析】栏目的报表展现。如果文档3.3章节更能满足您渠道配置的需求，就不要调用此方法，按照3.3进行配置即可
-        // manService.getMANAnalytics().setChannel("某渠道");
-
-        // 若AndroidManifest.xml 中的 android:versionName 不能满足需求，可在此指定
-        // manService.getMANAnalytics().setAppVersion("3.1.1");
+        MANService manService = MANServiceProvider.getService();
 
         /**
          * 业务数据埋点
@@ -48,16 +31,33 @@ public class MANAndroidDemo {
         // 注册用户埋点
         manService.getMANAnalytics().userRegister("usernick");
         // 用户登录埋点
-        manService.getMANAnalytics().updateUserAccount("usernick", "user id");
+        manService.getMANAnalytics().updateUserAccount("usernick", "userid");
         // 用户注销埋点
         manService.getMANAnalytics().updateUserAccount("", "");
 
+        /**
+         * 使用页面基础打点类进行页面事件埋点，见文档4.2.3
+         */
+        // 获取基础页面打点对象
+        MANPageHitBuilder pageHitBuilder = new MANPageHitBuilder("pageName");
+        // 设置来源页面名称
+        pageHitBuilder.setReferPage("referPageName");
+        // 设置页面停留时间
+        pageHitBuilder.setDurationOnPage(100);
+        // 设置页面属性
+        pageHitBuilder.setProperty("pageKey", "pageValue");
+        // Map<String, String> properties = new HashMap<>();
+        // properties.put("key1", "key2");
+        // pageHitBuilder.setProperties(properties);
+        // 上报页面埋点数据
+        manService.getMANAnalytics().getDefaultTracker().send(pageHitBuilder.build());
+
+        /**
+         * 进行网络事件埋点，见文档5.1和5.2
+         */
         String urlString = "http://www.aliyun.com";
         MANNetworkPerformanceHitBuilder networkPerformanceHitBuilder = new MANNetworkPerformanceHitBuilder("www.aliyun.com", "GET");
 
-        /**
-         * 进行网络事件埋点
-         */
         try {
             URL url = new URL(urlString);
             byte[] buf = new byte[64 * 1024];
@@ -83,17 +83,23 @@ public class MANAndroidDemo {
                 }
                 in.close();
             }
-
+            // 附带额外需要上报信息
+            networkPerformanceHitBuilder.withExtraInfo("name1", "value1");
             // 打点标记请求结束
             networkPerformanceHitBuilder.hitRequestEndWithLoadBytes(totalBytes);
         } catch (IOException e) {
             e.printStackTrace();
             // 按照文档5.1.3的说明选择默认网络异常类型或者自定义网络异常类型来上报网络异常
-            MANNetworkErrorInfo errorInfo = MANNetworkErrorCodeBuilder.buildIOException();
-            //打点，记录出错情况
+            MANNetworkErrorInfo errorInfo = MANNetworkErrorCodeBuilder.buildIOException()
+                    .withExtraInfo("error_url", urlString)
+                    .withExtraInfo("other_info", "value");
+            // MANNetworkErrorInfo errorInfo = MANNetworkErrorCodeBuilder.buildCustomErrorCode(1001)
+            //        .withExtraInfo("error_url", urlString)
+            //        .withExtraInfo("other_info", "value");
+            // 打点，记录出错情况
             networkPerformanceHitBuilder.hitRequestEndWithError(errorInfo);
         }
-
+        // 上报网络性能事件打点数据
         manService.getMANAnalytics().getDefaultTracker().send(networkPerformanceHitBuilder.build());
 
         /**
@@ -103,10 +109,15 @@ public class MANAndroidDemo {
         MANCustomPerformanceHitBuilder performanceHitBuilder = new MANCustomPerformanceHitBuilder(labelKey);
         // 记录自定义性能事件起始时间
         performanceHitBuilder.hitStart();
-        fibonacci(100);
+        fibonacci(30);
         // 记录自定义性能事件结束时间
         performanceHitBuilder.hitEnd();
-        // 上报自定义
+        // 设置时长方法2
+        // long timeCost = 0;
+        // performanceHitBuilder.setDuration(timeCost);
+        performanceHitBuilder.withExtraInfo("EXTRA_INFO_KEY1", "EXTRA_INFO_VALUE")
+                .withExtraInfo("EXTRA_INFO_KEY2", "EXTRA_INFO_VALUE");
+        // 上报自定义性能事件打点数据
         manService.getMANAnalytics().sendCustomPerformance(performanceHitBuilder.build());
 
         /**
@@ -122,7 +133,7 @@ public class MANAndroidDemo {
         hitBuilder.setProperty("type", "rock");
         // 设置属性：歌曲标题
         hitBuilder.setProperty("title", "wonderful tonight");
-        // 发送自定义事件打点
+        // 上报自定义事件打点数据
         manService.getMANAnalytics().getDefaultTracker().send(hitBuilder.build());
     }
 
