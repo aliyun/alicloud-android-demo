@@ -47,14 +47,7 @@ man_android_demo给出了移动数据分析服务（Mobile Analytics） Android 
 
 mac_android_demo给出了移动加速服务 (Mobile Accelerator) Android SDK的使用示例。
 
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。同时，您需要到[MAC控制台](http://cas.console.aliyun.com)登录您的账户，在对应App中注册您需要加速的域名。
-
-```
-// *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
-```
-
+您可以到[CDN控制台](https://cdn.console.aliyun.com/console/index#/)注册自己的域名，按照MAC Android Demo的调用方式使用移动加速服务。
 
 ## ots_android_demo
 
