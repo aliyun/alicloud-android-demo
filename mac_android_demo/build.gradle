@@ -24,19 +24,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
-    compile files('libs/alisdk-cas-1.2.3.jar')
-    compile files('libs/alisdk-kernel-1.6.0.jar')
-    compile files('libs/alisdk-tds-1.0.3.jar')
-    compile files('libs/alisdk-ut-3.jar')
-    compile files('libs/alisdk-util-1.1.0.jar')
-    compile files('libs/rpc-core-0810.jar')
-    compile files('libs/rpc-sdk-08071132.jar')
-    compile files('libs/session-08071132.jar')
-    compile files('libs/utdid4all-1.0.4.jar')
-    compile files('libs/UTMini-4.3.8.jar')
-    compile files('libs/alicloud-android-sdk-mac-1.3.0.jar')
-    compile files('libs/alicloud-android-sdk-man-1.1.3.jar')
-    compile files('libs/alicloud-android-sdk-tds-1.0.4.jar')
-    compile files('libs/alisdk-kernel-1.7.0.jar')
-    compile files('libs/alisdk-ut-4.jar')
+    compile files('libs/alicloud-android-sdk-mac-2.0.0.jar')
 }
