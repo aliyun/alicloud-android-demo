@@ -52,8 +52,8 @@
             </intent-filter>
         </activity>
 
-        <meta-data android:name="com.alibaba.app.appkey" android:value="23269200"/> <!-- 请填写你自己的- appKey -->
-        <meta-data android:name="com.alibaba.app.appsecret" android:value="074804109fb6b08851ddff9863145a07"/> <!-- 请填写你自己的appSecret -->
+        <meta-data android:name="com.alibaba.app.appkey" android:value="********"/> <!-- 请填写你自己的- appKey -->
+        <meta-data android:name="com.alibaba.app.appsecret" android:value="********"/> <!-- 请填写你自己的appSecret -->
 
         <!-- 通道保持服务（幽灵进程自动保活该服务） -->
         <service android:name="com.alibaba.sdk.android.push.ChannelService"

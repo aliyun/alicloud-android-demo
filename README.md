@@ -70,3 +70,15 @@ httpdns_api_demo给出了HTTPDNS服务API接口的使用示例。
 ## httpdns_android_demo
 
 httpdns_android_demo给出了HTTPDNS Android SDK的使用示例。
+
+## mpush_android_demo
+
+mpush_android_demo给出了移动推送（Mobile Push） Android SDK的使用示例。
+
+请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
+
+```
+// *字段请用您的账号信息替换
+<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
+<meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
+```
