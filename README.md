@@ -6,7 +6,7 @@
 
 ## man_api_demo
 
-man_api_demo给出了移动数据分析服务（Mobile Analytics）api接口的使用示例。
+man_api_demo给出了[移动数据分析服务（Mobile Analytics）](https://www.aliyun.com/product/man)api接口的使用示例。
 
 请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
@@ -18,7 +18,7 @@ man_api_demo给出了移动数据分析服务（Mobile Analytics）api接口的�
 
 ## oss_android_demo
 
-oss_android_demo给出了OSS Android SDK的使用示例。
+oss_android_demo给出了[对象存储OSS](https://www.aliyun.com/product/oss) Android SDK的使用示例。
 
 请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
@@ -33,7 +33,7 @@ oss_android_demo给出了OSS Android SDK的使用示例。
 
 ## man_android_demo
 
-man_android_demo给出了移动数据分析服务（Mobile Analytics） Android SDK的使用示例。
+man_android_demo给出了[移动数据分析服务（Mobile Analytics）](https://www.aliyun.com/product/man) Android SDK的使用示例。
 
 请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
@@ -45,7 +45,7 @@ man_android_demo给出了移动数据分析服务（Mobile Analytics） Android 
 
 ## mac_android_demo
 
-mac_android_demo给出了移动加速服务 (Mobile Accelerator) Android SDK的使用示例。
+mac_android_demo给出了[移动加速服务 (Mobile Accelerator)](https://help.aliyun.com/document_detail/cdn/getting-started/mas/overview.html?spm=5176.product8314936_cdn.6.107.uMNMvV) Android SDK的使用示例。
 
 您可以到[CDN控制台](https://cdn.console.aliyun.com/console/index#/)注册自己的域名，按照MAC Android Demo的调用方式使用移动加速服务。
 
@@ -65,8 +65,20 @@ ots_android_demo给出了OTS Android SDK的使用示例。
 
 ## httpdns_api_demo
 
-httpdns_api_demo给出了HTTPDNS服务API接口的使用示例。
+httpdns_api_demo给出了[HTTPDNS](https://www.aliyun.com/product/httpdns)服务API接口的使用示例。
 
 ## httpdns_android_demo
 
-httpdns_android_demo给出了HTTPDNS Android SDK的使用示例。
+httpdns_android_demo给出了[HTTPDNS](https://www.aliyun.com/product/httpdns) Android SDK的使用示例。
+
+## mpush_android_demo
+
+mpush_android_demo给出了[移动推送（Mobile Push）](https://www.aliyun.com/product/cps) Android SDK的使用示例。
+
+请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
+
+```
+// *字段请用您的账号信息替换
+<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
+<meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
+```
