@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+id/checkerContent" android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="我是诊断消息"
+        android:textColor="#FFFFFFFF"
+        android:textSize="18dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp" />
+
+    <!-- 我是分隔线~ -->
+    <TextView
+        android:height="1dip"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#FFFFFFFF"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/aline"
+        android:layout_marginTop="10dp" />
+
+</LinearLayout>
