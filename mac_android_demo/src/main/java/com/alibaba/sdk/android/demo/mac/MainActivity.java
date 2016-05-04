@@ -16,13 +16,14 @@ import java.net.URL;
 
 public class MainActivity extends Activity {
 
-    private static final MACService macService = MACServiceProvider.getService();
+    private static MACService macService;
     private static final String TEST_URL = "http://macbm.ams.aliyuncs.com/mac/test?expected=echo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        macService = MACServiceProvider.getService(getApplicationContext());
 
         // 本demo仅给出基本网络操作的使用示例。事实上初始化MAC后对网络的操作兼容HttpURLConnection库网络操作。
         new Thread(new Runnable() {
