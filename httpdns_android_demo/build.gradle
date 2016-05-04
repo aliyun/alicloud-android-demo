@@ -20,8 +20,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
-    compile files('libs/alicloud-android-sdk-httpdns-1.0.0.jar')
+    compile files('libs/alicloud-android-sdk-httpdns-1.0.2.jar')
+    compile files('libs/utdid4all-1.0.4.jar')
 }
