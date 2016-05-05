@@ -17,8 +17,7 @@ public class AppApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // 初始化移动加速服务
-        MACService macService = MACServiceProvider.getService();
-        macService.setApplicationContext(getApplicationContext());
+        MACService macService = MACServiceProvider.getService(getApplicationContext());
         // 调试使用，正式上线请关闭log
         macService.setLogEnabled(true);
     }
