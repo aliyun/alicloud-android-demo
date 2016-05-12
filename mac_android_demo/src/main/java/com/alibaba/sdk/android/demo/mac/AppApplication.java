@@ -20,5 +20,7 @@ public class AppApplication extends Application {
         MACService macService = MACServiceProvider.getService(getApplicationContext());
         // 调试使用，正式上线请关闭log
         macService.setLogEnabled(true);
+        // 预热移动加速域名，非必须调用的API，请根据自身情况选择
+        macService.presetMACDomains(new String[]{"macbm.ams.aliyuncs.com"});
     }
 }
