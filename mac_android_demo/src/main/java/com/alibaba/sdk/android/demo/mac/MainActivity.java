@@ -30,6 +30,7 @@ public class MainActivity extends Activity {
             @Override
             public void run() {
                 // 首请求用于SDK自适应学习加速域名，会走HttpURLConnection网络库逻辑
+                // 如果您在初始化时通过presetMACDomains对移动加速域名进行了预热，则在预热结束后本次请求会直接走在移动加速链路上
                 getRequest();
                 try {
                     Thread.sleep(5 * 1000);
