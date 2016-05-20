@@ -1,30 +1,49 @@
-# 云推送用户体验Demo Android版-push2.0
+# 阿里云移动推送Demo APP Android版 Quick Start
 
-## 云推送 安卓Demo QuickStart
+## 0x00 前言
+在将SDK应用于您的App之前，建议您先使用该Demo APP简单的熟悉一下SDK的使用方法和效果。根据下面的步骤进行操作，您最后可以制作出一个可以使用移动推送服务的Demo APP，Let's go！
 
-#### 0x00 前⾔
+## 0x01 快速体验
 
-看到该⽂档，说明您已经准备开始体验阿里云推送的便捷服务，在将`SDK`应⽤于您的`App`之前，建议您先使用该`App Demo`简单的熟悉⼀下SDK的使用⽅法和效果。根据下⾯的步骤进⾏操作，您最后可以制作出⼀个可以运行的`App Demo`，Let's go！
+#### 创建APP
 
-#### 0x01 注意事项
+您首先需要登入移动推送控制台，创建一个APP实体以对应您准备使用的Demo APP。关于APP创建的指引文档可以参考：
 
-⾸先要告诉您的是，使用本`Demo App`体验云推送服务的时候，最好在您的账号中建⽴⼀个全新的`App`，专用于体验和测试本`Demo App`，防⽌测试的过程中，由于不慎操作，意外的把⼀些测试消息推送到您的用户终端中，导致您的损失。当然，创建`App`的步骤，您已经很熟悉了，那么我们先建立⼀个专⻔用于测试`Demo`的`App`，再继续我们的操作吧～
+>https://help.aliyun.com/document_detail/30054.html?spm=5176.doc30054.3.2.0xGnCV
 
-#### 0x02 需要准备的材料
+创建完APP后，您还需要配置您的Android平台的相关信息，如下图所示：
 
-- `AppKey`/`AppSecret`： 创建`App`后，在『应用证书』即可拿到
-- 在【App详情】页的【应用配置】中将新建应用的`package`修改为： `com.alibaba.cloudpushdemo`
-- `OneSDK` [在下一步操作详细说明]
-- `App Demo`源码
+![appkey](http://test-bucket-lingbo.oss-cn-hangzhou.aliyuncs.com/mpush4.png)
 
-#### 0x03 修改代码 & 打包`APK`
+![appkey](http://test-bucket-lingbo.oss-cn-hangzhou.aliyuncs.com/mpush5.png)
 
-在`IDE`（`Android Studio`）中导入源码之后，打包，然后在【SDK下载】⻚面中上传apk包，之后下载最新的`OneSDK` 包。
+**其中PackageName为您的APP的标识信息，需要与您APP配置文件中的applicationID保持一致。**
 
-由于源码中已经付了一份`OneSDK`（可能不是新版），只需要修改`AndroidManifest.xml`中的`com.alibaba.app.appkey`和`com.alibaba.app.appsecret`（上一步已经准备好）。
-接下来编译出`APK`包安装到手机使用，具体使用方式见下方【Demo使用详解】。
+#### 下载Demo工程
 
-#### 0x04 补充
+当您将移动服务工程git clone到本地，并通过Android Studio加载后您可以看到如下目录：
 
-- ￼源码中最小编译安卓版本为`9`，`Gradle`版本为`2.2.1`
-- 如果推送消息和推送通知出现问题，请访问 诊断助⼿ 并将简单诊断结果截图交给客服。
+![appkey](http://test-bucket-lingbo.oss-cn-hangzhou.aliyuncs.com/mpush3.png)
+
+其中mpush_android_demo即为移动推送的Demo APP。
+
+mpush_android_demo已经完成了移动推送SDK的集成工作，但我们还是建议您仔细阅读移动推送的集成文档
+
+>https://help.aliyun.com/document_detail/30064.html?spm=5176.product9000861_30047.6.103.kEwKBh
+
+**当您在使用您自己的APP集成移动推送遇到问题时，您可以对比下demo APP的配置情况。**
+
+#### 配置APP信息
+
+为了使Demo APP能够正常运行，您还需要配置您的appkey/appsecret信息。您可以在移动推送控制台，您在第一步创建的APP中找到它们，如图所示：
+
+![appkey](http://test-bucket-lingbo.oss-cn-hangzhou.aliyuncs.com/mpush2.png)
+
+在下述`AndroidManifest.xml`代码片段中用您的appkey/appsecret替换`********`字段占据的参数。
+
+```
+<meta-data android:name="com.alibaba.app.appkey" android:value="********"/> <!-- 请填写你自己的- appKey -->
+<meta-data android:name="com.alibaba.app.appsecret" android:value="********"/> <!-- 请填写你自己的appSecret -->
+```
+
+完成上述替换后，您的Demo APP就能够正常收发应用内消息与通知了。
