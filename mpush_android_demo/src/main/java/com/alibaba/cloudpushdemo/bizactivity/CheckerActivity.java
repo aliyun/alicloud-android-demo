@@ -17,7 +17,7 @@ import android.widget.ProgressBar;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.cloudpushdemo.R;
 import com.alibaba.cloudpushdemo.adapter.CheckerListAdapter;
-import com.alibaba.sdk.android.AlibabaSDK;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 
 import java.util.ArrayList;
 
@@ -81,7 +81,7 @@ public class CheckerActivity extends Activity {
             }
 
             // check sdk service
-            if (AlibabaSDK.getService(CloudPushService.class) != null) {
+            if (PushServiceFactory.getCloudPushService() != null) {
                 checkerData.add(getResources().getString(R.string.env_init_success));
                 publishProgress(3);
             }else {

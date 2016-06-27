@@ -14,11 +14,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.cloudpushdemo.R;
-import com.alibaba.sdk.android.AlibabaSDK;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 
 /**
  * 设置中心页面
@@ -55,9 +53,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             case R.id.bindAccount:
                 useraccount = ((EditText)this.findViewById(R.id.userAccount)).getText().toString().trim();
                 if (!useraccount.equals("") && null != useraccount) {
-                    AlibabaSDK.getService(CloudPushService.class).bindAccount(useraccount, new CommonCallback() {
+                    PushServiceFactory.getCloudPushService().bindAccount(useraccount, new CommonCallback() {
                         @Override
-                        public void onSuccess() {
+                        public void onSuccess(String response) {
 
                             // 清空文本框
                             ((EditText)SettingsActivity.this.findViewById(R.id.userAccount)).setText("");
@@ -90,10 +88,10 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.unbindAccount:
-                AlibabaSDK.getService(CloudPushService.class).unbindAccount(
+                PushServiceFactory.getCloudPushService().unbindAccount(
                         new CommonCallback() {
                             @Override
-                            public void onSuccess() {
+                            public void onSuccess(String response) {
                                 Toast.makeText(getApplicationContext(), "赞! 账号解绑成功 ~",
                                         Toast.LENGTH_SHORT).show();
                                 Log.d(SETTINGS_ACT, "@用户解绑账户 ：" + useraccount + " 成功");
@@ -116,9 +114,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             case R.id.bindLabel:
                 userlabel = ((EditText)this.findViewById(R.id.userLabel)).getText().toString().trim();
                 if (!userlabel.equals("") && null != userlabel) {
-                    AlibabaSDK.getService(CloudPushService.class).addTag(userlabel, new CommonCallback() {
+                    PushServiceFactory.getCloudPushService().addTag(userlabel, new CommonCallback() {
                         @Override
-                        public void onSuccess() {
+                        public void onSuccess(String response) {
                             // 清空文本框
                             ((EditText)SettingsActivity.this.findViewById(R.id.userLabel)).setText("");
 
@@ -146,9 +144,9 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             case R.id.unbindLabel:
                 userlabel = ((EditText)this.findViewById(R.id.userLabel)).getText().toString().trim();
                 if (!userlabel.equals("") && null != userlabel) {
-                    AlibabaSDK.getService(CloudPushService.class).removeTag(userlabel, new CommonCallback() {
+                    PushServiceFactory.getCloudPushService().removeTag(userlabel, new CommonCallback() {
                         @Override
-                        public void onSuccess() {
+                        public void onSuccess(String response) {
                             // 清空文本框
                             ((EditText)SettingsActivity.this.findViewById(R.id.userLabel)).setText("");
 

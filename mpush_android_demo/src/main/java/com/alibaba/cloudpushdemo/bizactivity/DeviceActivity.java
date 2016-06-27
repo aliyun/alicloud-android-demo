@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.cloudpushdemo.R;
-import com.alibaba.sdk.android.AlibabaSDK;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 
 /**
  * 查看DeviceID页面
@@ -40,10 +40,10 @@ public class DeviceActivity extends Activity {
 
         TextView deviceid = (TextView)this.findViewById(R.id.deviceid_getdeviceid);
 
-        if (null == AlibabaSDK.getService(CloudPushService.class)) {
+        if (null == PushServiceFactory.getCloudPushService()) {
             deviceid.setText(getResources().getString(R.string.env_init_fail));
         } else {
-            deviceid.setText(getResources().getString(R.string.start_before_get) + AlibabaSDK.getService(CloudPushService.class).getDeviceId());
+            deviceid.setText(getResources().getString(R.string.start_before_get) + PushServiceFactory.getCloudPushService().getDeviceId());
             Log.d("DeviceId:",deviceid.getText().toString());
         }
     }
