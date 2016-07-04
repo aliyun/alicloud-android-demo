@@ -7,13 +7,6 @@ import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 
-
-/**
- * @author: 正纬
- * @since: 15/4/16
- * @version: 1.0
- * @feature: 用于初始化SDK
- */
 public class MainApplication extends Application {
     private static final String TAG = "Init";
     @Override
