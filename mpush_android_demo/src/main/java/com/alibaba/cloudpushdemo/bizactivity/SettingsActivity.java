@@ -25,13 +25,22 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
     public static final String SETTINGS_ACT = "settings-act";
 
-    String useraccount;
-    String userlabel;
+    String acountStr;
+    String tagStr;
+    String aliasStr;
 
     Button bindAccount;
     Button unbindAccount;
-    Button bindLabel;
-    Button unbindLabel;
+    Button addAlias;
+    Button removeAlias;
+    Button bindTagToDev;
+    Button unbindTagFromDev;
+    Button bindTagToAccount;
+    Button unbindTagFromAccount;
+    Button bindTagToAlias;
+    Button unbindTagFromAlias;
+    Button listTags;
+    Button listAliases;
 
     /**
      * 用于其他Activty跳转到该Activity
@@ -44,49 +53,55 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         Log.d(SETTINGS_ACT, "@切换到 Activity ：SettinsActivity");
     }
 
+    private String[] getTagArr() {
+        tagStr = ((EditText)this.findViewById(R.id.inputTags)).getText().toString();
+        String[] tagArr = null;
+        if (tagStr != null && tagStr.length() > 0) {
+            tagArr = tagStr.split(" ");
+        } else {
+            Toast.makeText(getApplicationContext(), "请按照格式输入标签.", Toast.LENGTH_SHORT).show();
+        }
+        return tagArr;
+    }
+
     /**
      * 使用一个监听方法监听所有按钮
      * @param view
      */
     public void onClick(View view) {
         switch (view.getId()) {
+            // 绑定账号
             case R.id.bindAccount:
-                useraccount = ((EditText)this.findViewById(R.id.userAccount)).getText().toString().trim();
-                if (!useraccount.equals("") && null != useraccount) {
-                    PushServiceFactory.getCloudPushService().bindAccount(useraccount, new CommonCallback() {
+                acountStr = ((EditText)this.findViewById(R.id.userAccount)).getText().toString().trim();
+                if (!acountStr.equals("") && null != acountStr) {
+                    PushServiceFactory.getCloudPushService().bindAccount(acountStr, new CommonCallback() {
                         @Override
                         public void onSuccess(String response) {
-
                             // 清空文本框
                             ((EditText)SettingsActivity.this.findViewById(R.id.userAccount)).setText("");
-
                             // 本地存储绑定的用户名
                             SharedPreferences accountStore = SettingsActivity.this.getSharedPreferences("account", Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = accountStore.edit();
-                            editor.putString("accountName", useraccount);
+                            editor.putString("accountName", acountStr);
                             editor.commit();
-
                             Toast.makeText(getApplicationContext(), "赞! 账号绑定成功 ~",
                                     Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户绑定账号 ：" + useraccount + " 成功");
+                            Log.d(SETTINGS_ACT, "@用户绑定账号 ：" + acountStr + " 成功");
                         }
 
                         @Override
                         public void onFailed(String errorCode, String errorMessage) {
                             Toast.makeText(getApplicationContext(), "衰! 账号绑定失败 ~",
                                     Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户绑定账号 ：" + useraccount + " 失败，原因 ： " + errorMessage);
+                            Log.d(SETTINGS_ACT, "@用户绑定账号 ：" + acountStr + " 失败，原因 ： " + errorMessage);
                         }
                     });
-
-                    // 关闭软键盘
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(this.findViewById(R.id.userAccount).getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS) ;
                 } else {
-                    Toast.makeText(getApplicationContext(), "请输入用户名，谢谢",
+                    Toast.makeText(getApplicationContext(), "请输入账号，谢谢",
                             Toast.LENGTH_SHORT).show();
                 }
                 break;
+            // 解绑账号
             case R.id.unbindAccount:
                 PushServiceFactory.getCloudPushService().unbindAccount(
                         new CommonCallback() {
@@ -94,7 +109,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             public void onSuccess(String response) {
                                 Toast.makeText(getApplicationContext(), "赞! 账号解绑成功 ~",
                                         Toast.LENGTH_SHORT).show();
-                                Log.d(SETTINGS_ACT, "@用户解绑账户 ：" + useraccount + " 成功");
+                                Log.d(SETTINGS_ACT, "@用户解绑账户 ：" + acountStr + " 成功");
                                 // 删除本地存储的用户名
                                 SharedPreferences accountStore = SettingsActivity.this.getSharedPreferences("account", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = accountStore.edit();
@@ -106,74 +121,212 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             public void onFailed(String errorCode, String errorMessage) {
                                 Toast.makeText(getApplicationContext(), "衰! 账号解绑失败 ~",
                                         Toast.LENGTH_SHORT).show();
-                                Log.d(SETTINGS_ACT, "@用户解绑账户 ：" + useraccount + " 失败，原因 ：" + errorMessage);
+                                Log.d(SETTINGS_ACT, "@用户解绑账户 ：" + acountStr + " 失败，原因 ：" + errorMessage);
                             }
                         }
                 );
                 break;
-            case R.id.bindLabel:
-                userlabel = ((EditText)this.findViewById(R.id.userLabel)).getText().toString().trim();
-                if (!userlabel.equals("") && null != userlabel) {
-                    PushServiceFactory.getCloudPushService().addTag(userlabel, new CommonCallback() {
+            // 绑定标签到设备
+            case R.id.bindTagToDev:
+                if (getTagArr() == null) return;
+                PushServiceFactory.getCloudPushService().bindTag(1, getTagArr(), null, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
+                        Toast.makeText(getApplicationContext(), "绑定标签到设备成功.", Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "绑定标签到设备成功.");
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "绑定标签到设备失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "绑定标签到设备失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 解绑设备标签
+            case R.id.unbindTagFromDev:
+                if (getTagArr() == null) return;
+                PushServiceFactory.getCloudPushService().unbindTag(1, getTagArr(), null, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
+                        Toast.makeText(getApplicationContext(), "解绑设备标签成功.", Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "解绑设备标签成功.");
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "解绑设备标签失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "解绑设备标签失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 绑定标签到账号
+            case R.id.bindTagToAccount:
+                if (getTagArr() == null) return;
+                PushServiceFactory.getCloudPushService().bindTag(2, getTagArr(), null, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
+                        Toast.makeText(getApplicationContext(), "绑定标签到账号成功.", Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "绑定标签到账号成功.");
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "绑定标签到账号失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "绑定标签到账号失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 解绑账号标签
+            case R.id.unbindTagFromAccount:
+                if (getTagArr() == null) return;
+                PushServiceFactory.getCloudPushService().unbindTag(2, getTagArr(), null, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
+                        Toast.makeText(getApplicationContext(), "解绑账号标签成功.", Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "解绑账号标签成功.");
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "解绑账号标签失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "解绑账号标签失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 绑定标签到别名
+            case R.id.bindTagToAlias:
+                if (getTagArr() == null) return;
+                aliasStr = ((EditText)this.findViewById(R.id.inputAlias)).getText().toString();
+                if (aliasStr == null || aliasStr.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "请输入别名，谢谢", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                PushServiceFactory.getCloudPushService().bindTag(3, getTagArr(), aliasStr, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
+                        Toast.makeText(getApplicationContext(), "绑定标签到别名成功.", Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "绑定标签到别名成功.");
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "绑定标签到别名失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "绑定标签到别名失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 解绑别名标签
+            case R.id.unbindTagFromAlias:
+                if (getTagArr() == null) return;
+                aliasStr = ((EditText)this.findViewById(R.id.inputAlias)).getText().toString();
+                if (aliasStr == null || aliasStr.length() == 0) {
+                    Toast.makeText(getApplicationContext(), "请输入别名，谢谢", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                PushServiceFactory.getCloudPushService().unbindTag(3, getTagArr(), aliasStr, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
+                        Toast.makeText(getApplicationContext(), "解绑别名标签成功.", Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "解绑别名标签成功.");
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "解绑别名标签失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "解绑别名标签失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 查询设备标签
+            case R.id.listTags:
+                PushServiceFactory.getCloudPushService().listTags(1, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        Toast.makeText(getApplicationContext(), "查询设备标签成功，标签：" + response, Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "解绑别名标签成功，标签：" + response);
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "查询设备标签失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "查询设备标签失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 查询设备别名
+            case R.id.listAliases:
+                PushServiceFactory.getCloudPushService().listAliases(new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        Toast.makeText(getApplicationContext(), "查询设备别名成功，别名：" + response, Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "解绑别名标签成功，标签：" + response);
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "查询设备别名失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "查询设备别名失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
+            // 添加设备别名
+            case R.id.addAlias:
+                aliasStr = ((EditText)this.findViewById(R.id.inputAlias)).getText().toString();
+                if (aliasStr != null && aliasStr.length() > 0) {
+                    PushServiceFactory.getCloudPushService().addAlias(aliasStr, new CommonCallback() {
                         @Override
                         public void onSuccess(String response) {
-                            // 清空文本框
-                            ((EditText)SettingsActivity.this.findViewById(R.id.userLabel)).setText("");
-
-                            Toast.makeText(getApplicationContext(), "赞! 增加标签成功 ~",
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户增加标签 ：" + userlabel + " 成功");
+                            ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
+                            Toast.makeText(getApplicationContext(), "添加别名成功.", Toast.LENGTH_SHORT).show();
+                            Log.d(SETTINGS_ACT, "添加别名成功.");
                         }
 
                         @Override
                         public void onFailed(String errorCode, String errorMessage) {
-                            Toast.makeText(getApplicationContext(), "衰! 增加标签失败 ~",
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户增加标签 ：" + userlabel + " 失败，原因：" + errorMessage);
+                            Log.e(SETTINGS_ACT, "添加别名失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                            Toast.makeText(getApplicationContext(), "添加别名失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     });
-
-                    // 关闭软键盘
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(this.findViewById(R.id.userLabel).getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS) ;
                 } else {
-                    Toast.makeText(getApplicationContext(), "请输入标签，谢谢~",
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "请输入别名，谢谢", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.unbindLabel:
-                userlabel = ((EditText)this.findViewById(R.id.userLabel)).getText().toString().trim();
-                if (!userlabel.equals("") && null != userlabel) {
-                    PushServiceFactory.getCloudPushService().removeTag(userlabel, new CommonCallback() {
-                        @Override
-                        public void onSuccess(String response) {
-                            // 清空文本框
-                            ((EditText)SettingsActivity.this.findViewById(R.id.userLabel)).setText("");
-
-                            Toast.makeText(getApplicationContext(), "赞! 删除标签成功 ~",
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户删除标签 ：" + userlabel + " 成功");
-                        }
-
-                        @Override
-                        public void onFailed(String errorCode, String errorMessage) {
-                            Toast.makeText(getApplicationContext(), "衰! 删除标签失败 ~",
-                                    Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户删除标签 ：" + userlabel + " 失败，原因：" + errorMessage);
-                        }
-                    });
-
-                    // 关闭软键盘
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(this.findViewById(R.id.userLabel).getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS) ;
-                } else {
-                    Toast.makeText(getApplicationContext(), "请输入标签，谢谢~",
-                            Toast.LENGTH_SHORT).show();
+            // 删除设备别名
+            case R.id.removeAlias:
+                aliasStr = ((EditText)this.findViewById(R.id.inputAlias)).getText().toString();
+                if (aliasStr == null || aliasStr.length() == 0) {
+                    Log.d(SETTINGS_ACT, "删除设备全部别名");
                 }
+                PushServiceFactory.getCloudPushService().removeAlias(aliasStr, new CommonCallback() {
+                    @Override
+                    public void onSuccess(String response) {
+                        ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
+                        Toast.makeText(getApplicationContext(), "删除别名成功.", Toast.LENGTH_SHORT).show();
+                        Log.d(SETTINGS_ACT, "删除别名成功.");
+                    }
+
+                    @Override
+                    public void onFailed(String errorCode, String errorMessage) {
+                        Log.e(SETTINGS_ACT, "删除别名失败，errorCode: " + errorCode + ", errorMessage：" + errorMessage);
+                        Toast.makeText(getApplicationContext(), "删除别名失败，原因：" + errorMessage, Toast.LENGTH_SHORT).show();
+                    }
+                });
                 break;
             default:
                 break;
         }
+        // 关闭软键盘
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(this.findViewById(R.id.userAccount).getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
     }
 
     @Override
@@ -187,14 +340,29 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
 
         bindAccount = (Button)this.findViewById(R.id.bindAccount);
         unbindAccount = (Button)this.findViewById(R.id.unbindAccount);
-        bindLabel = (Button)this.findViewById(R.id.bindLabel);
-        unbindLabel = (Button)this.findViewById(R.id.unbindLabel);
-
+        addAlias = (Button)this.findViewById(R.id.addAlias);
+        removeAlias = (Button)this.findViewById(R.id.removeAlias);
+        bindTagToDev = (Button)this.findViewById(R.id.bindTagToDev);
+        unbindTagFromDev = (Button)this.findViewById(R.id.unbindTagFromDev);
+        bindTagToAccount = (Button)this.findViewById(R.id.bindTagToAccount);
+        unbindTagFromAccount = (Button)this.findViewById(R.id.unbindTagFromAccount);
+        bindTagToAlias = (Button)this.findViewById(R.id.bindTagToAlias);
+        unbindTagFromAlias = (Button)this.findViewById(R.id.unbindTagFromAlias);
+        listTags = (Button)this.findViewById(R.id.listTags);
+        listAliases = (Button)this.findViewById(R.id.listAliases);
 
         bindAccount.setOnClickListener(this);
         unbindAccount.setOnClickListener(this);
-        bindLabel.setOnClickListener(this);
-        unbindLabel.setOnClickListener(this);
+        addAlias.setOnClickListener(this);
+        removeAlias.setOnClickListener(this);
+        bindTagToDev.setOnClickListener(this);
+        unbindTagFromDev.setOnClickListener(this);
+        bindTagToAccount.setOnClickListener(this);
+        unbindTagFromAccount.setOnClickListener(this);
+        bindTagToAlias.setOnClickListener(this);
+        unbindTagFromAlias.setOnClickListener(this);
+        listTags.setOnClickListener(this);
+        listAliases.setOnClickListener(this);
     }
 
 
