@@ -32,8 +32,8 @@ public class AppApplication extends Application {
         // String appSecret = "******";
         // manService.getMANAnalytics().init(this, getApplicationContext(), appKey, appSecret);
 
-        // 若需要关闭【新版】SDK的自动异常捕获功能可进行如下操作,详见文档5.5
-        manService.getMANAnalytics().turnOffCrashReporter();
+        // 若需要关闭 SDK 的自动异常捕获功能可进行如下操作,详见文档5.4
+        manService.getMANAnalytics().turnOffCrashHandler();
 
         // 通过此接口关闭页面自动打点功能，详见文档4.2
         manService.getMANAnalytics().turnOffAutoPageTrack();
