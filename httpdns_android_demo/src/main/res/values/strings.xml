@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">httpdns_android_demo</string>
     <string name="action_settings">Settings</string>
+    <string name="normal_scene">普通场景</string>
+    <string name="https_scene">HTTPS场景</string>
+    <string name="sni_scene">SNI场景</string>
+    <string name="webview_scene">WebView场景</string>
 </resources>

@@ -9,8 +9,6 @@ import com.alibaba.sdk.android.httpdns.HttpDns;
 import com.alibaba.sdk.android.httpdns.HttpDnsService;
 
 import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,13 +17,13 @@ import java.util.Arrays;
 public class NetworkRequestUsingHttpDNS {
 
     private static HttpDnsService httpdns;
-    private static String accountID = "139450";
     private static final String[] TEST_URL = {"http://www.aliyun.com", "http://www.taobao.com"};
+    private final static String TAG = "NormalScene";
 
     public static void main(final Context ctx) {
         try {
             // 设置APP Context和Account ID，并初始化HTTPDNS
-            httpdns = HttpDns.getService(ctx, accountID);
+            httpdns = HttpDns.getService(ctx, MainActivity.accountID);
             // DegradationFilter用于自定义降级逻辑
             // 通过实现shouldDegradeHttpDNS方法，可以根据需要，选择是否降级
             DegradationFilter filter = new DegradationFilter() {
@@ -47,9 +45,10 @@ public class NetworkRequestUsingHttpDNS {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             // 同步接口获取IP
             String ip = httpdns.getIpByHost(url.getHost());
+
             if (ip != null) {
                 // 通过HTTPDNS获取IP成功，进行URL替换和HOST头设置
-                Log.d("HTTPDNS Demo", "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
+                Log.d(TAG, "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
                 String newUrl = originalUrl.replaceFirst(url.getHost(), ip);
                 conn = (HttpURLConnection) new URL(newUrl).openConnection();
                 // 设置HTTP请求头Host域
@@ -62,7 +61,7 @@ public class NetworkRequestUsingHttpDNS {
             while ((len = dis.read(buff)) != -1) {
                 response.append(new String(buff, 0, len));
             }
-            Log.e("HTTPDNS Demo", "Response: " + response.toString());
+            Log.d(TAG, "Response: " + response.toString());
 
             // 允许返回过期的IP
             httpdns.setExpiredIPEnabled(true);
@@ -70,7 +69,7 @@ public class NetworkRequestUsingHttpDNS {
             ip = httpdns.getIpByHostAsync(url.getHost());
             if (ip != null) {
                 // 通过HTTPDNS获取IP成功，进行URL替换和HOST头设置
-                Log.d("HTTPDNS Demo", "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
+                Log.d(TAG, "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
                 String newUrl = originalUrl.replaceFirst(url.getHost(), ip);
                 conn = (HttpURLConnection) new URL(newUrl).openConnection();
                 // 设置HTTP请求头Host域
@@ -82,12 +81,12 @@ public class NetworkRequestUsingHttpDNS {
             while ((len = dis.read(buff)) != -1) {
                 response.append(new String(buff, 0, len));
             }
-            Log.e("HTTPDNS Demo", "Response: " + response.toString());
+            Log.d(TAG, "Response: " + response.toString());
 
             // 测试黑名单中的域名
             ip = httpdns.getIpByHostAsync("www.taobao.com");
             if (ip == null) {
-                Log.d("HTTPDNS Demo", "由于在降级策略中过滤了www.taobao.com，无法从HTTPDNS服务中获取对应域名的IP信息");
+                Log.d(TAG, "由于在降级策略中过滤了www.taobao.com，无法从HTTPDNS服务中获取对应域名的IP信息");
             }
 
         } catch (Exception e) {
