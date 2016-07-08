@@ -1,0 +1,78 @@
+<resources>
+
+    <!--应用程序信息文本-->
+    <string name="app_name">阿里云推送Demo</string>
+    <string name="app_version">v2.0.0</string>
+
+    <!--首页菜单文本-->
+    <string name="main_getdeviceid">查看DeviceID</string>
+    <string name="main_about_us">关于我们</string>
+    <string name="main_helper">帮助中心</string>
+    <string name="main_clear_tips">清空当前消息</string>
+    <string name="main_settings">设置中心</string>
+    <string name="main_doctor">诊断助手</string>
+    <string name="main_settings_notice">通知设置</string>
+
+    <!--各个Activity的标题-->
+    <string name="title_activity_about_us">关于我们</string>
+    <string name="title_activity_settings">设置中心</string>
+    <string name="title_activity_helper_page">帮助中心</string>
+    <string name="title_activity_checker">诊断助手</string>
+    <string name="title_activity_device_id">设备DeviceID</string>
+    <string name="title_activity_settings_notice">通知设置</string>
+
+    <!--关于我们页面-->
+    <string name="layout_aboutus_arr">All Rights Reserved.</string>
+    <string name="layout_aboutus_company">阿里云(软件)有限公司版权所有</string>
+    <string name="layout_aboutus_copyright">Copyright © 2009 - 2016 Aliyun.com</string>
+
+    <!--帮助中心页面-->
+    <string name="layout_helpus_content">Q : 什么是用户体验Demo？\nA : 用户体验Demo就是阿里云平台为您自动创建的、用来体验云推送服务和反馈建议用的一个小Demo，您可以直接使用移动开发控制台推送消息和通知到本App，让您体验便捷、高效的推送服务。\n\nQ : 如何联系我们？\nA : App Demo相关问题，请在阿里旺旺或手机旺信搜索群号：1360183878</string>
+
+    <!--DeviceID 页面-->
+    <string name="start_before_get">您的 DeviceID 为 ：\n</string>
+    <string name="whatisdeviceid">DeviceID是一个由云推送自动生成的一个唯一的设备序列号，用于区分不同的设备，请保护好自己的DeviceID</string>
+    <string name="whatisdeviceidtitle">什么是 DeviceID ？</string>
+
+    <!--设置中心-->
+    <string name="settings_bindaccount">绑定账号</string>
+    <string name="settings_unbindaccount">解绑账号</string>
+    <string name="inputplease">请输入帐户名</string>
+    <string name="settings_addAlias">添加别名</string>
+    <string name="settings_removeAlias">删除别名</string>
+    <string name="settings_inputAlias">请输入别名</string>
+    <string name="inputlabelplease">请输入标签名,多个标签以空格分隔</string>
+    <string name="settings_bindTagToDev">绑定标签到设备</string>
+    <string name="settings_unbindTagFromDev">删除设备标签</string>
+    <string name="settings_bindTagToAccount">绑定标签到账号</string>
+    <string name="settings_unbindTagFromAccount">删除账号标签</string>
+    <string name="settings_bindTagToAlias">绑定标签到别名</string>
+    <string name="settings_unbindTagFromAlias">删除别名标签</string>
+    <string name="settings_listTags">列出设备标签</string>
+    <string name="settings_listAliases">列出设备别名</string>
+
+    <!--通知设置-->
+    <string name="settings_soundPathLabel">推送声音路径</string>
+    <string name="settings_large_icon_label">通知栏图标</string>
+    <string name="settings_small_icon_Label">状态栏图标</string>
+    <string name="settings_default_sound">默认声音文件路径</string>
+    <string name="settings_assign_sound">指定声音文件路径</string>
+    <string name="settings_default_large_icon">默认图标资源ID</string>
+    <string name="settings_assign_large_icon">指定图标资源</string>
+    <string name="settings_default_small_icon">默认图标资源ID</string>
+    <string name="settings_assign_small_icon">指定图标资源ID</string>
+
+    <!--诊断专家-->
+    <string name="checker_start_service">诊断助手正在为您服务</string>
+    <string name="checker_network_success">网络连接正常</string>
+    <string name="checker_network_fail">无网络连接</string>
+    <string name="env_init_success">SDK环境初始化成功</string>
+    <string name="env_init_fail">SDk环境初始化失败</string>
+    <string name="checker_over">初步诊断结束，如果对诊断结果有疑问，请联系开发人员</string>
+
+    <!--应用初始化-->
+    <string name="sdk_init_success">赞,消息通道建立成功!</string>
+    <string name="sdk_init_failed">衰,消息通道建立失败!</string>
+    <string name="sdk_init_failed_tips">让你看文档,你不看 (=.=)\nSDK初始化失败了吧? (^ω^)\n快去看QuickStart文档! (●︿●)\n文档在Demo的压缩包中 (｡ì _ í｡)</string>
+
+</resources>

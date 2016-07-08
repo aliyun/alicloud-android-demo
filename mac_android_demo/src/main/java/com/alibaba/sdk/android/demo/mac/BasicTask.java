@@ -1,15 +1,15 @@
 package com.alibaba.sdk.android.demo.mac;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.alibaba.sdk.android.AlibabaSDK;
-import com.alibaba.sdk.android.mac.MACException;
 import com.alibaba.sdk.android.mac.MACService;
+import com.alibaba.sdk.android.mac.MACServiceProvider;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -28,14 +28,23 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
     private ProgressBar bar;
     private boolean isMAC;
     private int success = 0, failure = 0;
+    private MACService macService;
 
     private static final String UNSET_RT = "- ms";
-    private static final String[] TEST_URL = {"http://macimg0bm.ams.aliyuncs.com/static_file/20k", "http://macimg1bm.ams.aliyuncs.com/static_file/20k"};
-    private static final String TEST_API_URL = "http://macapibm.ams.aliyuncs.com/api_request";
+    private static final String[] MAC_TEST_URL = {"http://macimg0bm.ams.aliyuncs.com/static_file/20k", "http://macimg1bm.ams.aliyuncs.com/static_file/20k"};
+    private static final String[] TEST_URL = {"http://img0bm.ams.aliyuncs.com/static_file/20k", "http://img1bm.ams.aliyuncs.com/static_file/20k"};
+    private static final String MAC_TEST_API_URL = "http://macapibm.ams.aliyuncs.com/api_request";
+    private static final String TEST_API_URL = "http://apibm.ams.aliyuncs.com/api_request";
     private static final int BENCHMARK_TOTAL_REQUESTS = 200;
-    private static final int BENCHMARK_CONCURRENT_REQUESTS = 6;
+    private static final int BENCHMARK_CONCURRENT_REQUESTS = 8;
     private static final int BENCHMARK_SLEEP_INTERVAL_MS = 10 * 1000;
     private static final Random random = new Random();
+
+    private static Context context;
+
+    public static void setContext(Context context) {
+        BasicTask.context = context;
+    }
 
     public BasicTask(Button btnMAC, Button btnNative, TextView textView, ProgressBar bar, boolean isMAC) {
         super();
@@ -44,6 +53,7 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
         this.textView = textView;
         this.bar = bar;
         this.isMAC = isMAC;
+        this.macService = MACServiceProvider.getService(context);
     }
 
     private String GetViewText(String rt, int success, int failure) {
@@ -116,9 +126,8 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        MACService macService = AlibabaSDK.getService(MACService.class);
                         byte[] buff = new byte[4096];
-                        String url = (isApiUrl) ? TEST_API_URL : TEST_URL[random.nextInt(2)];
+                        String url = (isApiUrl) ? MAC_TEST_API_URL : MAC_TEST_URL[random.nextInt(2)];
 
                         long startTime = System.currentTimeMillis();
                         long endTime;
@@ -142,12 +151,6 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
                             } else {
                                 failureCount.incrementAndGet();
                             }
-                        } catch (MACException e) {
-                            int errCode = e.getStatusCode();
-                            String errMsg = e.getMessage();
-                            String hostId = e.getHostId();
-                            failureCount.incrementAndGet();
-                            e.printStackTrace();
                         } catch (IOException e) {
                             failureCount.incrementAndGet();
                             e.printStackTrace();
@@ -216,12 +219,6 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
                             } else {
                                 failureCount.incrementAndGet();
                             }
-                        } catch (MACException e) {
-                            int errCode = e.getStatusCode();
-                            String errMsg = e.getMessage();
-                            String hostId = e.getHostId();
-                            failureCount.incrementAndGet();
-                            e.printStackTrace();
                         } catch (IOException e) {
                             failureCount.incrementAndGet();
                             e.printStackTrace();
