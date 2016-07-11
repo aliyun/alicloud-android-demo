@@ -35,12 +35,24 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
     private static final String[] TEST_URL = {"http://img0bm.ams.aliyuncs.com/static_file/20k", "http://img1bm.ams.aliyuncs.com/static_file/20k"};
     private static final String MAC_TEST_API_URL = "http://macapibm.ams.aliyuncs.com/api_request";
     private static final String TEST_API_URL = "http://apibm.ams.aliyuncs.com/api_request";
+    private static final String TAG = "MAC_BENCHMARK";
     private static final int BENCHMARK_TOTAL_REQUESTS = 200;
     private static final int BENCHMARK_CONCURRENT_REQUESTS = 8;
     private static final int BENCHMARK_SLEEP_INTERVAL_MS = 10 * 1000;
     private static final Random random = new Random();
 
     private static Context context;
+
+
+    // 示例代码Section II
+    // 本Section给出了一个基本的TestBench, 对比MAC与原生网络库之间的性能表现
+    // TestBench总共包含200次请求, 这200次请求将会被打散为若干“堆”, 每一“堆”请求包含一次API请求以及若干次20K图片获取请求(请求次数为1-8的随机值)
+    // 每一“堆”的请求相互间隔若干秒(间隔值为1-10的随机值), 以模拟用户常规的点击行为
+    // 分别点击“Use Native”和“Use MAC”, 以测试使用原生网络和加速网络访问相同资源的延迟情况
+    // 为了体现弱网环境下的加速效果, 测试URL为短连接接口, 并配置了固定的200ms延迟模拟弱网环境下的访问
+    // 如果您需要替换测试URL进行测试, 我们建议您在2G或3G等弱网环境下进行测试, 强网环境下加速效果可能并不明显
+    // 由于线下测试环境比较固定, 我们强烈建议您通过线上大样本的灰度测试数据科学评估整体加速效果
+    //////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public static void setContext(Context context) {
         BasicTask.context = context;
@@ -54,6 +66,8 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
         this.bar = bar;
         this.isMAC = isMAC;
         this.macService = MACServiceProvider.getService(context);
+        // 由于native网络库不打印log, 为保持公平, 关闭移动加速的log
+        macService.setLogEnabled(false);
     }
 
     private String GetViewText(String rt, int success, int failure) {
@@ -122,7 +136,7 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
 
             for (int j = 0; j < concurrentRequest; j++) {
                 final boolean isApiUrl = (j == concurrentRequest - 1);
-                Log.i("MAC benchmark", "starting thread " + (i - j));
+                Log.i(TAG, "starting thread " + (i - j));
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -144,7 +158,7 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
                                     sb.append(new String(buff, 0, len));
                                 }
                                 endTime = System.currentTimeMillis();
-                                Log.d("MAC benchmark", "[get] - " + sb.length() + " bytes. Comsumed " + (endTime - startTime) + "ms");
+                                Log.d(TAG, "[get] - " + sb.length() + " bytes. Comsumed " + (endTime - startTime) + "ms");
                                 rtSum.addAndGet(endTime - startTime);
                                 successCount.incrementAndGet();
                                 rtAverage.set(rtSum.get() / successCount.get());
@@ -168,8 +182,8 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
         this.success = successCount.get();
         this.failure = failureCount.get();
         publishProgress(rtAverage.get());
-        Log.i("MAC benchmark", "MAC average rt " + rtAverage + " ms");
-        Log.i("MAC benchmark", "MAC " + this.success + " success, " + this.failure + " failure");
+        Log.i(TAG, "MAC average rt " + rtAverage + " ms");
+        Log.i(TAG, "MAC " + this.success + " success, " + this.failure + " failure");
         return rtAverage.get();
     }
 
@@ -190,7 +204,7 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
             i += concurrentRequest;
             for (int j = 0; j < concurrentRequest; j++) {
                 final boolean isApiUrl = (j == concurrentRequest - 1);
-                Log.i("MAC benchmark", "starting thread " + (i - j));
+                Log.i(TAG, "starting thread " + (i - j));
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -212,7 +226,7 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
                                     sb.append(new String(buff, 0, len));
                                 }
                                 endTime = System.currentTimeMillis();
-                                Log.d("MAC benchmark", "[get] - " + sb.length() + " bytes. Comsumed " + (endTime - startTime) + "ms");
+                                Log.d(TAG, "[get] - " + sb.length() + " bytes. Comsumed " + (endTime - startTime) + "ms");
                                 rtSum.addAndGet(endTime - startTime);
                                 successCount.incrementAndGet();
                                 rtAverage.set(rtSum.get() / successCount.get());
@@ -236,8 +250,8 @@ public class BasicTask extends AsyncTask<Void, Long, String> {
         this.success = successCount.get();
         this.failure = failureCount.get();
         publishProgress(rtAverage.get());
-        Log.i("MAC benchmark", "Native average rt " + rtAverage + " ms");
-        Log.i("MAC benchmark", "Native " + this.success + " success, " + this.failure + " failure");
+        Log.i(TAG, "Native average rt " + rtAverage + " ms");
+        Log.i(TAG, "Native " + this.success + " success, " + this.failure + " failure");
         return rtAverage.get();
     }
 }
