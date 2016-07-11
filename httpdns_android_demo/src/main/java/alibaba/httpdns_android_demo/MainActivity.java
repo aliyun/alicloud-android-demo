@@ -1,6 +1,7 @@
 package alibaba.httpdns_android_demo;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +17,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.alibaba.sdk.android.httpdns.HttpDns;
 import com.alibaba.sdk.android.httpdns.HttpDnsService;
@@ -35,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
     private static final String targetUrl = "http://www.apple.com";
     private static final String TAG = "httpdns_android_demo";
     private static HttpDnsService httpdns;
-    private static String accountID = "139450";
+    public final static String accountID = "139450";
+    private Button normalSceneBtn;
+    private Button httpsSceneBtn;
+    private Button sniSceneBtn;
+    private Button webviewSceneBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,99 +51,41 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        // 在webview场景下使用HTTPDNS
+        // 初始化httpdns
         httpdns = HttpDns.getService(getApplicationContext(), accountID);
         // 预解析热点域名
         httpdns.setPreResolveHosts(new ArrayList<>(Arrays.asList("www.apple.com")));
         // 允许过期IP以实现懒加载策略
         httpdns.setExpiredIPEnabled(true);
-        webView = (WebView) this.findViewById(R.id.wv_container);
-        webView.setWebViewClient(new WebViewClient() {
-            @SuppressLint("NewApi")
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                if (request != null && request.getUrl() != null && request.getMethod().equalsIgnoreCase("get")) {
-                    String scheme = request.getUrl().getScheme().trim();
-                    String url = request.getUrl().toString();
-                    Log.d(TAG, "request.getUrl().toString(): " + url);
-                    // 假设我们对所有css文件的网络请求进行httpdns解析
-                    if ((scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("https")) && request.getUrl().toString().contains(".css")) {
-                        try {
-                            URL oldUrl = new URL(url);
-                            URLConnection connection = oldUrl.openConnection();
-                            // 异步获取域名解析结果
-                            String ip = httpdns.getIpByHostAsync(oldUrl.getHost());
-                            if (ip != null) {
-                                // 通过HTTPDNS获取IP成功，进行URL替换和HOST头设置
-                                Log.d(TAG, "Get IP: " + ip + " for host: " + oldUrl.getHost() + " from HTTPDNS successfully!");
-                                String newUrl = url.replaceFirst(oldUrl.getHost(), ip);
-                                connection = (HttpURLConnection) new URL(newUrl).openConnection();
-                                // 设置HTTP请求头Host域
-                                connection.setRequestProperty("Host", oldUrl.getHost());
-                            }
-                            Log.d(TAG, "ContentType: " + connection.getContentType());
-                            return new WebResourceResponse("text/css", "UTF-8", connection.getInputStream());
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                return null;
-            }
 
-            @Override
-            public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
-                if (!TextUtils.isEmpty(url) && Uri.parse(url).getScheme() != null) {
-                    String scheme = Uri.parse(url).getScheme().trim();
-                    Log.d(TAG, "url: " + url);
-                    // 假设我们对所有css文件的网络请求进行httpdns解析
-                    if ((scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("https")) && url.contains(".css")) {
-                        try {
-                            URL oldUrl = new URL(url);
-                            URLConnection connection = oldUrl.openConnection();
-                            // 异步获取域名解析结果
-                            String ip = httpdns.getIpByHostAsync(oldUrl.getHost());
-                            if (ip != null) {
-                                // 通过HTTPDNS获取IP成功，进行URL替换和HOST头设置
-                                Log.d(TAG, "Get IP: " + ip + " for host: " + oldUrl.getHost() + " from HTTPDNS successfully!");
-                                String newUrl = url.replaceFirst(oldUrl.getHost(), ip);
-                                connection = (HttpURLConnection) new URL(newUrl).openConnection();
-                                // 设置HTTP请求头Host域
-                                connection.setRequestProperty("Host", oldUrl.getHost());
-                            }
-                            Log.d(TAG, "ContentType: " + connection.getContentType());
-                            return new WebResourceResponse("text/css", "UTF-8", connection.getInputStream());
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                return null;
-            }
-        });
-        webView.loadUrl(targetUrl);
+        normalSceneBtn = (Button) findViewById(R.id.normal_scene_btn);
+        httpsSceneBtn = (Button) findViewById(R.id.https_scene_btn);
+        sniSceneBtn = (Button) findViewById(R.id.sni_scene_btn);
+        webviewSceneBtn = (Button) findViewById(R.id.webview_scene_btn);
 
-        // 在Native场景下使用HTTPDNS
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                NetworkRequestUsingHttpDNS.main(getApplicationContext());
-            }
-        }).start();
+        normalSceneBtn.setOnClickListener(sceneClickListener);
+        httpsSceneBtn.setOnClickListener(sceneClickListener);
+        sniSceneBtn.setOnClickListener(sceneClickListener);
+        webviewSceneBtn.setOnClickListener(sceneClickListener);
+
     }
+
+    private View.OnClickListener sceneClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent = new Intent();
+            if (view == normalSceneBtn) {
+                intent.setClass(getApplicationContext(), NormalActivity.class);
+            } else if (view == httpsSceneBtn) {
+                intent.setClass(getApplicationContext(), HttpsActivity.class);
+            } else if (view == sniSceneBtn) {
+                intent.setClass(getApplicationContext(), SNIActivity.class);
+            } else if (view == webviewSceneBtn) {
+                intent.setClass(getApplicationContext(), WebviewActivity.class);
+            }
+            startActivity(intent);
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
