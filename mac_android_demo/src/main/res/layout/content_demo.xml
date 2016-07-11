@@ -9,33 +9,27 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.alibaba.sdk.android.demo.mac.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:context="com.alibaba.sdk.android.demo.mac.DemoActivity"
+    tools:showIn="@layout/activity_demo">
 
     <Button
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:text="Demo"
-        android:id="@+id/demoButton"
-        android:layout_marginStart="30dp"
+        android:text="Get"
+        android:id="@+id/getButton"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false"
+        android:layout_alignParentStart="true"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="30dp" />
 
     <Button
         android:layout_width="120dp"
         android:layout_height="50dp"
-        android:text="Benchmark"
-        android:id="@+id/benchmarkButton"
-        android:layout_alignParentBottom="false"
+        android:text="Post"
+        android:id="@+id/postButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="false"
         android:layout_marginTop="50dp"
-        android:layout_marginRight="30dp"
-        android:layout_alignParentLeft="false" />
+        android:layout_marginRight="30dp" />
 </RelativeLayout>
