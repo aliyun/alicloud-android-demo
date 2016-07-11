@@ -36,12 +36,10 @@ public class WebviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
         getSupportActionBar().setTitle(R.string.webview_scene);
 
-        // 初始化httpdns
+        // 初始化httpdns®
         httpdns = HttpDns.getService(getApplicationContext(), MainActivity.accountID);
         // 预解析热点域名
         httpdns.setPreResolveHosts(new ArrayList<>(Arrays.asList("www.apple.com")));
-        // 允许过期IP以实现懒加载策略
-        httpdns.setExpiredIPEnabled(true);
 
         webView = (WebView) this.findViewById(R.id.wv_container);
         webView.setWebViewClient(new WebViewClient() {

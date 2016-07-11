@@ -9,16 +9,13 @@ import android.util.Log;
 import com.alibaba.sdk.android.httpdns.HttpDns;
 import com.alibaba.sdk.android.httpdns.HttpDnsService;
 
-import org.apache.http.conn.ssl.StrictHostnameVerifier;
-
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.security.cert.Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -43,12 +40,10 @@ public class SNIActivity extends AppCompatActivity {
         httpdns = HttpDns.getService(getApplicationContext(), MainActivity.accountID);
         // 预解析热点域名
         httpdns.setPreResolveHosts(new ArrayList<>(Arrays.asList("dou.bz", "www.douban.com")));
-        // 允许过期IP以实现懒加载策略
-        httpdns.setExpiredIPEnabled(true);
         new Thread(new Runnable() {
             @Override
             public void run() {
-                SNIActivity.this.startRequest();
+                SNIActivity.this.recursiveRequest("https://dou.bz/23o8PS", null);
             }
         }).start();
     }
@@ -68,7 +63,7 @@ public class SNIActivity extends AppCompatActivity {
                 // 设置HTTP请求头Host域
                 conn.setRequestProperty("Host", url.getHost());
             }
-
+            conn.setInstanceFollowRedirects(false);
             TlsSniSocketFactory sslSocketFactory = new TlsSniSocketFactory(conn);
             conn.setSSLSocketFactory(sslSocketFactory);
             conn.setHostnameVerifier(new HostnameVerifier() {
@@ -104,6 +99,90 @@ public class SNIActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void recursiveRequest(String path, String reffer) {
+        URL url = null;
+        try {
+            url = new URL(path);
+            conn = (HttpsURLConnection) url.openConnection();
+            // 同步接口获取IP
+            String ip = httpdns.getIpByHostAsync(url.getHost());
+            if (ip != null) {
+                // 通过HTTPDNS获取IP成功，进行URL替换和HOST头设置
+                Log.d(TAG, "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
+                String newUrl = path.replaceFirst(url.getHost(), ip);
+                conn = (HttpsURLConnection) new URL(newUrl).openConnection();
+                // 设置HTTP请求头Host域
+                conn.setRequestProperty("Host", url.getHost());
+            }
+            conn.setConnectTimeout(30000);
+            conn.setReadTimeout(30000);
+            conn.setInstanceFollowRedirects(false);
+            TlsSniSocketFactory sslSocketFactory = new TlsSniSocketFactory(conn);
+            conn.setSSLSocketFactory(sslSocketFactory);
+            conn.setHostnameVerifier(new HostnameVerifier() {
+                /*
+                 * 关于这个接口的说明，官方有文档描述：
+                 * This is an extended verification option that implementers can provide.
+                 * It is to be used during a handshake if the URL's hostname does not match the
+                 * peer's identification hostname.
+                 *
+                 * 使用HTTPDNS后URL里设置的hostname不是远程的主机名(如:m.taobao.com)，与证书颁发的域不匹配，
+                 * Android HttpsURLConnection提供了回调接口让用户来处理这种定制化场景。
+                 * 在确认HTTPDNS返回的源站IP与Session携带的IP信息一致后，您可以在回调方法中将待验证域名替换为原来的真实域名进行验证。
+                 *
+                 */
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    String host = conn.getRequestProperty("Host");
+                    if (null == host) {
+                        host = conn.getURL().getHost();
+                    }
+                    return HttpsURLConnection.getDefaultHostnameVerifier().verify(host, session);
+                }
+            });
+            int code = conn.getResponseCode();// Network block
+            if (needRedirect(code)) {
+                //临时重定向和永久重定向location的大小写有区分
+                String location = conn.getHeaderField("Location");
+                if (location == null) {
+                    location = conn.getHeaderField("location");
+                }
+                if (!(location.startsWith("http://") || location
+                        .startsWith("https://"))) {
+                    //某些时候会省略host，只返回后面的path，所以需要补全url
+                    URL originalUrl = new URL(path);
+                    location = originalUrl.getProtocol() + "://"
+                            + originalUrl.getHost() + location;
+                }
+                recursiveRequest(location, path);
+            } else {
+                // redirect finish.
+                DataInputStream dis = new DataInputStream(conn.getInputStream());
+                int len;
+                byte[] buff = new byte[4096];
+                StringBuilder response = new StringBuilder();
+                while ((len = dis.read(buff)) != -1) {
+                    response.append(new String(buff, 0, len));
+                }
+                Log.d(TAG, "Response: " + response.toString());
+            }
+        } catch (MalformedURLException e) {
+            Log.w(TAG, "recursiveRequest MalformedURLException");
+        } catch (IOException e) {
+            Log.w(TAG, "recursiveRequest IOException");
+        } catch (Exception e) {
+            Log.w(TAG, "unknow exception");
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+    }
+
+    private boolean needRedirect(int code) {
+        return code >= 300 && code < 400;
     }
 }
 

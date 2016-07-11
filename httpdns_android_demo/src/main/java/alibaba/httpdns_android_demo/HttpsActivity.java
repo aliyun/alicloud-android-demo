@@ -33,8 +33,6 @@ public class HttpsActivity extends AppCompatActivity {
         httpdns = HttpDns.getService(getApplicationContext(), MainActivity.accountID);
         // 预解析热点域名
         httpdns.setPreResolveHosts(new ArrayList<>(Arrays.asList("m.taobao.com")));
-        // 允许过期IP以实现懒加载策略
-        httpdns.setExpiredIPEnabled(true);
 
         new Thread(new Runnable() {
             @Override
@@ -50,7 +48,7 @@ public class HttpsActivity extends AppCompatActivity {
             URL url = new URL(originalUrl);
             conn = (HttpsURLConnection) url.openConnection();
             // 同步接口获取IP
-            String ip = httpdns.getIpByHost(url.getHost());
+            String ip = httpdns.getIpByHostAsync(url.getHost());
             if (ip != null) {
                 // 通过HTTPDNS获取IP成功，进行URL替换和HOST头设置
                 Log.d(TAG, "Get IP: " + ip + " for host: " + url.getHost() + " from HTTPDNS successfully!");
