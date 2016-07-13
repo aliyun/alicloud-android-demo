@@ -46,7 +46,7 @@ public class WebviewActivity extends AppCompatActivity {
             @SuppressLint("NewApi")
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                // 新的API连POST请求也能拦截
+                // 新的API可以拦截POST请求
                 if (request != null && request.getUrl() != null && request.getMethod().equalsIgnoreCase("get")) {
                     String scheme = request.getUrl().getScheme().trim();
                     String url = request.getUrl().toString();
@@ -80,6 +80,7 @@ public class WebviewActivity extends AppCompatActivity {
 
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                // API < 21 只能拦截URL参数
                 if (!TextUtils.isEmpty(url) && Uri.parse(url).getScheme() != null) {
                     String scheme = Uri.parse(url).getScheme().trim();
                     Log.d(TAG, "url: " + url);
