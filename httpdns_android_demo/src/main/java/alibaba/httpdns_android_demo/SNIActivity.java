@@ -196,7 +196,6 @@ class TlsSniSocketFactory extends SSLSocketFactory {
         SSLSocket ssl = (SSLSocket) sslSocketFactory.createSocket(address, port);
 
         // enable TLSv1.1/1.2 if available
-        // (see https://github.com/rfc2822/davdroid/issues/229)
         ssl.setEnabledProtocols(ssl.getSupportedProtocols());
 
         // set up SNI before the handshake
