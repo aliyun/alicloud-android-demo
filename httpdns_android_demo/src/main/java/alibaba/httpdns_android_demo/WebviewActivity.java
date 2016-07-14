@@ -73,6 +73,7 @@ public class WebviewActivity extends AppCompatActivity {
                             for (String header : headerFields.keySet()) {
                                 connection.setRequestProperty(header, headerFields.get(header));
                             }
+                            // 注*：对于POST请求的Body数据，WebResourceRequest接口中并没有提供，这里无法处理
                             Log.d(TAG, "ContentType: " + connection.getContentType());
                             return new WebResourceResponse(connection.getContentType(), "UTF-8", connection.getInputStream());
                         } catch (MalformedURLException e) {
