@@ -23,6 +23,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 public class WebviewActivity extends AppCompatActivity {
     private WebView webView;
@@ -36,7 +37,7 @@ public class WebviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
         getSupportActionBar().setTitle(R.string.webview_scene);
 
-        // 初始化httpdns®
+        // 初始化httpdns
         httpdns = HttpDns.getService(getApplicationContext(), MainActivity.accountID);
         // 预解析热点域名
         httpdns.setPreResolveHosts(new ArrayList<>(Arrays.asList("www.apple.com")));
@@ -49,6 +50,7 @@ public class WebviewActivity extends AppCompatActivity {
                 // 新的API可以拦截POST请求
                 if (request != null && request.getUrl() != null && request.getMethod().equalsIgnoreCase("get")) {
                     String scheme = request.getUrl().getScheme().trim();
+                    Map<String, String> headerFields = request.getRequestHeaders();
                     String url = request.getUrl().toString();
                     Log.d(TAG, "request.getUrl().toString(): " + url);
                     // 假设我们对所有css文件的网络请求进行httpdns解析
@@ -63,11 +65,17 @@ public class WebviewActivity extends AppCompatActivity {
                                 Log.d(TAG, "Get IP: " + ip + " for host: " + oldUrl.getHost() + " from HTTPDNS successfully!");
                                 String newUrl = url.replaceFirst(oldUrl.getHost(), ip);
                                 connection = (HttpURLConnection) new URL(newUrl).openConnection();
+
                                 // 设置HTTP请求头Host域
                                 connection.setRequestProperty("Host", oldUrl.getHost());
                             }
+                            // copy请求header参数
+                            for (String header : headerFields.keySet()) {
+                                connection.setRequestProperty(header, headerFields.get(header));
+                            }
+                            // 注*：对于POST请求的Body数据，WebResourceRequest接口中并没有提供，这里无法处理
                             Log.d(TAG, "ContentType: " + connection.getContentType());
-                            return new WebResourceResponse("text/css", "UTF-8", connection.getInputStream());
+                            return new WebResourceResponse(connection.getContentType(), "UTF-8", connection.getInputStream());
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -100,7 +108,7 @@ public class WebviewActivity extends AppCompatActivity {
                                 connection.setRequestProperty("Host", oldUrl.getHost());
                             }
                             Log.d(TAG, "ContentType: " + connection.getContentType());
-                            return new WebResourceResponse("text/css", "UTF-8", connection.getInputStream());
+                            return new WebResourceResponse(connection.getContentType(), "UTF-8", connection.getInputStream());
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
