@@ -31,7 +31,7 @@ public class MessageDao {
             helper = DatabaseHelper.getHelper(context);
             MessageEntityOp = helper.getDao(MessageEntity.class);
         } catch (SQLException e) {
-            Log.d(DB_LOG, e.toString());
+            Log.i(DB_LOG, e.toString());
         }
     }
 
@@ -43,9 +43,9 @@ public class MessageDao {
     public void add(MessageEntity entity) {
         try {
             MessageEntityOp.create(entity);
-            Log.d(DB_LOG, "Insert : " + entity.toString());
+            Log.i(DB_LOG, "Insert : " + entity.toString());
         } catch (SQLException e) {
-            Log.d(DB_LOG, e.toString());
+            Log.i(DB_LOG, e.toString());
         }
 
     }
@@ -58,9 +58,9 @@ public class MessageDao {
     public void del(MessageEntity entity) {
         try {
             MessageEntityOp.delete(entity);
-            Log.d(DB_LOG, "Delete : " + entity.toString());
+            Log.i(DB_LOG, "Delete : " + entity.toString());
         } catch (SQLException e) {
-            Log.d(DB_LOG, e.toString());
+            Log.i(DB_LOG, e.toString());
         }
 
     }
@@ -78,12 +78,12 @@ public class MessageDao {
      */
     public ArrayList<MessageEntity> getAll() {
         try {
-            Log.d(DB_LOG, "Query : All");
+            Log.i(DB_LOG, "Query : All");
             return (new ArrayList<MessageEntity>() {{
                 this.addAll(MessageEntityOp.queryForAll());
             }});
         } catch (SQLException e) {
-            Log.d(DB_LOG, e.toString());
+            Log.i(DB_LOG, e.toString());
         }
         return null;
     }
