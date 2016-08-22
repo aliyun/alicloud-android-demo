@@ -30,4 +30,8 @@
         android:id="@+id/action_clear_tips"
         android:showAsAction="never"
         android:title="@string/main_clear_tips"/>
+    <item
+        android:id="@+id/action_xiaomi_activity"
+        android:showAsAction="never"
+        android:title="@string/main_xiaomi_activity"/>
 </menu>

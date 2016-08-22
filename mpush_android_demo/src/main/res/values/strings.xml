@@ -2,7 +2,7 @@
 
     <!--应用程序信息文本-->
     <string name="app_name">阿里云推送Demo</string>
-    <string name="app_version">v2.0.0</string>
+    <string name="app_version">v2.3.0</string>
 
     <!--首页菜单文本-->
     <string name="main_getdeviceid">查看DeviceID</string>
@@ -12,6 +12,7 @@
     <string name="main_settings">设置中心</string>
     <string name="main_doctor">诊断助手</string>
     <string name="main_settings_notice">通知设置</string>
+    <string name="main_xiaomi_activity">小米托管弹窗</string>
 
     <!--各个Activity的标题-->
     <string name="title_activity_about_us">关于我们</string>
@@ -20,6 +21,7 @@
     <string name="title_activity_checker">诊断助手</string>
     <string name="title_activity_device_id">设备DeviceID</string>
     <string name="title_activity_settings_notice">通知设置</string>
+    <string name="title_activity_xiaomi_notice">小米托管弹窗</string>
 
     <!--关于我们页面-->
     <string name="layout_aboutus_arr">All Rights Reserved.</string>
