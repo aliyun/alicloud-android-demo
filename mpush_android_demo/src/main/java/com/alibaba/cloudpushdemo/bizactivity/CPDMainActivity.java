@@ -90,8 +90,11 @@ public class CPDMainActivity extends Activity {
             case R.id.action_settings:  // 点击 设置中心 选项卡
                 SettingsActivity.actionStart(this.getApplicationContext());
                 return true;
-            case R.id.action_settings_notice:   // 点击通知设置
+            case R.id.action_settings_notice:   // 点击 通知设置
                 SettingNoticeActivity.actionStart(this.getApplicationContext());
+                return true;
+            case R.id.action_xiaomi_activity:   // 点击 小米托管弹窗
+                XiaoMiActivity.actionStart(this.getApplicationContext());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -9,6 +9,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -77,7 +79,7 @@ public class SettingNoticeActivity extends Activity implements View.OnClickListe
                 if (defaultSoundId != 0) {
                     String defaultSoundPath = DEFAULT_RES_PATH_FREFIX + getPackageName() + "/" + defaultSoundId;
                     PushServiceFactory.getCloudPushService().setNotificationSoundFilePath(defaultSoundPath);
-                    Log.d(SETTING_NOTICE, "Set notification sound res id to R." + DEFAULT_RES_SOUND_TYPE + "." + DEFAULT_NOTICE_SOUND);
+                    Log.i(SETTING_NOTICE, "Set notification sound res id to R." + DEFAULT_RES_SOUND_TYPE + "." + DEFAULT_NOTICE_SOUND);
                 } else {
                     Log.e(SETTING_NOTICE, "Set notification sound path error, R."
                             + DEFAULT_RES_SOUND_TYPE + "." + DEFAULT_NOTICE_SOUND + " not found.");
@@ -92,7 +94,7 @@ public class SettingNoticeActivity extends Activity implements View.OnClickListe
                 if (assignSoundId != 0) {
                     String defaultSoundPath = DEFAULT_RES_PATH_FREFIX + getPackageName() + "/" + assignSoundId;
                     PushServiceFactory.getCloudPushService().setNotificationSoundFilePath(defaultSoundPath);
-                    Log.d(SETTING_NOTICE, "Set notification sound res id to R." + DEFAULT_RES_SOUND_TYPE + "." + ASSIGN_NOTIFCE_SOUND);
+                    Log.i(SETTING_NOTICE, "Set notification sound res id to R." + DEFAULT_RES_SOUND_TYPE + "." + ASSIGN_NOTIFCE_SOUND);
                 } else {
                     Log.e(SETTING_NOTICE, "Set notification sound path error, R."
                             + DEFAULT_RES_SOUND_TYPE + "." + ASSIGN_NOTIFCE_SOUND + " not found.");
@@ -110,7 +112,7 @@ public class SettingNoticeActivity extends Activity implements View.OnClickListe
                     if (drawable != null) {
                         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
                         PushServiceFactory.getCloudPushService().setNotificationLargeIcon(bitmap);
-                        Log.d(SETTING_NOTICE, "Set notification largeIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + DEFAULT_NOTICE_LARGE_ICON);
+                        Log.i(SETTING_NOTICE, "Set notification largeIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + DEFAULT_NOTICE_LARGE_ICON);
                     }
                 } else {
                     Log.e(SETTING_NOTICE, "Set largeIcon bitmap error, R."
@@ -128,7 +130,7 @@ public class SettingNoticeActivity extends Activity implements View.OnClickListe
                     if (drawable != null) {
                         Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
                         PushServiceFactory.getCloudPushService().setNotificationLargeIcon(bitmap);
-                        Log.d(SETTING_NOTICE, "Set notification largeIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + ASSIGN_NOTIFCE_LARGE_ICON);
+                        Log.i(SETTING_NOTICE, "Set notification largeIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + ASSIGN_NOTIFCE_LARGE_ICON);
                     }
                 } else {
                     Log.e(SETTING_NOTICE, "Set largeIcon bitmap error, R."
@@ -144,7 +146,7 @@ public class SettingNoticeActivity extends Activity implements View.OnClickListe
                 int defaultSmallIconId = getResources().getIdentifier(DEFAULT_NOTICE_LARGE_ICON, DEFAULT_RES_ICON_TYPE, PackageName);
                 if (defaultSmallIconId != 0) {
                     PushServiceFactory.getCloudPushService().setNotificationSmallIcon(defaultSmallIconId);
-                    Log.d(SETTING_NOTICE, "Set notification smallIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + DEFAULT_NOTICE_SMALL_ICON);
+                    Log.i(SETTING_NOTICE, "Set notification smallIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + DEFAULT_NOTICE_SMALL_ICON);
                 } else {
                     Log.e(SETTING_NOTICE, "Set notification smallIcon error, R." +
                             DEFAULT_RES_ICON_TYPE + "." + DEFAULT_NOTICE_SMALL_ICON + " not found.");
@@ -158,7 +160,7 @@ public class SettingNoticeActivity extends Activity implements View.OnClickListe
                 int assignSmallIconId = getResources().getIdentifier(ASSIGN_NOTICE_SMALL_ICON, DEFAULT_RES_ICON_TYPE, PackageName);
                 if (assignSmallIconId != 0) {
                     PushServiceFactory.getCloudPushService().setNotificationSmallIcon(assignSmallIconId);
-                    Log.d(SETTING_NOTICE, "Set notification smallIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + ASSIGN_NOTICE_SMALL_ICON);
+                    Log.i(SETTING_NOTICE, "Set notification smallIcon res id to R." + DEFAULT_RES_ICON_TYPE + "." + ASSIGN_NOTICE_SMALL_ICON);
                 } else {
                     Log.e(SETTING_NOTICE, "Set notification smallIcon error, R." +
                             DEFAULT_RES_ICON_TYPE + "." + ASSIGN_NOTICE_SMALL_ICON + " not found.");
@@ -175,5 +177,21 @@ public class SettingNoticeActivity extends Activity implements View.OnClickListe
         Intent intent = new Intent(context, SettingNoticeActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -3,7 +3,9 @@ package com.alibaba.cloudpushdemo.component;
 import android.content.Context;
 import android.util.Log;
 
+import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.MessageReceiver;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
 import com.alibaba.cloudpushdemo.dao.MessageDao;
 import com.alibaba.cloudpushdemo.entitys.MessageEntity;
@@ -36,12 +38,12 @@ public class MyMessageReceiver extends MessageReceiver {
         // TODO 处理推送通知
         if ( null != extraMap ) {
             for (Map.Entry<String, String> entry : extraMap.entrySet()) {
-                Log.d(REC_TAG,"@Get diy param : Key=" + entry.getKey() + " , Value=" + entry.getValue());
+                Log.i(REC_TAG,"@Get diy param : Key=" + entry.getKey() + " , Value=" + entry.getValue());
             }
         } else {
-            Log.d(REC_TAG,"@收到通知 && 自定义消息为空");
+            Log.i(REC_TAG,"@收到通知 && 自定义消息为空");
         }
-        Log.d(REC_TAG,"收到一条推送通知 ： " + title );
+        Log.i(REC_TAG,"收到一条推送通知 ： " + title );
     }
 
     /**
@@ -54,7 +56,7 @@ public class MyMessageReceiver extends MessageReceiver {
     public void onMessage(Context context, CPushMessage cPushMessage) {
         try {
 
-            Log.d(REC_TAG,"收到一条推送消息 ： " + cPushMessage.getTitle());
+            Log.i(REC_TAG,"收到一条推送消息 ： " + cPushMessage.getTitle());
 
             // 持久化推送的消息到数据库
             new MessageDao(context).add(new MessageEntity(cPushMessage.getMessageId().substring(6, 16), Integer.valueOf(cPushMessage.getAppId()), cPushMessage.getTitle(), cPushMessage.getContent(), new SimpleDateFormat("HH:mm:ss").format(new Date())));
@@ -62,7 +64,7 @@ public class MyMessageReceiver extends MessageReceiver {
             // 刷新下消息列表
             ActivityBox.CPDMainActivity.initMessageView();
         } catch (Exception e) {
-            Log.d(REC_TAG, e.toString());
+            Log.i(REC_TAG, e.toString());
         }
     }
 
@@ -75,11 +77,13 @@ public class MyMessageReceiver extends MessageReceiver {
      */
     @Override
     public void onNotificationOpened(Context context, String title, String summary, String extraMap) {
-        Log.d(REC_TAG,"onNotificationOpened ： " + " : " + title + " : " + summary + " : " + extraMap);
+        CloudPushService cloudPushService = PushServiceFactory.getCloudPushService();
+//        cloudPushService.setNotificationSoundFilePath();
+        Log.i(REC_TAG,"onNotificationOpened ： " + " : " + title + " : " + summary + " : " + extraMap);
     }
 
     @Override
     public void onNotificationRemoved(Context context, String messageId) {
-        Log.d(REC_TAG, "onNotificationRemoved ： " + messageId);
+        Log.i(REC_TAG, "onNotificationRemoved ： " + messageId);
     }
 }

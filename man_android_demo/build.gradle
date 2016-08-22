@@ -22,7 +22,4 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile files('libs/alisdk-ut-5.jar')
-    compile files('libs/utdid4all-1.0.4.jar')
-    compile files('libs/alicloud-android-sdk-man-1.1.4.jar')
 }
