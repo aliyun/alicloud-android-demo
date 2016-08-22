@@ -32,7 +32,7 @@
             android:value="********" />
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="***************" />
+            android:value="********" />
         <meta-data
             android:name="ALIYUN_MAN_CHANNEL"
             android:value="YOUR CHANNEL ID" />

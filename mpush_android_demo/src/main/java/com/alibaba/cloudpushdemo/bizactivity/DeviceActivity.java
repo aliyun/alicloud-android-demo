@@ -44,7 +44,7 @@ public class DeviceActivity extends Activity {
             deviceid.setText(getResources().getString(R.string.env_init_fail));
         } else {
             deviceid.setText(getResources().getString(R.string.start_before_get) + PushServiceFactory.getCloudPushService().getDeviceId());
-            Log.d("DeviceId:",deviceid.getText().toString());
+            Log.i("DeviceId:",deviceid.getText().toString());
         }
     }
 

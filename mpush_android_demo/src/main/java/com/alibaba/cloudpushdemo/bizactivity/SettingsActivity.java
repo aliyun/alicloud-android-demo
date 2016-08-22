@@ -50,7 +50,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
         Intent intent = new Intent(context, SettingsActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-        Log.d(SETTINGS_ACT, "@切换到 Activity ：SettinsActivity");
+        Log.i(SETTINGS_ACT, "@切换到 Activity ：SettinsActivity");
     }
 
     private String[] getTagArr() {
@@ -86,14 +86,14 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             editor.commit();
                             Toast.makeText(getApplicationContext(), "赞! 账号绑定成功 ~",
                                     Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户绑定账号 ：" + acountStr + " 成功");
+                            Log.i(SETTINGS_ACT, "@用户绑定账号 ：" + acountStr + " 成功");
                         }
 
                         @Override
                         public void onFailed(String errorCode, String errorMessage) {
                             Toast.makeText(getApplicationContext(), "衰! 账号绑定失败 ~",
                                     Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "@用户绑定账号 ：" + acountStr + " 失败，原因 ： " + errorMessage);
+                            Log.i(SETTINGS_ACT, "@用户绑定账号 ：" + acountStr + " 失败，原因 ： " + errorMessage);
                         }
                     });
                 } else {
@@ -109,7 +109,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             public void onSuccess(String response) {
                                 Toast.makeText(getApplicationContext(), "赞! 账号解绑成功 ~",
                                         Toast.LENGTH_SHORT).show();
-                                Log.d(SETTINGS_ACT, "@用户解绑账户 ：" + acountStr + " 成功");
+                                Log.i(SETTINGS_ACT, "@用户解绑账户 ：" + acountStr + " 成功");
                                 // 删除本地存储的用户名
                                 SharedPreferences accountStore = SettingsActivity.this.getSharedPreferences("account", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = accountStore.edit();
@@ -121,7 +121,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                             public void onFailed(String errorCode, String errorMessage) {
                                 Toast.makeText(getApplicationContext(), "衰! 账号解绑失败 ~",
                                         Toast.LENGTH_SHORT).show();
-                                Log.d(SETTINGS_ACT, "@用户解绑账户 ：" + acountStr + " 失败，原因 ：" + errorMessage);
+                                Log.i(SETTINGS_ACT, "@用户解绑账户 ：" + acountStr + " 失败，原因 ：" + errorMessage);
                             }
                         }
                 );
@@ -134,7 +134,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     public void onSuccess(String response) {
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
                         Toast.makeText(getApplicationContext(), "绑定标签到设备成功.", Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "绑定标签到设备成功.");
+                        Log.i(SETTINGS_ACT, "绑定标签到设备成功.");
                     }
 
                     @Override
@@ -152,7 +152,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     public void onSuccess(String response) {
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
                         Toast.makeText(getApplicationContext(), "解绑设备标签成功.", Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "解绑设备标签成功.");
+                        Log.i(SETTINGS_ACT, "解绑设备标签成功.");
                     }
 
                     @Override
@@ -170,7 +170,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     public void onSuccess(String response) {
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
                         Toast.makeText(getApplicationContext(), "绑定标签到账号成功.", Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "绑定标签到账号成功.");
+                        Log.i(SETTINGS_ACT, "绑定标签到账号成功.");
                     }
 
                     @Override
@@ -188,7 +188,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     public void onSuccess(String response) {
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
                         Toast.makeText(getApplicationContext(), "解绑账号标签成功.", Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "解绑账号标签成功.");
+                        Log.i(SETTINGS_ACT, "解绑账号标签成功.");
                     }
 
                     @Override
@@ -212,7 +212,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
                         Toast.makeText(getApplicationContext(), "绑定标签到别名成功.", Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "绑定标签到别名成功.");
+                        Log.i(SETTINGS_ACT, "绑定标签到别名成功.");
                     }
 
                     @Override
@@ -236,7 +236,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputTags)).setText("");
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
                         Toast.makeText(getApplicationContext(), "解绑别名标签成功.", Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "解绑别名标签成功.");
+                        Log.i(SETTINGS_ACT, "解绑别名标签成功.");
                     }
 
                     @Override
@@ -252,7 +252,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     @Override
                     public void onSuccess(String response) {
                         Toast.makeText(getApplicationContext(), "查询设备标签成功，标签：" + response, Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "解绑别名标签成功，标签：" + response);
+                        Log.i(SETTINGS_ACT, "解绑别名标签成功，标签：" + response);
                     }
 
                     @Override
@@ -268,7 +268,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                     @Override
                     public void onSuccess(String response) {
                         Toast.makeText(getApplicationContext(), "查询设备别名成功，别名：" + response, Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "解绑别名标签成功，标签：" + response);
+                        Log.i(SETTINGS_ACT, "解绑别名标签成功，标签：" + response);
                     }
 
                     @Override
@@ -287,7 +287,7 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
                         public void onSuccess(String response) {
                             ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
                             Toast.makeText(getApplicationContext(), "添加别名成功.", Toast.LENGTH_SHORT).show();
-                            Log.d(SETTINGS_ACT, "添加别名成功.");
+                            Log.i(SETTINGS_ACT, "添加别名成功.");
                         }
 
                         @Override
@@ -304,14 +304,14 @@ public class SettingsActivity extends Activity implements View.OnClickListener {
             case R.id.removeAlias:
                 aliasStr = ((EditText)this.findViewById(R.id.inputAlias)).getText().toString();
                 if (aliasStr == null || aliasStr.length() == 0) {
-                    Log.d(SETTINGS_ACT, "删除设备全部别名");
+                    Log.i(SETTINGS_ACT, "删除设备全部别名");
                 }
                 PushServiceFactory.getCloudPushService().removeAlias(aliasStr, new CommonCallback() {
                     @Override
                     public void onSuccess(String response) {
                         ((EditText)SettingsActivity.this.findViewById(R.id.inputAlias)).setText("");
                         Toast.makeText(getApplicationContext(), "删除别名成功.", Toast.LENGTH_SHORT).show();
-                        Log.d(SETTINGS_ACT, "删除别名成功.");
+                        Log.i(SETTINGS_ACT, "删除别名成功.");
                     }
 
                     @Override
