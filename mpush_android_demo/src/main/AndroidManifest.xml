@@ -123,16 +123,6 @@
         </receiver>
         <!-- accs end -->
 
-
-        <!-- 连接心跳保持监听器 -->
-        <receiver android:name="anet.channel.heartbeat.HeartbeatManager$Receiver">
-            <intent-filter>
-                <action android:name="anetwork.channel.intent.action.COMMAND" />
-            </intent-filter>
-        </receiver>
-        <!-- awcn end -->
-
-
          <!--小米通道官方配置-->
         <service
             android:name="com.xiaomi.push.service.XMPushService"
