@@ -37,8 +37,8 @@ public class MainApplication extends Application {
         });
 
         // 初始化小米通道，自动判断是否支持小米系统推送，如不支持会跳过注册
-        MiPushRegister.register(applicationContext, "小米AppID", "小米AppKey");
+        //MiPushRegister.register(applicationContext, "小米AppID", "小米AppKey");
         // 初始化华为通道，自动判断是否支持华为系统推送，如不支持会跳过注册
-        HuaWeiRegister.register(applicationContext);
+        //HuaWeiRegister.register(applicationContext);
     }
 }
