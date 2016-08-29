@@ -84,6 +84,14 @@
             </intent-filter>
         </service>
 
+        <!-- 消息接收增强服务（可提高消息/通知到达率） -->
+        <service android:name="com.alibaba.sdk.android.push.channel.TaobaoRecvService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="org.android.agoo.client.MessageReceiverService"/>
+            </intent-filter>
+        </service>
+
         <!-- 消息接收监听器 （用户可自主扩展） -->
         <receiver
             android:name=".component.MyMessageReceiver"
