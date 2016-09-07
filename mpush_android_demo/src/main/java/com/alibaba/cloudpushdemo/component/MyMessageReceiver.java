@@ -9,7 +9,6 @@ import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.MessageReceiver;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
