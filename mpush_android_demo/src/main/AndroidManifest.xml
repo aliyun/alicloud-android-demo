@@ -28,6 +28,8 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <!-- 允许访问震动器 -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- 允许task重排序 -->
+    <uses-permission android:name="android.permission.REORDER_TASKS" />
 
     <!-- 云推送小米通道相关权限 -->
     <!--<permission-->
