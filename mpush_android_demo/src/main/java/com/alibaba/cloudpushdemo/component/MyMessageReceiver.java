@@ -3,14 +3,13 @@ package com.alibaba.cloudpushdemo.component;
 import android.content.Context;
 import android.util.Log;
 
+import com.alibaba.cloudpushdemo.dao.MessageDao;
+import com.alibaba.cloudpushdemo.entitys.MessageEntity;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.MessageReceiver;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.alibaba.sdk.android.push.notification.CPushMessage;
-import com.alibaba.cloudpushdemo.dao.MessageDao;
-import com.alibaba.cloudpushdemo.entitys.MessageEntity;
 
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -82,8 +81,15 @@ public class MyMessageReceiver extends MessageReceiver {
         Log.i(REC_TAG,"onNotificationOpened ： " + " : " + title + " : " + summary + " : " + extraMap);
     }
 
+
     @Override
     public void onNotificationRemoved(Context context, String messageId) {
         Log.i(REC_TAG, "onNotificationRemoved ： " + messageId);
+    }
+
+
+    @Override
+    protected void onNotificationClickedWithNoAction(Context context, String title, String summary, String extraMap) {
+        Log.i(REC_TAG,"onNotificationClickedWithNoAction ： " + " : " + title + " : " + summary + " : " + extraMap);
     }
 }
