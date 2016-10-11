@@ -13,6 +13,7 @@
     <string name="main_doctor">诊断助手</string>
     <string name="main_settings_notice">通知设置</string>
     <string name="main_xiaomi_activity">小米托管弹窗</string>
+    <string name="main_custom_notification_activity">自定义样式通知</string>
 
     <!--各个Activity的标题-->
     <string name="title_activity_about_us">关于我们</string>
@@ -22,6 +23,7 @@
     <string name="title_activity_device_id">设备DeviceID</string>
     <string name="title_activity_settings_notice">通知设置</string>
     <string name="title_activity_xiaomi_notice">小米托管弹窗</string>
+    <string name="title_activity_custom_notification">自定义样式通知</string>
 
     <!--关于我们页面-->
     <string name="layout_aboutus_arr">All Rights Reserved.</string>
