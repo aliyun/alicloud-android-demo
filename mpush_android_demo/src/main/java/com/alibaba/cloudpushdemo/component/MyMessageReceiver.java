@@ -44,6 +44,11 @@ public class MyMessageReceiver extends MessageReceiver {
         Log.i(REC_TAG,"收到一条推送通知 ： " + title );
     }
 
+    @Override
+    protected void onNotificationReceivedInApp(Context context, String title, String summary, Map<String, String> extraMap, int openType, String openActivity, String openUrl) {
+        Log.i(REC_TAG,"onNotificationReceivedInApp ： " + " : " + title + " : " + summary + "  " + extraMap + " : " + openType + " : " + openActivity + " : " + openUrl);
+    }
+
     /**
      * 推送消息的回调方法
      *

@@ -96,6 +96,9 @@ public class CPDMainActivity extends Activity {
             case R.id.action_xiaomi_activity:   // 点击 小米托管弹窗
                 XiaoMiActivity.actionStart(this.getApplicationContext());
                 return true;
+            case R.id.action_custom_notification: //点击 自定义通知样式
+                CustomNotificationActivity.actionStart(this.getApplicationContext());
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

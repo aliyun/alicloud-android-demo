@@ -215,6 +215,10 @@
         <activity android:name=".bizactivity.XiaoMiActivity"
             android:label="@string/title_activity_xiaomi_notice"
             android:screenOrientation="portrait" />
+        <activity android:name=".bizactivity.CustomNotificationActivity"
+            android:label="@string/title_activity_custom_notification"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>
