@@ -3,11 +3,10 @@ package com.alibaba.cloudpushdemo.application;
 import android.app.Application;
 import android.content.Context;
 import android.util.Log;
-import com.alibaba.sdk.android.push.CommonCallback;
+
 import com.alibaba.sdk.android.push.CloudPushService;
+import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
-import com.alibaba.sdk.android.push.register.HuaWeiRegister;
-import com.alibaba.sdk.android.push.register.MiPushRegister;
 
 public class MainApplication extends Application {
     private static final String TAG = "Init";
@@ -23,11 +22,12 @@ public class MainApplication extends Application {
      */
     private void initCloudChannel(Context applicationContext) {
         PushServiceFactory.init(applicationContext);
-        CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
         pushService.register(applicationContext, new CommonCallback() {
             @Override
             public void onSuccess(String response) {
                 Log.i(TAG, "init cloudchannel success");
+
             }
 
             @Override

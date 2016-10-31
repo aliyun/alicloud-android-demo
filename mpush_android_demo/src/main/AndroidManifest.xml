@@ -134,10 +134,6 @@
 
          <!--&lt;!&ndash;小米通道官方配置&ndash;&gt;-->
         <!--<service-->
-            <!--android:name="com.xiaomi.push.service.XMPushService"-->
-            <!--android:enabled="true"-->
-            <!--android:process=":channel" />-->
-        <!--<service-->
             <!--android:name="com.xiaomi.mipush.sdk.PushMessageHandler"-->
             <!--android:enabled="true"-->
             <!--android:exported="true" />-->
@@ -167,14 +163,6 @@
                 <!--<category android:name="android.intent.category.DEFAULT" />-->
             <!--</intent-filter>-->
         <!--</receiver>-->
-        <!--<receiver-->
-            <!--android:name="com.xiaomi.push.service.receivers.PingReceiver"-->
-            <!--android:exported="false"-->
-            <!--android:process=":channel">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.xiaomi.push.PING_TIMER" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
 
 
          <!-- 华为通道官方配置 -->
@@ -192,7 +180,7 @@
         <activity
             android:name=".bizactivity.AboutActivity"
             android:label="@string/title_activity_about_us"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".bizactivity.SettingsActivity"
             android:label="@string/title_activity_settings"
