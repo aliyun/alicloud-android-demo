@@ -50,8 +50,7 @@ public class MyMessageReceiver extends MessageReceiver {
     }
 
     /**
-     * 推送消息的回调方法
-     *
+     * 推送消息的回调方法    *
      * @param context
      * @param cPushMessage
      */
