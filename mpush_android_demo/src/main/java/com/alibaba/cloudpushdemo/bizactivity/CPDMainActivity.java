@@ -10,8 +10,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.alibaba.cloudpushdemo.R;
-import com.alibaba.cloudpushdemo.component.ActivityBox;
 import com.alibaba.cloudpushdemo.adapter.MessageListAdapter;
+import com.alibaba.cloudpushdemo.component.ActivityBox;
 import com.alibaba.cloudpushdemo.dao.MessageDao;
 
 import java.lang.reflect.Field;
