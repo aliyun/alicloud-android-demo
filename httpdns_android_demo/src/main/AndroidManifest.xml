@@ -21,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WebviewActivity" />
         <activity android:name=".NormalActivity" />
         <activity android:name=".HttpsActivity" />
         <activity android:name=".SNIActivity"></activity>
