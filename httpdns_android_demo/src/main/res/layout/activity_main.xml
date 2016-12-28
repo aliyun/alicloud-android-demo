@@ -47,14 +47,6 @@
         android:layout_marginTop="30dp"
         android:text="@string/sni_scene" />
 
-    <Button
-        android:id="@+id/webview_scene_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:text="@string/webview_scene" />
-
 
     <!--<android.support.design.widget.FloatingActionButton-->
     <!--android:id="@+id/fab"-->
