@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.alibaba.cloudpushdemo.R;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.alibaba.sdk.android.push.notification.AdvancedCustomPushNotification;
 import com.alibaba.sdk.android.push.notification.BasicCustomPushNotification;
 import com.alibaba.sdk.android.push.notification.CustomNotificationBuilder;
@@ -61,6 +62,7 @@ public class CustomNotificationActivity extends Activity {
                 notification.setBuildWhenAppInForeground(false);//设置当推送到达时如果应用处于前台不创建通知
                 boolean res = CustomNotificationBuilder.getInstance().setCustomNotification(2, notification);//注册该通知,并设置ID为2
                 Toast.makeText(CustomNotificationActivity.this, "Set Advanced Notification:" + res + ", id:" + 2, Toast.LENGTH_SHORT).show();
+                PushServiceFactory.getCloudPushService().clearNotifications();
             }
         });
     }
