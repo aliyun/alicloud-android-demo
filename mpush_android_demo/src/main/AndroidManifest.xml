@@ -3,40 +3,6 @@
     package="com.alibaba.cloudpushdemo"
     android:installLocation="auto">
 
-    <!-- 阿里移动推送相关权限 -->
-    <!-- Android 6.0版本可去除，用于选举信息（通道复用）的同步 -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <!-- 进行网络访问和网络状态监控相关的权限声明 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 允许对sd卡进行读写操作 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!-- 网络库使用，当网络操作时需要确保事务完成不被杀掉 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <!-- 用于读取手机硬件信息等，用于机型过滤 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- 选举使用，当应用有删除或者更新时需要重新选举，复用推送通道 -->
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_CHANGED" />
-    <uses-permission android:name="android.permission.BROADCAST_PACKAGE_REPLACED" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
-    <!-- 补偿通道小米PUSH使用，不用可去除 -->
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <!-- 补偿通道GCM使用，不使用可去除 -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <!-- 允许监听启动完成事件 -->
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- 允许访问震动器 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!-- 允许task重排序 -->
-    <uses-permission android:name="android.permission.REORDER_TASKS" />
-
-    <!-- 云推送小米通道相关权限 -->
-    <!--<permission-->
-    <!--android:name="YourPackageName.permission.MIPUSH_RECEIVE"-->
-    <!--android:protectionLevel="signatureOrSystem"/>-->
-    <!--<uses-permission android:name="YourPackageName.permission.MIPUSH_RECEIVE"/>-->
-
     <!-- Application Settings -->
     <application
         android:name=".application.MainApplication"
@@ -62,38 +28,6 @@
             android:value="********" /> <!-- 请填写你自己的appSecret -->
 
 
-        <!-- 通道保持服务（幽灵进程自动保活该服务） -->
-        <service
-            android:name="com.alibaba.sdk.android.push.ChannelService"
-            android:exported="true"
-            android:process=":channel">
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.SERVICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="org.agoo.android.intent.action.PING_V4" />
-
-                <category android:name="taobao" />
-            </intent-filter>
-        </service>
-
-        <!-- 消息接收服务 -->
-        <service
-            android:name="com.alibaba.sdk.android.push.MsgService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.RECEIVE" />
-            </intent-filter>
-        </service>
-
-        <!-- 消息接收增强服务（可提高消息/通知到达率） -->
-        <service android:name="com.alibaba.sdk.android.push.channel.TaobaoRecvService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="org.android.agoo.client.MessageReceiverService"/>
-            </intent-filter>
-        </service>
-
         <!-- 消息接收监听器 （用户可自主扩展） -->
         <receiver
             android:name=".component.MyMessageReceiver"
@@ -113,7 +47,7 @@
                 <action android:name="com.taobao.taobao.intent.action.COMMAND" />
             </intent-filter>
             <intent-filter>
-                <action android:name="org.agoo.android.intent.action.RECEIVE" />
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
