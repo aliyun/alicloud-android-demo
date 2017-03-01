@@ -31,9 +31,21 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs' //this way we can find the .aar file in libs folder
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
+
+    compile 'com.aliyun.ams:alicloud-android-push:3.0.0'
+//    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+//    compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
+    compile (name:'huawei-xiaomi-support-3.0.0', ext:'aar')
+
 }
