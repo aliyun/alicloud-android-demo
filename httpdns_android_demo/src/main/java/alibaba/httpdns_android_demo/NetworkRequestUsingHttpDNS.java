@@ -43,8 +43,8 @@ public class NetworkRequestUsingHttpDNS {
             String originalUrl = "http://www.aliyun.com";
             URL url = new URL(originalUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            // 同步接口获取IP
-            String ip = httpdns.getIpByHost(url.getHost());
+            // 异步接口获取IP
+            String ip = httpdns.getIpByHostAsync(url.getHost());
 
             if (ip != null) {
                 // 通过HTTPDNS获取IP成功，进行URL替换和HOST头设置
