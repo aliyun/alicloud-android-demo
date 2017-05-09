@@ -17,6 +17,7 @@ import java.util.concurrent.Callable;
 public class DemoApplication extends Application {
     public final static String DEFAULT_APPKEY = "your appKey";
     public final static String DEFAULT_APPSECRET = "your appSecret";
+    
     @Override
     public void onCreate() {
         super.onCreate();
