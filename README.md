@@ -83,6 +83,10 @@ mpush_android_demo给出了[移动推送（Mobile Push）](https://www.aliyun.co
 <meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
 ```
 
+## hotfix_android_demo
+
+hotfix_android_demo给出了[hotfix_android_demo](https://help.aliyun.com/document_detail/51415.html) Android SDK的使用示例。
+
 ## feedback_android_demo
 
 feedback_android_demo给出了用户反馈（FeedBack） Android SDK的使用示例。
