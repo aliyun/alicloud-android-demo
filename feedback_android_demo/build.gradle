@@ -48,7 +48,7 @@ repositories {
 dependencies {
 
     compile files('libs/commons-codec-1.10.jar')
-    compile(name: 'alisdk-feedback-release', ext: 'aar')
+    compile(name: 'alicloud-android-feedback-3.0.0', ext: 'aar')
     compile files('libs/app-monitor-sdk-2.5.1.1_for_bc_proguard.jar')
     compile files('libs/utdid4all-1.1.5.3_proguard.jar')
     compile files('libs/alicloud-android-utils-1.0.3.jar')
