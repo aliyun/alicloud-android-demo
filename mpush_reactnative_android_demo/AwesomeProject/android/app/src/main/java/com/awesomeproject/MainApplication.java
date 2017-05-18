@@ -1,14 +1,16 @@
 package com.awesomeproject;
 
 import android.app.Application;
-import android.util.Log;
 
-import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.awesomeproject.push.PushModule;
+import com.awesomeproject.push.PushPackage;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
@@ -16,7 +18,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
-  private static final String TAG = MainApplication.class.getName();
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -27,7 +28,8 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage()
+          new MainReactPackage(),
+              new PushPackage()
       );
     }
   };
@@ -46,16 +48,20 @@ public class MainApplication extends Application implements ReactApplication {
 
   private void initCloudChannel() {
     PushServiceFactory.init(this.getApplicationContext());
-    CloudPushService pushService = PushServiceFactory.getCloudPushService();
-    pushService.register(this.getApplicationContext(), "23552881", "c39da303685f4e88ebdcdf49b7fd6472", new CommonCallback() {
+    PushServiceFactory.getCloudPushService().register(this.getApplicationContext(), new CommonCallback() {
       @Override
       public void onSuccess(String s) {
-        Log.e(TAG, "init cloudchannel success");
+        WritableMap params = Arguments.createMap();
+        params.putBoolean("success", true);
+        PushModule.sendEvent("onInit", params);
       }
 
       @Override
       public void onFailed(String s, String s1) {
-        Log.e(TAG, "init cloudchannel failed. errorCode:" + s +  ". errorMsg:" + s1);
+        WritableMap params = Arguments.createMap();
+        params.putBoolean("success", false);
+        params.putString("errorMsg", "errorCode:" + s + ". errorMsg:" + s1);
+        PushModule.sendEvent("onInit", params);
       }
     });
   }
