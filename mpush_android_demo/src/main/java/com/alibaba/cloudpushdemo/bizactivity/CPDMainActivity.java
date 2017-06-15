@@ -2,6 +2,7 @@ package com.alibaba.cloudpushdemo.bizactivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewConfiguration;
@@ -13,6 +14,8 @@ import com.alibaba.cloudpushdemo.R;
 import com.alibaba.cloudpushdemo.adapter.MessageListAdapter;
 import com.alibaba.cloudpushdemo.component.ActivityBox;
 import com.alibaba.cloudpushdemo.dao.MessageDao;
+import com.alibaba.sdk.android.push.CommonCallback;
+import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 
 import java.lang.reflect.Field;
 
@@ -94,10 +97,32 @@ public class CPDMainActivity extends Activity {
                 SettingNoticeActivity.actionStart(this.getApplicationContext());
                 return true;
             case R.id.action_xiaomi_activity:   // 点击 小米托管弹窗
-                XiaoMiActivity.actionStart(this.getApplicationContext());
+                //XiaoMiActivity.actionStart(this.getApplicationContext());
+                PushServiceFactory.getCloudPushService().turnOnPushChannel(new CommonCallback() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Log.e("bind/unbindTest", "bind success");
+                    }
+
+                    @Override
+                    public void onFailed(String s, String s1) {
+                        Log.e("bind/unbindTest", "bind failed" + s + s1);
+                    }
+                });
                 return true;
             case R.id.action_custom_notification: //点击 自定义通知样式
-                CustomNotificationActivity.actionStart(this.getApplicationContext());
+                //CustomNotificationActivity.actionStart(this.getApplicationContext());
+                PushServiceFactory.getCloudPushService().turnOffPushChannel(new CommonCallback() {
+                    @Override
+                    public void onSuccess(String s) {
+                        Log.e("bind/unbindTest", "unbind success");
+                    }
+
+                    @Override
+                    public void onFailed(String s, String s1) {
+                        Log.e("bind/unbindTest", "unbind failed" + s + s1);
+                    }
+                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
