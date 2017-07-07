@@ -1,0 +1,68 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.awesomeproject"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="22" />
+
+    <application
+      android:name=".MainApplication"
+      android:allowBackup="true"
+      android:label="@string/app_name"
+      android:icon="@mipmap/ic_launcher"
+      android:theme="@style/AppTheme">
+
+      <meta-data android:name="com.alibaba.app.appkey" android:value="********"/> <!-- 请填写你自己的- appKey -->
+      <meta-data android:name="com.alibaba.app.appsecret" android:value="********"/> <!-- 请填写你自己的appSecret -->
+
+
+      <activity
+        android:name=".MainActivity"
+        android:label="@string/app_name"
+        android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="adjustResize">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+      </activity>
+      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+
+      <receiver android:name=".push.MyMessageReceiver">
+          <intent-filter>
+              <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="com.taobao.accs.intent.action.COMMAND" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="com.taobao.taobao.intent.action.COMMAND" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.USER_PRESENT" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.BOOT_COMPLETED" />
+          </intent-filter>
+          <intent-filter>
+              <action android:name="android.intent.action.PACKAGE_REMOVED" />
+              <data android:scheme="package" />
+          </intent-filter>
+      </receiver>
+    </application>
+
+</manifest>
