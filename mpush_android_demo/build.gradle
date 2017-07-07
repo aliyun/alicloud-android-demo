@@ -42,16 +42,12 @@ dependencies {
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
-    //compile (name:'third-push-support-3.0.2', ext:'aar')
 
 
     //老版本依赖
-    compile 'com.aliyun.ams:alicloud-android-push:3.0.8'
-    compile 'com.aliyun.ams:alicloud-android-third-push:3.0.2@aar'
-    //新版本依赖
-    //compile (name:'alicloud-android-push-sdk-3.0.8', ext:'aar')
-    //compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
-    //compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
-//    compile ('com.google.firebase:firebase-messaging:9.6.1')
+    compile 'com.aliyun.ams:alicloud-android-push:3.0.9@aar'
+    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
+    compile 'com.aliyun.ams:alicloud-android-third-push:3.0.3@aar'
 
 }
