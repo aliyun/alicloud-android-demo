@@ -20,11 +20,16 @@
         <!-- Bucket名称 -->
         <meta-data android:name="com.alibaba.app.oss_bucketname" android:value="*******"></meta-data>
 
-        <!-- AccessKeyId，实际应用时不建议明文写在客户端 -->
-        <meta-data android:name="com.alibaba.app.oss_ak" android:value="*******"></meta-data>
+        <!-- sts AccessKey -->
+        <meta-data android:name="com.alibaba.app.oss_sts_ak" android:value="*******"></meta-data>
 
-        <!-- AccesskeySecret, 实际应用时不建议明文写在客户端 -->
-        <meta-data android:name="com.alibaba.app.oss_sk" android:value="************"></meta-data>
+        <!-- sts SecretKeyId -->
+        <meta-data android:name="com.alibaba.app.oss_sts_sk" android:value="*******"></meta-data>
+
+        <!-- sts token -->
+        <meta-data android:name="com.alibaba.app.oss_sts_token" android:value="*******"></meta-data>
+
+
 
         <!-- 一个存在于客户端本地的文件，用于演示上传到oss -->
         <meta-data android:name="com.alibaba.app.oss_filepath" android:value="*******"></meta-data>
