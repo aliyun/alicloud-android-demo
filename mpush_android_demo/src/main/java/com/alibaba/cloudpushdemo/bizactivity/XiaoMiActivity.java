@@ -4,21 +4,21 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.alibaba.cloudpushdemo.R;
-import com.alibaba.sdk.android.push.MiPushSystemNotificationActivity;
+import com.alibaba.sdk.android.push.AndroidPopupActivity;
 
 import java.util.Map;
-import android.os.Handler;
 
 /**
  * 小米辅助弹窗指定打开Activity
  */
-public class XiaoMiActivity extends MiPushSystemNotificationActivity {
+public class XiaoMiActivity extends AndroidPopupActivity {
     final String TAG = "XiaoMiActivity";
 
     TextView xiaomiLabel;
@@ -62,11 +62,11 @@ public class XiaoMiActivity extends MiPushSystemNotificationActivity {
      * @param content   内容
      * @param extraMap  额外参数
      */
-    @Override
-    protected void onMiPushSysNoticeOpened(String title, String content, Map<String, String> extraMap) {
-        Log.d(TAG, "Receive XiaoMi notification, title: " + title + ", content: " + content + ", extraMap: " + extraMap);
-        mHandler.sendMessage(mHandler.obtainMessage(0, "小米辅助弹窗通道打开"));
-    }
+//    @Override
+//    protected void onMiPushSysNoticeOpened(String title, String content, Map<String, String> extraMap) {
+//        Log.d(TAG, "Receive XiaoMi notification, title: " + title + ", content: " + content + ", extraMap: " + extraMap);
+//        mHandler.sendMessage(mHandler.obtainMessage(0, "小米辅助弹窗通道打开"));
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,5 +82,11 @@ public class XiaoMiActivity extends MiPushSystemNotificationActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onSysNoticeOpened(String title, String content, Map<String, String> extraMap) {
+        Log.d(TAG, "Receive XiaoMi notification, title: " + title + ", content: " + content + ", extraMap: " + extraMap);
+        mHandler.sendMessage(mHandler.obtainMessage(0, "小米辅助弹窗通道打开"));
     }
 }

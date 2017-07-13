@@ -13,6 +13,7 @@ import com.alibaba.sdk.android.oss.OSSClient;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.alibaba.sdk.android.oss.common.auth.OSSStsTokenCredentialProvider;
 import com.alibaba.sdk.android.oss.sample.GetObjectSamples;
 import com.alibaba.sdk.android.oss.sample.ListObjectsSamples;
 import com.alibaba.sdk.android.oss.sample.ManageBucketSamples;
@@ -27,8 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
     // 运行sample前需要配置以下字段为有效的值
     private static String endpoint;
-    private static String accessKeyId;
-    private static String accessKeySecret;
+    private static String stsaccesskey;
+    private static String stsaccesssecret;
+    private static String ststoken;
     private static String testBucket;
     private static String uploadFilePath;
 
@@ -38,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
     private void loadConfiguration() throws PackageManager.NameNotFoundException {
         ApplicationInfo appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
         endpoint = appInfo.metaData.getString("com.alibaba.app.oss_endpoint");
-        accessKeyId = appInfo.metaData.getString("com.alibaba.app.oss_ak");
-        accessKeySecret = appInfo.metaData.getString("com.alibaba.app.oss_sk");
+        stsaccesskey = appInfo.metaData.getString("com.alibaba.app.oss_ak");
+        stsaccesssecret = appInfo.metaData.getString("com.alibaba.app.oss_sk");
+        ststoken = appInfo.metaData.getString("com.alibaba.app.oss_sk");
         testBucket = appInfo.metaData.getString("com.alibaba.app.oss_bucketname");
         uploadFilePath = appInfo.metaData.getString("com.alibaba.app.oss_filepath");
     }
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        OSSCredentialProvider credentialProvider = new OSSPlainTextAKSKCredentialProvider(accessKeyId, accessKeySecret);
+        OSSCredentialProvider credentialProvider = new OSSStsTokenCredentialProvider(stsaccesskey, stsaccesssecret, ststoken);
 
         ClientConfiguration conf = new ClientConfiguration();
         conf.setConnectionTimeout(15 * 1000); // 连接超时，默认15秒

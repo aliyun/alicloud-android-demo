@@ -7,6 +7,7 @@ import android.util.Log;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.alibaba.sdk.android.push.register.GcmRegister;
 import com.alibaba.sdk.android.push.register.HuaWeiRegister;
 import com.alibaba.sdk.android.push.register.MiPushRegister;
 
@@ -22,13 +23,24 @@ public class MainApplication extends Application {
      * 初始化云推送通道
      * @param applicationContext
      */
-    private void initCloudChannel(Context applicationContext) {
+    private void initCloudChannel(final Context applicationContext) {
         PushServiceFactory.init(applicationContext);
         final CloudPushService pushService = PushServiceFactory.getCloudPushService();
         pushService.register(applicationContext, new CommonCallback() {
             @Override
             public void onSuccess(String response) {
                 Log.i(TAG, "init cloudchannel success");
+                pushService.bindAccount("test", new CommonCallback() {
+                    @Override
+                    public void onSuccess(String s) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String s, String s1) {
+
+                    }
+                });
 
             }
 
@@ -38,9 +50,8 @@ public class MainApplication extends Application {
             }
         });
 
-        // 初始化小米通道，自动判断是否支持小米系统推送，如不支持会跳过注册
-        MiPushRegister.register(applicationContext, "小米AppID", "小米AppKey");
-        // 初始化华为通道，自动判断是否支持华为系统推送，如不支持会跳过注册
+        MiPushRegister.register(applicationContext, "XIAOMI_ID", "XIAOMI_KEY");
         HuaWeiRegister.register(applicationContext);
+        GcmRegister.register(applicationContext, "send_id", "application_id");
     }
 }

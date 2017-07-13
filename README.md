@@ -26,8 +26,9 @@ oss_android_demo给出了[对象存储OSS](https://www.aliyun.com/product/oss) A
 // *字段请用您的账号信息替换
 <meta-data android:name="com.alibaba.app.oss_endpoint" android:value="*********"></meta-data>
 <meta-data android:name="com.alibaba.app.oss_bucketname" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.oss_ak" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.oss_sk" android:value="*********"></meta-data>
+<meta-data android:name="com.alibaba.app.oss_sts_ak" android:value="*********"></meta-data>
+<meta-data android:name="com.alibaba.app.oss_sts_sk" android:value="*********"></meta-data>
+<meta-data android:name="com.alibaba.app.oss_sts_token" android:value="*********"></meta-data>
 <meta-data android:name="com.alibaba.app.oss_filepath" android:value="*********"></meta-data>
 ```
 
