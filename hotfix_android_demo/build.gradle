@@ -100,7 +100,7 @@ dependencies {
     compile 'com.android.support:design:23.+'
 
     //compile project(':hotfix_core')
-    compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.6'
+    compile 'com.aliyun.ams:alicloud-android-hotfix:3.0.7'
 
     //多dex测试依赖
     /*compile 'com.android.support:multidex:1.0.1'
