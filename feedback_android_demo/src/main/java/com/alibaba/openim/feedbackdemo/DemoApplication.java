@@ -39,6 +39,19 @@ public class DemoApplication extends Application {
         //建议放在此处做初始化
         FeedbackAPI.init(this, DEFAULT_APPKEY, DEFAULT_APPSECRET);
 
+        //设置默认联系方式
+        FeedbackAPI.setDefaultUserContactInfo("13800000000");
+
+        //沉浸式任务栏，控制台设置为true之后此方法才能生效
+        FeedbackAPI.setTranslucent(true);
+
+        //设置返回按钮图标
+        FeedbackAPI.setBackIcon(R.drawable.ali_feedback_common_back_btn_bg);
+
+        //设置标题栏"历史反馈"的字号，需要将控制台中此字号设置为0
+        FeedbackAPI.setHistoryTextSize(20);
+
+
         // 验证代码
         HashMap<String, String> map = new HashMap<String, String>();
         map.put("debug_api_url","http://muvp.alibaba-inc.com/online/UploadRecords.do");

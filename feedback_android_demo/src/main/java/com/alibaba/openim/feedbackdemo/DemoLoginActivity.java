@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.alibaba.sdk.android.feedback.util.IUnreadCountCallback;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -46,7 +47,7 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.demo_login);
 
-        appkeyTextView = (TextView) findViewById(R.id.appkey);
+        appkeyTextView = (TextView)findViewById(R.id.appkey);
         appkeyTextView.setText("AppKey:" + DemoApplication.DEFAULT_APPKEY);
         //自定义参数演示
         /*JSONObject jsonObject = new JSONObject();
@@ -58,9 +59,9 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
         }
         FeedbackAPI.setAppExtInfo(jsonObject);*/
 
-        loginButton = (Button) findViewById(R.id.login);
-        unreadCount = (LinearLayout) findViewById(R.id.unreadCountGroup);
-        scan = (LinearLayout) findViewById(R.id.scanGroup);
+        loginButton = (Button)findViewById(R.id.login);
+        unreadCount = (LinearLayout)findViewById(R.id.unreadCountGroup);
+        scan = (LinearLayout)findViewById(R.id.scanGroup);
 
         loginButton.setOnClickListener(this);
         scan.setOnClickListener(this);
@@ -88,11 +89,11 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
                 String url = result.getContents();
                 Log.d(TAG, "scan getContents: " + url);
 
-//                String[] temp = url.split("appkey=");
-//                String[] contents = temp[1].split("#");
-//                String key = contents[0];
-//
-//                FeedbackAPI.mFeedbackCustomInfoMap.put("appkey", key);
+                //                String[] temp = url.split("appkey=");
+                //                String[] contents = temp[1].split("#");
+                //                String key = contents[0];
+                //
+                //                FeedbackAPI.mFeedbackCustomInfoMap.put("appkey", key);
                 // note:
                 // 此处由于预览提供的是http的url，但是线上必须是https的，所以这里需要hack一下
                 // 为什么不是服务端改呢，这是为什么呢。。。
@@ -102,9 +103,9 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
                 Matcher m = regex.matcher(url);
                 if (m.find()) {
                     String protocol = m.group(1);
-                    FeedbackAPI.webviewUrl = url.replace(protocol, "https");
+                    FeedbackAPI.setWebViewUrl(url.replace(protocol, "https"));
                 } else {
-                    FeedbackAPI.webviewUrl = url;
+                    FeedbackAPI.setWebViewUrl(url);
                 }
                 handler.postDelayed(new Runnable() {
                     @Override
@@ -167,7 +168,7 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
 
     public void checkForScan() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERMISSIONS);
+            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSIONS);
         } else {
             scan();
         }
@@ -181,11 +182,18 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
     }
 
     private void checkForOpenOrGet(boolean isOpenFeedback) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                    , STORAGE_AND_CAMERA_PERMISSIONS);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+            || ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)
+            != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO}
+                , STORAGE_AND_CAMERA_PERMISSIONS);
         } else {
             openOrGet(isOpenFeedback);
         }
@@ -197,7 +205,7 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
     private void openOrGet(final boolean isOpenFeedback) {
         //接入方不需要这样调用, 因为扫码预览, 同时为了服务器发布后能做到实时预览效果, 所有每次都init.
         //业务方默认只需要init一次, 然后直接openFeedbackActivity/getFeedbackUnreadCount即可
-        FeedbackAPI.init(this.getApplication(), DemoApplication.DEFAULT_APPKEY,DemoApplication.DEFAULT_APPSECRET);
+        FeedbackAPI.init(this.getApplication(), DemoApplication.DEFAULT_APPKEY, DemoApplication.DEFAULT_APPSECRET);
         final Activity context = this;
         //如果500ms内init未完成, openFeedbackActivity会失败, 可以延长时间>500ms
         handler.postDelayed(new Runnable() {
@@ -212,7 +220,8 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Toast toast = Toast.makeText(DemoLoginActivity.this, "未读数：" + unreadCount, Toast.LENGTH_SHORT);
+                                    Toast toast = Toast.makeText(DemoLoginActivity.this, "未读数：" + unreadCount,
+                                        Toast.LENGTH_SHORT);
                                     toast.show();
                                     isGetting = false;
                                 }
