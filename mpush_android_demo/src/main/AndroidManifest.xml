@@ -12,7 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name=".bizactivity.CPDMainActivity"
+            android:name=".bizactivity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -24,10 +24,10 @@
 
         <meta-data
             android:name="com.alibaba.app.appkey"
-            android:value="********" /> <!-- 请填写你自己的- appKey -->
+            android:value="23357388" /> <!-- 请填写你自己的- appKey -->
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="********" /> <!-- 请填写你自己的appSecret -->
+            android:value="fedd4b71ea727e1d899aa7549c603ada" /> <!-- 请填写你自己的appSecret -->
 
 
         <!-- 消息接收监听器 （用户可自主扩展） -->
@@ -45,6 +45,20 @@
             </intent-filter>
         </receiver>
 
+        <service
+            android:name=".component.MyMessageIntentService"
+            android:exported="false">
+            <intent-filter> 
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>     
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </service>
+
 
 
         <!-- User Custom Activity -->
@@ -53,16 +67,8 @@
             android:label="@string/title_activity_about_us"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".bizactivity.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".bizactivity.HelperActivity"
             android:label="@string/title_activity_helper_page"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".bizactivity.CheckerActivity"
-            android:label="@string/title_activity_checker"
             android:screenOrientation="portrait" />
         <activity
             android:name=".bizactivity.DeviceActivity"
@@ -71,14 +77,10 @@
         <activity android:name=".bizactivity.SettingNoticeActivity"
             android:label="@string/title_activity_settings_notice"
             android:screenOrientation="portrait" />
-        <activity android:name=".bizactivity.XiaoMiActivity"
-            android:label="@string/title_activity_xiaomi_notice"
+        <activity android:name=".bizactivity.ThirdPushPopupActivity"
+            android:label="@string/title_activity_third_push_notice"
             android:screenOrientation="portrait"
             android:exported="true"
-            />
-        <activity android:name=".bizactivity.CustomNotificationActivity"
-            android:label="@string/title_activity_custom_notification"
-            android:screenOrientation="portrait"
             />
     </application>
 

@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.cloudpushdemo.R;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 
@@ -32,7 +31,7 @@ public class DeviceActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_id);
+        setContentView(R.layout.demo_activity_device_id);
 
         // ActionBar 回退导航
         ActionBar actionBar = getActionBar();
