@@ -1,6 +1,8 @@
 package alibaba.httpdns_android_demo;
 
 import android.app.Activity;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -397,8 +399,6 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 this.sniRequest();
                 break;
             case R.id.btnWebviewScene:
-                Intent intent = new Intent(this, WebviewActivity.class);
-                startActivity(intent);
                 break;
             case R.id.btnDegrationFilter:
                 this.setDegrationFilter();

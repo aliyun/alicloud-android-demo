@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+group = 'com.alibaba.openim.feedbackDemo'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '25.0.0'
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 17
+        versionCode 2
+        versionName "2.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard.cfg'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'),'proguard.cfg'
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+    }
+}
+
+repositories {
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+    }
+    mavenCentral()
+    jcenter()
+
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+
+    compile files('libs/commons-codec-1.10.jar')
+    compile(name: 'alisdk-feedback-release', ext: 'aar')
+    compile files('libs/app-monitor-sdk-2.5.1.1_for_bc_proguard.jar')
+    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
+    compile files('libs/alicloud-android-utils-1.0.3.jar')
+    compile 'com.android.support:support-v4:24.2.0'
+//
+//    //二维码依赖库
+    compile 'com.google.zxing:core:3.2.0'
+    compile 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
+}
+
