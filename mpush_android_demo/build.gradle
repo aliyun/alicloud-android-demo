@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.alibaba.push2"
+        applicationId "cloud.aliyun.test"
         minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
@@ -44,8 +44,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.48'
 
 
-    //老版本依赖
-    compile 'com.aliyun.ams:alicloud-android-push:3.0.9@aar'
+    compile 'com.aliyun.ams:alicloud-android-push:3.0.11@aar'
     compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
     compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
     compile 'com.aliyun.ams:alicloud-android-third-push:3.0.3@aar'

@@ -17,4 +17,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="button_allgrade_content">
+        <item name="android:layout_margin">1dip</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">#413d41</item>
+    </style>
+
 </resources>

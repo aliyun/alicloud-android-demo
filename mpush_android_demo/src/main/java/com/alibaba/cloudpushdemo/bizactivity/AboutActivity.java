@@ -28,7 +28,7 @@ public class AboutActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_us);
+        setContentView(R.layout.demo_activity_about_us);
 
         // ActionBar 回退导航
         ActionBar actionBar = getActionBar();

@@ -3,27 +3,24 @@
     package="alibaba.httpdns_android_demo">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NormalActivity" />
-        <activity android:name=".HttpsActivity" />
-        <activity android:name=".SNIActivity"></activity>
+        <activity android:name=".HelperActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
     </application>
 
 </manifest>

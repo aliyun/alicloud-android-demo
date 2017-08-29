@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -14,7 +15,7 @@ import com.alibaba.cloudpushdemo.R;
  * 帮助中心页面
  */
 public class HelperActivity extends Activity {
-
+    private static final String TAG = "HelperActivity";
     /**
      * 用于其他Activty跳转到该Activity
      * @param context
@@ -28,11 +29,13 @@ public class HelperActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_helper_page);
+        setContentView(R.layout.demo_activity_helper_page);
 
         // ActionBar 回退导航
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+
+        Log.i(TAG, this.getResources().getString(R.string.layout_helpus_content));
     }
 
 
