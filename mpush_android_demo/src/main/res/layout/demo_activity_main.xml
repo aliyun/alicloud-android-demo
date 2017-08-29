@@ -159,8 +159,9 @@
         android:layout_alignParentTop="true"
         android:layout_above="@id/tlSetting"
         android:textSize="20sp"
+        android:textColor="@android:color/white"
         android:padding="5dp"
-        android:background="@drawable/umeng_push_default_splash_bg"
+        android:background="@drawable/aliyun_bg"
         />
 
 </RelativeLayout>

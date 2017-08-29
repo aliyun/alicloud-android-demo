@@ -1,8 +1,23 @@
 <resources>
-    <string name="app_name">httpdns_android_demo</string>
+    <string name="app_name">【阿里云HttpDns】Demo程序</string>
     <string name="action_settings">Settings</string>
     <string name="normal_scene">普通场景</string>
     <string name="https_scene">HTTPS场景</string>
     <string name="sni_scene">SNI场景</string>
     <string name="webview_scene">WebView场景</string>
+    <string name="set_degration_filter">降级策略</string>
+    <string name="set_pre_resolve">预解析</string>
+
+    <string name="main_about_us">关于我们</string>
+    <string name="main_helper">帮助中心</string>
+    <string name="main_clear_text">清除当前消息</string>
+
+    <!--关于我们页面-->
+    <string name="layout_aboutus_arr">All Rights Reserved.</string>
+    <string name="layout_aboutus_company">阿里云(软件)有限公司版权所有</string>
+    <string name="layout_aboutus_copyright">Copyright © 2009 - 2016 Aliyun.com</string>
+    <string name="layout_aboutus_app_version">1.1.1</string>
+    <!--帮助中心页面-->
+    <string name="layout_helpus_content">Q : 什么是用户体验Demo？\nA : 用户体验Demo就是阿里云平台为您自动创建的、用来体验HttpDns服务和反馈建议用的一个小Demo，让您体验便捷、高效的HttpDns服务。\n\nQ : 如何联系我们？\nA : App Demo相关问题，请搜索钉钉群号：11777313</string>
+
 </resources>

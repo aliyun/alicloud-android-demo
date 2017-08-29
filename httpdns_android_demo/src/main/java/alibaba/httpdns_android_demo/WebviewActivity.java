@@ -3,9 +3,7 @@ package alibaba.httpdns_android_demo;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.WebResourceRequest;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 
-public class WebviewActivity extends AppCompatActivity {
+public class WebviewActivity extends Activity {
     private WebView webView;
     private static final String targetUrl = "http://www.apple.com";
     private static final String TAG = "WebviewScene";
@@ -35,7 +33,6 @@ public class WebviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
-        getSupportActionBar().setTitle(R.string.webview_scene);
 
         // 初始化httpdns
         httpdns = HttpDns.getService(getApplicationContext(), MainActivity.accountID);

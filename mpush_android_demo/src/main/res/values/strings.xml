@@ -90,7 +90,7 @@
         <item name="android:background">#ffffff</item>
         <item name="android:textSize">18sp</item>
         <item name="android:clickable">true</item>
-        <item name="android:textColor">#aaaaaa</item>
+        <item name="android:textColor">#413d41</item>
     </style>
 
 </resources>
