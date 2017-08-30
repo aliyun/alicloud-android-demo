@@ -15,27 +15,15 @@
         android:showAsAction="never"
         android:title="@string/main_getdeviceid"/>
     <item
-        android:id="@+id/action_settings"
-        android:showAsAction="never"
-        android:title="@string/main_settings"/>
-    <item
         android:id="@+id/action_settings_notice"
         android:showAsAction="never"
         android:title="@string/main_settings_notice"/>
-    <item
-        android:id="@+id/action_doctor"
-        android:showAsAction="never"
-        android:title="@string/main_doctor"/>
     <item
         android:id="@+id/action_clear_tips"
         android:showAsAction="never"
         android:title="@string/main_clear_tips"/>
     <item
-        android:id="@+id/action_xiaomi_activity"
+        android:id="@+id/action_third_push_activity"
         android:showAsAction="never"
-        android:title="@string/main_xiaomi_activity"/>
-    <item
-        android:id="@+id/action_custom_notification"
-        android:showAsAction="never"
-        android:title="@string/main_custom_notification_activity"/>
+        android:title="@string/main_third_push_activity"/>
 </menu>

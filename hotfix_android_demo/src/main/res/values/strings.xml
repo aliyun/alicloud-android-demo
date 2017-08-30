@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">hotfix_demo</string>
+    <string name="action_settings">Settings</string>
+    <string name="apply_localpatch">应用本地补丁(/sdcard/..)</string>
+    <string name="kill_app">关闭应用</string>
+    <string name="clear_notify">清除控制台输出</string>
+    <string name="clear_patch">清空本地补丁</string>
+    <string name="dex_test">Dex修复测试</string>
+    <string name="pull_patch">拉取最新补丁</string>
+    <string name="res_test">资源修复测试界面</string>
+
+    <string name="select_hotfix_mode">选择补丁模式</string>
+
+    <string name="tv_value">修复前tv值.......</string>
+    <string name="so_test">SO文件修复测试</string>
+</resources>

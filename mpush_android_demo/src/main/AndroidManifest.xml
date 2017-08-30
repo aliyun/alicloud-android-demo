@@ -3,6 +3,8 @@
     package="com.alibaba.cloudpushdemo"
     android:installLocation="auto">
 
+
+
     <!-- Application Settings -->
     <application
         android:name=".application.MainApplication"
@@ -10,7 +12,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name=".bizactivity.CPDMainActivity"
+            android:name=".bizactivity.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -22,92 +24,41 @@
 
         <meta-data
             android:name="com.alibaba.app.appkey"
-            android:value="********" /> <!-- 请填写你自己的- appKey -->
+            android:value="23357388" /> <!-- 请填写你自己的- appKey -->
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="********" /> <!-- 请填写你自己的appSecret -->
+            android:value="fedd4b71ea727e1d899aa7549c603ada" /> <!-- 请填写你自己的appSecret -->
 
 
         <!-- 消息接收监听器 （用户可自主扩展） -->
         <receiver
             android:name=".component.MyMessageReceiver"
-            android:exported="true">
-            <intent-filter>
-                 
+            android:exported="false">
+            <intent-filter> 
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
             </intent-filter>
-            <intent-filter>
-                     
+            <intent-filter>     
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.taobao.accs.intent.action.COMMAND" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.taobao.taobao.intent.action.COMMAND" />
             </intent-filter>
             <intent-filter>
                 <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
         </receiver>
-        <!-- accs end -->
 
-         <!--&lt;!&ndash;小米通道官方配置&ndash;&gt;-->
-        <!--<service-->
-            <!--android:name="com.xiaomi.mipush.sdk.PushMessageHandler"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true" />-->
-        <!--<service-->
-            <!--android:name="com.xiaomi.mipush.sdk.MessageHandleService"-->
-            <!--android:enabled="true" />-->
+        <service
+            android:name=".component.MyMessageIntentService"
+            android:exported="false">
+            <intent-filter> 
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
+            </intent-filter>
+            <intent-filter>     
+                <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.alibaba.sdk.android.push.RECEIVE" />
+            </intent-filter>
+        </service>
 
-        <!--<receiver-->
-            <!--android:name="com.alibaba.sdk.android.push.MiPushBroadcastReceiver"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.xiaomi.mipush.MESSAGE_ARRIVED" />-->
-            <!--</intent-filter>-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.xiaomi.mipush.ERROR" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-        <!--<receiver-->
-            <!--android:name="com.xiaomi.push.service.receivers.NetworkStatusReceiver"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-
-                <!--<category android:name="android.intent.category.DEFAULT" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-
-
-         <!-- 华为通道官方配置 -->
-         <!--<receiver android:name="com.alibaba.sdk.android.push.HuaWeiReceiver">-->
-         <!--<intent-filter>-->
-         <!--<action android:name="com.huawei.android.push.intent.REGISTRATION"/>-->
-         <!--<action android:name="com.huawei.android.push.intent.RECEIVE"/>-->
-         <!--<action android:name="com.huawei.intent.action.PUSH"/>-->
-         <!--<action android:name="com.huawei.intent.action.PUSH_STATE"/>-->
-         <!--</intent-filter>-->
-         <!--</receiver>-->
 
 
         <!-- User Custom Activity -->
@@ -116,16 +67,8 @@
             android:label="@string/title_activity_about_us"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".bizactivity.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".bizactivity.HelperActivity"
             android:label="@string/title_activity_helper_page"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".bizactivity.CheckerActivity"
-            android:label="@string/title_activity_checker"
             android:screenOrientation="portrait" />
         <activity
             android:name=".bizactivity.DeviceActivity"
@@ -134,12 +77,10 @@
         <activity android:name=".bizactivity.SettingNoticeActivity"
             android:label="@string/title_activity_settings_notice"
             android:screenOrientation="portrait" />
-        <activity android:name=".bizactivity.XiaoMiActivity"
-            android:label="@string/title_activity_xiaomi_notice"
-            android:screenOrientation="portrait" />
-        <activity android:name=".bizactivity.CustomNotificationActivity"
-            android:label="@string/title_activity_custom_notification"
+        <activity android:name=".bizactivity.ThirdPushPopupActivity"
+            android:label="@string/title_activity_third_push_notice"
             android:screenOrientation="portrait"
+            android:exported="true"
             />
     </application>
 

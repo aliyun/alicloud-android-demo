@@ -1,0 +1,103 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
+
+    <TableLayout
+        android:id="@+id/tlSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#EAEAEA"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:stretchColumns="3">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnNormalScene"
+                style="@style/button_allgrade_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/normal_scene"
+                />
+
+            <Button
+                android:id="@+id/btnHttpsScene"
+                style="@style/button_allgrade_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/https_scene"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1_1"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnSniScene"
+                style="@style/button_allgrade_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/sni_scene"
+                />
+
+            <Button
+                android:id="@+id/btnWebviewScene"
+                style="@style/button_allgrade_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/webview_scene"
+                />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow1_2"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/btnDegrationFilter"
+                style="@style/button_allgrade_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/set_degration_filter"
+                />
+
+            <Button
+                android:id="@+id/btnPreResove"
+                style="@style/button_allgrade_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/set_pre_resolve"
+                />
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/tvConsoleText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/tlSetting"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:padding="5dp"
+        android:background="@drawable/aliyun_bg"
+        />
+
+</RelativeLayout>

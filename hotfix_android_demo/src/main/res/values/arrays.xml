@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="hotfix_mode">
+        <item>尝试热部署</item>
+        <item>强制冷启动</item>
+    </string-array>
+</resources>
