@@ -1,10 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.taobao.android.demo.com.taobao.patch.demo.MainActivity">
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools" tools:context=".LZLMainActivity">
+
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+            android:id="@+id/action_about_us"
+            android:title="关于我们"/>
+    <item
+            android:id="@+id/action_helper"
+            android:title="帮助中心"/>
 </menu>

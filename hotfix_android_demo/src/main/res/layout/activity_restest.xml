@@ -60,5 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="onClick"
+        android:visibility="gone"
         android:text="@string/app_name" />
 </LinearLayout>

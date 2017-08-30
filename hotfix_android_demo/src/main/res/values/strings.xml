@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">hotfix_demo</string>
     <string name="action_settings">Settings</string>
     <string name="apply_localpatch">应用本地补丁(/sdcard/..)</string>
     <string name="kill_app">关闭应用</string>
@@ -13,4 +12,15 @@
 
     <string name="tv_value">修复前tv值.......</string>
     <string name="so_test">SO文件修复测试</string>
+
+    <!--应用程序信息文本-->
+    <string name="app_name">【阿里云移动热修复】Demo程序</string>
+    <string name="app_version">v3.1.0</string>
+    <!--关于我们页面-->
+    <string name="layout_aboutus_arr">All Rights Reserved.</string>
+    <string name="layout_aboutus_company">阿里云(软件)有限公司版权所有</string>
+    <string name="layout_aboutus_copyright">Copyright © 2009 - 2016 Aliyun.com</string>
+    <!--帮助中心页面-->
+    <string name="layout_helpus_content">Q : 什么是用户体验Demo？\nA : 用户体验Demo就是阿里云平台为您自动创建的、用来体验移动热修复的一个小Demo。\n\nQ : 如何联系我们？\nA : App Demo相关问题，请搜索钉钉群号：11711603</string>
+
 </resources>
