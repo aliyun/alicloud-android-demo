@@ -1,138 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#f5f5f5">
+                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/background_dark">
 
-    <TextView
-        android:id="@+id/productName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:paddingTop="76.8dip"
-        android:text="用户反馈"
-        android:textColor="#000000"
-        android:onClick="openFeedbackFragment"
-        android:clickable="true"
-        android:textSize="48dp" />
-
-    <TextView
-        android:id="@+id/aliyun"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/productName"
-        android:gravity="center_horizontal"
-        android:paddingTop="17dip"
-        android:text="阿 里 云"
-        android:textColor="#9b9b9b"
-        android:textSize="18dp" />
-
-    <TextView
-        android:id="@+id/appkey"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/aliyun"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="20dip"
-        android:text="AppKey:"
-        android:textColor="#000000"
-        android:textSize="18dp">
-    </TextView>
-
-
-    <RelativeLayout
-        android:id="@+id/functions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appkey"
-        android:gravity="center_horizontal"
-        android:paddingTop="50dp">
-
-        <LinearLayout
+    <TableLayout
+            android:id="@+id/tlSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:background="#EAEAEA"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:stretchColumns="3">
 
-            <LinearLayout
-                android:id="@+id/scanGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:orientation="vertical">
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/scan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/scan"></ImageView>
+            <Button
+                    android:id="@+id/btnOpenActivity"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="查看线上版本"
+            />
 
-                <TextView
-                    android:id="@+id/scanContent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/scan"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="9dip"
+            <Button
+                    android:id="@+id/btnScan"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
                     android:text="扫码实时预览"
-                    android:textColor="#000000"
-                    android:textSize="18dp"></TextView>
+            />
 
-            </LinearLayout>
+            <Button
+                    android:id="@+id/btnUnread"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="未读消息数"
+            />
 
-            <LinearLayout
-                android:id="@+id/unreadCountGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_weight="1"
-                android:orientation="vertical">
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/unread"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:src="@drawable/unread_count"></ImageView>
+            <Button
+                    android:id="@+id/btnOpenFragment"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="查看线上版本(Fragment)"
+            />
 
-                <TextView
-                    android:id="@+id/unreadCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/unread"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="9dip"
-                    android:text="显示未读消息数"
-                    android:textColor="#000000"
-                    android:textSize="18dp"></TextView>
+        </TableRow>
+    </TableLayout>
 
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/login"
-        android:layout_width="fill_parent"
-        android:layout_height="35dip"
-        android:layout_below="@+id/functions"
-        android:layout_marginLeft="38dp"
-        android:layout_marginRight="38dp"
-        android:layout_marginTop="18dip"
-        android:background="@color/button_bckground_color"
-        android:gravity="center"
-        android:text="查看线上版本"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
-
+    <TextView
+            android:id="@+id/tvConsoleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/tlSetting"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:padding="5dp"
+            android:background="@drawable/aliyun_bg"
+    />
 
 </RelativeLayout>
