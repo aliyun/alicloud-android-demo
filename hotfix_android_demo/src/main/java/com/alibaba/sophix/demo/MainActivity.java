@@ -8,9 +8,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
 import com.taobao.sophix.SophixManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -91,15 +92,18 @@ public class MainActivity extends AppCompatActivity {
                 DexFixDemo.test_annotation();
                 DexFixDemo.test_addField();
                 DexFixDemo.test_addMethod();
+                updateConsole("old apk from java...");
                 break;
             case R.id.btn_sotest:
                 SOFixDemo.test(MainActivity.this);
+                updateConsole("apk from native...");
                 break;
             case R.id.btn_kill:
                 android.os.Process.killProcess(android.os.Process.myPid());
                 break;
             case R.id.btn_clean_patch:
                 SophixManager.getInstance().cleanPatches();
+                updateConsole("clean patches");
                 break;
             case R.id.btn_clean_console:
                 mStatusStr = "";
@@ -107,6 +111,27 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_about_us:
+                AboutActivity.actionStart(this.getApplicationContext());
+                return true;
+            case R.id.action_helper:
+                HelperActivity.actionStart(this.getApplicationContext());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
