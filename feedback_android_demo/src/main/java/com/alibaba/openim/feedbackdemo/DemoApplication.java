@@ -17,10 +17,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class DemoApplication extends Application {
-    //public final static String DEFAULT_APPKEY = "your appKey";
-    //public final static String DEFAULT_APPSECRET = "your appSecret";
-    public final static String DEFAULT_APPKEY = "24603959";
-    public final static String DEFAULT_APPSECRET = "8edf2f14bc21ea91b354d3c5d0f7bc75";
+    public final static String DEFAULT_APPKEY = "your appKey";
+    public final static String DEFAULT_APPSECRET = "your appSecret";
     
     @Override
     public void onCreate() {
