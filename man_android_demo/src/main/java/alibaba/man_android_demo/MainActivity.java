@@ -24,6 +24,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button h5DemoButton = (Button) findViewById(R.id.btnH5Demo);
+        h5DemoButton.setOnClickListener( new  View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent( MainActivity.this, MANH5Demo.class );
+                startActivity(intent);
+            }
+        } );
+
         new Thread(new Runnable() {
             @Override
             public void run() {

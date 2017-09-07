@@ -27,6 +27,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".MANH5Demo"
+            android:label="man_h5_demo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.alibaba.app.appkey"
             android:value="********" />
