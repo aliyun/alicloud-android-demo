@@ -1,0 +1,12 @@
+<html>
+<body>
+<button id="button">自定义事件</button>
+</body>
+</html>
+<script>
+    var button = document.getElementById( 'button' );
+    button.addEventListener( 'click', function () {
+        // 使用alert的方式做jsbridge
+        alert( "jsbridge://custom" );
+    } );
+</script>
