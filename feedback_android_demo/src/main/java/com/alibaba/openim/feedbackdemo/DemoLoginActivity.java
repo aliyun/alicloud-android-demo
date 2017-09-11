@@ -131,6 +131,9 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    /**
+     * 扫码预览
+     */
     public void checkForScan() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, CAMERA_PERMISSIONS);
@@ -146,6 +149,11 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
         integrator.initiateScan();
     }
 
+    /**
+     * 打开feedback的activity
+     * 首先检查需要的权限
+     * @param isOpenFeedback
+     */
     private void checkForOpenOrGet(boolean isOpenFeedback) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED
@@ -183,6 +191,9 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
         }, 500);
     }
 
+    /**
+     * 获取未读消息数
+     */
     private void getFeedbackUnreadCount(){
         tvConsoleText.append("get unread count\n");
         FeedbackAPI.getFeedbackUnreadCount(new IUnreadCountCallback() {
@@ -200,8 +211,13 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
             }
 
             @Override
-            public void onError(int i, String s) {
-                tvConsoleText.append("get unread count failed:. code="+i+" msg="+s+"\n");
+            public void onError(final int i,final String s) {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvConsoleText.append("get unread count failed:. code="+i+" msg="+s+"\n");
+                    }
+                });
             }
         });
     }
