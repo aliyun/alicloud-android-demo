@@ -1,93 +1,121 @@
-# alicloud-android-demo
+## 移动云产品Android Demo
+------
 
-本工程给出了[阿里云移动服务](http://dpa.console.aliyun.com/)相关产品的使用DEMO，欢迎参考与使用。
 
-注：demo中的账号信息配置只为方便demo例程的运行，真实产品中我们建议您使用安全黑匣子或其他方式保障密钥的安全性。
+阿里云ApsaraMobile（移动云）是阿里巴巴移动技术的开放平台，沉淀了阿里巴巴多年移动互联网系统架构积累，汇聚和开放了阿里巴巴移动中台核心技术能力，期望为广大开发者提供稳定、弹性、安全、快速的移动应用基础设施，帮助开发者构建工程化、系统化、智能化的企业级移动互联网研发体系。
 
-## man_api_demo
 
-man_api_demo给出了[移动数据分析服务（Mobile Analytics）](https://www.aliyun.com/product/man)api接口的使用示例。
+移动云产品管理地址：[移动云产品](http://ams.console.aliyun.com/)
 
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
-```
-// *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.appsecret" android:value="********************************"></meta-data>
-```
+SDK下载：[地址](https://mhub.console.aliyun.com/#/download)
 
-## oss_android_demo
 
-oss_android_demo给出了[对象存储OSS](https://www.aliyun.com/product/oss) Android SDK的使用示例。
+> 注：demo中的账号信息配置只为方便demo例程的运行，真实产品中，建议您使用安全黑匣子或其他方式保障密钥的安全性。
 
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
-```
-// *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.oss_endpoint" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.oss_bucketname" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.oss_sts_ak" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.oss_sts_sk" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.oss_sts_token" android:value="*********"></meta-data>
-<meta-data android:name="com.alibaba.app.oss_filepath" android:value="*********"></meta-data>
-```
 
-## man_android_demo
+### 一、HTTPDNS
+------
+<div align="center">
+<img src="./assets/httpdns_logo.png">
+</div>
 
-man_android_demo给出了[移动数据分析服务（Mobile Analytics）](https://www.aliyun.com/product/man) Android SDK的使用示例。
+HTTPDNS使用HTTP协议进行域名解析，代替现有基于UDP的DNS协议，域名解析请求直接发送到阿里云的HTTPDNS服务器，从而绕过运营商的Local DNS，能够避免Local DNS造成的域名劫持问题和调度不精准问题。
 
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
-```
-// *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
-```
+- Demo对应目录：[httpdns_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/httpdns_android_demo)
 
-## mac_android_demo
+- 产品官网：[地址](https://www.aliyun.com/product/httpdns)
 
-mac_android_demo给出了[移动加速服务 (Mobile Accelerator)](https://help.aliyun.com/document_detail/cdn/getting-started/mas/overview.html?spm=5176.product8314936_cdn.6.107.uMNMvV) Android SDK的使用示例。
 
-您可以到[CDN控制台](https://cdn.console.aliyun.com/console/index#/)注册自己的域名，按照MAC Android Demo的调用方式使用移动加速服务。
 
-## ots_android_demo
+### 二、移动推送
+------
 
-ots_android_demo给出了OTS Android SDK的使用示例。
+<div align="center">
+<img src="./assets/push_logo.png">
+</div>
 
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
+阿里移动推送（Alibaba Cloud Mobile Push）是基于大数据的移动智能推送服务，帮助App快速集成移动推送的功能，在实现高效、精确、实时的移动推送的同时，极大地降低了开发成本。让开发者最有效地与用户保持连接，从而提高用户活跃度、提高应用的留存率。
 
-```
-// *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.accesskeyid" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.accesskeysecret" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.endpoint" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.instancename" android:value="********"></meta-data>
-```
 
-## httpdns_api_demo
+- Objective-C Demo对应目录：[mpush_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/mpush_android_demo) 
 
-httpdns_api_demo给出了[HTTPDNS](https://www.aliyun.com/product/httpdns)服务API接口的使用示例。
 
-## httpdns_android_demo
+- ReactNative Demo对应目录:[mpush_reactnative_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/mpush_reactnative_android_demo)
 
-httpdns_android_demo给出了[HTTPDNS](https://www.aliyun.com/product/httpdns) Android SDK的使用示例。
 
-## mpush_android_demo
+- 产品官网：[地址](https://www.aliyun.com/product/cps)
 
-mpush_android_demo给出了[移动推送（Mobile Push）](https://www.aliyun.com/product/cps) Android SDK的使用示例。
 
-请在AndroidManifest.xml文件中添加您的账户信息以便DEMO能正常运行。
 
-```
-// *字段请用您的账号信息替换
-<meta-data android:name="com.alibaba.app.appkey" android:value="********"></meta-data>
-<meta-data android:name="com.alibaba.app.appsecret" android:value="********"></meta-data>
-```
 
-## hotfix_android_demo
+### 三、移动加速
+------
 
-hotfix_android_demo给出了[hotfix_android_demo](https://help.aliyun.com/document_detail/51415.html) Android SDK的使用示例。
+移动加速（Mobile Accelerator）是阿里云针对移动应用推出的无线加速产品，旨在依托阿里云遍布全网的加速节点，海量带宽网络等优越的基础设施，为开发者提供更快、更稳定的网络接入能力，有效提升移动应用的可用性和用户体验。
 
-## feedback_android_demo
+- Demo对应目录：[mac_v2_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/mac_android_demo)
 
-feedback_android_demo给出了用户反馈（FeedBack） Android SDK的使用示例。
+- 产品官网：[地址](https://www.aliyun.com/product/mac)
+
+
+
+### 四、移动数据分析
+------
+
+<div align="center">
+<img src="./assets/man_logo.png">
+</div>
+
+移动数据分析 (Mobile Analytics) 是阿里云推出的一款移动App数据统计分析产品，为开发者提供一站式数据化运营服务：通用的多维度用户行为分析、数据开放并支持自定义分析、数据无缝对接其他数据应用产品，助力移动开发者实现基于大数据技术的精细化运营、提升产品质量和体验、增强用户黏性。
+
+- Demo对应目录：[man_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/man_android_demo)
+
+
+
+- 产品官网：[地址](https://www.aliyun.com/product/man)
+
+
+
+
+### 五、移动用户反馈
+---------
+
+<div align="center">
+<img src="./assets/feedback_logo.png">
+</div>
+
+移动用户反馈（Mobile Feedback）是App内部的用户反馈系统。无需退出，就可以快速发送文字、图片、语音进行意见反馈和报告Bug。 开发者可以及时和用户保持沟通，提升用户满意度（此外，自动抓取APP在应用市场的评论数据，帮助开发者掌握用户对应用的评论）。
+
+
+- Demo对应目录：[feedback_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/feedback_android_demo)
+
+
+
+- 产品官网：[地址](https://www.aliyun.com/product/feedback)
+
+
+
+
+### 六、移动热修复
+
+------
+
+<div align="center">
+<img src="./assets/sophix_logo.png">
+</div>
+
+移动热修复（Mobile Hotfix）是面向移动开发者的App热修复服务方案。产品基于阿里巴巴首创hotpatch技术，提供细粒度热修复能力，无需等待，实时修复应用线上问题。
+
+- Demo对应目录：[sophix_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/hotfix_android_demo)
+
+
+- 产品官网：[地址](https://www.aliyun.com/product/hotfix?spm=5176.56143.765261.320.iEs9Ms)
+
+
+
+
+
+
