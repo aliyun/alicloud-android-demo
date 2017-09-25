@@ -321,7 +321,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
                         if (etAlias.getEditableText() != null) {
                             final String alias = etAlias.getEditableText().toString();
                             if (alias.length() > 0) {
-                                mPushService.unbindTag(CloudPushService.DEVICE_TARGET, null, alias, new CommonCallback() {
+                                mPushService.removeAlias(alias, new CommonCallback() {
                                     @Override
                                     public void onSuccess(String s) {
                                         tvConsoleText.append("remove alias " + alias + " success\n");
