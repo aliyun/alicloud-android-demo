@@ -12,6 +12,9 @@ import com.aliyun.ams.mac.api.MacConfig;
 
 public class DemoApplication extends Application {
 
+    /**
+     * 请配置appkey、appsecret
+     */
     private static final String APP_KEY = "your appkey";
 
     private static final String APP_SECRET = "your appsecret";

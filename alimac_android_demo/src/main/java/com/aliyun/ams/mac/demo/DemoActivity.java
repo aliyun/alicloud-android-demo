@@ -18,11 +18,14 @@ public class DemoActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "DemoActivity";
 
-    private static final String DA_NORMAL_URL = "https://xiuwu.cdnte.com/test.html";
-    private static final String SA_NORMAL_URL = "https://xiuwu.cdnte.com/test-static.html";
+    /**
+     * 请配置加速域名
+     */
+    private static final String DA_NORMAL_URL = "your url";
+    private static final String SA_NORMAL_URL = "your url";
 
-    private static final String DA_GENERIC_URL = "https://abc.lianke.wildcard.com/test.html";
-    private static final String SA_GENERIC_URL = "https://abc.lianke.wildcard.com/test-static.html";
+    private static final String DA_GENERIC_URL = "your url";
+    private static final String SA_GENERIC_URL = "your url";
 
     private static final String DEGRADE_URL = "https://aliyun.com";
 
