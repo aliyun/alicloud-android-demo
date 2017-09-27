@@ -54,9 +54,13 @@ HTTPDNS使用HTTP协议进行域名解析，代替现有基于UDP的DNS协议，
 ### 三、移动加速
 ------
 
+<div align="center">
+<img src="./assets/mac_logo.png">
+</div>
+
 移动加速（Mobile Accelerator）是阿里云针对移动应用推出的无线加速产品，旨在依托阿里云遍布全网的加速节点，海量带宽网络等优越的基础设施，为开发者提供更快、更稳定的网络接入能力，有效提升移动应用的可用性和用户体验。
 
-- Demo对应目录：[mac_v2_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/mac_android_demo)
+- Demo对应目录：[alimac_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/alimac_android_demo)
 
 - 产品官网：[地址](https://www.aliyun.com/product/mac)
 
