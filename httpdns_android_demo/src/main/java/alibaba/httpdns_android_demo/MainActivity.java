@@ -399,6 +399,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 this.sniRequest();
                 break;
             case R.id.btnWebviewScene:
+                Intent intent = new Intent(this, WebviewActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btnDegrationFilter:
                 this.setDegrationFilter();
