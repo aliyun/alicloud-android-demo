@@ -1,6 +1,7 @@
 package alibaba.httpdns_android_demo;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.net.SSLCertificateSocketFactory;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
-public class WebviewActivity extends AppCompatActivity {
+public class WebviewActivity extends Activity {
     private WebView webView;
     private static final String targetUrl = "http://www.apple.com";
     private static final String TAG = "WebviewScene";
@@ -44,8 +45,7 @@ public class WebviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_webview);
-        getSupportActionBar().setTitle(R.string.webview_scene);
+        setContentView(R.layout.demo_activity_webview);
 
         // 初始化httpdns
         httpdns = HttpDns.getService(getApplicationContext(), MainActivity.accountID);
