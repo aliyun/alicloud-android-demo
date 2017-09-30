@@ -230,12 +230,7 @@ public class WebviewActivity extends Activity {
                 if (containCookie(headers)) {
                     return null;
                 }
-                // 如果服务器端返回302，可以直接从webview本地缓存加载，无需重新建联
-//                if (code == 302) {
-//                    Log.e(TAG, "302 for request:" + path);
-//                    return null;
-//                }
-                //临时重定向和永久重定向location的大小写有区分
+
                 String location = conn.getHeaderField("Location");
                 if (location == null) {
                     location = conn.getHeaderField("location");
