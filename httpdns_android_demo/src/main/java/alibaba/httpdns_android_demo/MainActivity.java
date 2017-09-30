@@ -327,7 +327,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     private void setPreResoveHosts() {
         // 设置预解析域名列表
         // 可以替换成您在后台配置的域名
-        httpdns.setPreResolveHosts(new ArrayList<>(Arrays.asList(ALIYUN_URL, TAOBAO_URL, APPLE_URL, DOUBAN_URL)));
+        httpdns.setPreResolveHosts(new ArrayList<>(Arrays.asList(APPLE_URL, ALIYUN_URL, TAOBAO_URL,  DOUBAN_URL)));
         sendConsoleMessage("设置预解析域名成功");
     }
 
@@ -399,6 +399,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
                 this.sniRequest();
                 break;
             case R.id.btnWebviewScene:
+                Intent intent = new Intent(this, WebviewActivity.class);
+                startActivity(intent);
                 break;
             case R.id.btnDegrationFilter:
                 this.setDegrationFilter();
