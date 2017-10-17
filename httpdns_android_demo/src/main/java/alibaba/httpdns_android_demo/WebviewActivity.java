@@ -235,15 +235,21 @@ public class WebviewActivity extends Activity {
                 if (location == null) {
                     location = conn.getHeaderField("location");
                 }
-                if (!(location.startsWith("http://") || location
-                        .startsWith("https://"))) {
-                    //某些时候会省略host，只返回后面的path，所以需要补全url
-                    URL originalUrl = new URL(path);
-                    location = originalUrl.getProtocol() + "://"
-                            + originalUrl.getHost() + location;
+
+                if (location != null) {
+                    if (!(location.startsWith("http://") || location
+                            .startsWith("https://"))) {
+                        //某些时候会省略host，只返回后面的path，所以需要补全url
+                        URL originalUrl = new URL(path);
+                        location = originalUrl.getProtocol() + "://"
+                                + originalUrl.getHost() + location;
+                    }
+                    Log.e(TAG, "code:" + code + "; location:" + location + "; path" + path);
+                    return recursiveRequest(location, headers, path);
+                } else {
+                    // 无法获取location信息，让浏览器获取
+                    return null;
                 }
-                Log.e(TAG, "code:" + code + "; location:" + location + ";path" + path);
-                return recursiveRequest(location, headers, path);
             } else {
                 // redirect finish.
                 Log.e(TAG, "redirect finish");
