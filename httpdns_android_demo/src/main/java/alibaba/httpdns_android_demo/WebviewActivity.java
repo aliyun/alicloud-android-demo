@@ -27,7 +27,9 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -77,25 +79,34 @@ public class WebviewActivity extends Activity {
                         String contentType = connection.getContentType();
                         String mime = getMime(contentType);
                         String charset = getCharset(contentType);
-                        Log.e(TAG, "code:" + ((HttpURLConnection)connection).getResponseCode());
+                        HttpURLConnection httpURLConnection = (HttpURLConnection)connection;
+                        int statusCode = httpURLConnection.getResponseCode();
+                        String response = httpURLConnection.getResponseMessage();
+                        Map<String, List<String>> headers = httpURLConnection.getHeaderFields();
+                        Set<String> headerKeySet = headers.keySet();
+                        Log.e(TAG, "code:" + httpURLConnection.getResponseCode());
                         Log.e(TAG, "mime:" + mime + "; charset:" + charset);
+
 
                         // 无mime类型的请求不拦截
                         if (TextUtils.isEmpty(mime)) {
                             Log.e(TAG, "no MIME");
                             return super.shouldInterceptRequest(view, request);
                         } else {
-                            if (!TextUtils.isEmpty(charset)) {
-                                return new WebResourceResponse(mime, charset, connection.getInputStream());
-                            } else {
-                                // 二进制资源无需编码信息
-                                if (isBinaryRes(mime)) {
-                                    Log.e(TAG, "binary resource for " + mime);
-                                    return new WebResourceResponse(mime, charset, connection.getInputStream());
-                                } else {
-                                    Log.e(TAG, "non binary resource for " + mime);
-                                    return super.shouldInterceptRequest(view, request);
+                            // 二进制资源无需编码信息
+                            if (!TextUtils.isEmpty(charset) || (isBinaryRes(mime))) {
+                                WebResourceResponse resourceResponse = new WebResourceResponse(mime, charset, httpURLConnection.getInputStream());
+                                resourceResponse.setStatusCodeAndReasonPhrase(statusCode, response);
+                                Map<String, String> responseHeader = new HashMap<String, String>();
+                                for (String key: headerKeySet) {
+                                    // HttpUrlConnection可能包含key为null的报头，指向该http请求状态码
+                                    responseHeader.put(key, httpURLConnection.getHeaderField(key));
                                 }
+                                resourceResponse.setResponseHeaders(responseHeader);
+                                return resourceResponse;
+                            } else {
+                                Log.e(TAG, "non binary resource for " + mime);
+                                return super.shouldInterceptRequest(view, request);
                             }
                         }
                     } catch (MalformedURLException e) {
