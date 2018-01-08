@@ -95,7 +95,7 @@ public class WebviewActivity extends Activity {
                         } else {
                             // 二进制资源无需编码信息
                             if (!TextUtils.isEmpty(charset) || (isBinaryRes(mime))) {
-                                WebResourceResponse resourceResponse = new WebResourceResponse(mime, charset, httpURLConnection.getInputStream());
+                                WebResourceResponse resourceResponse = new WebResourceResponse(contentType, charset, httpURLConnection.getInputStream());
                                 resourceResponse.setStatusCodeAndReasonPhrase(statusCode, response);
                                 Map<String, String> responseHeader = new HashMap<String, String>();
                                 for (String key: headerKeySet) {
