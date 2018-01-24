@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "alibaba.man_android_demo"
-        minSdkVersion 9
+        minSdkVersion 10
         targetSdkVersion 19
         versionCode 1
         versionName "1.0"
@@ -26,4 +26,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.aliyun.ams:alicloud-android-man:1.1.9'
 }
