@@ -26,5 +26,5 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.aliyun.ams:alicloud-android-man:1.1.9'
+    compile 'com.aliyun.ams:alicloud-android-man:1.2.0'
 }
