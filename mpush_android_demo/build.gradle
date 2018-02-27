@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
 
     defaultConfig {
-        applicationId "cloud.aliyun.test"
-        minSdkVersion 11
-        targetSdkVersion 23
+        applicationId "com.test.biyan"
+        minSdkVersion 14
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
     }
@@ -39,14 +39,14 @@ repositories {
 
 dependencies {
     //compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:support-v4:23.0.1'
+    compile 'com.android.support:support-v4:26.0.1'
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
 
 
-    compile 'com.aliyun.ams:alicloud-android-push:3.0.11@aar'
-    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
-    compile 'com.aliyun.ams:alicloud-android-ut:5.0.0'
+    compile ('com.aliyun.ams:alicloud-android-push:3.1.1@aar') {
+        transitive true
+    }
     compile 'com.aliyun.ams:alicloud-android-third-push:3.0.3@aar'
 
 }
