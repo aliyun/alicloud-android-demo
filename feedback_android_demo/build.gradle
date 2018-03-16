@@ -47,7 +47,7 @@ repositories {
 
 dependencies {
     // feedback 的依赖
-    compile 'com.aliyun.ams:alicloud-android-feedback:3.1.2'
+    compile 'com.aliyun.ams:alicloud-android-feedback:3.1.3'
     compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
     compile 'com.aliyun.ams:alicloud-android-ut:5.1.0'
     compile 'com.aliyun.ams:alicloud-android-utils:1.0.3'
