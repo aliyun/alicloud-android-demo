@@ -44,7 +44,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.48'
 
 
-    compile ('com.aliyun.ams:alicloud-android-push:3.1.1@aar') {
+    compile ('com.aliyun.ams:alicloud-android-push:3.1.2@aar') {
         transitive true
     }
     compile 'com.aliyun.ams:alicloud-android-third-push:3.0.3@aar'
