@@ -24,10 +24,10 @@
 
         <meta-data
             android:name="com.alibaba.app.appkey"
-            android:value="24605787" /> <!-- 请填写你自己的- appKey -->
+            android:value="********" /> <!-- 请填写你自己的- appKey -->
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="4505883088891145649b0c7e39a1454a" /> <!-- 请填写你自己的appSecret -->
+            android:value="********" /> <!-- 请填写你自己的appSecret -->
 
 
         <!-- 消息接收监听器 （用户可自主扩展） -->

@@ -30,6 +30,40 @@ public class MainApplication extends Application {
      * @param applicationContext
      */
     private void initCloudChannel(final Context applicationContext) {
+        // 创建notificaiton channel
+        this.createNotificationChannel();
+        PushServiceFactory.init(applicationContext);
+        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        pushService.register(applicationContext, new CommonCallback() {
+            @Override
+            public void onSuccess(String response) {
+                Log.i(TAG, "init cloudchannel success");
+                setConsoleText("init cloudchannel success");
+            }
+
+            @Override
+            public void onFailed(String errorCode, String errorMessage) {
+                Log.e(TAG, "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+                setConsoleText("init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
+            }
+        });
+
+        MiPushRegister.register(applicationContext, "XIAOMI_ID", "XIAOMI_KEY"); // 初始化小米辅助推送
+        HuaWeiRegister.register(applicationContext); // 接入华为辅助推送
+        GcmRegister.register(applicationContext, "send_id", "application_id"); // 接入FCM/GCM初始化推送
+    }
+
+    public static void setMainActivity(MainActivity activity) {
+        mainActivity = activity;
+    }
+
+    public static void setConsoleText(String text) {
+        if (mainActivity != null && text != null) {
+            mainActivity.appendConsoleText(text);
+        }
+    }
+
+    private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             // 通知渠道的id
@@ -50,35 +84,6 @@ public class MainApplication extends Application {
             mChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 400});
             //最后在notificationmanager中创建该通知渠道
             mNotificationManager.createNotificationChannel(mChannel);
-        }
-        PushServiceFactory.init(applicationContext);
-        final CloudPushService pushService = PushServiceFactory.getCloudPushService();
-        pushService.register(applicationContext, new CommonCallback() {
-            @Override
-            public void onSuccess(String response) {
-                Log.i(TAG, "init cloudchannel success");
-                setConsoleText("init cloudchannel success");
-            }
-
-            @Override
-            public void onFailed(String errorCode, String errorMessage) {
-                Log.e(TAG, "init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
-                setConsoleText("init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
-            }
-        });
-
-        MiPushRegister.register(applicationContext, "XIAOMI_ID", "XIAOMI_KEY"); // 初始化小米辅助推送
-        HuaWeiRegister.register(applicationContext); // 接入华为辅助推送
-        //GcmRegister.register(applicationContext, "send_id", "application_id"); // 接入FCM/GCM初始化推送
-    }
-
-    public static void setMainActivity(MainActivity activity) {
-        mainActivity = activity;
-    }
-
-    public static void setConsoleText(String text) {
-        if (mainActivity != null && text != null) {
-            mainActivity.appendConsoleText(text);
         }
     }
 }
