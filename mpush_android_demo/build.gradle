@@ -44,8 +44,8 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.48'
 
 
-    compile ('com.aliyun.ams:alicloud-android-push:3.1.2@aar')
-    compile 'com.aliyun.ams:alicloud-android-utils:1.0.2'
+    compile ('com.aliyun.ams:alicloud-android-push:3.1.3@aar')
+    compile 'com.aliyun.ams:alicloud-android-utils:1.0.3'
     compile 'com.aliyun.ams:alicloud-android-beacon:1.0.1'
     compile 'com.aliyun.ams:alicloud-android-third-push:3.0.3@aar'
 
