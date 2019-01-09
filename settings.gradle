@@ -1,5 +1,4 @@
 include ':man_android_demo', ':alimac_android_demo',
-        ':man_api_demo',
         ':mac_android_demo',
         ':ots_android_demo',
         ':httpdns_api_demo',
