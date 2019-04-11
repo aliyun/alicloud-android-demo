@@ -57,7 +57,7 @@ dependencies {
 
     // 客户根据自己的需求进行依赖
     compile files('libs/commons-codec-1.10.jar')
-    compile 'com.google.zxing:core:3.2.0'
+    compile 'com.google.zxing:core:3.3.1'
     compile 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
     compile 'com.githang:status-bar-compat:0.5.3'
 }
