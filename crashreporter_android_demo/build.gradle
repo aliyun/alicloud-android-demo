@@ -1,0 +1,47 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
+
+    defaultConfig {
+        applicationId "com.aliyun.crashreporter.demo"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 2
+        versionName "2.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            useProguard false
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:26.1.0'
+
+    //maven依赖
+    compile ('com.aliyun.ams:alicloud-android-ha-adapter:1.1.2.2-open') {
+        transitive=true
+    }
+
+    //本地依赖
+//    compile fileTree(include: ['*.jar'], dir: 'libs')
+//    compile (name: 'alicloud-android-ha-adapter-1.1.2.2-open', ext: 'aar')
+//    compile (name: 'alicloud-android-ha-core-1.1.0.6.1-open', ext: 'aar')
+//    compile (name: 'alicloud-android-ha-crashreporter-1.1.2.1-open', ext: 'aar')
+//    compile (name: 'alicloud-android-ha-protocol-1.1.0.6-open', ext: 'aar')
+//    compile (name: 'alicloud-android-ha-tbrest-1.1.0.7-open', ext: 'aar')
+
+    //模拟jni层Crash
+    compile(name: 'native_crash_test-1.0.0.1', ext: 'aar')
+}

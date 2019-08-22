@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "cloud.aliyun.test"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -47,6 +47,10 @@ dependencies {
     compile ('com.aliyun.ams:alicloud-android-push:3.1.3@aar') {
         transitive true
     }
-    compile 'com.aliyun.ams:alicloud-android-third-push:3.0.3@aar'
+    compile 'com.aliyun.ams:alicloud-android-third-push:3.0.8@aar'
 
+    compile 'com.aliyun.ams:meizu-push:3.8.3-fix'
+    compile 'com.aliyun.ams:huawei-push:2.6.3.305'
+    compile 'com.aliyun.ams:huawei-push-base:2.6.3.305'
+    compile ('com.google.firebase:firebase-messaging:17.6.0')
 }
