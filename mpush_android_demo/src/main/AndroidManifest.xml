@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.alibaba.cloudpushdemo"
     android:installLocation="auto">
-
-
 
     <!-- Application Settings -->
     <application
         android:name=".application.MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        tools:replace="android:allowBackup"
+        tools:overrideLibrary="com.huawei.android.hms.push"
         android:label="@string/app_name">
         <activity
             android:name=".bizactivity.MainActivity"
@@ -28,6 +29,17 @@
         <meta-data
             android:name="com.alibaba.app.appsecret"
             android:value="********" /> <!-- 请填写你自己的appSecret -->
+
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="appid=xxxx" /><!-- 请填写你自己华为平台上注册的appid -->
+
+        <meta-data
+            android:name="com.vivo.push.api_key"
+            android:value="xxxxxxxxxxxxxxxxxxx" />  <!-- 请填写您自己的vivo平台上的appKey -->
+        <meta-data
+            android:name="com.vivo.push.app_id"
+            android:value="xxxx" />    <!-- 请填写您自己的vivo平台上的appId -->
 
 
         <!-- 消息接收监听器 （用户可自主扩展） -->

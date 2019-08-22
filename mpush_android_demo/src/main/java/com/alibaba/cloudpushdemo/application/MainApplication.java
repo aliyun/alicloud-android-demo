@@ -11,10 +11,13 @@ import android.util.Log;
 import com.alibaba.cloudpushdemo.bizactivity.MainActivity;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
+import com.alibaba.sdk.android.push.huawei.HuaWeiRegister;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.alibaba.sdk.android.push.register.GcmRegister;
-import com.alibaba.sdk.android.push.register.HuaWeiRegister;
+import com.alibaba.sdk.android.push.register.MeizuRegister;
 import com.alibaba.sdk.android.push.register.MiPushRegister;
+import com.alibaba.sdk.android.push.register.OppoRegister;
+import com.alibaba.sdk.android.push.register.VivoRegister;
 
 public class MainApplication extends Application {
     private static final String TAG = "Init";
@@ -49,7 +52,11 @@ public class MainApplication extends Application {
         });
 
         MiPushRegister.register(applicationContext, "XIAOMI_ID", "XIAOMI_KEY"); // 初始化小米辅助推送
-        HuaWeiRegister.register(applicationContext); // 接入华为辅助推送
+        HuaWeiRegister.register(this); // 接入华为辅助推送
+        VivoRegister.register(applicationContext);
+        OppoRegister.register(applicationContext, "OPPO_KEY", "OPPO_SECRET");
+        MeizuRegister.register(applicationContext, "MEIZU_ID", "MEIZU_KEY");
+
         GcmRegister.register(applicationContext, "send_id", "application_id"); // 接入FCM/GCM初始化推送
     }
 
