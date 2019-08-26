@@ -30,17 +30,19 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
 
     //maven依赖
-    compile ('com.aliyun.ams:alicloud-android-ha-adapter:1.1.2.2-open') {
+    compile ('com.aliyun.ams:alicloud-android-ha-adapter:1.1.2.3-open') {
         transitive=true
     }
 
     //本地依赖
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
 //    compile (name: 'alicloud-android-ha-adapter-1.1.2.2-open', ext: 'aar')
-//    compile (name: 'alicloud-android-ha-core-1.1.0.6.1-open', ext: 'aar')
-//    compile (name: 'alicloud-android-ha-crashreporter-1.1.2.1-open', ext: 'aar')
-//    compile (name: 'alicloud-android-ha-protocol-1.1.0.6-open', ext: 'aar')
-//    compile (name: 'alicloud-android-ha-tbrest-1.1.0.7-open', ext: 'aar')
+//    compile (name: 'crashreporter-1.1.2.1-open', ext: 'aar')
+//    compile (name: 'alihacore-1.1.0.6-open', ext: 'aar')
+//    compile (name: 'alihaprotocol-1.1.0.6-open', ext: 'aar')
+//    compile (name: 'tbrest-1.1.0.7-open', ext: 'aar')
+//    compile (name: 'watch-1.1.0.6-open', ext: 'aar')
+//    compile (name: 'bizerrorreporter-1.1.0.6-open', ext: 'aar')
 
     //模拟jni层Crash
     compile(name: 'native_crash_test-1.0.0.1', ext: 'aar')
