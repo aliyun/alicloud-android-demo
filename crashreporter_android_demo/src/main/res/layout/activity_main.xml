@@ -23,12 +23,5 @@
             android:text="点击崩溃（native）"
             android:layout_marginTop="10dp"/>
 
-        <Button
-            android:id="@+id/stuck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="主线程卡顿"
-            android:layout_marginTop="10dp"/>
-
     </LinearLayout>
 </ScrollView>
