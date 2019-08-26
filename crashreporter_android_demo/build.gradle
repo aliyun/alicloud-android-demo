@@ -36,7 +36,7 @@ dependencies {
 
     //本地依赖
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-//    compile (name: 'alicloud-android-ha-adapter-1.1.2.2-open', ext: 'aar')
+//    compile (name: 'alicloud-android-ha-adapter-1.1.2.3-open', ext: 'aar')
 //    compile (name: 'crashreporter-1.1.2.1-open', ext: 'aar')
 //    compile (name: 'alihacore-1.1.0.6-open', ext: 'aar')
 //    compile (name: 'alihaprotocol-1.1.0.6-open', ext: 'aar')
