@@ -10,12 +10,17 @@ android {
         targetSdkVersion 26
         versionCode 2
         versionName "2.0"
+
+        ndk {
+            abiFilters 'armeabi'
+        }
+
     }
     buildTypes {
         release {
             minifyEnabled false
-            useProguard false
-//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            useProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -30,13 +35,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
 
     //maven依赖
-    compile ('com.aliyun.ams:alicloud-android-ha-adapter:1.1.2.3-open') {
+    compile ('com.aliyun.ams:alicloud-android-ha-adapter:1.1.2.4-open') {
         transitive=true
     }
 
     //本地依赖
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-//    compile (name: 'alicloud-android-ha-adapter-1.1.2.3-open', ext: 'aar')
+//    compile (name: 'alicloud-android-ha-adapter-1.1.2.4-open', ext: 'aar')
 //    compile (name: 'crashreporter-1.1.2.1-open', ext: 'aar')
 //    compile (name: 'alihacore-1.1.0.6-open', ext: 'aar')
 //    compile (name: 'alihaprotocol-1.1.0.6-open', ext: 'aar')
