@@ -8,9 +8,9 @@ import com.alibaba.ha.adapter.AliHaConfig;
 import com.alibaba.ha.adapter.Plugin;
 
 public class MyApplication extends Application {
-    private final static String mAppKey = "25027611";
-    private final static String mAppSecret = "65acb9cca300ba4b9d807ebdb94ed323";
-    private final static String mHARSAPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCT541JEnoi871DuM5L49SlxbgMko92HQ9lKv+KDF+4gw1jmCCU1kaFaRwCLwV384PgkGCWxvdf8fIl4xB6MgMS2zVaUtuTYI30fJ2Y6Hsgu0uO/huYoqqKBEhLko/kIaR7/QKI3dGe5mkj6/J0Pn9sFNb46Wa0o54Ebk4BJLKkOQIDAQAB";
+    private final static String mAppKey = "xxx";
+    private final static String mAppSecret = "xxxxxxxx";
+    private final static String mHARSAPublicKey = "xxxxx";
 
     @Override
     public void onCreate() {
