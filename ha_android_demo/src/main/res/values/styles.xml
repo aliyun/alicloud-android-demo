@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="myNewTheme">
+        <item name="android:background">@color/color_bg_one</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
 </resources>

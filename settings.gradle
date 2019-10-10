@@ -3,5 +3,5 @@ include ':man_android_demo',
         ':httpdns_android_demo',
         ':mpush_android_demo',
         ':feedback_android_demo',
-        ':crashreporter_android_demo',
+        ':ha_android_demo',
         ':hotfix_android_demo'
