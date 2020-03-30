@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.aliyun.emas.android.devops.demo"
+        minSdkVersion 20
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
+dependencies {
+//    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile('com.alibaba:fastjson:1.1.54.android@jar') { transitive true }
+    compile(name: 'update-common-1.0.5-open', ext: 'aar')
+    compile(name: 'update-main-release', ext: 'aar')
+    compile(name: 'update-manager-1.0.5-open', ext: 'aar')
+    compile(name: 'downloader-2.0.2.12', ext: 'jar')
+    compile(name: 'update-adapter-1.0.3-open', ext: 'jar')
+    compile(name: 'update-datasource-1.0.4-open-proguard', ext: 'jar')
+    compile(name: 'utdid4all-1.1.5.3_proguard', ext: 'jar')
+}

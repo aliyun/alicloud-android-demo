@@ -1,4 +1,4 @@
-include ':man_android_demo',
+include ':man_android_demo', ':devops_android_demo',
         ':httpdns_api_demo',
         ':httpdns_android_demo',
         ':mpush_android_demo',

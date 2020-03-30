@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:padding="2dp">
+
+
+    <TextView
+        android:id="@+id/tv_k"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/shape_border" />
+
+    <TextView
+        android:id="@+id/tv_v"
+        android:layout_width="120dp"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:background="@drawable/shape_border"
+        android:inputType="text"
+        android:lines="1"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tv_remarks"
+        android:layout_width="0dp"
+        android:layout_height="36dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:background="@drawable/shape_border" />
+</LinearLayout>
