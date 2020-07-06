@@ -25,12 +25,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mStatusTv = (TextView) findViewById(R.id.tv_status);
-        updateConsole(MainApplication.cacheMsg.toString());
+        updateConsole(SophixStubApplication.cacheMsg.toString());
 
         if (Build.VERSION.SDK_INT >= 23) {
             requestExternalStoragePermission();
         }
-        MainApplication.msgDisplayListener = new MainApplication.MsgDisplayListener() {
+        SophixStubApplication.msgDisplayListener = new SophixStubApplication.MsgDisplayListener() {
             @Override
             public void handle(final String msg) {
                 runOnUiThread(new Runnable() {
