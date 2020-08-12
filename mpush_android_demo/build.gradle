@@ -40,17 +40,17 @@ repositories {
 dependencies {
     //compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:support-v4:26.0.1'
-    compile 'com.j256.ormlite:ormlite-core:4.48'
-    compile 'com.j256.ormlite:ormlite-android:4.48'
+    compile 'com.android.support:design:26.0.1'
 
 
-    compile ('com.aliyun.ams:alicloud-android-push:3.1.6@aar') {
+    compile ('com.aliyun.ams:alicloud-android-push:3.1.12@aar') {
         transitive true
     }
-    compile 'com.aliyun.ams:alicloud-android-third-push:3.0.9@aar'
+    compile 'com.aliyun.ams:alicloud-android-third-push:3.1.0@aar'
 
-    compile 'com.aliyun.ams:meizu-push:3.8.3-fix'
+    compile 'com.aliyun.ams:meizu-push:3.8.7.1'
     compile 'com.aliyun.ams:huawei-push:2.6.3.305'
     compile 'com.aliyun.ams:huawei-push-base:2.6.3.305'
+    compile 'com.aliyun.ams:third_vivopush:2.9.0.1'
     compile ('com.google.firebase:firebase-messaging:17.6.0')
 }

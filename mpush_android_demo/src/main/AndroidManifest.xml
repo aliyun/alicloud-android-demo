@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.alibaba.cloudpushdemo"
-    android:installLocation="auto">
+    package="com.alibaba.cloudpushdemo">
 
     <!-- Application Settings -->
     <application
@@ -46,10 +45,10 @@
         <receiver
             android:name=".component.MyMessageReceiver"
             android:exported="false">
-            <intent-filter> 
+            <intent-filter>
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
             </intent-filter>
-            <intent-filter>     
+            <intent-filter>
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
             </intent-filter>
             <intent-filter>
@@ -60,10 +59,10 @@
         <service
             android:name=".component.MyMessageIntentService"
             android:exported="false">
-            <intent-filter> 
+            <intent-filter>
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
             </intent-filter>
-            <intent-filter>     
+            <intent-filter>
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_REMOVED" />
             </intent-filter>
             <intent-filter>
@@ -92,8 +91,7 @@
         <activity android:name=".bizactivity.ThirdPushPopupActivity"
             android:label="@string/title_activity_third_push_notice"
             android:screenOrientation="portrait"
-            android:exported="true"
-            />
+            android:exported="true" />
     </application>
 
 </manifest>

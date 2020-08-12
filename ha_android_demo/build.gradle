@@ -12,7 +12,7 @@ android {
         versionName "2.0"
 
         ndk {
-            abiFilters 'armeabi'
+            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
         }
 
     }
@@ -54,7 +54,7 @@ dependencies {
     }
 
     //4、性能监控，不接入可注释掉
-    compile('com.aliyun.ams:alicloud-android-apm:1.0.7.8-open@aar') {
+    compile('com.aliyun.ams:alicloud-android-apm:1.0.7.9-open@aar') {
         transitive=true
     }
 }
