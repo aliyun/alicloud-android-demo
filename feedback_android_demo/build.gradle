@@ -2,11 +2,10 @@ apply plugin: 'com.android.application'
 group = 'com.alibaba.openim.feedbackDemo'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 28
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 17
+        targetSdkVersion 28
         versionCode 2
         versionName "2.0"
     }
@@ -23,42 +22,22 @@ android {
     }
 }
 
-buildscript {
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
-    }
-}
-
-repositories {
-    maven {
-        url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
-    }
-    mavenCentral()
-    jcenter()
-
-    flatDir {
-        dirs 'libs'
-    }
-}
-
 dependencies {
-    // feedback 的依赖
-    compile 'com.aliyun.ams:alicloud-android-feedback:3.3.1'
-    compile 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
-    compile 'com.aliyun.ams:alicloud-android-ut:5.4.3'
-    compile 'com.aliyun.ams:alicloud-android-utils:1.1.6.4'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 
-    // 别忘记添加support-v4的依赖
-    compile 'com.android.support:support-v4:24.2.0'
+    // feedback 的依赖
+    implementation 'com.aliyun.ams:alicloud-android-feedback:3.3.1'
+    //公共依赖库
+    implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
+    implementation 'com.aliyun.ams:alicloud-android-utils:1.1.6.4'
+    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.4'
+    implementation 'com.aliyun.ams:alicloud-android-beacon:1.0.4.3'
 
     // 客户根据自己的需求进行依赖
-    compile files('libs/commons-codec-1.10.jar')
-    compile 'com.google.zxing:core:3.3.1'
-    compile 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
-    compile 'com.githang:status-bar-compat:0.5.3'
+    implementation files('libs/commons-codec-1.10.jar')
+    implementation 'com.google.zxing:core:3.3.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
+    implementation 'com.githang:status-bar-compat:0.5.3'
 }
 

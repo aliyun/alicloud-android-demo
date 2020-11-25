@@ -20,5 +20,8 @@ allprojects {
         maven {
             url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
         }
+        flatDir {
+            dirs 'libs'
+        }
     }
 }

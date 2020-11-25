@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "cloud.aliyun.test"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -31,26 +30,30 @@ android {
     }
 }
 
-repositories {
-    flatDir {
-        dirs 'libs' //this way we can find the .aar file in libs folder
-    }
-}
-
 dependencies {
-    //compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:support-v4:26.0.1'
-    compile 'com.android.support:design:26.0.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
 
+    //主通道依赖
+    implementation 'com.aliyun.ams:alicloud-android-push:3.2.3'
+    //辅助通道基础依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push:3.2.3'
+    //华为依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push-huawei:3.2.3'
+    //小米依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push-xiaomi:3.2.3'
+    //OPPO依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push-oppo:3.2.3'
+    //vivo依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push-vivo:3.2.3'
+    //魅族依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push-meizu:3.2.3'
+    //谷歌依赖
+    implementation 'com.aliyun.ams:alicloud-android-third-push-fcm:3.2.3'
 
-    compile ('com.aliyun.ams:alicloud-android-push:3.1.12@aar') {
-        transitive true
-    }
-    compile 'com.aliyun.ams:alicloud-android-third-push:3.1.0@aar'
-
-    compile 'com.aliyun.ams:meizu-push:3.8.7.1'
-    compile 'com.aliyun.ams:huawei-push:2.6.3.305'
-    compile 'com.aliyun.ams:huawei-push-base:2.6.3.305'
-    compile 'com.aliyun.ams:third_vivopush:2.9.0.1'
-    compile ('com.google.firebase:firebase-messaging:17.6.0')
+    //公共依赖库
+    implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
+    implementation 'com.aliyun.ams:alicloud-android-utils:1.1.6.4'
+    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.4'
+    implementation 'com.aliyun.ams:alicloud-android-beacon:1.0.4.3'
 }
