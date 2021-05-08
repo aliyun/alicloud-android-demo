@@ -6,6 +6,11 @@ import android.util.Log;
 import com.alibaba.ha.adapter.AliHaAdapter;
 import com.alibaba.ha.adapter.AliHaConfig;
 import com.alibaba.ha.adapter.Plugin;
+import com.alibaba.ha.protocol.crash.ErrorCallback;
+import com.alibaba.ha.protocol.crash.ErrorInfo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyApplication extends Application {
     private final static String mAppKey = "xxx";
@@ -33,6 +38,15 @@ public class MyApplication extends Application {
         config.isAliyunos = false;
         config.rsaPublicKey = mHARSAPublicKey;
 
+        AliHaAdapter.getInstance().addCustomInfo("custom", "value");
+        AliHaAdapter.getInstance().setErrorCallback(new ErrorCallback() {
+            @Override
+            public Map<String, String> onError(ErrorInfo errorInfo) {
+                Map<String, String> map = new HashMap<>();
+                map.put("key", "value");
+                return map;
+            }
+        });
         AliHaAdapter.getInstance().addPlugin(Plugin.crashreporter);    //崩溃分析，如不需要可注释掉
         AliHaAdapter.getInstance().addPlugin(Plugin.apm);              //性能监控，如不需要可注释掉
         AliHaAdapter.getInstance().addPlugin(Plugin.tlog);             //移动日志，如不需要可注释掉
