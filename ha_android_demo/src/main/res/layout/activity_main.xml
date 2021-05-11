@@ -30,6 +30,13 @@
             android:text="主线程卡顿" />
 
         <Button
+            android:id="@+id/customError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myNewTheme"
+            android:text="自定义错误" />
+
+        <Button
             android:id="@+id/logPrint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +49,6 @@
             android:layout_height="wrap_content"
             style="@style/myNewTheme"
             android:text="主动上报日志" />
-
 
         <TextView
             android:id="@+id/empty"

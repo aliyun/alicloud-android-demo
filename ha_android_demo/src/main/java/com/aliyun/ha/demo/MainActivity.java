@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.alibaba.ha.adapter.AliHaAdapter;
 import com.alibaba.ha.adapter.service.tlog.TLogService;
 import com.alibaba.motu.tbrest.utils.DeviceUtils;
-import com.taobao.tao.log.upload.LogFileUploadManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.customError).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AliHaAdapter.getInstance().reportCustomError(new NullPointerException());
+            }
+        });
+
         //打 tlog日志
         Button remoteDebugBtn = (Button) findViewById(R.id.logPrint);
         remoteDebugBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +103,7 @@ public class MainActivity extends AppCompatActivity {
         TimerTask task= new TimerTask() {
             @Override
             public void run() {
-                LogFileUploadManager logFileUploadManager = new LogFileUploadManager(context);
-                logFileUploadManager.uploadWithFilePrefix(null,"feedback","tlog",null);
+                TLogService.positiveUploadTlog(null);
             }
         };
 
