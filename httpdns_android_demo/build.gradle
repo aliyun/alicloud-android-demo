@@ -5,7 +5,7 @@ android {
 
     defaultConfig {
         applicationId "alibaba.httpdns_android_demo"
-        minSdkVersion 11
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -22,10 +22,13 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
 
-    implementation "com.aliyun.ams:alicloud-android-httpdns:1.3.3"
+    implementation "com.aliyun.ams:alicloud-android-httpdns:2.0.2"
     //公共依赖库
     implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
-    implementation 'com.aliyun.ams:alicloud-android-utils:1.1.6.4'
+    implementation 'com.aliyun.ams:alicloud-android-utils:2.0.0'
     implementation 'com.aliyun.ams:alicloud-android-ut:5.4.4'
-    implementation 'com.aliyun.ams:alicloud-android-beacon:1.0.4.3'
+    implementation 'com.aliyun.ams:alicloud-android-beacon:1.0.5'
+    implementation 'com.aliyun.ams:alicloud-android-logger:1.0.2'
+    implementation 'com.aliyun.ams:alicloud-android-rest:1.5.4-open'
+    implementation 'com.aliyun.ams:alicloud-android-sender:1.1.0'
 }
