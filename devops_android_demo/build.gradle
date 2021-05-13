@@ -23,7 +23,8 @@ dependencies {
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 
     implementation('com.alibaba:fastjson:1.2.66@jar') { transitive true }
-    implementation 'com.taobao.android:update-main:1.1.4-open'
+    implementation 'com.taobao.android:update-main:1.1.5-open'
+    implementation 'com.aliyun.ams:alicloud-android-tool:0.0.5.4'
     //公共依赖库
     implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
     implementation 'com.aliyun.ams:alicloud-android-utils:2.0.0'
