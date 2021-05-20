@@ -11,7 +11,7 @@ android {
         versionName "2.0"
 
         ndk {
-            abiFilters 'armeabi', 'armeabi-v7a', 'x86'
+            abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86'
         }
 
     }
@@ -33,18 +33,16 @@ dependencies {
 
     //Maven依赖
     //1、公共依赖
-    implementation ('com.aliyun.ams:alicloud-android-ha-adapter:1.1.5.0-open')
+    implementation('com.aliyun.ams:alicloud-android-ha-adapter:1.1.5.0-open') { transitive = true }
 
     //2、崩溃分析，不接入可注释掉
-    implementation('com.aliyun.ams:alicloud-android-ha-crashreporter:1.2.5')
+    implementation('com.aliyun.ams:alicloud-android-ha-crashreporter:1.2.5') { transitive = true }
 
     //3、移动日志，不接入可注释掉
-    implementation('com.aliyun.ams:alicloud-android-tlog:1.1.4.0-open') {
-        exclude group: 'com.aliyun.ams', module: 'alicloud-android-ha-tlog-native'
-    }
+    implementation('com.aliyun.ams:alicloud-android-tlog:1.1.4.0-open') { transitive = true }
 
     //4、性能监控，不接入可注释掉
-    implementation('com.aliyun.ams:alicloud-android-apm:1.0.9.0-open')
+    implementation('com.aliyun.ams:alicloud-android-apm:1.0.9.0-open') { transitive = true }
 
     //公共依赖库
     implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
