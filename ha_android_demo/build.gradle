@@ -39,17 +39,9 @@ dependencies {
     implementation('com.aliyun.ams:alicloud-android-ha-crashreporter:1.2.5') { transitive = true }
 
     //3、移动日志，不接入可注释掉
-    implementation('com.aliyun.ams:alicloud-android-tlog:1.1.4.0-open') { transitive = true }
+    implementation('com.aliyun.ams:alicloud-android-tlog:1.1.4.1-open') { transitive = true }
 
     //4、性能监控，不接入可注释掉
     implementation('com.aliyun.ams:alicloud-android-apm:1.0.9.0-open') { transitive = true }
 
-    //公共依赖库
-    implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
-    implementation 'com.aliyun.ams:alicloud-android-utils:2.0.0'
-    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.4'
-    implementation 'com.aliyun.ams:alicloud-android-beacon:1.0.5'
-    implementation 'com.aliyun.ams:alicloud-android-logger:1.0.2'
-    implementation 'com.aliyun.ams:alicloud-android-rest:1.5.4-open'
-    implementation 'com.aliyun.ams:alicloud-android-sender:1.1.0'
 }

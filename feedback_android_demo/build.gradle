@@ -29,13 +29,7 @@ dependencies {
     // feedback 的依赖
     implementation 'com.aliyun.ams:alicloud-android-feedback:3.3.3'
     //公共依赖库
-    implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
-    implementation 'com.aliyun.ams:alicloud-android-utils:2.0.0'
-    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.4'
-    implementation 'com.aliyun.ams:alicloud-android-beacon:1.0.5'
-    implementation 'com.aliyun.ams:alicloud-android-logger:1.0.2'
-    implementation 'com.aliyun.ams:alicloud-android-rest:1.5.4-open'
-    implementation 'com.aliyun.ams:alicloud-android-sender:1.1.0'
+    implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.2'
 
     // 客户根据自己的需求进行依赖
     implementation files('libs/commons-codec-1.10.jar')
