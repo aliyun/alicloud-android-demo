@@ -60,7 +60,7 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
         switch (view.getId()) {
             case R.id.btnOpenActivity:
                 tvConsoleText.append("open feedback activity\n");
-                checkForOpenOrGet(true);
+                openOrGet(true);
                 break;
             case R.id.btnUnread:
                 getFeedbackUnreadCount();
@@ -120,13 +120,6 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
                 Toast.makeText(this, "Camera Permission Denied", Toast.LENGTH_SHORT).show();
                 tvConsoleText.append("Camera Permission Denied\n");
             }
-        } else if (requestCode == STORAGE_AND_CAMERA_PERMISSIONS) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                openOrGet(true);
-            } else {
-                Toast.makeText(this, "Storge or Camera Permission Denied", Toast.LENGTH_SHORT).show();
-                tvConsoleText.append("Storge or Camera Permission Denied\n");
-            }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
@@ -147,29 +140,6 @@ public class DemoLoginActivity extends Activity implements OnClickListener {
         integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
         integrator.setOrientationLocked(false);
         integrator.initiateScan();
-    }
-
-    /**
-     * 打开feedback的activity
-     * 首先检查需要的权限
-     * @param isOpenFeedback
-     */
-    private void checkForOpenOrGet(boolean isOpenFeedback) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-            || ContextCompat.checkSelfPermission(this,Manifest.permission.RECORD_AUDIO)
-            != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                new String[] {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO}
-                , STORAGE_AND_CAMERA_PERMISSIONS);
-        } else {
-            openOrGet(isOpenFeedback);
-        }
     }
 
     /**
