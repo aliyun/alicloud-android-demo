@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "cloud.aliyun.test"
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -32,28 +32,23 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
 
     //主通道依赖
-    implementation 'com.aliyun.ams:alicloud-android-push:3.2.3'
+    implementation 'com.aliyun.ams:alicloud-android-push:3.4.0'
     //辅助通道基础依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push:3.2.3'
+    implementation 'com.aliyun.ams:alicloud-android-third-push:3.4.0'
     //华为依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-huawei:3.2.3'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-huawei:3.4.0'
     //小米依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-xiaomi:3.2.3'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-xiaomi:3.4.0'
     //OPPO依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-oppo:3.2.3'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-oppo:3.4.0'
     //vivo依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-vivo:3.2.3'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-vivo:3.4.0'
     //魅族依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-meizu:3.2.3'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-meizu:3.4.0'
     //谷歌依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-fcm:3.2.3'
-
-    //公共依赖库
-    implementation 'com.aliyun.ams:alicloud-android-utdid:2.5.1-proguard'
-    implementation 'com.aliyun.ams:alicloud-android-utils:1.1.6.4'
-    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.4'
-    implementation 'com.aliyun.ams:alicloud-android-beacon:1.0.4.3'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-fcm:3.4.0'
 }

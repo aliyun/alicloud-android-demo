@@ -4,12 +4,16 @@ import java.util.concurrent.Callable;
 
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.alibaba.sdk.android.feedback.impl.IActivityCallback;
+import com.alibaba.sdk.android.feedback.impl.IPermissionRequestInterrupt;
+import com.alibaba.sdk.android.feedback.impl.InterruptCallback;
 import com.alibaba.sdk.android.feedback.util.ErrorCode;
 import com.alibaba.sdk.android.feedback.util.FeedbackErrorCallback;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.Toast;
 import com.githang.statusbar.StatusBarCompat;
@@ -82,5 +86,52 @@ public class DemoApplication extends Application {
         FeedbackAPI.setHistoryTextSize(20);
         //设置标题栏高度，单位为像素
         FeedbackAPI.setTitleBarHeight(100);
+
+        // 权限操作
+        FeedbackAPI.setPermissionInterrupt(FeedbackAPI.ACTION_CAMERA, new IPermissionRequestInterrupt() {
+            @Override
+            public void interrupt(Context context, String action, String[] permissions, InterruptCallback callback) {
+                Log.d("DemoApplication", "interrupt " + action + " permission request");
+                showDialog(context,"相机", "拍照问题进行反馈", callback);
+            }
+        });
+
+        FeedbackAPI.setPermissionInterrupt(FeedbackAPI.ACTION_ALBUM, new IPermissionRequestInterrupt() {
+            @Override
+            public void interrupt(Context context, String action, String[] permissions, InterruptCallback callback) {
+                Log.d("DemoApplication", "interrupt " + action + " permission request");
+                showDialog(context, "相册", "选择问题照片进行反馈", callback);
+            }
+        });
+
+        FeedbackAPI.setPermissionInterrupt(FeedbackAPI.ACTION_AUDIO, new IPermissionRequestInterrupt() {
+            @Override
+            public void interrupt(Context context, String action, String[] permissions, InterruptCallback callback) {
+                Log.d("DemoApplication", "interrupt " + action + " permission request");
+                showDialog(context, "录音", "录制语音描述进行反馈", callback);
+            }
+        });
+    }
+
+    private void showDialog(Context context, String permission, String message, final InterruptCallback callback) {
+        final AlertDialog.Builder normalDialog = new AlertDialog.Builder(context);
+        normalDialog.setTitle("即将进行敏感权限授权");
+        normalDialog.setMessage(permission + "权限作用：" + message);
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        callback.goOnRequest();
+                    }
+                });
+        normalDialog.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        callback.stopRequest();
+                    }
+                });
+        // 显示
+        normalDialog.show();
     }
 }
