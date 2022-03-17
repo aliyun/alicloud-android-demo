@@ -2,6 +2,8 @@ package com.awesomeproject;
 
 import android.app.Application;
 
+import androidx.core.content.ContextCompat;
+
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
 import com.awesomeproject.push.PushModule;
@@ -14,55 +16,67 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
-  private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+            return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+            return Arrays.<ReactPackage>asList(
+                    new MainReactPackage(),
+                    new PushPackage()
+            );
+        }
+    };
+
     @Override
-    public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
     }
 
     @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-              new PushPackage()
-      );
+    public void onCreate() {
+        super.onCreate();
+        SoLoader.init(this, /* native exopackage */ false);
+
+        PushServiceFactory.init(this);
+
+        initCloudChannel();
     }
-  };
 
-  @Override
-  public ReactNativeHost getReactNativeHost() {
-    return mReactNativeHost;
-  }
+    private boolean pushInit;
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    SoLoader.init(this, /* native exopackage */ false);
-    this.initCloudChannel();
-  }
+    public void initCloudChannel() {
+        File is_privacy = new File(ContextCompat.getDataDir(this).getAbsolutePath(), "emas_is_privacy");
+        if (!is_privacy.exists()) return;
+        if (pushInit) return;
+        pushInit = true;
 
-  private void initCloudChannel() {
-    PushServiceFactory.init(this.getApplicationContext());
-    PushServiceFactory.getCloudPushService().register(this.getApplicationContext(), new CommonCallback() {
-      @Override
-      public void onSuccess(String s) {
-        WritableMap params = Arguments.createMap();
-        params.putBoolean("success", true);
-        PushModule.sendEvent("onInit", params);
-      }
+        PushServiceFactory.getCloudPushService().register(this.getApplicationContext(), new CommonCallback() {
+            @Override
+            public void onSuccess(String s) {
+                pushInit = true;
+                WritableMap params = Arguments.createMap();
+                params.putBoolean("success", true);
+                PushModule.sendEvent("onInit", params);
+            }
 
-      @Override
-      public void onFailed(String s, String s1) {
-        WritableMap params = Arguments.createMap();
-        params.putBoolean("success", false);
-        params.putString("errorMsg", "errorCode:" + s + ". errorMsg:" + s1);
-        PushModule.sendEvent("onInit", params);
-      }
-    });
-  }
+            @Override
+            public void onFailed(String s, String s1) {
+                pushInit = false;
+                WritableMap params = Arguments.createMap();
+                params.putBoolean("success", false);
+                params.putString("errorMsg", "errorCode:" + s + ". errorMsg:" + s1);
+                PushModule.sendEvent("onInit", params);
+            }
+        });
+    }
 }
