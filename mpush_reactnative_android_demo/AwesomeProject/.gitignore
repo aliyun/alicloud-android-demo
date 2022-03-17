@@ -19,7 +19,6 @@ xcuserdata
 DerivedData
 *.hmap
 *.ipa
-*.lock
 *.xcuserstate
 
 # Android/IntelliJ
@@ -59,8 +58,3 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
-
-package-lock.json
-.backconfig
-.flowconfig
-
