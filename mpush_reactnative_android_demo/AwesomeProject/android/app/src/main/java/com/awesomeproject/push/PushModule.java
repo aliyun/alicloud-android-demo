@@ -1,9 +1,12 @@
 package com.awesomeproject.push;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
@@ -16,8 +19,6 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-
-import static android.content.ContentValues.TAG;
 
 import java.io.File;
 import java.io.FileNotFoundException;

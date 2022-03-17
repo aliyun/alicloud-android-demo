@@ -1,9 +1,8 @@
 package com.awesomeproject;
 
 import android.app.Application;
-import android.os.Environment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.os.EnvironmentCompat;
+
+import androidx.core.content.ContextCompat;
 
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;

@@ -63,6 +63,14 @@ export default class AwesomeProject extends Component {
 			<View style={{flex:1, margin:5}}>
 		 			<Button 
 		 				flex-grow = "1"
+		 				title="Consent to privacy"
+						color = "#6495ed"
+						onPress = {this.InitClicked}
+				/>
+			</View>
+			<View style={{flex:1, margin:5}}>
+		 			<Button
+		 				flex-grow = "1"
 		 				title="BIND ACCOUNT"
 						color = "#6495ed"
 						onPress = {this.onAccountBindClicked}
@@ -113,6 +121,9 @@ export default class AwesomeProject extends Component {
   				deviceIdBtnTitle: args
   			});
         });
+  }
+  InitClicked() {
+  	mPush.pushInit();
   }
   onAccountBindClicked() {
   	mPush.bindAccount(this.state.accountToBind, function(args) {
