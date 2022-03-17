@@ -1,11 +1,14 @@
 package com.awesomeproject.push;
 
+import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.awesomeproject.MainApplication;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
@@ -16,12 +19,18 @@ import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 import static android.content.ContentValues.TAG;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * Created by liyazhou on 17/5/18.
  */
 
 public class PushModule extends ReactContextBaseJavaModule {
     private static ReactContext context;
+
     public PushModule(ReactApplicationContext reactContext) {
         super(reactContext);
         context = reactContext;
@@ -30,10 +39,11 @@ public class PushModule extends ReactContextBaseJavaModule {
     public static ReactContext getContext() {
         return context;
     }
+
     public static void sendEvent(String eventName, @Nullable WritableMap params) {
         if (context == null) {
             Log.i(TAG, "reactContext==null");
-        }else{
+        } else {
             context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                     .emit(eventName, params);
         }
@@ -62,6 +72,37 @@ public class PushModule extends ReactContextBaseJavaModule {
                 callback.invoke("bind account failed. errorCode:" + s + ", errorMsg:" + s1);
             }
         });
+    }
+
+    @ReactMethod
+    public void pushInit() {
+        createPrivacy();
+        Context context = PushModule.context.getApplicationContext();
+        if (context instanceof MainApplication) {
+            ((MainApplication) context).initCloudChannel();
+        }
+    }
+
+    private void createPrivacy() {
+        File dataDir = ContextCompat.getDataDir(context);
+        File is_privacy = new File(dataDir.getAbsolutePath(), "emas_is_privacy");
+        if (is_privacy.exists()) return;
+        dataDir.mkdirs();
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream(is_privacy);
+            try {
+                fileOutputStream.write(1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fileOutputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @ReactMethod
