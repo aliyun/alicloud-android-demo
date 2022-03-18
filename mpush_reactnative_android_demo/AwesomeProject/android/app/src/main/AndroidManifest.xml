@@ -53,6 +53,13 @@
             android:name="com.huawei.hms.client.appid"
             android:value="appid=xxxx" />
 
+        <meta-data
+            android:name="com.vivo.push.api_key"
+            android:value="xxxxxxxxxxxxxxxxxxx" />  <!-- 请填写您自己的vivo平台上的appKey -->
+        <meta-data
+            android:name="com.vivo.push.app_id"
+            android:value="xxxx" />    <!-- 请填写您自己的vivo平台上的appId -->
+
         <receiver
             android:name=".push.MyMessageReceiver"
             android:exported="false"><!-- 为保证receiver安全，建议设置不可导出，如需对其他应用开放可通过android：permission进行限制 -->

@@ -134,11 +134,13 @@ public class MainApplication extends Application implements ReactApplication {
      */
     private void initCS() {
         HuaWeiRegister.register(this);
-        MiPushRegister.register(this, "xxxxxxxx", "xxxxxxxx"); // 初始化小米辅助推送
-        MeizuRegister.register(this, "xxxxxxxx", "");//接入魅族辅助推送
-        OppoRegister.register(this, "xxxxxxxx", "");
-        VivoRegister.register(this);//接入vivo辅助推送
-        GcmRegister.register(this, "xxxxxxxx", "xxxxxxxx"); // 接入FCM/GCM初始化推送
+        MiPushRegister.register(this, "XIAOMI_ID", "XIAOMI_KEY"); // 初始化小米辅助推送
+        HuaWeiRegister.register(this); // 接入华为辅助推送
+        VivoRegister.register(this);
+        OppoRegister.register(this, "OPPO_KEY", "OPPO_SECRET");
+        MeizuRegister.register(this, "MEIZU_ID", "MEIZU_KEY");
+
+        GcmRegister.register(this, "send_id", "application_id"); // 接入FCM/GCM初始化推送
     }
 
 }
