@@ -63,6 +63,14 @@ export default class AwesomeProject extends Component {
 			<View style={{flex:1, margin:5}}>
 		 			<Button 
 		 				flex-grow = "1"
+		 				title="Consent to privacy"
+						color = "#6495ed"
+						onPress = {this.InitClicked}
+				/>
+			</View>
+			<View style={{flex:1, margin:5}}>
+		 			<Button
+		 				flex-grow = "1"
 		 				title="BIND ACCOUNT"
 						color = "#6495ed"
 						onPress = {this.onAccountBindClicked}
@@ -114,6 +122,9 @@ export default class AwesomeProject extends Component {
   			});
         });
   }
+  InitClicked() {
+  	mPush.pushInit();
+  }
   onAccountBindClicked() {
   	mPush.bindAccount(this.state.accountToBind, function(args) {
   		alert(args);
@@ -146,12 +157,14 @@ export default class AwesomeProject extends Component {
   		DeviceEventEmitter.addListener('onNotification', this.onNotification);
   		DeviceEventEmitter.addListener('onNotificationOpened', this.onNotificationOpened);
   		DeviceEventEmitter.addListener('onNotificationRemoved', this.onNotificationRemoved);
+  		DeviceEventEmitter.addListener('onSysNoticeOpened', this.onSysNoticeOpened);
   	}
 
 	componentWillUnmount() {
 	    DeviceEventEmitter.removeListener('onMessage', this.onMessage);
 	    DeviceEventEmitter.removeListener('onNotification', this.onNotification);
   		DeviceEventEmitter.removeListener('onNotificationOpened', this.onNotificationOpened);
+  		DeviceEventEmitter.removeListener('onSysNoticeOpened', this.onSysNoticeOpened);
   		DeviceEventEmitter.removeListener('onNotificationRemoved', this.onNotificationRemoved);
 	}
 	onMessage(e){
@@ -159,6 +172,9 @@ export default class AwesomeProject extends Component {
 	}
 	onNotification(e){
 		alert("Notification Received.Title:" + e.title + ", Content:" + e.content);
+	}
+	onSysNoticeOpened(e) {
+		alert("Notification Popup Clicked");
 	}
 	onNotificationOpened(e) {
 		alert("Notification Clicked");
