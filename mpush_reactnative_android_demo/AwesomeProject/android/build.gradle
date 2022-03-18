@@ -40,5 +40,6 @@ allprojects {
         maven { url 'https://maven.aliyun.com/repository/google' }
         maven { url 'https://maven.aliyun.com/repository/releases' }
         maven { url 'https://www.jitpack.io' }
+        maven { url 'https://developer.huawei.com/repo/' }
     }
 }

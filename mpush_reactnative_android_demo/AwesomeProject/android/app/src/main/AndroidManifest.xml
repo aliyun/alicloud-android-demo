@@ -2,6 +2,7 @@
     package="com.awesomeproject">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name=".MainApplication"
@@ -22,14 +23,44 @@
             </intent-filter>
         </activity>
 
-        <meta-data
-            android:name="com.alibaba.app.appkey"
-            android:value="********" />
+        <!--        &lt;!&ndash; 请填写你自己的- appKey &ndash;&gt;-->
+        <!--        <meta-data-->
+        <!--            android:name="com.alibaba.app.appkey"-->
+        <!--            android:value="********" />-->
+        <!--        &lt;!&ndash; 请填写你自己的appSecret &ndash;&gt;-->
+        <!--        <meta-data-->
+        <!--            android:name="com.alibaba.app.appsecret"-->
+        <!--            android:value="********" />-->
+
         <!-- 请填写你自己的- appKey -->
         <meta-data
-            android:name="com.alibaba.app.appsecret"
-            android:value="********" />
+            android:name="com.alibaba.app.appkey"
+            android:value="23793506" />
         <!-- 请填写你自己的appSecret -->
+        <meta-data
+            android:name="com.alibaba.app.appsecret"
+            android:value="226c59086b35aaa711eac776e87c617c" />
+
+        <activity
+            android:name=".push.PopupPushActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="${applicationId}"
+                    android:path="/thirdpush"
+                    android:scheme="agoo" />
+            </intent-filter>
+        </activity>
+
+
+        <meta-data
+            android:name="com.huawei.hms.client.appid"
+            android:value="appid=104689013" />
 
         <receiver
             android:name=".push.MyMessageReceiver"

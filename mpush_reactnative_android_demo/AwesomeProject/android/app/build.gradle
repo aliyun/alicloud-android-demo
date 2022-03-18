@@ -133,7 +133,8 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.awesomeproject"
+//        applicationId "com.awesomeproject"
+        applicationId "com.aliyun.emas.pocdemo"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -149,10 +150,10 @@ android {
     }
     signingConfigs {
         debug {
-            storeFile file('debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file('D:\\桌面\\key\\Test.jks')
+            storePassword "test1234"
+            keyAlias "test"
+            keyPassword "test1234"
         }
     }
     buildTypes {
@@ -218,6 +219,20 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation 'com.aliyun.ams:alicloud-android-push:3.7.5'
+    def thirdPushVersion = "3.7.4"
+    //华为依赖
+    implementation "com.aliyun.ams:alicloud-android-third-push-huawei:${thirdPushVersion}"
+    //小米依赖
+    implementation "com.aliyun.ams:alicloud-android-third-push-xiaomi:${thirdPushVersion}"
+    //OPPO依赖
+    implementation "com.aliyun.ams:alicloud-android-third-push-oppo:${thirdPushVersion}"
+    //vivo依赖
+    implementation "com.aliyun.ams:alicloud-android-third-push-vivo:${thirdPushVersion}"
+    //魅族依赖
+    implementation "com.aliyun.ams:alicloud-android-third-push-meizu:${thirdPushVersion}"
+    //谷歌依赖
+    implementation "com.aliyun.ams:alicloud-android-third-push-fcm:${thirdPushVersion}"
 }
 
 // Run this once to be able to run the application with BUCK
