@@ -54,7 +54,7 @@ public class MyMessageReceiver extends MessageReceiver {
         params.putString("openType", openType + "");
         params.putString("openActivity", openActivity);
         params.putString("openUrl", openUrl);
-        PushModule.sendEvent("onNotificationRemoved", params);
+        PushModule.sendEvent("onNotificationReceivedInApp", params);
     }
 
     @Override

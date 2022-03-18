@@ -2,9 +2,12 @@ package com.awesomeproject.push;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 
 import com.alibaba.sdk.android.push.AndroidPopupActivity;
+import com.awesomeproject.MainActivity;
 import com.awesomeproject.MainApplication;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
@@ -21,9 +24,11 @@ public class PopupPushActivity extends AndroidPopupActivity {
         for (String key : extraMap.keySet()) {
             params.putString("extraMap_" + key, extraMap.get(key));
         }
-        new Handler().postDelayed(() -> PushModule.sendEvent("onSysNoticeOpened", params), 1000);
-
-        Intent intent = new Intent(this, MainApplication.class);
+        new Thread(() -> {
+            SystemClock.sleep(3000);
+            PushModule.sendEvent("onSysNoticeOpened", params);
+        }).start();
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

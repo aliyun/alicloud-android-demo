@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.awesomeproject.ContVar;
 import com.awesomeproject.MainApplication;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -48,6 +49,7 @@ public class PushModule extends ReactContextBaseJavaModule {
             context.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                     .emit(eventName, params);
         }
+        Log.d("MPS:", String.format("sendEvent: %s ", eventName) + context);
     }
 
     @Override
@@ -86,7 +88,7 @@ public class PushModule extends ReactContextBaseJavaModule {
 
     private void createPrivacy() {
         File dataDir = ContextCompat.getDataDir(context);
-        File is_privacy = new File(dataDir.getAbsolutePath(), "emas_is_privacy");
+        File is_privacy = new File(dataDir.getAbsolutePath(), ContVar.P_FILE);
         if (is_privacy.exists()) return;
         dataDir.mkdirs();
         try {

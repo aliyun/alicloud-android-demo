@@ -99,7 +99,7 @@ public class MainApplication extends Application implements ReactApplication {
      * 注册通知
      */
     public void initCloudChannel() {
-        File is_privacy = new File(ContextCompat.getDataDir(this).getAbsolutePath(), "emas_is_privacy");
+        File is_privacy = new File(ContextCompat.getDataDir(this).getAbsolutePath(), ContVar.P_FILE);
         if (!is_privacy.exists()) return;
         if (pushInit) return;
         pushInit = true;
@@ -134,11 +134,11 @@ public class MainApplication extends Application implements ReactApplication {
      */
     private void initCS() {
         HuaWeiRegister.register(this);
-        MiPushRegister.register(this, "2882303761520036460", "5982003637460"); // 初始化小米辅助推送
-        MeizuRegister.register(this, "121026", "");//接入魅族辅助推送
-        OppoRegister.register(this, "9a2d869058e94b3b9ef8ad254d45d722", "");
+        MiPushRegister.register(this, "xxxxxxxx", "xxxxxxxx"); // 初始化小米辅助推送
+        MeizuRegister.register(this, "xxxxxxxx", "");//接入魅族辅助推送
+        OppoRegister.register(this, "xxxxxxxx", "");
         VivoRegister.register(this);//接入vivo辅助推送
-        GcmRegister.register(this, "500107424231", "1:500107424231:android:14e22b46430d4924"); // 接入FCM/GCM初始化推送
+        GcmRegister.register(this, "xxxxxxxx", "xxxxxxxx"); // 接入FCM/GCM初始化推送
     }
 
 }
