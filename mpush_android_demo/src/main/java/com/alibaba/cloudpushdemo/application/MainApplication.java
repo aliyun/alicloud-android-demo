@@ -54,6 +54,7 @@ public class MainApplication extends Application {
                 setConsoleText("init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
             }
         });
+        HuaWeiRegister.register(this);
         MiPushRegister.register(applicationContext, "xiaomiId", "xiaomiKey"); // 初始化小米辅助推送
         MeizuRegister.register(applicationContext, "appid", "appKey");//接入魅族辅助推送
         OppoRegister.register(applicationContext, "appkey", "appSecret");
