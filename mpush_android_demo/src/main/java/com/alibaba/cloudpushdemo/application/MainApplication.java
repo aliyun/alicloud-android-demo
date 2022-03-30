@@ -8,12 +8,13 @@ import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
 
+import com.alibaba.cloudpushdemo.FCM.GcmRegister;
 import com.alibaba.cloudpushdemo.bizactivity.MainActivity;
+import com.alibaba.cloudpushdemo.component.MyMessageIntentService;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.huawei.HuaWeiRegister;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
-import com.alibaba.sdk.android.push.register.GcmRegister;
 import com.alibaba.sdk.android.push.register.MeizuRegister;
 import com.alibaba.sdk.android.push.register.MiPushRegister;
 import com.alibaba.sdk.android.push.register.OppoRegister;
@@ -22,6 +23,7 @@ import com.alibaba.sdk.android.push.register.VivoRegister;
 public class MainApplication extends Application {
     private static final String TAG = "Init";
     private static MainActivity mainActivity = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,6 +32,7 @@ public class MainApplication extends Application {
 
     /**
      * 初始化云推送通道
+     *
      * @param applicationContext
      */
     private void initCloudChannel(final Context applicationContext) {
@@ -37,6 +40,7 @@ public class MainApplication extends Application {
         this.createNotificationChannel();
         PushServiceFactory.init(applicationContext);
         final CloudPushService pushService = PushServiceFactory.getCloudPushService();
+        pushService.setLogLevel(CloudPushService.LOG_DEBUG);
         pushService.register(applicationContext, new CommonCallback() {
             @Override
             public void onSuccess(String response) {
@@ -50,14 +54,11 @@ public class MainApplication extends Application {
                 setConsoleText("init cloudchannel failed -- errorcode:" + errorCode + " -- errorMessage:" + errorMessage);
             }
         });
-
-        MiPushRegister.register(applicationContext, "XIAOMI_ID", "XIAOMI_KEY"); // 初始化小米辅助推送
-        HuaWeiRegister.register(this); // 接入华为辅助推送
-        VivoRegister.register(applicationContext);
-        OppoRegister.register(applicationContext, "OPPO_KEY", "OPPO_SECRET");
-        MeizuRegister.register(applicationContext, "MEIZU_ID", "MEIZU_KEY");
-
-        GcmRegister.register(applicationContext, "send_id", "application_id"); // 接入FCM/GCM初始化推送
+        MiPushRegister.register(applicationContext, "xiaomiId", "xiaomiKey"); // 初始化小米辅助推送
+        MeizuRegister.register(applicationContext, "appid", "appKey");//接入魅族辅助推送
+        OppoRegister.register(applicationContext, "appkey", "appSecret");
+        VivoRegister.register(applicationContext);//接入vivo辅助推送
+        GcmRegister.register(applicationContext, "sendId", "applicationId"); // 接入FCM/GCM初始化推送
     }
 
     public static void setMainActivity(MainActivity activity) {
