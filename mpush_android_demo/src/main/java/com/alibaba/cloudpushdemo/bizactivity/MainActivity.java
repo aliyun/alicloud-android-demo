@@ -4,18 +4,27 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.alibaba.cloudpushdemo.R;
 import com.alibaba.cloudpushdemo.application.MainApplication;
 import com.alibaba.sdk.android.push.CloudPushService;
 import com.alibaba.sdk.android.push.CommonCallback;
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
  * 主页面
@@ -363,11 +372,13 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         MainApplication.setMainActivity(this);
         this.setContentView(R.layout.demo_activity_main);
         this.initViews();
         mPushService = PushServiceFactory.getCloudPushService();
+        if (!FirebaseApp.getApps(this).isEmpty()) {
+            FirebaseMessaging.getInstance().setAutoInitEnabled(true);
+        }
     }
 
     @Override

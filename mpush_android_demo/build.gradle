@@ -1,22 +1,46 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 28
 
     defaultConfig {
-        applicationId "cloud.aliyun.test"
-        minSdkVersion 16
-        targetSdkVersion 30
+        applicationId "com.aliyun.emas.pocdemo"
+        minSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    signingConfigs {
+        release {
+            storeFile file("Test.jks")
+            storePassword "test1234"
+            keyAlias "test"
+            keyPassword "test1234"
+        }
+        debugConfig {
+            storeFile file("Test.jks")
+            storePassword "test1234"
+            keyAlias "test"
+            keyPassword "test1234"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
-
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debugConfig
+        }
     }
     android {
         lintOptions {
@@ -32,23 +56,24 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0'
 
     //主通道依赖
-    implementation 'com.aliyun.ams:alicloud-android-push:3.4.0'
+    implementation 'com.aliyun.ams:alicloud-android-push:3.7.5'
     //辅助通道基础依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push:3.4.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push:3.7.4'
     //华为依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-huawei:3.4.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-huawei:3.7.4'
     //小米依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-xiaomi:3.4.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-xiaomi:3.7.4'
     //OPPO依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-oppo:3.4.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-oppo:3.7.4'
     //vivo依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-vivo:3.4.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-vivo:3.7.4'
     //魅族依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-meizu:3.4.0'
-    //谷歌依赖
-    implementation 'com.aliyun.ams:alicloud-android-third-push-fcm:3.4.0'
+    implementation 'com.aliyun.ams:alicloud-android-third-push-meizu:3.7.4'
+
+    implementation 'com.google.firebase:firebase-messaging:23.0.2'
+    implementation 'com.google.firebase:firebase-analytics:20.1.2'
+    implementation "com.google.android.gms:play-services-auth:20.1.0"
 }
+
