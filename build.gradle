@@ -6,8 +6,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
-
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.guardsquare:proguard-gradle:7.1.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -17,7 +17,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {url 'http://maven.aliyun.com/nexus/content/repositories/releases/'}
+        maven {url 'https://maven.aliyun.com/nexus/content/repositories/releases/'}
         maven { url 'https://developer.huawei.com/repo/'}
         flatDir {
             dirs 'libs'
