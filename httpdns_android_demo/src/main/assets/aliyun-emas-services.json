@@ -1,0 +1,6 @@
+{
+  "config": {
+    "httpdns.accountId":"${accountId}",
+    "httpdns.secretKey":"${secretKey}"
+  }
+}

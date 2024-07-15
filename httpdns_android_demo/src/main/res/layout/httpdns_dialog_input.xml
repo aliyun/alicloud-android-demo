@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="296dp"
+            android:layout_height="160dp"
+            android:background="@drawable/httpdns_bg_dialog_input">
+
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@{title}"
+                tools:text="添加需要清空缓存的域名"
+                android:textColor="#1F2024"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <EditText
+                android:id="@+id/etInput"
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:background="@drawable/httpdns_bg_input"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="24dp" />
+
+            <View
+                android:id="@+id/vDivider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E6E8EB"
+                app:layout_constraintTop_toBottomOf="@id/etInput"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/tvCancel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="取消"
+                android:textColor="#384153"
+                android:textSize="16sp"
+                android:gravity="center"
+                app:layout_constraintEnd_toStartOf="@id/vDivider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vDivider1"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <View
+                android:id="@+id/vDivider"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="#E6E8EB"
+                app:layout_constraintEnd_toStartOf="@id/tvConfirm"
+                app:layout_constraintTop_toTopOf="@id/vDivider1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvCancel" />
+
+            <TextView
+                android:id="@+id/tvConfirm"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="确认"
+                android:textColor="#1B58F4"
+                android:textSize="16sp"
+                android:gravity="center"
+                app:layout_constraintStart_toEndOf="@id/vDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vDivider1"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+
+</layout>

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="alibaba.httpdns_android_demo.SettingViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="48dp"
+            android:paddingBottom="20dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="通用"
+                android:textColor="#3D3D3D"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="通用配置更改后，需要重启App以使更改生效"
+                android:textColor="#98A4BA"
+                android:textSize="12sp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civExpireIp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:onCheckedChanged="@{viewModel::toggleEnableExpiredIp}"
+                android:checked="@{viewModel.enableExpiredIP}"
+                app:title="允许过期IP"
+                app:desc="允许过期IP"
+                app:layout_constraintTop_toBottomOf="@+id/tvHint"/>
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civDegrade"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:checked="@{viewModel.enableDegrade}"
+                android:onCheckedChanged="@{viewModel::toggleEnableDegrade}"
+                app:title="允许降级"
+                app:desc="解析失败后,允许降级到LocalDNS"
+                app:layout_constraintTop_toBottomOf="@+id/civExpireIp"/>
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civCacheIp"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:checked="@{viewModel.enableCacheIP}"
+                android:onCheckedChanged="@{viewModel::toggleEnableCacheIp}"
+                app:title="开启持久化缓存IP"
+                app:desc="域名解析结果,存储到本地数据库"
+                app:layout_constraintTop_toBottomOf="@+id/civDegrade"/>
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civHttps"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:checked="@{viewModel.enableHttps}"
+                android:onCheckedChanged="@{viewModel::toggleEnableHttps}"
+                app:title="允许HTTPS"
+                app:desc="使用HTTPS协议解析"
+                app:layout_constraintTop_toBottomOf="@+id/civCacheIp"/>
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civChangeNetworkRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:checked="@{viewModel.enableAutoRefresh}"
+                android:onCheckedChanged="@{viewModel::toggleEnableAutoRefresh}"
+                app:title="网络切换自动刷新"
+                app:desc="网络切换后自动刷新解析结果缓存"
+                app:layout_constraintTop_toBottomOf="@+id/civHttps"/>
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civPrintLog"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:checked="@{viewModel.enableLog}"
+                android:onCheckedChanged="@{viewModel::toggleEnableLog}"
+                app:title="允许SDK打印日志"
+                app:desc="开启SDK打印日志"
+                app:layout_constraintTop_toBottomOf="@+id/civChangeNetworkRefresh"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTimeout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintTop_toBottomOf="@id/civPrintLog" >
+
+                <TextView
+                    android:id="@+id/tvTimeoutTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tvTimeoutDesc"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:gravity="center_vertical"
+                    android:text="超时时间"
+                    android:textSize="16sp"
+                    android:textColor="#3D3D3D" />
+
+                <TextView
+                    android:id="@+id/tvTimeoutDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvTimeoutTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center_vertical"
+                    android:text="设置解析超时时间"
+                    android:textSize="12sp"
+                    android:textColor="#98A4BA" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:onClick="@{()-> viewModel.showTimeoutSettingDialog()}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvTimeout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(viewModel.currentTimeout)}"
+                        android:textColor="#2A313D"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/httpdns_edit"
+                        android:layout_marginStart="4dp"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <TextView
+                android:id="@+id/tvHighConfig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="高级配置"
+                android:textColor="#3D3D3D"
+                android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="52dp"
+                app:layout_constraintTop_toBottomOf="@id/clTimeout" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clRegion"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="20dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintTop_toBottomOf="@id/tvHighConfig" >
+
+                <TextView
+                    android:id="@+id/tvRegionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/tvRegionDesc"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    android:gravity="center_vertical"
+                    android:text="Region"
+                    android:textSize="16sp"
+                    android:textColor="#3D3D3D" />
+
+                <TextView
+                    android:id="@+id/tvRegionDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvRegionTitle"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:gravity="center_vertical"
+                    android:text="设置Region"
+                    android:textSize="12sp"
+                    android:textColor="#98A4BA" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/tvRegion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(viewModel.currentRegion)}"
+                        android:textColor="#2A313D"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/httpdns_down"
+                        android:layout_marginStart="4dp"/>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civHostPreResolve"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                app:rightBtnIsImage="true"
+                app:title="预解析域名列表"
+                app:desc="配置需要预解析的域名列表"
+                app:layout_constraintTop_toBottomOf="@+id/clRegion"/>
+
+            <alibaba.httpdns_android_demo.view.ConfigItemView
+                android:id="@+id/civClearHostCache"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                app:rightBtnIsImage="true"
+                app:title="清空指定域名缓存"
+                app:desc="配置需要清空缓存的域名列表"
+                app:layout_constraintTop_toBottomOf="@+id/civHostPreResolve"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clHelpCenter"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="54dp"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/civClearHostCache" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="帮助中心"
+                    android:textStyle="bold"
+                    android:textColor="#3D3D3D"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/httpdns_help"
+                    android:layout_marginTop="4dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clAboutUs"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:paddingHorizontal="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/clHelpCenter" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="关于我们"
+                    android:textStyle="bold"
+                    android:textColor="#3D3D3D"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/httpdns_more"
+                    android:layout_marginTop="6dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:textColor="#424FF7"
+                android:text="恢复默认设置"
+                android:paddingStart="16dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/clAboutUs" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</layout>

@@ -1,12 +1,17 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
 
 android {
-    compileSdkVersion 30
+
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "alibaba.httpdns_android_demo"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 26
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -16,12 +21,41 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //noinspection GradleCompatible
-    implementation 'com.android.support:appcompat-v7:28.0.0'
 
-    implementation "com.aliyun.ams:alicloud-android-httpdns:2.0.2"
+    implementation "com.aliyun.ams:alicloud-android-httpdns:2.4.2"
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+
+    implementation('com.alibaba:fastjson:1.1.73.android@jar')
+
+    implementation('com.emas.hybrid:emas-hybrid-android:1.1.0.3-public') {
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.taobao.android', module: 'thin_so_release'
+    }
+
 }

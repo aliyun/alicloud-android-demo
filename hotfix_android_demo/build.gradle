@@ -23,6 +23,7 @@ android {
             }
         }*/
         ndk {
+            ndkVersion '21.1.6352462'
             abiFilters "armeabi-v7a", 'arm64-v8a', 'x86'
         }
     }

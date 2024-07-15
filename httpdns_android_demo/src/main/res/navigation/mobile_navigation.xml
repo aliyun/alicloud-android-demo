@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_function">
+
+    <fragment
+        android:id="@+id/navigation_function"
+        android:name="alibaba.httpdns_android_demo.FunctionFragment"
+        android:label="@string/tab_basic"
+        tools:layout="@layout/fragment_function" />
+
+    <fragment
+        android:id="@+id/navigation_case"
+        android:name="alibaba.httpdns_android_demo.CaseFragment"
+        android:label="@string/tab_best_practice"
+        tools:layout="@layout/fragment_case" />
+
+    <fragment
+        android:id="@+id/navigation_setting"
+        android:name="alibaba.httpdns_android_demo.SettingFragment"
+        android:label="@string/tab_setting"
+        tools:layout="@layout/fragment_setting" />
+</navigation>
