@@ -11,6 +11,7 @@
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
         android:supportsRtl="true">
         <activity
             android:name=".MainActivity"
@@ -23,6 +24,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity android:name=".setting.HostListOperationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity android:name=".setting.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
 
     </application>
 

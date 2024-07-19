@@ -1,4 +1,4 @@
-package alibaba.httpdns_android_demo
+package alibaba.httpdns_android_demo.setting
 
 /**
  * @author allen.wy

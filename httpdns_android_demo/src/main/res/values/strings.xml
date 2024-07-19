@@ -8,6 +8,8 @@
     <string name="china">中国大陆</string>
     <string name="china_hk">中国香港</string>
     <string name="singapore">新加坡</string>
+    <string name="germany">德国</string>
+    <string name="us">美国</string>
 
     <string name="pre_resolve_host_duplicate">%s域名已经被添加至预解析列表，请勿重复添加</string>
 

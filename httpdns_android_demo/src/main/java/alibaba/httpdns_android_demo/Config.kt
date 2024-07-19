@@ -1,16 +1,21 @@
 package alibaba.httpdns_android_demo
 
 import android.content.Context
+import android.util.Log
 import org.json.JSONObject
 
 
 object Config {
 
-    const val CONFIG_FILE_NAME = "aliyun-emas-services.json"
+    private const val CONFIG_FILE_NAME = "aliyun-emas-services.json"
+
+    private const val CONTROL_HOST_CONFIG_FILE = "httpdns-domains.json"
 
     var ACCOUNT_ID = ""
 
     var SECRET_KEY = ""
+
+    var CONTROL_HOST_JSON = ""
 
     fun init(context: Context){
         val inputStream = context.assets.open(CONFIG_FILE_NAME)
@@ -18,7 +23,8 @@ object Config {
         inputStream.read(buffer)
         inputStream.close()
         val configJsonStr = String(buffer , Charsets.UTF_8)
-        val configJsonObj = JSONObject(configJsonStr)
+        val configJsonObj = JSONObject(configJsonStr).getJSONObject("config")
+
 
         if (configJsonObj.has("httpdns.accountId")) {
             ACCOUNT_ID = configJsonObj.optString("httpdns.accountId")
@@ -28,7 +34,11 @@ object Config {
             SECRET_KEY = configJsonObj.optString("httpdns.secretKey")
         }
 
-
+        val controlHostStream = context.assets.open(CONTROL_HOST_CONFIG_FILE)
+        val controlHostBuffer = ByteArray(controlHostStream.available())
+        controlHostStream.read(controlHostBuffer)
+        controlHostStream.close()
+        CONTROL_HOST_JSON = String(controlHostBuffer , Charsets.UTF_8)
     }
 
 }

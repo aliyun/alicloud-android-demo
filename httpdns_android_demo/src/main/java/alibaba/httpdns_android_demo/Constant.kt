@@ -32,3 +32,13 @@ const val KEY_ASYNC_RESOLVE = "async_resolve"
 const val KEY_RESOLVE_IP_TYPE = "resolve_ip_type"
 
 const val KEY_PRE_RESOLVE_HOST_LIST = "pre_resolve_host_list"
+
+const val KEY_IS_PRE_HOST = "is_pre_host"
+
+const val KEY_HOST = "host"
+
+const val KEY_RESOLVE_API_TYPE = "resolve_api_type"
+
+const val KEY_DOMAINS = "domains"
+
+const val KEY_SEARCH_HISTORY = "search_history"

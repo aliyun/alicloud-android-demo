@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="PopupRegionSettingBinding">
+        <import type="alibaba.httpdns_android_demo.RegionText" />
+        <variable
+            name="viewModel"
+            type="alibaba.httpdns_android_demo.setting.SettingViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="true">
+
+            <LinearLayout
+                android:layout_width="104dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvChina"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@{RegionText.REGION_TEXT_CHINA}"
+                    android:onClick="@{()->viewModel.saveRegion(RegionText.REGION_TEXT_CHINA)}"
+                    android:textColor="#474A52"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp" />
+
+                <TextView
+                    android:id="@+id/tvHK"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@{RegionText.REGION_TEXT_HK}"
+                    android:onClick="@{()->viewModel.saveRegion(RegionText.REGION_TEXT_HK)}"
+                    android:textColor="#474A52"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp" />
+
+                <TextView
+                    android:id="@+id/tvSG"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@{RegionText.REGION_TEXT_SG}"
+                    android:onClick="@{()->viewModel.saveRegion(RegionText.REGION_TEXT_SG)}"
+                    android:textColor="#474A52"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp" />
+
+                <TextView
+                    android:id="@+id/tvDE"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@{RegionText.REGION_TEXT_DE}"
+                    android:onClick="@{()->viewModel.saveRegion(RegionText.REGION_TEXT_DE)}"
+                    android:textColor="#474A52"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp" />
+
+                <TextView
+                    android:id="@+id/tvUS"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="@{RegionText.REGION_TEXT_US}"
+                    android:onClick="@{()->viewModel.saveRegion(RegionText.REGION_TEXT_US)}"
+                    android:textColor="#474A52"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>

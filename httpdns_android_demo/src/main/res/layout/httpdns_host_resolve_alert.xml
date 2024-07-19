@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="host"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="296dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/httpdns_bg_dialog_input">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="域名解析提醒"
+                android:textColor="#1F2024"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="在开始解析前，请将下方域名添加到阿里云控制台HTTPDNS的“域名列表”；否则无法返回解析结果"
+                android:textColor="#384153"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="24dp" />
+
+            <TextView
+                android:id="@+id/tvHost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{host}"
+                android:textColor="#3E3D46"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/tvLabel"
+                tools:text="input3.alibaba-inc.com"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="24dp" />
+
+            <TextView
+                android:id="@+id/tvLabel2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="若已添加，则忽略此消息"
+                android:textColor="#384153"
+                android:textSize="13sp"
+                app:layout_constraintTop_toBottomOf="@id/tvHost"
+                android:layout_marginTop="24dp"
+                android:layout_marginHorizontal="24dp" />
+
+            <View
+                android:id="@+id/vDivider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E6E8EB"
+                app:layout_constraintTop_toBottomOf="@id/tvLabel2"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/tvKnow"
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:text="知道了"
+                android:textColor="#1B58F4"
+                android:textSize="16sp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vDivider1" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

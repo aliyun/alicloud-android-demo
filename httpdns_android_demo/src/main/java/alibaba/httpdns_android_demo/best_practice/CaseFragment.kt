@@ -1,4 +1,4 @@
-package alibaba.httpdns_android_demo
+package alibaba.httpdns_android_demo.best_practice
 
 import alibaba.httpdns_android_demo.databinding.FragmentCaseBinding
 import android.os.Bundle
@@ -18,7 +18,7 @@ class CaseFragment:Fragment() {
     ): View? {
 
         binding = FragmentCaseBinding.inflate(inflater , container , false)
-        binding?.lifecycleOwner = this
+        binding?.lifecycleOwner = viewLifecycleOwner
         return binding?.root
     }
 

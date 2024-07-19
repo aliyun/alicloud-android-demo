@@ -57,5 +57,4 @@ dependencies {
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.taobao.android', module: 'thin_so_release'
     }
-
 }
