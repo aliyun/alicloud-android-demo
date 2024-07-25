@@ -4,6 +4,7 @@ import alibaba.httpdns_android_demo.HttpDnsServiceHolder
 import alibaba.httpdns_android_demo.KEY_HOST
 import alibaba.httpdns_android_demo.KEY_RESOLVE_API_TYPE
 import alibaba.httpdns_android_demo.SingleLiveData
+import alibaba.httpdns_android_demo.best_practice.Response
 import android.app.Application
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
@@ -69,7 +70,7 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
      */
     private val httpDnsService = HttpDnsServiceHolder.getHttpDnsService(application)
 
-    fun initData(bundle:Bundle?) {
+    fun initData(bundle: Bundle?) {
         host.value = bundle?.getString(KEY_HOST)
         currResolveApiType.value = bundle?.getInt(KEY_RESOLVE_API_TYPE)
         resolve()

@@ -2,6 +2,7 @@ package alibaba.httpdns_android_demo
 
 import alibaba.httpdns_android_demo.databinding.DialogInputBinding
 import alibaba.httpdns_android_demo.databinding.HttpdnsHostResolveAlertBinding
+import alibaba.httpdns_android_demo.databinding.OkHttpResponseDialogBinding
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
@@ -172,6 +173,28 @@ fun Context.showHostResolveAlert(host:String , callback:() -> Unit){
         mAlertDialog?.dismiss()
     }
     mAlertDialog?.setOnDismissListener { callback() }
+    mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    mAlertDialog?.setView(binding.root)
+    mAlertDialog?.show()
+
+}
+
+/**
+ * 展示最佳实践OkHttp请求结果的弹窗
+ */
+fun Context.showOkHttpResponseAlert(title:String , responseStr:String){
+    if (mAlertDialog != null && this === mAlertDialog?.context && true == mAlertDialog?.isShowing) {
+        return
+    }
+    if (mAlertDialog == null || this != mAlertDialog?.context) {
+        mAlertDialog = AlertDialog.Builder(this , R.style.Theme_AppCompat_Dialog_Alert).create()
+    }
+    val binding =  OkHttpResponseDialogBinding.inflate(LayoutInflater.from(this) , null , false)
+    binding.title = title
+    binding.responseStr = responseStr
+    binding.tvKnow.setOnClickListener {
+        mAlertDialog?.dismiss()
+    }
     mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     mAlertDialog?.setView(binding.root)
     mAlertDialog?.show()

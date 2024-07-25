@@ -42,3 +42,5 @@ const val KEY_RESOLVE_API_TYPE = "resolve_api_type"
 const val KEY_DOMAINS = "domains"
 
 const val KEY_SEARCH_HISTORY = "search_history"
+
+const val TAG = "httpdns"

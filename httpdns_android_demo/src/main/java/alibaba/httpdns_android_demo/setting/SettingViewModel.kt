@@ -92,7 +92,6 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
      * region设置Popup
      */
     var regionPopup: IRegionPopup? = null
-
     fun initData() {
         enableExpiredIP.value = preferences.getBoolean(KEY_ENABLE_EXPIRED_IP, false)
         enableCacheIP.value = preferences.getBoolean(KEY_ENABLE_CACHE_IP, false)

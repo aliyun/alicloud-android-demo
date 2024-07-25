@@ -13,4 +13,18 @@
 
     <string name="pre_resolve_host_duplicate">%s域名已经被添加至预解析列表，请勿重复添加</string>
 
+    <string name="input_the_resolve_host">要解析的域名</string>
+    <string name="input_the_resolve_host_help_text">例如：help.aliyun.com</string>
+    <string name="input_the_request_api">要请求的接口</string>
+    <string name="input_the_request_api_help_text">例如: /document_detail/434554.html</string>
+    <string name="resolve_and_request">解析并请求</string>
+    <string name="resolve_host_empty">域名不能为空</string>
+    <string name="host_is_ip">域名不能是IP地址</string>
+    <string name="host_illegal">请输入正确格式的域名</string>
+    <string name="schema_type">Schema类型</string>
+    <string name="response_title">请求结果</string>
+    <string name="body_large_see_log">Body请通过日志查看，关键字为httpdns</string>
+    <string name="ok">好的</string>
+    <string name="resolve_result">解析结果</string>
+    <string name="content_show">内容展示</string>
 </resources>

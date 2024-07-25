@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="CaseItemBinding">
+        <variable
+            name="caseName"
+            type="String" />
+    </data>
+
+    <TextView
+        android:layout_width="82dp"
+        android:layout_height="119dp"
+        android:text="@{caseName}"
+        android:textColor="#A7BCCE"
+        android:textSize="12sp"
+        android:lineHeight="24dp"
+        android:gravity="center"
+        tools:text="OkHttp\n网络库\n最佳实践"
+        android:background="@drawable/httpdns_case_item_bg_def"/>
+</layout>

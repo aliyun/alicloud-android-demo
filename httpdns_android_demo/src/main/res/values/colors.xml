@@ -6,4 +6,8 @@
 
     <color name="cloud_blue">#1B58F4</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="httpdns_color_A7BCCE">#A7BCCE</color>
+    <color name="httpdns_color_424FF7">#424FF7</color>
+    <color name="httpdns_color_transparent">#00000000</color>
 </resources>

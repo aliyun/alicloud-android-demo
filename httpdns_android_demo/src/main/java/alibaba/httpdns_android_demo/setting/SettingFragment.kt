@@ -1,8 +1,10 @@
 package alibaba.httpdns_android_demo.setting
 
+import alibaba.httpdns_android_demo.BaseFragment
 import alibaba.httpdns_android_demo.KEY_IS_PRE_HOST
-import alibaba.httpdns_android_demo.databinding.FragmentSettingBinding
+import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.PopupRegionSettingBinding
+import alibaba.httpdns_android_demo.databinding.SettingBinding
 import alibaba.httpdns_android_demo.getStatusBarHeight
 import alibaba.httpdns_android_demo.showInputDialog
 import alibaba.httpdns_android_demo.toDp
@@ -13,7 +15,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 
 /**
@@ -21,11 +22,16 @@ import androidx.lifecycle.ViewModelProvider
  * @author 任伟
  * @date 2024/07/19
  */
-class SettingFragment:Fragment(), ITimeoutSettingDialog, IRegionPopup {
+class SettingFragment: BaseFragment<SettingBinding>(), ITimeoutSettingDialog, IRegionPopup {
 
-    private var binding:FragmentSettingBinding? = null
     private lateinit var viewModel: SettingViewModel
+
     private var regionSettingPopup:PopupWindow? = null
+
+    override fun getLayoutId(): Int {
+        return R.layout.httpdns_fragment_setting
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[SettingViewModel::class.java]
@@ -33,38 +39,31 @@ class SettingFragment:Fragment(), ITimeoutSettingDialog, IRegionPopup {
         viewModel.regionPopup = this
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentSettingBinding.inflate(inflater , container , false)
-        binding?.lifecycleOwner = viewLifecycleOwner
-        viewModel.initData()
-        binding?.viewModel = viewModel
-        return binding?.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.civHostPreResolve?.setOnClickListener {
+        viewModel.initData()
+        viewModel.timeoutDialog = this
+        viewModel.regionPopup = this
+
+        binding.viewModel = viewModel
+        binding.civHostPreResolve.setOnClickListener {
             gotoHostListOperation(true)
         }
-        binding?.civClearHostCache?.setOnClickListener {
+        binding.civClearHostCache.setOnClickListener {
             gotoHostListOperation(false)
         }
         //滚动距离和状态栏透明度的联动
         val statusBarHeight = requireContext().getStatusBarHeight()
-        binding?.vStatusBg?.layoutParams?.height = statusBarHeight
-        binding?.nestedScrollView?.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+        binding.vStatusBg.layoutParams?.height = statusBarHeight
+        binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             val alpha = if (scrollY*1f/statusBarHeight > 1) {
                 1f
             }else {
                 scrollY*1f/statusBarHeight
             }
-            binding?.vStatusBg?.alpha = alpha
+            binding.vStatusBg.alpha = alpha
         }
-        binding?.clAboutUs?.setOnClickListener { startActivity(Intent(context , AboutUsActivity::class.java)) }
+        binding.clAboutUs.setOnClickListener { startActivity(Intent(context , AboutUsActivity::class.java)) }
     }
 
     /**
@@ -111,5 +110,4 @@ class SettingFragment:Fragment(), ITimeoutSettingDialog, IRegionPopup {
         super.onDestroyView()
         regionSettingPopup = null
     }
-
 }
