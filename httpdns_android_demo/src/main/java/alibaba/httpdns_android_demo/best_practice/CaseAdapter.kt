@@ -3,12 +3,9 @@ package alibaba.httpdns_android_demo.best_practice
 import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.CaseItemBinding
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 
 /**
