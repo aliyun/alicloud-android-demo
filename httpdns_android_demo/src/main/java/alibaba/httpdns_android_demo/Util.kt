@@ -201,17 +201,6 @@ fun Context.showOkHttpResponseAlert(title:String , responseStr:String){
 
 }
 
-fun regionToText(region: Region):String {
-    return when(region) {
-        Region.DEFAULT -> RegionText.REGION_TEXT_CHINA
-        Region.HK -> RegionText.REGION_TEXT_HK
-        Region.SG -> RegionText.REGION_TEXT_SG
-        Region.DE -> RegionText.REGION_TEXT_DE
-        Region.US -> RegionText.REGION_TEXT_US
-        else -> RegionText.REGION_TEXT_CHINA
-    }
-}
-
 /**
  * region 枚举和文字之间的转换
  */

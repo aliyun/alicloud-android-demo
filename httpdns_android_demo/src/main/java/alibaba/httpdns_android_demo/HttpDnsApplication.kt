@@ -58,10 +58,5 @@ class HttpDnsApplication : Application() {
                 }
             }
         }
-
-//        EmasHybridApi.registerPlugin("WVPost", WVPostPlugin::class.java)
-
     }
-
-
 }
