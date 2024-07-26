@@ -55,7 +55,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginEnd="12dp"
-                        android:text="重新输入"
+                        android:text="重新请求"
                         android:onClick="@{() -> viewModel.sniRequest()}"
                         app:cornerRadius="20dp"
                         app:rippleColor="@color/cloud_blue" />

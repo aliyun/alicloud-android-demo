@@ -8,9 +8,7 @@ import android.util.Log
 import android.widget.RadioGroup
 import androidx.lifecycle.viewModelScope
 import com.alibaba.sdk.android.httpdns.HTTPDNSResult
-import com.alibaba.sdk.android.httpdns.NetType
 import com.alibaba.sdk.android.httpdns.RequestIpType
-import com.alibaba.sdk.android.httpdns.net.HttpDnsNetworkDetector
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.ConnectionPool

@@ -45,7 +45,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.host}"
+                        android:text="@={viewModel.host}"
                         android:paddingStart="2dp"
                         android:paddingEnd="2dp" />
 
@@ -68,7 +68,7 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@{viewModel.path}"
+                        android:text="@={viewModel.path}"
                         android:paddingStart="2dp"
                         android:paddingEnd="2dp" />
 
@@ -124,6 +124,7 @@
                     android:paddingBottom="10dp"
                     android:text="@string/resolve_and_request"
                     android:layout_gravity="center_horizontal"
+                    android:enabled="@{!TextUtils.isEmpty(viewModel.host) &amp;&amp;!TextUtils.isEmpty(viewModel.path)}"
                     android:onClick="@{() -> viewModel.requestAndResolve()}"
                     app:cornerRadius="20dp"
                     app:icon="@drawable/ic_httpdns"
