@@ -12,6 +12,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginEnd="0dp"
+            app:itemTextColor="@drawable/httpdns_selector_main_tab"
+            app:itemIconTint="@drawable/httpdns_selector_main_tab"
             app:itemRippleColor="@color/httpdns_color_transparent"
             android:background="?android:attr/windowBackground"
             app:layout_constraintBottom_toBottomOf="parent"
