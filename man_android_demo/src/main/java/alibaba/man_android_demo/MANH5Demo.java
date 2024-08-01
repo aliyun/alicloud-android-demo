@@ -7,23 +7,19 @@ package alibaba.man_android_demo;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.webkit.JsResult;
-import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.webkit.WebChromeClient;
 
+import androidx.annotation.Nullable;
+
 import com.alibaba.sdk.android.man.MANHitBuilders;
 import com.alibaba.sdk.android.man.MANService;
 import com.alibaba.sdk.android.man.MANServiceProvider;
 
-import java.net.URLDecoder;
 
 public class MANH5Demo extends Activity {
 

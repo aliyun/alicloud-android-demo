@@ -1,8 +1,9 @@
 package com.alibaba.sophix.demo;
 
 import android.content.Context;
-import android.support.annotation.Keep;
 import android.util.Log;
+
+import androidx.annotation.Keep;
 
 import com.taobao.sophix.PatchStatus;
 import com.taobao.sophix.SophixApplication;

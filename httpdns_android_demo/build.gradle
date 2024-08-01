@@ -7,7 +7,7 @@ plugins {
 android {
 
     compileSdkVersion 34
-
+    namespace "alibaba.httpdns_android_demo"
     defaultConfig {
         applicationId "alibaba.httpdns_android_demo"
         minSdkVersion 26

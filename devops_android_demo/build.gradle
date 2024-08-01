@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+    namespace "com.aliyun.emas.android.devops.demo"
     defaultConfig {
         applicationId "com.aliyun.emas.android.devops.demo"
         minSdkVersion 20

@@ -3,6 +3,7 @@ group = 'com.alibaba.openim.feedbackDemo'
 
 android {
     compileSdkVersion 30
+    namespace "com.alibaba.openim.feedbackdemo"
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 30
