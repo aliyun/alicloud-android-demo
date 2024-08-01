@@ -25,9 +25,12 @@ import java.util.ArrayList
 class ResolveViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
-        const val RESOLVE_SYNC_DESC = "使用同步解析接口解析域名，会阻塞当前线程，直到获得有效解析结果并返回"
-        const val RESOLVE_ASYNC_DESC = "使用异步解析接口解析域名，不会阻塞当前线程，解析结果会通过回调的形式返回。"
-        const val RESOLVE_SYNC_NONBLOCKING_DESC = "使用同步非阻塞接口解析域名，不会阻塞当前线程，但可能会返回空结果。"
+        const val RESOLVE_SYNC_DESC =
+            "使用同步解析接口解析域名，会阻塞当前线程，直到获得有效解析结果并返回"
+        const val RESOLVE_ASYNC_DESC =
+            "使用异步解析接口解析域名，不会阻塞当前线程，解析结果会通过回调的形式返回。"
+        const val RESOLVE_SYNC_NONBLOCKING_DESC =
+            "使用同步非阻塞接口解析域名，不会阻塞当前线程，但可能会返回空结果。"
     }
 
     /**
@@ -79,15 +82,17 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
     /**
      * 点击解析接口选择按钮
      */
-    fun clickResolveTypeBtn(type:Int) {
+    fun clickResolveTypeBtn(type: Int) {
         currResolveApiType.value = type
-        when(type) {
+        when (type) {
             ResolveApiType.RESOLVE_SYNC -> {
                 resolveApiTypeDesc.value = RESOLVE_SYNC_DESC
             }
+
             ResolveApiType.RESOLVE_ASYNC -> {
                 resolveApiTypeDesc.value = RESOLVE_ASYNC_DESC
             }
+
             else -> {
                 resolveApiTypeDesc.value = RESOLVE_SYNC_NONBLOCKING_DESC
             }
@@ -97,14 +102,16 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
     /**
      * 解析
      */
-    fun resolve(){
-        when(currResolveApiType.value) {
+    fun resolve() {
+        when (currResolveApiType.value) {
             ResolveApiType.RESOLVE_SYNC -> {
                 resolveSync()
             }
+
             ResolveApiType.RESOLVE_ASYNC -> {
                 resolveAsync()
             }
+
             else -> {
                 resolveSyncNonBlocking()
             }
@@ -116,19 +123,20 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
      */
     private fun resolveSyncNonBlocking() {
         val currMills = System.currentTimeMillis()
-        httpDnsService?.getHttpDnsResultForHostSyncNonBlocking(host.value , RequestIpType.both)?.apply {
-            showResolveResult(this , currMills)
-        }
+        httpDnsService?.getHttpDnsResultForHostSyncNonBlocking(host.value, RequestIpType.both)
+            ?.apply {
+                showResolveResult(this, currMills)
+            }
     }
 
     /**
      * 异步解析
      */
-    private fun resolveAsync(){
+    private fun resolveAsync() {
         val currMills = System.currentTimeMillis()
-        httpDnsService?.getHttpDnsResultForHostAsync(host.value , RequestIpType.both) {
+        httpDnsService?.getHttpDnsResultForHostAsync(host.value, RequestIpType.both) {
             CoroutineScope(Dispatchers.Main).launch {
-                showResolveResult(it , currMills)
+                showResolveResult(it, currMills)
             }
         }
     }
@@ -136,7 +144,7 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
     /**
      * 同步解析
      */
-    private fun resolveSync(){
+    private fun resolveSync() {
         val currMills = System.currentTimeMillis()
         CoroutineScope(Dispatchers.Default).launch {
             val result = async {
@@ -153,7 +161,7 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
     /**
      * 解析结果展示
      */
-    private fun showResolveResult(httpDnsResult:HTTPDNSResult , mills:Long) {
+    private fun showResolveResult(httpDnsResult: HTTPDNSResult, mills: Long) {
         hostAndTime.value = "${host.value} (${System.currentTimeMillis() - mills}ms)"
         val resultClass = httpDnsResult::class.java
         val ttlField = resultClass.getDeclaredField("ttl")
@@ -167,15 +175,15 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
     /**
      * 域名预加载
      */
-    fun preHost(){
-        httpDnsService?.setPreResolveHosts(arrayListOf(host.value),RequestIpType.both)
+    fun preHost() {
+        httpDnsService?.setPreResolveHosts(arrayListOf(host.value), RequestIpType.both)
     }
 
     /**
      * 清空当前域名缓存
      */
-    fun clearHostCache(){
-        httpDnsService?.cleanHostCache(ArrayList<String>().apply { add(host.value?:"") })
+    fun clearHostCache() {
+        httpDnsService?.cleanHostCache(ArrayList<String>().apply { add(host.value ?: "") })
         hostAndTime.value = ""
         ttl.value = ""
         ipv4.value = ""
@@ -183,7 +191,7 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
     }
 }
 
-object ResolveApiType{
+object ResolveApiType {
     /**
      * 同步
      */

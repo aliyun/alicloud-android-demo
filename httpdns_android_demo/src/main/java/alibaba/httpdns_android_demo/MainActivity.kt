@@ -17,18 +17,18 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * @author 任伟
  * @date 2024/07/19
  */
-class MainActivity:AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private var mBackKeyPressedTime = 0L
 
-    private val onBackCallback:OnBackPressedCallback = object : OnBackPressedCallback(true) {
+    private val onBackCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (System.currentTimeMillis() - mBackKeyPressedTime > 2000) {
-                Toast.makeText(this@MainActivity , "再按一次退出应用" , Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, "再按一次退出应用", Toast.LENGTH_SHORT).show()
                 mBackKeyPressedTime = System.currentTimeMillis()
-            }else {
+            } else {
                 finish()
             }
         }
@@ -38,7 +38,7 @@ class MainActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //浸入状态栏
         val controller = WindowCompat.getInsetsController(window, window.decorView)
-        WindowCompat.setDecorFitsSystemWindows(window , false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         controller.isAppearanceLightStatusBars = true
         //设置状态栏透明
         window.statusBarColor = Color.TRANSPARENT
@@ -49,6 +49,6 @@ class MainActivity:AppCompatActivity() {
 
         navView.setupWithNavController(navController)
 
-        onBackPressedDispatcher.addCallback(this , onBackCallback)
+        onBackPressedDispatcher.addCallback(this, onBackCallback)
     }
 }

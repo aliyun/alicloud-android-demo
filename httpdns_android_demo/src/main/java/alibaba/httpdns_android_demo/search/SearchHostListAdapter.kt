@@ -11,31 +11,38 @@ import androidx.recyclerview.widget.RecyclerView
  * @author 任伟
  * @data 2024/07/19
  */
-class SearchHostListAdapter(val data:List<String>):RecyclerView.Adapter<SearchHostListAdapter.ViewHolder>() {
+class SearchHostListAdapter(val data: List<String>) :
+    RecyclerView.Adapter<SearchHostListAdapter.ViewHolder>() {
 
     /**
      * 域名删除回调
      */
-    var onItemDeleteListener:((host:String,position:Int) ->Unit)? = null
+    var onItemDeleteListener: ((host: String, position: Int) -> Unit)? = null
 
     /**
      * 域名点击回调
      */
-    var onItemClickListener:((host:String) ->Unit)? = null
+    var onItemClickListener: ((host: String) -> Unit)? = null
 
     /**
      * 是否隐藏右侧删除按钮
      */
     var hideClose = false
 
-    class ViewHolder(val binding: SearchHostItemBinding):RecyclerView.ViewHolder(binding.root) {
-        fun bindData(host:String){
+    class ViewHolder(val binding: SearchHostItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bindData(host: String) {
             binding.tvHost.text = host
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, position: Int): ViewHolder {
-        return ViewHolder(SearchHostItemBinding.inflate(LayoutInflater.from(parent.context) , parent , false))
+        return ViewHolder(
+            SearchHostItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
@@ -46,7 +53,7 @@ class SearchHostListAdapter(val data:List<String>):RecyclerView.Adapter<SearchHo
         viewHolder.bindData(data[position])
         viewHolder.binding.ivClose.isVisible = !hideClose
         viewHolder.binding.ivClose.setOnClickListener {
-            onItemDeleteListener?.invoke(data[position] , position)
+            onItemDeleteListener?.invoke(data[position], position)
         }
         viewHolder.binding.root.setOnClickListener {
             onItemClickListener?.invoke(data[position])

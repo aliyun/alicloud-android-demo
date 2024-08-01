@@ -37,13 +37,13 @@ class HttpDnsApplication : Application() {
                     val hostListWithFixedIpJson =
                         preferences.getString(KEY_HOST_WITH_FIXED_IP, null)
                     //预解析
-                    val preResolveHostList  = preferences.getString(KEY_PRE_RESOLVE_HOST_LIST, null)
+                    val preResolveHostList = preferences.getString(KEY_PRE_RESOLVE_HOST_LIST, null)
 
                     InitConfig.Builder()
                         .setEnableHttps(enableHttpDns)
                         .setEnableCacheIp(enableCacheIp)
                         .setEnableExpiredIp(enableExpiredIp)
-                        .setRegion(textToRegion(region?:RegionText.REGION_TEXT_CHINA))
+                        .setRegion(textToRegion(region ?: RegionText.REGION_TEXT_CHINA))
                         .setTimeout(timeout)
                         .setIPRankingList(ipRankingItemJson.toIPRankingList())
                         .configCacheTtlChanger(TtlCacheHolder.cacheTtlChanger)
@@ -51,8 +51,12 @@ class HttpDnsApplication : Application() {
                         .buildFor(Config.ACCOUNT_ID)
 
                     preResolveHostList?.let {
-                        val dnsService = HttpDnsServiceHolder.getHttpDnsService(this@HttpDnsApplication)
-                        dnsService?.setPreResolveHosts(it.toHostList() as ArrayList<String>, RequestIpType.both)
+                        val dnsService =
+                            HttpDnsServiceHolder.getHttpDnsService(this@HttpDnsApplication)
+                        dnsService?.setPreResolveHosts(
+                            it.toHostList() as ArrayList<String>,
+                            RequestIpType.both
+                        )
                     }
                     HttpDnsLog.enable(preferences.getBoolean(KEY_ENABLE_LOG, false))
                 }

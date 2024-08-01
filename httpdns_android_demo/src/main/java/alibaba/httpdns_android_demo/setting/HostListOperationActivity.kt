@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
  * @author 任伟
  * @date 2024/07/19
  */
-class HostListOperationActivity:AppCompatActivity() {
+class HostListOperationActivity : AppCompatActivity() {
 
     private lateinit var binding: HostListOperationBinding
     private lateinit var viewModel: HostListOperationViewModel
@@ -25,7 +25,7 @@ class HostListOperationActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //状态栏设置
         val controller = WindowCompat.getInsetsController(window, window.decorView)
-        WindowCompat.setDecorFitsSystemWindows(window , false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         controller.isAppearanceLightStatusBars = true
         window.statusBarColor = Color.TRANSPARENT
 
@@ -37,30 +37,31 @@ class HostListOperationActivity:AppCompatActivity() {
         viewModel.initData(intent)
         //初始化域名列表
         binding.rvHost.layoutManager = LinearLayoutManager(this)
-        binding.rvHost.adapter = HostListOperationAdapter(viewModel.hosts , viewModel.selectHosts).apply {
-            adapter = this
-            //域名点击回调
-            onItemClickListener = {
-                if (viewModel.selectHosts.contains(it)) {
-                    viewModel.selectHosts.remove(it)
-                }else {
-                    viewModel.selectHosts.add(it)
+        binding.rvHost.adapter =
+            HostListOperationAdapter(viewModel.hosts, viewModel.selectHosts).apply {
+                adapter = this
+                //域名点击回调
+                onItemClickListener = {
+                    if (viewModel.selectHosts.contains(it)) {
+                        viewModel.selectHosts.remove(it)
+                    } else {
+                        viewModel.selectHosts.add(it)
+                    }
+                    adapter?.notifyItemChanged(viewModel.hosts.indexOf(it))
+                    viewModel.btnEnableClick.value = viewModel.selectHosts.size != 0
                 }
-                adapter?.notifyItemChanged(viewModel.hosts.indexOf(it))
-                viewModel.btnEnableClick.value = viewModel.selectHosts.size != 0
             }
-        }
         binding.ivBack.setOnClickListener { finish() }
         binding.ivAddHost.setOnClickListener {
-            showInputDialog(viewModel.addHostTitle , InputType.TYPE_CLASS_TEXT) {
+            showInputDialog(viewModel.addHostTitle, InputType.TYPE_CLASS_TEXT) {
                 if (viewModel.hosts.contains(it)) {
                     viewModel.hosts.remove(it)
                 }
-                viewModel.hosts.add(0 , it)
+                viewModel.hosts.add(0, it)
                 if (!viewModel.selectHosts.contains(it)) {
                     viewModel.selectHosts.add(it)
                 }
-                adapter?.notifyItemRangeChanged(0 , viewModel.hosts.size)
+                adapter?.notifyItemRangeChanged(0, viewModel.hosts.size)
                 viewModel.btnEnableClick.value = true
                 viewModel.saveHost(viewModel.hosts)
             }

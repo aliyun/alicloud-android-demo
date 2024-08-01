@@ -17,27 +17,27 @@ import java.util.concurrent.TimeUnit
  * @author 任伟
  * @date 2024/07/25
  */
-class ExoPlayerCaseViewModel(application: Application):ResolveResultViewModel(application) {
+class ExoPlayerCaseViewModel(application: Application) : ResolveResultViewModel(application) {
 
     val playerUrl = "https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd"
 
     lateinit var okHttpClient: OkHttpClient
 
-    fun initData(){
+    fun initData() {
         host.value = URL(playerUrl).host
 
         okHttpClient = OkHttpClient.Builder()
             .connectionPool(ConnectionPool(0, 10 * 1000, TimeUnit.MICROSECONDS))
-            .hostnameVerifier { _, _ ->true }
+            .hostnameVerifier { _, _ -> true }
             .dns(object : Dns {
                 override fun lookup(hostname: String): List<InetAddress> {
-                    Log.d(TAG , "currentThread:${Thread.currentThread()}")
+                    Log.d(TAG, "currentThread:${Thread.currentThread()}")
                     var httpDnsResult: HTTPDNSResult? = null
                     val currMills = System.currentTimeMillis()
                     //修改为最新的通俗易懂的api
                     resolveSync(host.value!!) {
                         it?.apply {
-                            showResolveResult(this , currMills)
+                            showResolveResult(this, currMills)
                             httpDnsResult = this
                         }
                     }

@@ -168,7 +168,7 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
     /**
      * 弹出region弹窗
      */
-    fun setRegion(view:View) {
+    fun setRegion(view: View) {
         //弹窗选择region
         currentRegionIcon.value = R.drawable.httpdns_up
         regionPopup?.showRegionPopup(view)
@@ -207,7 +207,7 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
     /**
      * 恢复默认设置
      */
-    fun reset(){
+    fun reset() {
         toggleEnableExpiredIp(false)
         toggleEnableDegrade(false)
         toggleEnableCacheIp(false)

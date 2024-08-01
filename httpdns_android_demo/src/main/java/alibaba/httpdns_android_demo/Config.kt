@@ -17,12 +17,12 @@ object Config {
 
     var CONTROL_HOST_JSON = ""
 
-    fun init(context: Context){
+    fun init(context: Context) {
         val inputStream = context.assets.open(CONFIG_FILE_NAME)
         val buffer = ByteArray(inputStream.available())
         inputStream.read(buffer)
         inputStream.close()
-        val configJsonStr = String(buffer , Charsets.UTF_8)
+        val configJsonStr = String(buffer, Charsets.UTF_8)
         val configJsonObj = JSONObject(configJsonStr).getJSONObject("config")
 
 
@@ -30,7 +30,7 @@ object Config {
             ACCOUNT_ID = configJsonObj.optString("httpdns.accountId")
         }
 
-        if (configJsonObj.has("httpdns.secretKey")){
+        if (configJsonObj.has("httpdns.secretKey")) {
             SECRET_KEY = configJsonObj.optString("httpdns.secretKey")
         }
 
@@ -38,7 +38,7 @@ object Config {
         val controlHostBuffer = ByteArray(controlHostStream.available())
         controlHostStream.read(controlHostBuffer)
         controlHostStream.close()
-        CONTROL_HOST_JSON = String(controlHostBuffer , Charsets.UTF_8)
+        CONTROL_HOST_JSON = String(controlHostBuffer, Charsets.UTF_8)
     }
 
 }

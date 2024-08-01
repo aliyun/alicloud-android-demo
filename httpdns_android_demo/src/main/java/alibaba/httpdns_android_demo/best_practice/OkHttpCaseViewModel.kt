@@ -31,23 +31,25 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
 
     val showRequestAndResolveResult = SingleLiveData<Boolean>().apply { value = false }
 
-    private lateinit var okHttpClient:OkHttpClient
+    private lateinit var okHttpClient: OkHttpClient
 
     val responseStr = SingleLiveData<String>().apply { value = "" }
 
     var response: Response? = null
-    fun initData(){
+    fun initData() {
         okHttpClient = OkHttpClient.Builder()
             .connectionPool(ConnectionPool(0, 10 * 1000, TimeUnit.MICROSECONDS))
-            .hostnameVerifier { _, _ ->true }
+            .hostnameVerifier { _, _ -> true }
             .dns(object : Dns {
                 override fun lookup(hostname: String): List<InetAddress> {
-                    Log.d(TAG , "currentThread:${Thread.currentThread()}")
+                    Log.d(TAG, "currentThread:${Thread.currentThread()}")
                     val currMills = System.currentTimeMillis()
                     //修改为最新的通俗易懂的api
-                    var httpDnsResult: HTTPDNSResult? = httpDnsService?.getHttpDnsResultForHostSync(host.value , RequestIpType.both)?.apply {
-                        showResolveResult(this , currMills)
-                    }
+                    var httpDnsResult: HTTPDNSResult? =
+                        httpDnsService?.getHttpDnsResultForHostSync(host.value, RequestIpType.both)
+                            ?.apply {
+                                showResolveResult(this, currMills)
+                            }
                     val inetAddresses = mutableListOf<InetAddress>()
                     Log.d(TAG, "httpdns $hostname 解析结果 $httpDnsResult")
                     httpDnsResult?.let { processDnsResult(it, inetAddresses) }
@@ -66,7 +68,7 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
      * 请求协议改变
      */
     fun onSchemaTypeChanged(radioGroup: RadioGroup, id: Int) {
-        schemaType = when(id) {
+        schemaType = when (id) {
             R.id.schema_http -> SchemaType.HTTP
             else -> SchemaType.HTTPS
         }
@@ -75,21 +77,22 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
     /**
      * 请求并解析
      */
-    fun requestAndResolve(){
+    fun requestAndResolve() {
         if (path.value?.startsWith("/") != true) {
             path.value = "/${path.value}"
         }
-        val requestUrl = "${if (schemaType == SchemaType.HTTPS) "https://" else "http://"}${host.value}${path.value}"
-        Log.d(TAG , "requestUrl:$requestUrl")
+        val requestUrl =
+            "${if (schemaType == SchemaType.HTTPS) "https://" else "http://"}${host.value}${path.value}"
+        Log.d(TAG, "requestUrl:$requestUrl")
         viewModelScope.launch(Dispatchers.IO) {
             val request = Request.Builder().url(requestUrl).build()
             okHttpClient.newCall(request).execute().use {
                 val bodyStr = it.body?.string()
-                Log.d(TAG , bodyStr?:"请求返回body为空")
+                Log.d(TAG, bodyStr ?: "请求返回body为空")
                 val code = it.code
                 responseStr.postValue("$code  $bodyStr")
                 showRequestAndResolveResult.postValue(true)
-                response = Response(code , bodyStr)
+                response = Response(code, bodyStr)
             }
         }
     }
@@ -97,7 +100,7 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
     /**
      * 重新输入
      */
-    fun reInput(){
+    fun reInput() {
         showRequestAndResolveResult.value = false
     }
 }

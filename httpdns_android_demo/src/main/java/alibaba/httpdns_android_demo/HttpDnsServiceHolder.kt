@@ -11,7 +11,7 @@ import com.alibaba.sdk.android.httpdns.HttpDnsService
  */
 object HttpDnsServiceHolder {
 
-    fun getHttpDnsService(context: Context) : HttpDnsService? {
+    fun getHttpDnsService(context: Context): HttpDnsService? {
         val dnsService = if (!TextUtils.isEmpty(Config.ACCOUNT_ID)) {
             if (!TextUtils.isEmpty(Config.SECRET_KEY)) HttpDns.getService(
                 context,

@@ -15,18 +15,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
  * @author 任伟
  * @date 2024/07/22
  */
-class CaseFragment:BaseFragment<CaseBinding>() {
+class CaseFragment : BaseFragment<CaseBinding>() {
 
     companion object {
-        val caseData:List<Pair<Int,String>> =mutableMapOf<Int, String>().apply {
-            put(R.id.navigation_okhttp , "OkHttp\n网络库\n最佳实践")
-            put(R.id.navigation_webview , "HTTPDNS\nWebview\n最佳实践")
-            put(R.id.navigation_ip_conn , "HTTPDNS\nIP直连\n最佳实践")
-            put(R.id.navigation_exo_player , "HTTPDNS\nExoPlayer\n最佳实践")
+        val caseData: List<Pair<Int, String>> = mutableMapOf<Int, String>().apply {
+            put(R.id.navigation_okhttp, "OkHttp\n网络库\n最佳实践")
+            put(R.id.navigation_webview, "HTTPDNS\nWebview\n最佳实践")
+            put(R.id.navigation_ip_conn, "HTTPDNS\nIP直连\n最佳实践")
+            put(R.id.navigation_exo_player, "HTTPDNS\nExoPlayer\n最佳实践")
         }.toList()
     }
 
-    private lateinit var viewModel:CaseViewModel
+    private lateinit var viewModel: CaseViewModel
 
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_case
@@ -39,20 +39,22 @@ class CaseFragment:BaseFragment<CaseBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvCase.layoutManager = LinearLayoutManager(context , LinearLayoutManager.HORIZONTAL , false)
+        binding.rvCase.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvCase.addItemDecoration(CaseItemDecoration())
-        binding.rvCase.adapter = CaseAdapter(caseData).apply{
+        binding.rvCase.adapter = CaseAdapter(caseData).apply {
             onItemClickListener = ::changeFragment
-            selectItem = viewModel.currCaseIndex.value?:0
+            selectItem = viewModel.currCaseIndex.value ?: 0
         }
     }
 
     /**
      * 最佳实践fragment切换
      */
-    private fun changeFragment(id: Int , position:Int) {
+    private fun changeFragment(id: Int, position: Int) {
         viewModel.currCaseIndex.value = position
-        val navHostFragment = childFragmentManager.findFragmentById(R.id.nav_host_fragment_case) as NavHostFragment
+        val navHostFragment =
+            childFragmentManager.findFragmentById(R.id.nav_host_fragment_case) as NavHostFragment
         navHostFragment.navController.navigate(id)
     }
 }

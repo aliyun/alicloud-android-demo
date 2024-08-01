@@ -14,9 +14,9 @@ import androidx.lifecycle.ViewModelProvider
  * @author 任伟
  * @date 2024/07/22
  */
-class OkHttpCaseFragment: BaseFragment<OkHttpCaseBinding>() {
+class OkHttpCaseFragment : BaseFragment<OkHttpCaseBinding>() {
 
-    private lateinit var viewModel:OkHttpCaseViewModel
+    private lateinit var viewModel: OkHttpCaseViewModel
 
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_okhttp_case
@@ -47,7 +47,7 @@ class OkHttpCaseFragment: BaseFragment<OkHttpCaseBinding>() {
         } else {
             code.toString()
         }
-        requireContext().showOkHttpResponseAlert(getString(R.string.response_title) , responseStr)
+        requireContext().showOkHttpResponseAlert(getString(R.string.response_title), responseStr)
     }
 
 }

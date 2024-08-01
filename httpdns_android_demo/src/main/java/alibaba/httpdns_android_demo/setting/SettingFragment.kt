@@ -22,11 +22,11 @@ import androidx.lifecycle.ViewModelProvider
  * @author 任伟
  * @date 2024/07/19
  */
-class SettingFragment: BaseFragment<SettingBinding>(), ITimeoutSettingDialog, IRegionPopup {
+class SettingFragment : BaseFragment<SettingBinding>(), ITimeoutSettingDialog, IRegionPopup {
 
     private lateinit var viewModel: SettingViewModel
 
-    private var regionSettingPopup:PopupWindow? = null
+    private var regionSettingPopup: PopupWindow? = null
 
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_setting
@@ -56,22 +56,29 @@ class SettingFragment: BaseFragment<SettingBinding>(), ITimeoutSettingDialog, IR
         val statusBarHeight = requireContext().getStatusBarHeight()
         binding.vStatusBg.layoutParams?.height = statusBarHeight
         binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
-            val alpha = if (scrollY*1f/statusBarHeight > 1) {
+            val alpha = if (scrollY * 1f / statusBarHeight > 1) {
                 1f
-            }else {
-                scrollY*1f/statusBarHeight
+            } else {
+                scrollY * 1f / statusBarHeight
             }
             binding.vStatusBg.alpha = alpha
         }
-        binding.clAboutUs.setOnClickListener { startActivity(Intent(context , AboutUsActivity::class.java)) }
+        binding.clAboutUs.setOnClickListener {
+            startActivity(
+                Intent(
+                    context,
+                    AboutUsActivity::class.java
+                )
+            )
+        }
     }
 
     /**
      * 跳转预解析域名列表设置页和清空指定域名缓存设置页
      */
-    private fun gotoHostListOperation(isPreHost:Boolean){
-        startActivity(Intent(context , HostListOperationActivity::class.java).apply {
-            putExtra(KEY_IS_PRE_HOST , isPreHost)
+    private fun gotoHostListOperation(isPreHost: Boolean) {
+        startActivity(Intent(context, HostListOperationActivity::class.java).apply {
+            putExtra(KEY_IS_PRE_HOST, isPreHost)
         })
     }
 
@@ -79,7 +86,7 @@ class SettingFragment: BaseFragment<SettingBinding>(), ITimeoutSettingDialog, IR
      * 弹出超时设置弹窗
      */
     override fun show() {
-        context?.showInputDialog("超时时间" , InputType.TYPE_CLASS_NUMBER) {
+        context?.showInputDialog("超时时间", InputType.TYPE_CLASS_NUMBER) {
             viewModel.saveTimeout(it.toInt())
         }
     }
@@ -87,13 +94,14 @@ class SettingFragment: BaseFragment<SettingBinding>(), ITimeoutSettingDialog, IR
     /**
      * 弹出设置region的弹窗
      */
-    override fun showRegionPopup(view:View) {
+    override fun showRegionPopup(view: View) {
         if (regionSettingPopup == null) {
-            val binding = PopupRegionSettingBinding.inflate(LayoutInflater.from(context) , null , false)
+            val binding =
+                PopupRegionSettingBinding.inflate(LayoutInflater.from(context), null, false)
             binding.viewModel = viewModel
             binding.lifecycleOwner = viewLifecycleOwner
             regionSettingPopup = PopupWindow(binding.root)
-            regionSettingPopup?.width =  ViewGroup.LayoutParams.WRAP_CONTENT
+            regionSettingPopup?.width = ViewGroup.LayoutParams.WRAP_CONTENT
             regionSettingPopup?.height = 196.toDp()
             regionSettingPopup?.isTouchable = true
             regionSettingPopup?.isFocusable = true

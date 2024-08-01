@@ -20,18 +20,19 @@ import androidx.navigation.Navigation.findNavController
  * @author 任伟
  * @date 2024/07/19
  */
-class ResolveWelcomeFragment: BaseFragment<WelcomeBinding>() {
+class ResolveWelcomeFragment : BaseFragment<WelcomeBinding>() {
 
     private var viewModel: ResolveViewModel? = null
 
     /**
      * 处理页面跳转,返回数据的回调处理
      */
-    private val requestDataLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {result ->
-        if (result.resultCode == RESULT_OK) {
-            viewModel?.host?.value = result.data?.getStringExtra(KEY_HOST)
+    private val requestDataLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == RESULT_OK) {
+                viewModel?.host?.value = result.data?.getStringExtra(KEY_HOST)
+            }
         }
-    }
 
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_resolve_welcome
@@ -46,16 +47,19 @@ class ResolveWelcomeFragment: BaseFragment<WelcomeBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
         binding.tvHost.setOnClickListener {
-            val intent = Intent(activity , SearchActivity::class.java)
+            val intent = Intent(activity, SearchActivity::class.java)
             requestDataLauncher.launch(intent)
         }
 
         binding.tvResolve.setOnClickListener {
-            requireContext().showHostResolveAlert(viewModel?.host?.value?:"") {
-                findNavController(requireActivity() , R.id.nav_fragment_function)
+            requireContext().showHostResolveAlert(viewModel?.host?.value ?: "") {
+                findNavController(requireActivity(), R.id.nav_fragment_function)
                     .navigate(R.id.action_to_resolve_result, Bundle().apply {
-                        putString(KEY_HOST , viewModel?.host?.value)
-                        putInt(KEY_RESOLVE_API_TYPE , viewModel?.currResolveApiType?.value?: ResolveApiType.RESOLVE_SYNC)
+                        putString(KEY_HOST, viewModel?.host?.value)
+                        putInt(
+                            KEY_RESOLVE_API_TYPE,
+                            viewModel?.currResolveApiType?.value ?: ResolveApiType.RESOLVE_SYNC
+                        )
                     })
             }
         }

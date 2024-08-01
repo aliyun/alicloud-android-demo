@@ -23,10 +23,10 @@ import okhttp3.Call
  * @author 任伟
  * @date 2024/07/22
  */
-class ExoPlayerCaseFragment: BaseFragment<ExoPlayerCaseBinding>(){
+class ExoPlayerCaseFragment : BaseFragment<ExoPlayerCaseBinding>() {
 
-    private lateinit var viewModel:ExoPlayerCaseViewModel
-    private lateinit var player:Player
+    private lateinit var viewModel: ExoPlayerCaseViewModel
+    private lateinit var player: Player
 
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_exo_player_case
@@ -37,6 +37,7 @@ class ExoPlayerCaseFragment: BaseFragment<ExoPlayerCaseBinding>(){
         viewModel = ViewModelProvider(this)[ExoPlayerCaseViewModel::class.java]
         viewModel.initData()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
@@ -62,7 +63,7 @@ class ExoPlayerCaseFragment: BaseFragment<ExoPlayerCaseBinding>(){
      * 创建mediaPlayer网络请求的DataSource
      */
     @OptIn(markerClass = [UnstableApi::class]) // SSAI configuration
-    fun createMediaDataSourceFactory(): MediaSource.Factory{
+    fun createMediaDataSourceFactory(): MediaSource.Factory {
         return DefaultMediaSourceFactory(
             OkHttpDataSource.Factory {
                 viewModel.okHttpClient.newCall(it)
@@ -74,7 +75,7 @@ class ExoPlayerCaseFragment: BaseFragment<ExoPlayerCaseBinding>(){
         super.onHiddenChanged(hidden)
         if (hidden) {
             player.pause()
-        }else {
+        } else {
             player.play()
         }
     }

@@ -30,7 +30,7 @@ import javax.net.ssl.HttpsURLConnection
  * @author 任伟
  * @date 2024/07/22
  */
-class WebViewCaseFragment: BaseFragment<WebViewCaseBinding>() {
+class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
 
     private lateinit var viewModel: ResolveResultViewModel
 
@@ -47,7 +47,7 @@ class WebViewCaseFragment: BaseFragment<WebViewCaseBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
-        binding.tlWebViewCase.addOnTabSelectedListener(object:OnTabSelectedListener{
+        binding.tlWebViewCase.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 binding.llResolveResult.isVisible = getString(R.string.resolve_result) == tab?.text
                 binding.httpdnsWebview.isVisible = getString(R.string.content_show) == tab?.text
@@ -164,13 +164,13 @@ class WebViewCaseFragment: BaseFragment<WebViewCaseBinding>() {
             //解析
             viewModel.resolveSync(url.host) {
                 it?.apply {
-                    Log.d(TAG , this.toString())
+                    Log.d(TAG, this.toString())
                     if (url.host == viewModel.host.value) {
                         //展示loadUrl的解析结果
-                        viewModel.showResolveResult(this , currMill)
+                        viewModel.showResolveResult(this, currMill)
                     }
                     //根据网络环境,选择合适的ip
-                    viewModel.processDnsResult(this , inetAddresses)
+                    viewModel.processDnsResult(this, inetAddresses)
                 }
             }
             //没有获取到ip
@@ -178,7 +178,7 @@ class WebViewCaseFragment: BaseFragment<WebViewCaseBinding>() {
                 return null
             }
             //从InetAddress中获取ip
-            val hostIP = String(inetAddresses[0].address , Charsets.UTF_8)
+            val hostIP = String(inetAddresses[0].address, Charsets.UTF_8)
             //host 替换为 ip 之后的 url
             val newUrl = path.replaceFirst(url.host, hostIP)
             val urlConnection: HttpURLConnection = URL(newUrl).openConnection() as HttpURLConnection

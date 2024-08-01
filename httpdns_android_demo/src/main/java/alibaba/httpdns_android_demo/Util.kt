@@ -124,28 +124,28 @@ fun Int.toDp(): Int {
     ).toInt()
 }
 
-private var mAlertDialog:AlertDialog? = null
+private var mAlertDialog: AlertDialog? = null
 
 /**
  * 弹出输入框
  */
-fun Context.showInputDialog(title:String , inputType:Int , callback:(String) -> Unit){
+fun Context.showInputDialog(title: String, inputType: Int, callback: (String) -> Unit) {
     if (mAlertDialog != null && this === mAlertDialog?.context && true == mAlertDialog?.isShowing) {
         return
     }
     if (mAlertDialog == null || this != mAlertDialog?.context) {
-        mAlertDialog = AlertDialog.Builder(this , R.style.Theme_AppCompat_Dialog_Alert).create()
+        mAlertDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
     }
 
-    val binding =  DialogInputBinding.inflate(LayoutInflater.from(this) , null , false)
+    val binding = DialogInputBinding.inflate(LayoutInflater.from(this), null, false)
     binding.title = title
     binding.etInput.inputType = inputType
     binding.tvCancel.setOnClickListener { mAlertDialog?.dismiss() }
     binding.tvConfirm.setOnClickListener {
         val inputText = binding.etInput.text.toString().trim()
         if (TextUtils.isEmpty(inputText)) {
-            Toast.makeText(this , "输入内容为空" , Toast.LENGTH_SHORT).show()
-        }else {
+            Toast.makeText(this, "输入内容为空", Toast.LENGTH_SHORT).show()
+        } else {
             callback.invoke(inputText)
             mAlertDialog?.dismiss()
         }
@@ -159,15 +159,15 @@ fun Context.showInputDialog(title:String , inputType:Int , callback:(String) -> 
 /**
  * 展示首页点击开始解析之后的提示弹窗
  */
-fun Context.showHostResolveAlert(host:String , callback:() -> Unit){
+fun Context.showHostResolveAlert(host: String, callback: () -> Unit) {
     if (mAlertDialog != null && this === mAlertDialog?.context && true == mAlertDialog?.isShowing) {
         return
     }
     if (mAlertDialog == null || this != mAlertDialog?.context) {
-        mAlertDialog = AlertDialog.Builder(this , R.style.Theme_AppCompat_Dialog_Alert).create()
+        mAlertDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
     }
 
-    val binding =  HttpdnsHostResolveAlertBinding.inflate(LayoutInflater.from(this) , null , false)
+    val binding = HttpdnsHostResolveAlertBinding.inflate(LayoutInflater.from(this), null, false)
     binding.host = host
     binding.tvKnow.setOnClickListener {
         mAlertDialog?.dismiss()
@@ -182,14 +182,14 @@ fun Context.showHostResolveAlert(host:String , callback:() -> Unit){
 /**
  * 展示最佳实践OkHttp请求结果的弹窗
  */
-fun Context.showOkHttpResponseAlert(title:String , responseStr:String){
+fun Context.showOkHttpResponseAlert(title: String, responseStr: String) {
     if (mAlertDialog != null && this === mAlertDialog?.context && true == mAlertDialog?.isShowing) {
         return
     }
     if (mAlertDialog == null || this != mAlertDialog?.context) {
-        mAlertDialog = AlertDialog.Builder(this , R.style.Theme_AppCompat_Dialog_Alert).create()
+        mAlertDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
     }
-    val binding =  OkHttpResponseDialogBinding.inflate(LayoutInflater.from(this) , null , false)
+    val binding = OkHttpResponseDialogBinding.inflate(LayoutInflater.from(this), null, false)
     binding.title = title
     binding.responseStr = responseStr
     binding.tvKnow.setOnClickListener {
@@ -204,8 +204,8 @@ fun Context.showOkHttpResponseAlert(title:String , responseStr:String){
 /**
  * region 枚举和文字之间的转换
  */
-fun textToRegion(region:String):Region {
-    return when(region){
+fun textToRegion(region: String): Region {
+    return when (region) {
         RegionText.REGION_TEXT_CHINA -> Region.DEFAULT
         RegionText.REGION_TEXT_HK -> Region.HK
         RegionText.REGION_TEXT_SG -> Region.SG
@@ -228,7 +228,7 @@ fun readControlHostConfig(): MutableList<String> {
     val jsonObj = JSONObject(controlHostJson)
     if (jsonObj.has(KEY_DOMAINS)) {
         val jsonArrayControlHost = jsonObj.optJSONArray(KEY_DOMAINS) ?: return controlHost
-        for ( i in 0 until jsonArrayControlHost.length()) {
+        for (i in 0 until jsonArrayControlHost.length()) {
             controlHost.add(jsonArrayControlHost.optString(i))
         }
     }
@@ -243,11 +243,11 @@ object RegionText {
     const val REGION_TEXT_US = "美国"
 }
 
-fun Context.getStatusBarHeight():Int{
-    val statusBarId = resources.getIdentifier("status_bar_height" , "dimen" , "android")
+fun Context.getStatusBarHeight(): Int {
+    val statusBarId = resources.getIdentifier("status_bar_height", "dimen", "android")
     return if (statusBarId > 0) {
         resources.getDimensionPixelSize(statusBarId)
-    }else {
+    } else {
         22.toDp()
     }
 }
@@ -256,7 +256,8 @@ fun Context.getStatusBarHeight():Int{
  * 域名正则判断
  */
 fun isValidHost(host: String): Boolean {
-    val pattern = Pattern.compile("^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\\.[a-zA-Z0-9-]{1,61}\\.[a-zA-Z0-9-]{1,61}$")
+    val pattern =
+        Pattern.compile("^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\\.[a-zA-Z0-9-]{1,61}\\.[a-zA-Z0-9-]{1,61}$")
     val matcher = pattern.matcher(host)
     return matcher.matches()
 }

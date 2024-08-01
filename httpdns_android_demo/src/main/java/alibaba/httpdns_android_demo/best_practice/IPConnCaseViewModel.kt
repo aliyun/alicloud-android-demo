@@ -23,11 +23,11 @@ import javax.net.ssl.HttpsURLConnection
  * @author 任伟
  * @date 2024/07/24
  */
-class IPConnCaseViewModel(application:Application):ResolveResultViewModel(application) {
+class IPConnCaseViewModel(application: Application) : ResolveResultViewModel(application) {
 
     val responseStr = SingleLiveData<String>().apply { value = "" }
 
-    fun initData(){
+    fun initData() {
         host.value = "suggest.taobao.com"
         sniRequest()
     }
@@ -51,13 +51,13 @@ class IPConnCaseViewModel(application:Application):ResolveResultViewModel(applic
         //解析
         resolveSync(host) {
             it?.apply {
-                Log.d(TAG , this.toString())
-                showResolveResult(this , currMill)
-                processDnsResult(this , inetAddresses)
+                Log.d(TAG, this.toString())
+                showResolveResult(this, currMill)
+                processDnsResult(this, inetAddresses)
             }
         }
         if (inetAddresses.isNotEmpty()) {
-            val hostIP = String(inetAddresses[0].address , Charsets.UTF_8)
+            val hostIP = String(inetAddresses[0].address, Charsets.UTF_8)
             ipURL = url.replace(host, "[$hostIP]")
         }
 

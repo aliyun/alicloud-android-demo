@@ -6,17 +6,17 @@ import androidx.databinding.BindingAdapter
 
 class BindingAdapterUtil {
 
-    companion object{
+    companion object {
 
         @JvmStatic
         @BindingAdapter(value = ["regionIcon"])
-        fun setRegionIcon(view: ImageView, icon:Int) {
+        fun setRegionIcon(view: ImageView, icon: Int) {
             view.setImageResource(icon)
         }
 
         @JvmStatic
         @BindingAdapter(value = ["pressed"])
-        fun setChecked(view: TextView, pressed:Boolean) {
+        fun setChecked(view: TextView, pressed: Boolean) {
             view.isPressed = pressed
         }
 

@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
  * @author 任伟
  * @date 2024/07/22
  */
-class IPConnCaseFragment: BaseFragment<IPConnCaseBinding>() {
+class IPConnCaseFragment : BaseFragment<IPConnCaseBinding>() {
 
     private lateinit var viewModel: IPConnCaseViewModel
 
@@ -41,7 +41,10 @@ class IPConnCaseFragment: BaseFragment<IPConnCaseBinding>() {
      * 展示OkHttp请求结果
      */
     private fun showRequestResultDialog() {
-        requireContext().showOkHttpResponseAlert(getString(R.string.response_title) , viewModel.responseStr.value?:"")
+        requireContext().showOkHttpResponseAlert(
+            getString(R.string.response_title),
+            viewModel.responseStr.value ?: ""
+        )
     }
 
 }

@@ -19,15 +19,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
  * @author renwei
  * @date 2024/07/19
  */
-class SearchActivity:AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
 
-    private lateinit var binding:SearchBinding
+    private lateinit var binding: SearchBinding
     private lateinit var viewModel: SearchViewModel
-    private var inputHistoryAdapter: SearchHostListAdapter?= null
+    private var inputHistoryAdapter: SearchHostListAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val controller = WindowCompat.getInsetsController(window, window.decorView)
-        WindowCompat.setDecorFitsSystemWindows(window , false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         //状态栏浸入
         controller.isAppearanceLightStatusBars = true
         //状态栏透明
@@ -40,11 +40,12 @@ class SearchActivity:AppCompatActivity() {
         binding.viewModel = viewModel
 
         //初始化输入历史列表
-        binding.rvInputHistory.layoutManager = LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false)
+        binding.rvInputHistory.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvInputHistory.adapter = SearchHostListAdapter(viewModel.inputHistory).apply {
             inputHistoryAdapter = this
             //域名删除回调
-            onItemDeleteListener = {host,position ->
+            onItemDeleteListener = { host, position ->
                 viewModel.inputHistory.remove(host)
                 inputHistoryAdapter?.notifyItemRemoved(position)
                 inputHistoryAdapter?.notifyItemChanged(position)
@@ -56,7 +57,8 @@ class SearchActivity:AppCompatActivity() {
         }
 
         //初始化控制台域名列表
-        binding.rvControlHost.layoutManager = LinearLayoutManager(this , LinearLayoutManager.VERTICAL , false)
+        binding.rvControlHost.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvControlHost.adapter = SearchHostListAdapter(viewModel.controlHost).apply {
             hideClose = true
             onItemClickListener = ::callbackHost
@@ -68,15 +70,15 @@ class SearchActivity:AppCompatActivity() {
             if (actionId == EditorInfo.IME_ACTION_SEARCH && !TextUtils.isEmpty(host)) {
                 if (isValidHost(host)) {
                     if (!viewModel.inputHistory.contains(host)) {
-                        viewModel.inputHistory.add(0 , host)
+                        viewModel.inputHistory.add(0, host)
                         inputHistoryAdapter?.notifyItemInserted(0)
                         inputHistoryAdapter?.notifyItemChanged(0)
                         viewModel.saveInputHistory()
                     }
                     callbackHost(host)
                     true
-                }else {
-                    Toast.makeText(this@SearchActivity , "请输入正确域名",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@SearchActivity, "请输入正确域名", Toast.LENGTH_SHORT).show()
                     false
                 }
             } else {
@@ -87,16 +89,16 @@ class SearchActivity:AppCompatActivity() {
 
         binding.tvClear.setOnClickListener {
             viewModel.clearInputHistory()
-            inputHistoryAdapter?.notifyItemRangeChanged(0 , viewModel.inputHistory.size)
+            inputHistoryAdapter?.notifyItemRangeChanged(0, viewModel.inputHistory.size)
         }
     }
 
     /**
      * 域名回传
      */
-    private fun callbackHost(host:String) {
-        setResult(RESULT_OK , Intent().apply {
-            putExtra(KEY_HOST , host)
+    private fun callbackHost(host: String) {
+        setResult(RESULT_OK, Intent().apply {
+            putExtra(KEY_HOST, host)
         })
         finish()
     }

@@ -22,7 +22,7 @@ import java.net.InetAddress
  * @author 任伟
  * @date 2024/07/24
  */
-open class ResolveResultViewModel(application:Application):AndroidViewModel(application) {
+open class ResolveResultViewModel(application: Application) : AndroidViewModel(application) {
 
     /**
      * 解析服务
@@ -54,7 +54,7 @@ open class ResolveResultViewModel(application:Application):AndroidViewModel(appl
     /**
      * 解析结果展示
      */
-    fun showResolveResult(httpDnsResult: HTTPDNSResult, mills:Long) {
+    fun showResolveResult(httpDnsResult: HTTPDNSResult, mills: Long) {
         viewModelScope.launch(Dispatchers.Main) {
             hostAndTime.value = "${host.value} (${System.currentTimeMillis() - mills}ms)"
             val resultClass = httpDnsResult::class.java
@@ -70,10 +70,10 @@ open class ResolveResultViewModel(application:Application):AndroidViewModel(appl
     /**
      * 同步获取解析结果
      */
-    fun resolveSync(host:String , callback:(HTTPDNSResult?)->Unit){
-        viewModelScope.launch(Dispatchers.Default){
+    fun resolveSync(host: String, callback: (HTTPDNSResult?) -> Unit) {
+        viewModelScope.launch(Dispatchers.Default) {
             val httpDnsResultDefer = async {
-                httpDnsService?.getHttpDnsResultForHostSync(host , RequestIpType.both)
+                httpDnsService?.getHttpDnsResultForHostSync(host, RequestIpType.both)
             }
             withContext(Dispatchers.Main) {
                 callback.invoke(httpDnsResultDefer.await())

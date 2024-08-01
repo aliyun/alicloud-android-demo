@@ -10,7 +10,7 @@ import javax.net.ssl.*
  * @author allen.wy
  * @date 2023/5/26
  */
-class TLSSNISocketFactory(connection: HttpsURLConnection): SSLSocketFactory() {
+class TLSSNISocketFactory(connection: HttpsURLConnection) : SSLSocketFactory() {
 
     private var mConnection: HttpsURLConnection
     private var hostnameVerifier: HostnameVerifier = HttpsURLConnection.getDefaultHostnameVerifier()
@@ -19,7 +19,12 @@ class TLSSNISocketFactory(connection: HttpsURLConnection): SSLSocketFactory() {
         mConnection = connection
     }
 
-    override fun createSocket(plainSocket: Socket?, host: String?, port: Int, autoClose: Boolean): Socket? {
+    override fun createSocket(
+        plainSocket: Socket?,
+        host: String?,
+        port: Int,
+        autoClose: Boolean
+    ): Socket? {
         var peerHost: String? = mConnection.getRequestProperty("Host")
         if (peerHost == null) peerHost = host
         val address = plainSocket!!.inetAddress
@@ -61,7 +66,12 @@ class TLSSNISocketFactory(connection: HttpsURLConnection): SSLSocketFactory() {
         return null
     }
 
-    override fun createSocket(host: String?, port: Int, inetAddress: InetAddress?, localPort: Int): Socket? {
+    override fun createSocket(
+        host: String?,
+        port: Int,
+        inetAddress: InetAddress?,
+        localPort: Int
+    ): Socket? {
         return null
     }
 
@@ -69,7 +79,12 @@ class TLSSNISocketFactory(connection: HttpsURLConnection): SSLSocketFactory() {
         return null
     }
 
-    override fun createSocket(host: InetAddress?, port: Int, localHost: InetAddress?, localPot: Int): Socket? {
+    override fun createSocket(
+        host: InetAddress?,
+        port: Int,
+        localHost: InetAddress?,
+        localPot: Int
+    ): Socket? {
         return null
     }
 

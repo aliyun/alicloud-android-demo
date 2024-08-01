@@ -9,7 +9,7 @@ import alibaba.httpdns_android_demo.databinding.FunctionBinding
  * @author 任伟
  * @date 2024/07/19
  */
-class FunctionFragment :BaseFragment<FunctionBinding>() {
+class FunctionFragment : BaseFragment<FunctionBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_function

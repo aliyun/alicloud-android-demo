@@ -33,19 +33,19 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * 控制台域名列表
      */
-    val controlHost:MutableList<String> by lazy {
+    val controlHost: MutableList<String> by lazy {
         readControlHostConfig()
     }
 
     /**
      * 从 SP 中获取搜索历史
      */
-    private fun readInputHistory():MutableList<String> {
+    private fun readInputHistory(): MutableList<String> {
         val inputHistory = mutableListOf<String>()
         val searchHistoryJsonStr = preferences.getString(KEY_SEARCH_HISTORY, "[]")
         val jsonArrayInputHistory = JSONArray(searchHistoryJsonStr)
         if (jsonArrayInputHistory.length() != 0) {
-            for ( i in 0 until jsonArrayInputHistory.length()) {
+            for (i in 0 until jsonArrayInputHistory.length()) {
                 inputHistory.add(jsonArrayInputHistory.optString(i))
             }
         }
@@ -56,20 +56,20 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     /**
      * 清空搜索历史
      */
-    fun clearInputHistory(){
+    fun clearInputHistory() {
         inputHistoryEnableVisible.value = false
         inputHistory.clear()
         val edit = preferences.edit()
-        edit.putString(KEY_SEARCH_HISTORY , "[]")
+        edit.putString(KEY_SEARCH_HISTORY, "[]")
         edit.apply()
     }
 
     /**
      * 存储搜索历史
      */
-    fun saveInputHistory(){
+    fun saveInputHistory() {
         val edit = preferences.edit()
-        edit.putString(KEY_SEARCH_HISTORY , convertHostListToStr(inputHistory))
+        edit.putString(KEY_SEARCH_HISTORY, convertHostListToStr(inputHistory))
         edit.apply()
     }
 
