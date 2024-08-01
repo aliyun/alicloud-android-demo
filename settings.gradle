@@ -42,6 +42,10 @@ dependencyResolutionManagement {
             }
             allowInsecureProtocol = true
         }
+
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
     }
 
     ext.loggerVersion = '1.2.0'
