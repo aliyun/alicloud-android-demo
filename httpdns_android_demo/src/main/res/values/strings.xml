@@ -27,4 +27,6 @@
     <string name="ok">好的</string>
     <string name="resolve_result">解析结果</string>
     <string name="content_show">网页内容</string>
+    <string name="cache_clear">缓存已清空</string>
+    <string name="pre_resolve_success">预解析成功</string>
 </resources>

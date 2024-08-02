@@ -1,10 +1,12 @@
 package alibaba.httpdns_android_demo.setting
 
+import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.HostListOperationBinding
 import alibaba.httpdns_android_demo.showInputDialog
 import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
@@ -69,7 +71,13 @@ class HostListOperationActivity : AppCompatActivity() {
 
         binding.tvOperation.setOnClickListener {
             viewModel.operationBtnClick()
-            finish()
+            Toast.makeText(
+                this@HostListOperationActivity, if (viewModel.isPreHost) {
+                    getString(R.string.pre_resolve_success)
+                } else {
+                    getString(R.string.cache_clear)
+                }, Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }

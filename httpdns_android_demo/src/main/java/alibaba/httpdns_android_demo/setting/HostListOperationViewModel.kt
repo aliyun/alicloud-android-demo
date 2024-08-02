@@ -77,7 +77,7 @@ class HostListOperationViewModel(application: Application) : AndroidViewModel(ap
     /**
      * 判断页面是预解析域名列表设置页面还是清空指定域名缓存设置页面
      */
-    private var isPreHost: Boolean = true
+    var isPreHost: Boolean = true
 
     /**
      * 解析服务
