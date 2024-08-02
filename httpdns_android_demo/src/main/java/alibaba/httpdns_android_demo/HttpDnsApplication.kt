@@ -26,7 +26,7 @@ class HttpDnsApplication : Application() {
                     val enableExpiredIp = preferences.getBoolean(KEY_ENABLE_EXPIRED_IP, false)
                     val enableCacheIp = preferences.getBoolean(KEY_ENABLE_CACHE_IP, false)
                     val enableHttpDns = preferences.getBoolean(KEY_ENABLE_HTTPS, false)
-                    val timeout = preferences.getInt(KEY_TIMEOUT, 1500)
+                    val timeout = preferences.getInt(KEY_TIMEOUT, MIN_TIMEOUT)
                     val region = preferences.getString(KEY_REGION, RegionText.REGION_TEXT_CHINA)
                     //自定义ttl
                     val ttlCacheStr = preferences.getString(KEY_TTL_CHANGER, null)

@@ -44,3 +44,7 @@ const val KEY_DOMAINS = "domains"
 const val KEY_SEARCH_HISTORY = "search_history"
 
 const val TAG = "httpdns"
+
+const val DEFAULT_TIMEOUT = 3000
+
+const val MIN_TIMEOUT = 1000

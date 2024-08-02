@@ -2,6 +2,7 @@ package alibaba.httpdns_android_demo.setting
 
 import alibaba.httpdns_android_demo.BaseFragment
 import alibaba.httpdns_android_demo.KEY_IS_PRE_HOST
+import alibaba.httpdns_android_demo.MIN_TIMEOUT
 import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.PopupRegionSettingBinding
 import alibaba.httpdns_android_demo.databinding.SettingBinding
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 
 /**
@@ -87,7 +89,11 @@ class SettingFragment : BaseFragment<SettingBinding>(), ITimeoutSettingDialog, I
      */
     override fun show() {
         context?.showInputDialog("超时时间", InputType.TYPE_CLASS_NUMBER) {
-            viewModel.saveTimeout(it.toInt())
+            if (it.toInt() < MIN_TIMEOUT) {
+                Toast.makeText(context , requireContext().getString(R.string.timeout_less_toast),Toast.LENGTH_SHORT).show()
+            }else {
+                viewModel.saveTimeout(it.toInt())
+            }
         }
     }
 

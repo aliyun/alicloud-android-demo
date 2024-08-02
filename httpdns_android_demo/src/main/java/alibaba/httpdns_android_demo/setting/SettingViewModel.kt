@@ -1,5 +1,6 @@
 package alibaba.httpdns_android_demo.setting
 
+import alibaba.httpdns_android_demo.DEFAULT_TIMEOUT
 import alibaba.httpdns_android_demo.HttpDnsServiceHolder
 import alibaba.httpdns_android_demo.KEY_ENABLE_AUTO_REFRESH
 import alibaba.httpdns_android_demo.KEY_ENABLE_CACHE_IP
@@ -73,7 +74,7 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
      * 当前超时
      */
     var currentTimeout = SingleLiveData<String>().apply {
-        value = "2000 ms"
+        value = "$DEFAULT_TIMEOUT ms"
     }
 
     /**
@@ -100,7 +101,7 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
         enableAutoRefresh.value = preferences.getBoolean(KEY_ENABLE_AUTO_REFRESH, false)
         enableLog.value = preferences.getBoolean(KEY_ENABLE_LOG, false)
         currentRegion.value = preferences.getString(KEY_REGION, RegionText.REGION_TEXT_CHINA)
-        currentTimeout.value = "${preferences.getInt(KEY_TIMEOUT, 2000)} ms"
+        currentTimeout.value = "${preferences.getInt(KEY_TIMEOUT, DEFAULT_TIMEOUT)} ms"
         dnsService = HttpDnsServiceHolder.getHttpDnsService(getApplication())
     }
 
@@ -214,7 +215,7 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
         toggleEnableHttps(false)
         toggleEnableAutoRefresh(false)
         toggleEnableLog(false)
-        saveTimeout(2000)
+        saveTimeout(DEFAULT_TIMEOUT)
         saveRegion(RegionText.REGION_TEXT_CHINA)
         val edit = preferences.edit()
         edit.remove(KEY_PRE_RESOLVE_HOST_LIST)
