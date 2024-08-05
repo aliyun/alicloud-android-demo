@@ -1,7 +1,7 @@
 package alibaba.httpdns_android_demo
 
 import alibaba.httpdns_android_demo.databinding.DialogInputBinding
-import alibaba.httpdns_android_demo.databinding.HttpdnsHostResolveAlertBinding
+import alibaba.httpdns_android_demo.databinding.HostResolveAlertBinding
 import alibaba.httpdns_android_demo.databinding.OkHttpResponseDialogBinding
 import android.content.Context
 import android.content.SharedPreferences
@@ -129,7 +129,7 @@ private var mAlertDialog: AlertDialog? = null
 /**
  * 弹出输入框
  */
-fun Context.showInputDialog(title: String, inputType: Int, callback: (String) -> Unit) {
+fun Context.showInputDialog(title: String, inputType: Int, hint:String, callback: (String) -> Unit) {
     if (mAlertDialog != null && this === mAlertDialog?.context && true == mAlertDialog?.isShowing) {
         return
     }
@@ -139,6 +139,7 @@ fun Context.showInputDialog(title: String, inputType: Int, callback: (String) ->
 
     val binding = DialogInputBinding.inflate(LayoutInflater.from(this), null, false)
     binding.title = title
+    binding.hint = hint
     binding.etInput.inputType = inputType
     binding.tvCancel.setOnClickListener { mAlertDialog?.dismiss() }
     binding.tvConfirm.setOnClickListener {
@@ -167,7 +168,7 @@ fun Context.showHostResolveAlert(host: String, callback: () -> Unit) {
         mAlertDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
     }
 
-    val binding = HttpdnsHostResolveAlertBinding.inflate(LayoutInflater.from(this), null, false)
+    val binding = HostResolveAlertBinding.inflate(LayoutInflater.from(this), null, false)
     binding.host = host
     binding.tvKnow.setOnClickListener {
         mAlertDialog?.dismiss()

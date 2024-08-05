@@ -88,10 +88,18 @@ class SettingFragment : BaseFragment<SettingBinding>(), ITimeoutSettingDialog, I
      * 弹出超时设置弹窗
      */
     override fun show() {
-        context?.showInputDialog("超时时间", InputType.TYPE_CLASS_NUMBER) {
+        context?.showInputDialog(
+            requireContext().getString(R.string.timeout),
+            InputType.TYPE_CLASS_NUMBER,
+            requireContext().getString(R.string.input_timeout)
+        ) {
             if (it.toInt() < MIN_TIMEOUT) {
-                Toast.makeText(context , requireContext().getString(R.string.timeout_less_toast),Toast.LENGTH_SHORT).show()
-            }else {
+                Toast.makeText(
+                    context,
+                    requireContext().getString(R.string.timeout_less_toast),
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
                 viewModel.saveTimeout(it.toInt())
             }
         }
@@ -112,6 +120,9 @@ class SettingFragment : BaseFragment<SettingBinding>(), ITimeoutSettingDialog, I
             regionSettingPopup?.isTouchable = true
             regionSettingPopup?.isFocusable = true
             regionSettingPopup?.isOutsideTouchable = true
+        }
+        regionSettingPopup?.setOnDismissListener {
+            viewModel.regionPopupShow.value = false
         }
         regionSettingPopup?.showAsDropDown(view)
     }

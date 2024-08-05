@@ -55,7 +55,11 @@ class HostListOperationActivity : AppCompatActivity() {
             }
         binding.ivBack.setOnClickListener { finish() }
         binding.ivAddHost.setOnClickListener {
-            showInputDialog(viewModel.addHostTitle, InputType.TYPE_CLASS_TEXT) {
+            showInputDialog(
+                viewModel.addHostTitle,
+                InputType.TYPE_CLASS_TEXT,
+                getString(R.string.input_host)
+            ) {
                 if (viewModel.hosts.contains(it)) {
                     viewModel.hosts.remove(it)
                 }

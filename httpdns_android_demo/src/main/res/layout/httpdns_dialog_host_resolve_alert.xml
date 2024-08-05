@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+    <data class="HostResolveAlertBinding">
         <variable
             name="host"
             type="String" />
@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="域名解析提醒"
+                android:text="@string/host_resolve_alert"
                 android:textColor="#1F2024"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -37,7 +37,7 @@
                 android:id="@+id/tvLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="在开始解析前，请将下方域名添加到阿里云控制台HTTPDNS的“域名列表”；否则无法返回解析结果"
+                android:text="@string/host_config_alert"
                 android:textColor="#384153"
                 android:textSize="13sp"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
@@ -60,7 +60,7 @@
                 android:id="@+id/tvLabel2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="若已添加，则忽略此消息"
+                android:text="@string/already_add_alert"
                 android:textColor="#384153"
                 android:textSize="13sp"
                 app:layout_constraintTop_toBottomOf="@id/tvHost"
@@ -79,7 +79,7 @@
                 android:id="@+id/tvKnow"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                android:text="知道了"
+                android:text="@string/btn_text_know"
                 android:textColor="#1B58F4"
                 android:textSize="16sp"
                 android:gravity="center"

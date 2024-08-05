@@ -7,6 +7,9 @@
         <variable
             name="title"
             type="String" />
+        <variable
+            name="hint"
+            type="String" />
     </data>
 
     <LinearLayout
@@ -41,6 +44,10 @@
                 android:layout_height="32dp"
                 android:background="@drawable/httpdns_bg_input"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                android:importantForAutofill="no"
+                android:hint="@{hint}"
+                tools:hint="输入域名"
+                android:textColorHint="#B6C1D3"
                 android:ellipsize="end"
                 android:lines="1"
                 android:scrollHorizontally="true"
@@ -63,7 +70,7 @@
                 android:id="@+id/tvCancel"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="取消"
+                android:text="@string/cancel"
                 android:textColor="#384153"
                 android:textSize="16sp"
                 android:gravity="center"
@@ -86,7 +93,7 @@
                 android:id="@+id/tvConfirm"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:text="确认"
+                android:text="@string/confirm"
                 android:textColor="#1B58F4"
                 android:textSize="16sp"
                 android:gravity="center"

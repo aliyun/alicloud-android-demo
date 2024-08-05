@@ -34,7 +34,8 @@
                     android:textColor="#474A52"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
-                    android:paddingStart="12dp" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"/>
 
                 <TextView
                     android:id="@+id/tvHK"
@@ -45,7 +46,8 @@
                     android:textColor="#474A52"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
-                    android:paddingStart="12dp" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"/>
 
                 <TextView
                     android:id="@+id/tvSG"
@@ -56,7 +58,8 @@
                     android:textColor="#474A52"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
-                    android:paddingStart="12dp" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp" />
 
                 <TextView
                     android:id="@+id/tvDE"
@@ -67,7 +70,8 @@
                     android:textColor="#474A52"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
-                    android:paddingStart="12dp" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp" />
 
                 <TextView
                     android:id="@+id/tvUS"
@@ -78,7 +82,8 @@
                     android:textColor="#474A52"
                     android:textSize="16sp"
                     android:gravity="center_vertical"
-                    android:paddingStart="12dp" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>

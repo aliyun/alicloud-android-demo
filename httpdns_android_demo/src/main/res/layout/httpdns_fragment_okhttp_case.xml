@@ -86,7 +86,7 @@
                         android:padding="5dp"
                         android:text="@string/schema_type"
                         android:textColor="@color/black"
-                        android:textSize="16dp" />
+                        android:textSize="16sp" />
 
                     <RadioGroup
                         android:layout_width="wrap_content"
@@ -94,22 +94,23 @@
                         android:layout_alignParentEnd="true"
                         android:checkedButton="@id/schema_https"
                         android:onCheckedChanged="@{viewModel::onSchemaTypeChanged}"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        tools:ignore="RelativeOverlap">
 
                         <com.google.android.material.radiobutton.MaterialRadioButton
                             android:id="@+id/schema_https"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Https"
-                            android:textSize="14dp" />
+                            android:text="@string/label_https"
+                            android:textSize="14sp" />
 
                         <com.google.android.material.radiobutton.MaterialRadioButton
                             android:id="@+id/schema_http"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="false"
-                            android:text="Http"
-                            android:textSize="14dp" />
+                            android:text="@string/label_http"
+                            android:textSize="14sp" />
 
                     </RadioGroup>
                 </RelativeLayout>
@@ -119,7 +120,6 @@
                     style="@style/Widget.MaterialComponents.Button.Icon"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/resolve_and_request"
@@ -155,7 +155,7 @@
                         android:id="@+id/tvResolveResultTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="请求和解析结果"
+                        android:text="@string/request_resolve_result"
                         android:textColor="#1F2024"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -172,9 +172,8 @@
                         style="@style/Widget.MaterialComponents.Button.Icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_marginEnd="12dp"
-                        android:text="重新输入"
+                        android:text="@string/re_input"
                         android:onClick="@{() -> viewModel.reInput()}"
                         app:cornerRadius="20dp"
                         app:rippleColor="@color/cloud_blue" />
@@ -216,7 +215,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="IPV4"
+                        android:text="@string/label_ipv4"
                         tools:visibility="visible"
                         android:visibility="@{TextUtils.isEmpty(viewModel.ipv4)?View.GONE:View.VISIBLE}"
                         android:textSize="12sp"
@@ -237,7 +236,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="IPV6"
+                        android:text="@string/label_ipv6"
                         tools:visibility="visible"
                         android:visibility="@{TextUtils.isEmpty(viewModel.ipv6)?View.GONE:View.VISIBLE}"
                         android:textSize="12sp"
@@ -258,7 +257,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="请求结果"
+                        android:text="@string/request_result"
                         android:visibility="visible"
                         android:textSize="12sp"
                         android:textColor="#1B58F4"/>

@@ -78,10 +78,10 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * region右侧icon
+     * region弹窗展示
      */
-    var currentRegionIcon = SingleLiveData<Int>().apply {
-        value = R.drawable.httpdns_down
+    var regionPopupShow = SingleLiveData<Boolean>().apply {
+        value = false
     }
 
     /**
@@ -171,7 +171,7 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
      */
     fun setRegion(view: View) {
         //弹窗选择region
-        currentRegionIcon.value = R.drawable.httpdns_up
+        regionPopupShow.value = true
         regionPopup?.showRegionPopup(view)
     }
 
@@ -180,7 +180,6 @@ class SettingViewModel(application: Application) : AndroidViewModel(application)
      */
     fun saveRegion(regionText: String) {
         regionPopup?.hideRegionPopup()
-        currentRegionIcon.value = R.drawable.httpdns_down
         currentRegion.value = regionText
         val editor = preferences.edit()
         editor.putString(KEY_REGION, regionText)

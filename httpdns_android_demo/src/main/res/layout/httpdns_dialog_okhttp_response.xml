@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="OkHttpResponseDialogBinding">
         <variable
@@ -60,7 +59,7 @@
                 android:id="@+id/tvKnow"
                 android:layout_width="0dp"
                 android:layout_height="44dp"
-                android:text="知道了"
+                android:text="@string/btn_text_know"
                 android:textColor="#1B58F4"
                 android:textSize="16sp"
                 android:gravity="center"

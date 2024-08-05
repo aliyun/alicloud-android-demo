@@ -13,6 +13,7 @@
             android:id="@+id/ivCheck"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:contentDescription="@string/btn_check"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

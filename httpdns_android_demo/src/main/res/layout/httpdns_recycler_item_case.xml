@@ -14,7 +14,7 @@
         android:text="@{caseName}"
         android:textColor="#A7BCCE"
         android:textSize="12sp"
-        android:lineHeight="24dp"
+        android:lineSpacingExtra="6dp"
         android:gravity="center"
         tools:text="OkHttp\n网络库\n最佳实践"
         android:background="@drawable/httpdns_case_item_bg_def"/>
