@@ -68,6 +68,8 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
      */
     val ipv6 = SingleLiveData<String>().apply { value = "" }
 
+    val showResolveFailHint = SingleLiveData<Boolean>().apply { value = false }
+
     /**
      * 解析服务
      */
@@ -123,8 +125,7 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
      */
     private fun resolveSyncNonBlocking() {
         val currMills = System.currentTimeMillis()
-        httpDnsService?.getHttpDnsResultForHostSyncNonBlocking(host.value, RequestIpType.both)
-            ?.apply {
+        httpDnsService?.getHttpDnsResultForHostSyncNonBlocking(host.value, RequestIpType.both)?.apply {
                 showResolveResult(this, currMills)
             }
     }
@@ -162,14 +163,25 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
      * 解析结果展示
      */
     private fun showResolveResult(httpDnsResult: HTTPDNSResult, mills: Long) {
-        hostAndTime.value = "${host.value} (${System.currentTimeMillis() - mills}ms)"
-        val resultClass = httpDnsResult::class.java
-        val ttlField = resultClass.getDeclaredField("ttl")
-        ttlField.isAccessible = true
-        val ttlValue = ttlField.getInt(httpDnsResult)
-        ttl.value = "TTL: $ttlValue s"
-        ipv4.value = httpDnsResult.ips.joinToString(",")
-        ipv6.value = httpDnsResult.ipv6s.joinToString(",")
+        if (httpDnsResult.ips.isEmpty() && httpDnsResult.ipv6s.isEmpty()) {
+            //未获取解析结果
+            hostAndTime.value = ""
+            ttl.value = ""
+            ipv4.value = ""
+            ipv6.value = ""
+            showResolveFailHint.value = true
+        }else {
+            hostAndTime.value = "${host.value} (${System.currentTimeMillis() - mills}ms)"
+            val resultClass = httpDnsResult::class.java
+            val ttlField = resultClass.getDeclaredField("ttl")
+            ttlField.isAccessible = true
+            val ttlValue = ttlField.getInt(httpDnsResult)
+            ttl.value = "TTL: $ttlValue s"
+            ipv4.value = httpDnsResult.ips.joinToString(",")
+            ipv6.value = httpDnsResult.ipv6s.joinToString(",")
+            showResolveFailHint.value = false
+        }
+
     }
 
     /**

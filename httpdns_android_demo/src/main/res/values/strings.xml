@@ -98,4 +98,5 @@
     <string name="more">更多</string>
     <string name="btn_check">选中按钮</string>
     <string name="btn_delete">删除按钮</string>
+    <string name="resolve_fail_hint">该域名返回解析结果为空。\n\n可能原因\n1.该域名不在“域名列表”中。请将该域名添加到阿里云控制台HTTPDNS的“域名列表”。\n\n2.该域名返回解析结果为空。\n\n</string>
 </resources>
