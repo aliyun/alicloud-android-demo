@@ -4,7 +4,6 @@ import alibaba.httpdns_android_demo.HttpDnsServiceHolder
 import alibaba.httpdns_android_demo.KEY_HOST
 import alibaba.httpdns_android_demo.KEY_RESOLVE_API_TYPE
 import alibaba.httpdns_android_demo.SingleLiveData
-import alibaba.httpdns_android_demo.best_practice.Response
 import android.app.Application
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel

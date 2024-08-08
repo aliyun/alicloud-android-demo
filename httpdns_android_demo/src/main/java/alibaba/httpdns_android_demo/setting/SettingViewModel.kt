@@ -11,7 +11,6 @@ import alibaba.httpdns_android_demo.KEY_ENABLE_LOG
 import alibaba.httpdns_android_demo.KEY_PRE_RESOLVE_HOST_LIST
 import alibaba.httpdns_android_demo.KEY_REGION
 import alibaba.httpdns_android_demo.KEY_TIMEOUT
-import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.RegionText
 import alibaba.httpdns_android_demo.SingleLiveData
 import alibaba.httpdns_android_demo.getAccountPreference

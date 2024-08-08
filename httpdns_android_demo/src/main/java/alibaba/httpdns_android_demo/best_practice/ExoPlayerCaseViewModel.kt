@@ -4,7 +4,6 @@ import alibaba.httpdns_android_demo.TAG
 import android.app.Application
 import android.util.Log
 import com.alibaba.sdk.android.httpdns.HTTPDNSResult
-import com.alibaba.sdk.android.httpdns.RequestIpType
 import okhttp3.ConnectionPool
 import okhttp3.Dns
 import okhttp3.OkHttpClient

@@ -5,7 +5,6 @@ import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.IPConnCaseBinding
 import alibaba.httpdns_android_demo.showOkHttpResponseAlert
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 
