@@ -48,3 +48,5 @@ const val TAG = "httpdns"
 const val DEFAULT_TIMEOUT = 3000
 
 const val MIN_TIMEOUT = 1000
+
+const val URL_HELP_CENTER = "https://help.aliyun.com/document_detail/435250.html?spm=a2c4g.2584853.0.0.271c125fTXewr1"

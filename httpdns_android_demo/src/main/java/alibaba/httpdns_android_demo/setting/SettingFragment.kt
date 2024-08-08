@@ -4,6 +4,7 @@ import alibaba.httpdns_android_demo.BaseFragment
 import alibaba.httpdns_android_demo.KEY_IS_PRE_HOST
 import alibaba.httpdns_android_demo.MIN_TIMEOUT
 import alibaba.httpdns_android_demo.R
+import alibaba.httpdns_android_demo.URL_HELP_CENTER
 import alibaba.httpdns_android_demo.databinding.PopupRegionSettingBinding
 import alibaba.httpdns_android_demo.databinding.SettingBinding
 import alibaba.httpdns_android_demo.getStatusBarHeight
@@ -77,7 +78,7 @@ class SettingFragment : BaseFragment<SettingBinding>(), ITimeoutSettingDialog, I
 
         binding.clHelpCenter.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("https://help.aliyun.com/document_detail/435250.html?spm=a2c4g.2584853.0.0.271c125fTXewr1")
+            intent.data = Uri.parse(URL_HELP_CENTER)
             startActivity(intent)
         }
 
