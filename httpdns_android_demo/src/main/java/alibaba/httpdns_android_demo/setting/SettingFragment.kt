@@ -10,6 +10,7 @@ import alibaba.httpdns_android_demo.getStatusBarHeight
 import alibaba.httpdns_android_demo.showInputDialog
 import alibaba.httpdns_android_demo.toDp
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -73,6 +74,13 @@ class SettingFragment : BaseFragment<SettingBinding>(), ITimeoutSettingDialog, I
                 )
             )
         }
+
+        binding.clHelpCenter.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("https://help.aliyun.com/document_detail/435250.html?spm=a2c4g.2584853.0.0.271c125fTXewr1")
+            startActivity(intent)
+        }
+
     }
 
     /**
