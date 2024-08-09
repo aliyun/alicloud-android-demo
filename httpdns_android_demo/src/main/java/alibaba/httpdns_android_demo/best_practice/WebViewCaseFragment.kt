@@ -14,11 +14,11 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import com.alibaba.sdk.android.httpdns.RequestIpType
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import java.io.IOException
 import java.net.HttpURLConnection
-import java.net.InetAddress
 import java.net.MalformedURLException
 import java.net.URL
 import java.net.URLConnection
@@ -41,7 +41,7 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[ResolveResultViewModel::class.java]
-        viewModel.host.value = "www.aliyun.com"
+        viewModel.host.value = "www.oschina.net"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -90,45 +90,32 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                         //实例化 WebResourceResponse 需要入参 mimeType
                         val contentType = urlConnection.contentType
                         val mimeType = contentType?.split(";")?.get(0)
-                        if (TextUtils.isEmpty(mimeType)) {
-                            //无mimeType得请求不拦截
-                            return super.shouldInterceptRequest(view, request)
-                        }
                         //实例化 WebResourceResponse 需要入参 charset
                         val charset = getCharset(contentType)
                         val httpURLConnection = urlConnection as HttpURLConnection
                         val statusCode = httpURLConnection.responseCode
                         var response = httpURLConnection.responseMessage
                         val headerFields = httpURLConnection.headerFields
-                        //是二进制数据 , 二进制数据无需charset
-                        val isBinaryResource =
-                            mimeType!!.startsWith("image") || mimeType.startsWith("audio") || mimeType.startsWith(
-                                "video"
-                            )
-                        //有charset 或者 二进制数据 实例化 WebResourceResponse
-                        if (!TextUtils.isEmpty(charset) || isBinaryResource) {
-                            val resourceResponse = WebResourceResponse(
-                                mimeType,
-                                charset,
-                                httpURLConnection.inputStream
-                            )
-                            if (TextUtils.isEmpty(response)) {
-                                response = "OK"
-                            }
-                            //设置statusCode 和 response
-                            resourceResponse.setStatusCodeAndReasonPhrase(statusCode, response)
-                            //构造响应头
-                            val responseHeader: MutableMap<String?, String> = HashMap()
-                            for ((key) in headerFields) {
-                                // HttpUrlConnection可能包含key为null的报头，指向该http请求状态码
-                                responseHeader[key] = httpURLConnection.getHeaderField(key)
-                            }
-                            resourceResponse.responseHeaders = responseHeader
-                            return resourceResponse
-                        } else {
-                            //其他情况,不拦截
-                            return super.shouldInterceptRequest(view, request)
+
+                        val resourceResponse = WebResourceResponse(
+                            mimeType,
+                            charset,
+                            httpURLConnection.inputStream
+                        )
+                        if (TextUtils.isEmpty(response)) {
+                            response = "OK"
                         }
+                        //设置statusCode 和 response
+                        resourceResponse.setStatusCodeAndReasonPhrase(statusCode, response)
+                        //构造响应头
+                        val responseHeader: MutableMap<String?, String> = HashMap()
+                        for ((key) in headerFields) {
+                            // HttpUrlConnection可能包含key为null的报头，指向该http请求状态码
+                            responseHeader[key] = httpURLConnection.getHeaderField(key)
+                        }
+                        resourceResponse.responseHeaders = responseHeader
+                        return resourceResponse
+
                     } catch (e: Exception) {
                         Log.e("httpdns", Log.getStackTraceString(e))
                     }
@@ -136,7 +123,7 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                 return super.shouldInterceptRequest(view, request)
             }
         }
-        binding.httpdnsWebview.loadUrl("https://www.aliyun.com")
+        binding.httpdnsWebview.loadUrl("http://www.oschina.net/")
 
     }
 
@@ -160,27 +147,23 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
         try {
             val url = URL(path)
             val currMill = System.currentTimeMillis()
-            val inetAddresses = mutableListOf<InetAddress>()
-            //解析
-            viewModel.resolveSync(url.host) {
-                it?.apply {
-                    Log.d(TAG, this.toString())
-                    if (url.host == viewModel.host.value) {
-                        //展示loadUrl的解析结果
-                        viewModel.showResolveResult(this, currMill)
+            val result =
+                viewModel.httpDnsService?.getHttpDnsResultForHostSync(url.host, RequestIpType.both)
+                    ?.apply {
+                        Log.d(TAG, this.toString())
+                        if (url.host == viewModel.host.value) {
+                            //展示loadUrl的解析结果
+                            viewModel.showResolveResult(this, currMill)
+                        }
                     }
-                    //根据网络环境,选择合适的ip
-                    viewModel.processDnsResult(this, inetAddresses)
-                }
-            }
-            //没有获取到ip
-            if (inetAddresses.isEmpty()) {
+
+            val hostIP = viewModel.getIp(result)
+            if (TextUtils.isEmpty(hostIP)) {
                 return null
             }
-            //从InetAddress中获取ip
-            val hostIP = String(inetAddresses[0].address, Charsets.UTF_8)
+
             //host 替换为 ip 之后的 url
-            val newUrl = path.replaceFirst(url.host, hostIP)
+            val newUrl = path.replaceFirst(url.host, hostIP!!)
             val urlConnection: HttpURLConnection = URL(newUrl).openConnection() as HttpURLConnection
             if (headers != null) {
                 for ((key, value) in headers) {

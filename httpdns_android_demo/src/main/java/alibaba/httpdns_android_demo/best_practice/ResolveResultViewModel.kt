@@ -2,9 +2,7 @@ package alibaba.httpdns_android_demo.best_practice
 
 import alibaba.httpdns_android_demo.HttpDnsServiceHolder
 import alibaba.httpdns_android_demo.SingleLiveData
-import alibaba.httpdns_android_demo.TAG
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.alibaba.sdk.android.httpdns.HTTPDNSResult
@@ -78,7 +76,6 @@ open class ResolveResultViewModel(application: Application) : AndroidViewModel(a
             withContext(Dispatchers.Main) {
                 callback.invoke(httpDnsResultDefer.await())
             }
-
         }
     }
 
@@ -103,6 +100,20 @@ open class ResolveResultViewModel(application: Application) : AndroidViewModel(a
                 )
             }
         }
+    }
+
+    fun getIp(httpDnsResult: HTTPDNSResult?): String? {
+        httpDnsResult ?: return null
+        val ipStackType = HttpDnsNetworkDetector.getInstance().getNetType(getApplication())
+        val isV6 = ipStackType == NetType.v6 || ipStackType == NetType.both
+        val isV4 = ipStackType == NetType.v4 || ipStackType == NetType.both
+
+        if (httpDnsResult.ipv6s != null && httpDnsResult.ipv6s.isNotEmpty() && isV6) {
+            return httpDnsResult.ipv6s[0]
+        } else if (httpDnsResult.ips != null && httpDnsResult.ips.isNotEmpty() && isV4) {
+            return httpDnsResult.ips[0]
+        }
+        return null
     }
 
 }

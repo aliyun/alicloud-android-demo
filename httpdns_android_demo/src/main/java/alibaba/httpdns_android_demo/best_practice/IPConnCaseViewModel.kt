@@ -4,15 +4,16 @@ import alibaba.httpdns_android_demo.SingleLiveData
 import alibaba.httpdns_android_demo.TAG
 import alibaba.httpdns_android_demo.readStringFrom
 import android.app.Application
+import android.text.TextUtils
 import android.util.Log
 import androidx.lifecycle.viewModelScope
+import com.alibaba.sdk.android.httpdns.RequestIpType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
-import java.net.InetAddress
 import java.net.URL
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.HttpsURLConnection
@@ -40,28 +41,25 @@ class IPConnCaseViewModel(application: Application) : ResolveResultViewModel(app
         }
     }
 
-
     private suspend fun recursiveRequest(url: String, callback: suspend (message: String) -> Unit) {
         val host = URL(url).host
         var ipURL: String? = null
 
         val currMill = System.currentTimeMillis()
-        val inetAddresses = mutableListOf<InetAddress>()
         //解析
-        resolveSync(host) {
-            it?.apply {
-                Log.d(TAG, this.toString())
-                showResolveResult(this, currMill)
-                processDnsResult(this, inetAddresses)
-            }
-        }
-        if (inetAddresses.isNotEmpty()) {
-            val hostIP = String(inetAddresses[0].address, Charsets.UTF_8)
-            ipURL = url.replace(host, "[$hostIP]")
+        val result = httpDnsService?.getHttpDnsResultForHostSync(host , RequestIpType.both)?.apply {
+            Log.d(TAG, this.toString())
+            showResolveResult(this, currMill)
         }
 
+        val hostIP = getIp(result)
+        if (TextUtils.isEmpty(hostIP)) {
+            return
+        }
+
+        ipURL = url.replace(host, hostIP!!)
         val conn: HttpsURLConnection =
-            URL(ipURL ?: url).openConnection() as HttpsURLConnection
+            URL(ipURL).openConnection() as HttpsURLConnection
         conn.setRequestProperty("Host", host)
         conn.connectTimeout = 30000
         conn.readTimeout = 30000

@@ -68,19 +68,14 @@ class SearchActivity : AppCompatActivity() {
         binding.etInputHost.setOnEditorActionListener { _, actionId, _ ->
             val host = binding.etInputHost.text.toString().trim()
             if (actionId == EditorInfo.IME_ACTION_SEARCH && !TextUtils.isEmpty(host)) {
-                if (isValidHost(host)) {
-                    if (!viewModel.inputHistory.contains(host)) {
-                        viewModel.inputHistory.add(0, host)
-                        inputHistoryAdapter?.notifyItemInserted(0)
-                        inputHistoryAdapter?.notifyItemChanged(0)
-                        viewModel.saveInputHistory()
-                    }
-                    callbackHost(host)
-                    true
-                } else {
-                    Toast.makeText(this@SearchActivity, "请输入正确域名", Toast.LENGTH_SHORT).show()
-                    false
+                if (!viewModel.inputHistory.contains(host)) {
+                    viewModel.inputHistory.add(0, host)
+                    inputHistoryAdapter?.notifyItemInserted(0)
+                    inputHistoryAdapter?.notifyItemChanged(0)
+                    viewModel.saveInputHistory()
                 }
+                callbackHost(host)
+                true
             } else {
                 false
             }
