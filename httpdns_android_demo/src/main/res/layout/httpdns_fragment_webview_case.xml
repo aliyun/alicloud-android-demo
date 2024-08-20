@@ -8,7 +8,7 @@
         <import type="android.text.TextUtils" />
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.best_practice.ResolveResultViewModel" />
+            type="com.alibaba.httpdns.android.demo.practice.ResolveResultViewModel" />
     </data>
 
     <FrameLayout
@@ -36,16 +36,16 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/ti_resolve_result"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/resolve_result"/>
-
-                <com.google.android.material.tabs.TabItem
                     android:id="@+id/ti_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/content_show"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/ti_resolve_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/resolve_result"/>
 
             </com.google.android.material.tabs.TabLayout>
 
@@ -59,6 +59,7 @@
                 android:paddingTop="12dp"
                 android:paddingEnd="13dp"
                 android:paddingBottom="8dp"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tlWebViewCase"
                 android:background="@drawable/httpdns_resolve_result_bg">
@@ -130,7 +131,7 @@
                 android:id="@+id/httpdns_webview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tlWebViewCase"/>
 

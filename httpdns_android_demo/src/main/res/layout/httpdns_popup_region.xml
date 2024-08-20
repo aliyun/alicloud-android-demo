@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class="PopupRegionSettingBinding">
-        <import type="alibaba.httpdns_android_demo.RegionText" />
+        <import type="com.alibaba.httpdns.android.demo.RegionText" />
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.setting.SettingViewModel" />
+            type="com.alibaba.httpdns.android.demo.setting.SettingViewModel" />
     </data>
 
     <FrameLayout

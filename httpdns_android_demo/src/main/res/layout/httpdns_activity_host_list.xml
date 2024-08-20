@@ -6,7 +6,7 @@
     <data class="HostListOperationBinding">
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.setting.HostListOperationViewModel" />
+            type="com.alibaba.httpdns.android.demo.setting.HostListOperationViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

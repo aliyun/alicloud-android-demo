@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_resolve_welcome"
-        android:name="alibaba.httpdns_android_demo.function.ResolveWelcomeFragment"
+        android:name="com.alibaba.httpdns.android.demo.function.ResolveWelcomeFragment"
         android:label="解析欢迎页"
         tools:layout="@layout/httpdns_fragment_resolve_welcome" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/navigation_resolve_result"
-        android:name="alibaba.httpdns_android_demo.function.ResolveResultFragment"
+        android:name="com.alibaba.httpdns.android.demo.function.ResolveResultFragment"
         android:label="解析结果页"
         tools:layout="@layout/httpdns_fragment_resolve_result" />
 

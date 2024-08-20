@@ -7,7 +7,7 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.best_practice.ExoPlayerCaseViewModel" />
+            type="com.alibaba.httpdns.android.demo.practice.exoplayer.ExoPlayerCaseViewModel" />
     </data>
 
     <FrameLayout

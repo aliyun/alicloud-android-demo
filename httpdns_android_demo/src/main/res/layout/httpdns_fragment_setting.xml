@@ -5,7 +5,7 @@
     <data class="SettingBinding">
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.setting.SettingViewModel" />
+            type="com.alibaba.httpdns.android.demo.setting.SettingViewModel" />
     </data>
 
     <FrameLayout
@@ -46,7 +46,7 @@
                     android:layout_marginStart="16dp"
                     app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civExpireIp"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -57,7 +57,7 @@
                     app:desc="@string/promise_expire_ip"
                     app:layout_constraintTop_toBottomOf="@+id/tvHint"/>
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civDegrade"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -68,7 +68,7 @@
                     app:desc="@string/promise_degrade_desc"
                     app:layout_constraintTop_toBottomOf="@+id/civExpireIp"/>
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civCacheIp"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -79,7 +79,7 @@
                     app:desc="@string/host_save_desc"
                     app:layout_constraintTop_toBottomOf="@+id/civDegrade"/>
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civHttps"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -90,7 +90,7 @@
                     app:desc="@string/use_https_resolve"
                     app:layout_constraintTop_toBottomOf="@+id/civCacheIp"/>
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civChangeNetworkRefresh"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -101,7 +101,7 @@
                     app:desc="@string/net_change_refresh_desc"
                     app:layout_constraintTop_toBottomOf="@+id/civHttps"/>
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civPrintLog"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -226,7 +226,7 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civHostPreResolve"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -236,7 +236,7 @@
                     app:desc="@string/set_pre_resolve_host_list"
                     app:layout_constraintTop_toBottomOf="@+id/clRegion"/>
 
-                <alibaba.httpdns_android_demo.view.ConfigItemView
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
                     android:id="@+id/civClearHostCache"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"

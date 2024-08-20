@@ -6,7 +6,7 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.search.SearchViewModel" />
+            type="com.alibaba.httpdns.android.demo.search.SearchViewModel" />
 
     </data>
 

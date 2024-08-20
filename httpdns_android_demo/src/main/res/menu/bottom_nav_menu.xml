@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_case"
         android:icon="@drawable/httpdns_case"
-        android:title="@string/tab_best_practice" />
+        android:title="@string/tab_practice" />
 
     <item
         android:id="@+id/navigation_setting"

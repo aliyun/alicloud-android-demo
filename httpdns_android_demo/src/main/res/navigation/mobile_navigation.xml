@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_function"
-        android:name="alibaba.httpdns_android_demo.function.FunctionFragment"
+        android:name="com.alibaba.httpdns.android.demo.function.FunctionFragment"
         android:label="@string/tab_basic"
         tools:layout="@layout/httpdns_fragment_function" />
 
     <fragment
         android:id="@+id/navigation_case"
-        android:name="alibaba.httpdns_android_demo.best_practice.CaseFragment"
-        android:label="@string/tab_best_practice"
+        android:name="com.alibaba.httpdns.android.demo.practice.CaseFragment"
+        android:label="@string/tab_practice"
         tools:layout="@layout/httpdns_fragment_case" />
 
     <fragment
         android:id="@+id/navigation_setting"
-        android:name="alibaba.httpdns_android_demo.setting.SettingFragment"
+        android:name="com.alibaba.httpdns.android.demo.setting.SettingFragment"
         android:label="@string/tab_setting"
         tools:layout="@layout/httpdns_fragment_setting" />
 </navigation>

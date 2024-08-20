@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/navigation_okhttp"
-        android:name="alibaba.httpdns_android_demo.best_practice.OkHttpCaseFragment"
+        android:name="com.alibaba.httpdns.android.demo.practice.okhttp.OkHttpCaseFragment"
         tools:layout="@layout/httpdns_fragment_okhttp_case" />
 
     <fragment
         android:id="@+id/navigation_webview"
-        android:name="alibaba.httpdns_android_demo.best_practice.WebViewCaseFragment"
+        android:name="com.alibaba.httpdns.android.demo.practice.webview.WebViewCaseFragment"
         tools:layout="@layout/httpdns_fragment_webview_case" />
 
     <fragment
         android:id="@+id/navigation_ip_conn"
-        android:name="alibaba.httpdns_android_demo.best_practice.IPConnCaseFragment"
+        android:name="com.alibaba.httpdns.android.demo.practice.ipconn.IPConnCaseFragment"
         tools:layout="@layout/httpdns_fragment_ip_conn_case" />
 
     <fragment
         android:id="@+id/navigation_exo_player"
-        android:name="alibaba.httpdns_android_demo.best_practice.ExoPlayerCaseFragment"
+        android:name="com.alibaba.httpdns.android.demo.practice.exoplayer.ExoPlayerCaseFragment"
         tools:layout="@layout/httpdns_fragment_exo_player_case" />
 
 </navigation>

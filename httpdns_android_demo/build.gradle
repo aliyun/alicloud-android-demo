@@ -10,7 +10,7 @@ android {
     namespace "alibaba.httpdns_android_demo"
     defaultConfig {
         applicationId "alibaba.httpdns_android_demo"
-        minSdkVersion 26
+        minSdkVersion 21
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"

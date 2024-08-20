@@ -2,7 +2,7 @@
     <string name="app_name">【阿里云HttpDns】Demo程序</string>
 
     <string name="tab_basic">功能</string>
-    <string name="tab_best_practice">案例</string>
+    <string name="tab_practice">案例</string>
     <string name="tab_setting">设置</string>
 
     <string name="china">中国大陆</string>
@@ -99,4 +99,20 @@
     <string name="btn_check">选中按钮</string>
     <string name="btn_delete">删除按钮</string>
     <string name="resolve_fail_hint">该域名返回解析结果为空。\n\n可能原因\n1.该域名不在“域名列表”中。请将该域名添加到阿里云控制台HTTPDNS的“域名列表”。\n\n2.该域名返回解析结果为空。\n\n</string>
+    <string name="sync_resolve_desc">使用同步解析接口解析域名，会阻塞当前线程，直到获得有效解析结果并返回。</string>
+    <string name="async_resolve_desc">使用异步解析接口解析域名，不会阻塞当前线程，解析结果会通过回调的形式返回。</string>
+    <string name="sync_non_blocking_resolve_desc">使用同步非阻塞接口解析域名，不会阻塞当前线程，但可能会返回空结果。</string>
+    <string name="okhttp_case">OkHttp\n网络库\n最佳实践</string>
+    <string name="webview_case">HTTPDNS\nWebview\n最佳实践</string>
+    <string name="ip_conn_case">HTTPDNS\nIP直连\n最佳实践</string>
+    <string name="exo_player_case">HTTPDNS\nExoPlayer\n最佳实践</string>
+    <string name="log_dns_resolve_fail">httpdns 未返回IP，走local dns</string>
+    <string name="log_resolve_result">httpdns %s 解析结果 %s</string>
+    <string name="log_sni_request_error">SNI request error: %s</string>
+    <string name="log_sni_request_response">SNI request response: %s</string>
+    <string name="log_okhttp_request_url">requestUrl: %s</string>
+    <string name="log_okhttp_request_fail">请求返回body为空</string>
+    <string name="ttl_time">TTL: %s s</string>
+    <string name="toast_double_click_exit">再按一次退出应用</string>
+    <string name="toast_input_content_null">输入内容为空</string>
 </resources>

@@ -8,7 +8,7 @@
         <import type="android.view.View" />
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.best_practice.OkHttpCaseViewModel" />
+            type="com.alibaba.httpdns.android.demo.practice.okhttp.OkHttpCaseViewModel" />
     </data>
 
     <FrameLayout
@@ -262,17 +262,25 @@
                         android:textSize="12sp"
                         android:textColor="#1B58F4"/>
 
-                    <TextView
-                        android:id="@+id/tvRequestResult"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="@{viewModel.responseStr}"
-                        android:maxLines="5"
-                        android:ellipsize="end"
-                        tools:text="2233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1.233.1.1.1,233.1.1.1,233.1.1.1"
-                        android:textSize="12sp"
-                        android:textColor="#3D3D3D"/>
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvRequestResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@{viewModel.responseStr}"
+                            android:scrollbars="vertical"
+                            android:overScrollMode="always"
+                            tools:text="2233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1.233.1.1.1,233.1.1.1,233.1.1.1"
+                            android:textSize="12sp"
+                            android:textColor="#3D3D3D"/>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
 
                     </LinearLayout>
 

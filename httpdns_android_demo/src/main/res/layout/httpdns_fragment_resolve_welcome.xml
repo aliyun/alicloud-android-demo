@@ -5,13 +5,13 @@
 
     <data class="WelcomeBinding">
 
-        <import type="alibaba.httpdns_android_demo.function.ResolveApiType" />
+        <import type="com.alibaba.httpdns.android.demo.function.ResolveApiType" />
         <import type="android.view.View" />
         <import type="android.text.TextUtils"/>
 
         <variable
             name="viewModel"
-            type="alibaba.httpdns_android_demo.function.ResolveViewModel" />
+            type="com.alibaba.httpdns.android.demo.function.ResolveViewModel" />
 
     </data>
 
