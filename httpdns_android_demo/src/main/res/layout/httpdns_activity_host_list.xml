@@ -18,7 +18,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/httpdns_back_host_list"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="14dp"
             android:layout_marginStart="8dp"
             android:scaleType="center"
             android:contentDescription="@string/go_back"
@@ -34,7 +34,7 @@
             android:textColor="#3D3D3D"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivBack" />
 

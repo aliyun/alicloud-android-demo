@@ -10,6 +10,8 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.httpdns.android.demo.HTTP_COOKIE
@@ -41,7 +43,7 @@ import javax.net.ssl.HttpsURLConnection
 class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
 
     private lateinit var viewModel: ResolveResultViewModel
-
+    private var url: String = ""
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_webview_case
     }
@@ -49,7 +51,6 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[ResolveResultViewModel::class.java]
-        viewModel.host.value = "www.oschina.net"
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,7 +71,13 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
             }
 
         })
-
+        binding.tvLoad.setOnClickListener {
+            clickLoad()
+        }
+        binding.tvInputAgain.setOnClickListener {
+            binding.llInput.isVisible = true
+            binding.clLoadContent.isVisible = false
+        }
         binding.httpdnsWebview.webViewClient = object : WebViewClient() {
 
             override fun shouldInterceptRequest(
@@ -131,8 +138,30 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                 return super.shouldInterceptRequest(view, request)
             }
         }
-        binding.httpdnsWebview.loadUrl("http://www.oschina.net/")
+    }
 
+    private fun clickLoad() {
+        val urlStr = binding.resolveHostInputLayout.editText?.text?.trim().toString()
+        if (TextUtils.isEmpty(urlStr)) {
+            Toast.makeText(context, getString(R.string.toast_url_empty), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val url = URL(urlStr)
+        val host = url.host
+        if (TextUtils.isEmpty(host)) {
+            Toast.makeText(context, getString(R.string.toast_url_mistake), Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+        if (urlStr != this.url) {
+            viewModel.host.value = host
+            binding.httpdnsWebview.loadUrl(urlStr)
+        }
+        this.url = urlStr
+        binding.llInput.isVisible = false
+        binding.clLoadContent.isVisible = true
+        binding.tlWebViewCase.selectTab(binding.tlWebViewCase.getTabAt(0))
     }
 
     private fun getCharset(contentType: String?): String? {

@@ -35,15 +35,17 @@ class IPConnCaseViewModel(application: Application) : ResolveResultViewModel(app
 
     val responseStr = SingleLiveData<String>().apply { value = "" }
 
-    fun initData() {
-        host.value = "suggest.taobao.com"
-        sniRequest()
+    val ipConnUrl = SingleLiveData<String>().apply {
+        value = "https://suggest.taobao.com/sug?code=utf-8&q=phone"
     }
 
+    val showRequestAndResolveResult = SingleLiveData<Boolean>().apply { value = false }
+
     fun sniRequest() {
-        val testUrl = "https://suggest.taobao.com/sug?code=utf-8&q=phone"
+        host.value = URL(ipConnUrl.value).host
+        showRequestAndResolveResult.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            recursiveRequest(testUrl) { message ->
+            recursiveRequest(ipConnUrl.value!!) { message ->
                 responseStr.postValue(message)
             }
         }
@@ -131,6 +133,10 @@ class IPConnCaseViewModel(application: Application) : ResolveResultViewModel(app
 
     private fun needRedirect(code: Int): Boolean {
         return code in 300..399
+    }
+
+    fun reInput() {
+        showRequestAndResolveResult.value = false
     }
 
 }

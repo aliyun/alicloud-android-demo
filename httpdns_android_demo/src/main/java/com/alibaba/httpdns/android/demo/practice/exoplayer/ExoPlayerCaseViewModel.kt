@@ -3,6 +3,7 @@ package com.alibaba.httpdns.android.demo.practice.exoplayer
 import alibaba.httpdns_android_demo.R
 import android.app.Application
 import com.alibaba.httpdns.android.demo.HttpDnsApplication
+import com.alibaba.httpdns.android.demo.SingleLiveData
 import com.alibaba.httpdns.android.demo.log
 import com.alibaba.httpdns.android.demo.practice.ResolveResultViewModel
 import okhttp3.ConnectionPool
@@ -19,13 +20,15 @@ import java.util.concurrent.TimeUnit
  */
 class ExoPlayerCaseViewModel(application: Application) : ResolveResultViewModel(application) {
 
-    val playerUrl = "https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd"
-
     lateinit var okHttpClient: OkHttpClient
 
-    fun initData() {
-        host.value = URL(playerUrl).host
+    val playerUrl = SingleLiveData<String>().apply {
+        value = "https://storage.googleapis.com/wvmedia/clear/h264/tears/tears.mpd"
+    }
 
+    val showRequestAndResolveResult = SingleLiveData<Boolean>().apply { value = false }
+
+    fun initData() {
         okHttpClient = OkHttpClient.Builder()
             .connectionPool(ConnectionPool(0, 10 * 1000, TimeUnit.MICROSECONDS))
             .hostnameVerifier { _, _ -> true }
@@ -59,5 +62,7 @@ class ExoPlayerCaseViewModel(application: Application) : ResolveResultViewModel(
             .build()
     }
 
-
+    fun reInput() {
+        showRequestAndResolveResult.value = false
+    }
 }

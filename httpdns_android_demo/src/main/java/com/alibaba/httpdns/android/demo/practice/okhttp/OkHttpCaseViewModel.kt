@@ -29,7 +29,7 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
 
     private var schemaType: SchemaType = SchemaType.HTTPS
 
-    val path = SingleLiveData<String>().apply { value = "" }
+    val path = SingleLiveData<String>().apply { value = "/document_detail/434554.html" }
 
     val showRequestAndResolveResult = SingleLiveData<Boolean>().apply { value = false }
 
@@ -39,6 +39,7 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
 
     private var response: Response? = null
     fun initData() {
+        host.value = "help.aliyun.com"
         okHttpClient = OkHttpClient.Builder()
             .connectionPool(ConnectionPool(0, 10 * 1000, TimeUnit.MICROSECONDS))
             .hostnameVerifier { _, _ -> true }

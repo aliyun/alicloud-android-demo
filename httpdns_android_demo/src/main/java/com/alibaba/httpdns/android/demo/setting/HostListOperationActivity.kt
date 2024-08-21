@@ -27,7 +27,7 @@ class HostListOperationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //状态栏设置
         val controller = WindowCompat.getInsetsController(window, window.decorView)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
         controller.isAppearanceLightStatusBars = true
         window.statusBarColor = Color.TRANSPARENT
 

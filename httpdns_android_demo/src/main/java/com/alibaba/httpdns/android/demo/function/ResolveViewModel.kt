@@ -186,7 +186,7 @@ class ResolveViewModel(application: Application) : AndroidViewModel(application)
      * 域名预加载
      */
     fun preHost() {
-        httpDnsService?.setPreResolveHosts(arrayListOf(host.value), RequestIpType.both)
+        httpDnsService?.setPreResolveHosts(arrayListOf(host.value), RequestIpType.auto)
     }
 
     /**

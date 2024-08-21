@@ -127,7 +127,7 @@ class HostListOperationViewModel(application: Application) : AndroidViewModel(ap
             val edit = preferences.edit()
             edit.putString(KEY_PRE_RESOLVE_HOST_LIST, convertHostListToStr(selectHosts))
             edit.apply()
-            httpDnsService?.setPreResolveHosts(selectHosts, RequestIpType.both)
+            httpDnsService?.setPreResolveHosts(selectHosts, RequestIpType.auto)
         } else {
             httpDnsService?.cleanHostCache(selectHosts as ArrayList<String>)
         }

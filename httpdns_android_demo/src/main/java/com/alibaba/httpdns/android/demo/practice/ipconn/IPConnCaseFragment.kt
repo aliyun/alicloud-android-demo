@@ -23,7 +23,6 @@ class IPConnCaseFragment : BaseFragment<IPConnCaseBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[IPConnCaseViewModel::class.java]
-        viewModel.initData()
     }
 
 

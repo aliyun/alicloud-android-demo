@@ -27,6 +27,8 @@ class HttpDnsApplication : Application() {
                     val enableExpiredIp = preferences.getBoolean(KEY_ENABLE_EXPIRED_IP, false)
                     val enableCacheIp = preferences.getBoolean(KEY_ENABLE_CACHE_IP, false)
                     val enableHttpDns = preferences.getBoolean(KEY_ENABLE_HTTPS, false)
+                    val enableDegrade = preferences.getBoolean(KEY_ENABLE_DEGRADE , false)
+                    val enableAutoRefresh = preferences.getBoolean(KEY_ENABLE_AUTO_REFRESH , false)
                     val timeout = preferences.getInt(
                         KEY_TIMEOUT,
                         DEFAULT_TIMEOUT
@@ -50,6 +52,8 @@ class HttpDnsApplication : Application() {
                         .setEnableHttps(enableHttpDns)
                         .setEnableCacheIp(enableCacheIp)
                         .setEnableExpiredIp(enableExpiredIp)
+                        .setEnableDegradationLocalDns(enableDegrade)
+                        .setPreResolveAfterNetworkChanged(enableAutoRefresh)
                         .setRegion(
                             textToRegion(
                                 region ?: RegionText.REGION_TEXT_CHINA
@@ -68,7 +72,7 @@ class HttpDnsApplication : Application() {
                             HttpDnsServiceHolder.getHttpDnsService(this@HttpDnsApplication)
                         dnsService?.setPreResolveHosts(
                             it.toHostList() as ArrayList<String>,
-                            RequestIpType.both
+                            RequestIpType.auto
                         )
                     }
                     HttpDnsLog.enable(preferences.getBoolean(KEY_ENABLE_LOG, false))

@@ -25,7 +25,7 @@
                 android:id="@+id/llInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:visibility="gone"
+                tools:visibility="visible"
                 android:visibility="@{viewModel.showRequestAndResolveResult?View.GONE:View.VISIBLE}"
                 android:orientation="vertical">
 
@@ -141,7 +141,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:visibility="visible"
+                tools:visibility="gone"
                 android:visibility="@{viewModel.showRequestAndResolveResult?View.VISIBLE:View.GONE}"
                 android:orientation="vertical">
 

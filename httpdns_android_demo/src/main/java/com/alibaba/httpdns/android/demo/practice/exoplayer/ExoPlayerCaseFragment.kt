@@ -16,6 +16,7 @@ import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
 import androidx.media3.exoplayer.source.MediaSource
+import java.net.URL
 
 /**
  * ExoPlayer最佳实践
@@ -44,9 +45,20 @@ class ExoPlayerCaseFragment : BaseFragment<ExoPlayerCaseBinding>() {
             .setMediaSourceFactory(createMediaDataSourceFactory())
             .build()
         binding.playerView.player = player
+
+        binding.btnStartPlay.setOnClickListener {
+            startPlay()
+        }
+    }
+
+    /**
+     * 开始播放
+     */
+    private fun startPlay() {
+        viewModel.showRequestAndResolveResult.value = true
+        viewModel.host.value = URL(viewModel.playerUrl.value).host
         val mediaItem = MediaItem.Builder()
-            .setUri(viewModel.playerUrl)
-            .setMimeType("application/dash+xml")
+            .setUri(viewModel.playerUrl.value)
             .setMediaMetadata(MediaMetadata.Builder().setTitle("HD (MP4, H264)").build())
             .setClippingConfiguration(
                 ClippingConfiguration.Builder()
