@@ -116,8 +116,8 @@
     <string name="toast_double_click_exit">再按一次退出应用</string>
     <string name="toast_input_content_null">输入内容为空</string>
     <string name="input_url">url输入</string>
-    <string name="input_url_example">例如: http://www.baidu.com</string>
-    <string name="url_baidu">http://www.baidu.com</string>
+    <string name="input_url_example">例如: http://www.aliyun.com</string>
+    <string name="url_aliyun">https://help.aliyun.com</string>
     <string name="load_url">加载URL</string>
     <string name="toast_url_empty">url is empty</string>
     <string name="toast_url_mistake">请输入正确的url</string>

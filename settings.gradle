@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        mavenLocal()
         maven {
             url "http://maven.aliyun.com/nexus/content/groups/public/"
             name 'jcenter'
@@ -22,6 +23,7 @@ dependencyResolutionManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        mavenLocal()
         maven {
             url 'https://maven.aliyun.com/nexus/content/repositories/releases/'
         }

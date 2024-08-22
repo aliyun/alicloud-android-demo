@@ -23,21 +23,6 @@ class MainActivity : AppCompatActivity() {
 
     private var mBackKeyPressedTime = 0L
 
-    private val onBackCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            if (System.currentTimeMillis() - mBackKeyPressedTime > 2000) {
-                Toast.makeText(
-                    this@MainActivity,
-                    getString(R.string.toast_double_click_exit),
-                    Toast.LENGTH_SHORT
-                ).show()
-                mBackKeyPressedTime = System.currentTimeMillis()
-            } else {
-                finish()
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //浸入状态栏
@@ -52,7 +37,18 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
         navView.setupWithNavController(navController)
+    }
 
-        onBackPressedDispatcher.addCallback(this, onBackCallback)
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - mBackKeyPressedTime > 2000) {
+            Toast.makeText(
+                this@MainActivity,
+                getString(R.string.toast_double_click_exit),
+                Toast.LENGTH_SHORT
+            ).show()
+            mBackKeyPressedTime = System.currentTimeMillis()
+        } else {
+            finish()
+        }
     }
 }

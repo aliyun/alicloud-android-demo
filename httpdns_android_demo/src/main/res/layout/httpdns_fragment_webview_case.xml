@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="2dp"
                     android:paddingEnd="2dp"
-                    android:text="@string/url_baidu" />
+                    android:text="@string/url_aliyun" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
