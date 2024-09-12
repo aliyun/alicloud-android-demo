@@ -17,7 +17,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="8dp"
             android:src="@drawable/httpdns_host_def" />
 
         <TextView
