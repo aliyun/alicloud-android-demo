@@ -54,15 +54,15 @@ class ResolveWelcomeFragment : BaseFragment<WelcomeBinding>() {
         binding.tvResolve.setOnClickListener {
             requireContext().showHostResolveAlert(viewModel?.host?.value ?: "") {
                 val controller = findNavController(requireActivity(), R.id.nav_fragment_function)
-                    if (controller.currentDestination?.id == R.id.navigation_resolve_welcome) {
-                        controller.navigate(R.id.action_to_resolve_result, Bundle().apply {
-                            putString(KEY_HOST, viewModel?.host?.value)
-                            putInt(
-                                KEY_RESOLVE_API_TYPE,
-                                viewModel?.currResolveApiType?.value ?: ResolveApiType.RESOLVE_SYNC
-                            )
-                        })
-                    }
+                if (controller.currentDestination?.id == R.id.navigation_resolve_welcome) {
+                    controller.navigate(R.id.action_to_resolve_result, Bundle().apply {
+                        putString(KEY_HOST, viewModel?.host?.value)
+                        putInt(
+                            KEY_RESOLVE_API_TYPE,
+                            viewModel?.currResolveApiType?.value ?: ResolveApiType.RESOLVE_SYNC
+                        )
+                    })
+                }
 
             }
         }
