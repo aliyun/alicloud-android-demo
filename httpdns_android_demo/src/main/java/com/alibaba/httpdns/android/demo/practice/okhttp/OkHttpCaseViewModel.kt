@@ -59,13 +59,23 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
                             )
                         )
                     }
-
                     if (inetAddresses.isEmpty()) {
                         log(
                             this@OkHttpCaseViewModel,
                             getApplication<HttpDnsApplication>().getString(R.string.log_dns_resolve_fail)
                         )
-                        return Dns.SYSTEM.lookup(hostname)
+                        try {
+                            val localResolveResult = Dns.SYSTEM.lookup("help.aliyun111.com")
+                            inetAddresses.addAll(localResolveResult)
+                        }catch (e: Exception) {
+                            log(
+                                this@OkHttpCaseViewModel,
+                                String.format(
+                                    getApplication<HttpDnsApplication>().getString(R.string.log_host_cannnot_resolve),
+                                    hostname
+                                )
+                            )
+                        }
                     }
                     return inetAddresses
                 }
@@ -101,18 +111,21 @@ class OkHttpCaseViewModel(application: Application) : ResolveResultViewModel(app
         )
         viewModelScope.launch(Dispatchers.IO) {
             val request = Request.Builder().url(requestUrl).build()
-            okHttpClient.newCall(request).execute().use {
-                val bodyStr = it.body?.string()
-                log(
-                    this@OkHttpCaseViewModel,
-                    bodyStr
-                        ?: getApplication<HttpDnsApplication>().getString(R.string.log_okhttp_request_fail)
-                )
-                val code = it.code
-                responseStr.postValue("$code  $bodyStr")
-                showRequestAndResolveResult.postValue(true)
-                response = Response(code, bodyStr)
+            runCatching {
+                okHttpClient.newCall(request).execute().use {
+                    val bodyStr = it.body?.string()
+                    log(
+                        this@OkHttpCaseViewModel,
+                        bodyStr
+                            ?: getApplication<HttpDnsApplication>().getString(R.string.log_okhttp_request_fail)
+                    )
+                    val code = it.code
+                    responseStr.postValue("$code  $bodyStr")
+                    showRequestAndResolveResult.postValue(true)
+                    response = Response(code, bodyStr)
+                }
             }
+
         }
     }
 

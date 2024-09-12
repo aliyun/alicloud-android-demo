@@ -108,6 +108,7 @@
     <string name="exo_player_case">HTTPDNS\nExoPlayer\n最佳实践</string>
     <string name="log_dns_resolve_fail">httpdns 未返回IP，走local dns</string>
     <string name="log_resolve_result">httpdns %s 解析结果 %s</string>
+    <string name="log_host_cannnot_resolve">host:%s 解析失败</string>
     <string name="log_sni_request_error">SNI request error: %s</string>
     <string name="log_sni_request_response">SNI request response: %s</string>
     <string name="log_okhttp_request_url">requestUrl: %s</string>
