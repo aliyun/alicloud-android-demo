@@ -27,7 +27,7 @@
             android:orientation="vertical"
             android:paddingVertical="8dp"
             android:visibility="@{viewModel.showRequestAndResolveResult?View.GONE:View.VISIBLE}"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/resolve_host_input_layout"
@@ -54,21 +54,15 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnStartPlay"
                 style="@style/Widget.MaterialComponents.Button.Icon"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="12dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="18dp"
                 android:layout_gravity="center_horizontal"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:text="@string/play"
-                app:cornerRadius="20dp"
-                app:icon="@drawable/ic_httpdns"
-                app:iconGravity="textStart"
-                app:iconPadding="8dp"
-                app:iconSize="24dp"
-                app:iconTint="@color/white"
-                app:rippleColor="@color/cloud_blue"
-                app:strokeColor="@color/white"
-                app:strokeWidth="2dp" />
+                app:cornerRadius="8dp"
+                app:elevation="0dp"
+                app:rippleColor="@color/cloud_blue" />
 
         </LinearLayout>
 
@@ -78,7 +72,7 @@
             android:layout_margin="16dp"
             android:background="@drawable/httpdns_bg_input_host"
             android:visibility="@{viewModel.showRequestAndResolveResult?View.VISIBLE:View.GONE}"
-            tools:visibility="visible">
+            tools:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"

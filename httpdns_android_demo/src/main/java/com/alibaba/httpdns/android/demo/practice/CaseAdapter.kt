@@ -50,7 +50,7 @@ class CaseAdapter(val data: List<Pair<Int, String>>) :
 
         (viewHolder.itemView as TextView).setTextColor(
             if (position == selectItem) {
-                ContextCompat.getColor(viewHolder.itemView.context, R.color.httpdns_color_424FF7)
+                ContextCompat.getColor(viewHolder.itemView.context, R.color.cloud_blue)
             } else {
                 ContextCompat.getColor(viewHolder.itemView.context, R.color.httpdns_color_A7BCCE)
             }

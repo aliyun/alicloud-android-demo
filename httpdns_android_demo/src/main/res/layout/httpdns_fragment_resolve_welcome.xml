@@ -103,6 +103,7 @@
             android:layout_height="44dp"
             android:text="@string/resolve_async"
             android:gravity="center"
+            android:layout_marginHorizontal="9dp"
             android:paddingHorizontal="14dp"
             android:onClick="@{()->viewModel.clickResolveTypeBtn(ResolveApiType.RESOLVE_ASYNC)}"
             app:pressed="@{viewModel.currResolveApiType == ResolveApiType.RESOLVE_ASYNC}"
@@ -125,9 +126,11 @@
 
         <TextView
             android:id="@+id/tvAsyncNonBlockingResolve"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="44dp"
             android:text="@string/resolve_sync_nonblocking"
+            android:lines="1"
+            android:ellipsize="end"
             android:gravity="center"
             android:paddingHorizontal="14dp"
             android:onClick="@{()->viewModel.clickResolveTypeBtn(ResolveApiType.RESOLVE_SYNC_NONBLOCKING)}"

@@ -54,23 +54,19 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/tvLoad"
                     style="@style/Widget.MaterialComponents.Button.Icon"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginHorizontal="12dp"
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:text="@string/load_url"
                     android:layout_gravity="center_horizontal"
                     android:enabled="@{!TextUtils.isEmpty(viewModel.ipConnUrl)}"
                     android:onClick="@{() -> viewModel.sniRequest()}"
-                    app:cornerRadius="20dp"
-                    app:icon="@drawable/ic_httpdns"
-                    app:iconGravity="textStart"
-                    app:iconPadding="8dp"
-                    app:iconSize="24dp"
-                    app:iconTint="@color/white"
-                    app:rippleColor="@color/cloud_blue"
-                    app:strokeColor="@color/white"
-                    app:strokeWidth="2dp" />
+                    app:cornerRadius="8dp"
+                    app:elevation="0dp"
+                    app:rippleColor="@color/cloud_blue" />
 
             </LinearLayout>
 
@@ -78,7 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="@{viewModel.showRequestAndResolveResult?View.VISIBLE:View.GONE}"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"

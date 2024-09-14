@@ -118,23 +118,16 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/start_resolve"
                     style="@style/Widget.MaterialComponents.Button.Icon"
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginHorizontal="12dp"
                     android:text="@string/resolve_and_request"
                     android:layout_gravity="center_horizontal"
                     android:enabled="@{!TextUtils.isEmpty(viewModel.host) &amp;&amp;!TextUtils.isEmpty(viewModel.path)}"
                     android:onClick="@{() -> viewModel.requestAndResolve()}"
-                    app:cornerRadius="20dp"
-                    app:icon="@drawable/ic_httpdns"
-                    app:iconGravity="textStart"
-                    app:iconPadding="8dp"
-                    app:iconSize="24dp"
-                    app:iconTint="@color/white"
-                    app:rippleColor="@color/cloud_blue"
-                    app:strokeColor="@color/white"
-                    app:strokeWidth="2dp" />
+                    app:cornerRadius="8dp"
+                    app:elevation="0dp"
+                    app:rippleColor="@color/cloud_blue" />
 
             </LinearLayout>
 
