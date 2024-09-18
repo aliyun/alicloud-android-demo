@@ -46,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:src="@mipmap/httpdns_logo_about_us"
+        android:layout_marginHorizontal="36dp"
         app:layout_constraintDimensionRatio="1.3"
         app:layout_constraintVertical_bias="0.35"
         android:scaleType="centerInside"
