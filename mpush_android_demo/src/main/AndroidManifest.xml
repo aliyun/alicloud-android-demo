@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.alibaba.cloudpushdemo">
+    package="com.alibaba.push.android.demo">
 
     <!-- Application Settings -->
     <application
-        android:name=".application.MainApplication"
+        android:name=".MainApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
-        tools:overrideLibrary="com.huawei.android.hms.push"
-        tools:replace="android:allowBackup">
+        android:theme="@style/AppTheme">
         <activity
-            android:name=".bizactivity.MainActivity"
-            android:label="@string/app_name">
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,11 +25,11 @@
         <!-- 请填写你自己的- appKey EMASDemo空间 23793506 -->
         <meta-data
             android:name="com.alibaba.app.appkey"
-            android:value="XXXXX" />
+            android:value="334974253" />
         <!-- 请填写你自己的appSecret -->
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="XXXXX" />
+            android:value="0d8edc3298da4864a64f6f89f08f00be" />
         <meta-data
             android:name="com.huawei.hms.client.appid"
             android:value="appid=XXXXX" />
@@ -40,9 +40,9 @@
             android:name="com.vivo.push.app_id"
             android:value="XXXXX" />
 
-        <!-- 消息接收监听器 （用户可自主扩展） -->
         <receiver
-            android:name=".component.MyMessageReceiver"
+            android:name=".MyMessageReceiver"
+            android:process="@string/aliyun_accs_target_process"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
@@ -56,7 +56,8 @@
         </receiver>
 
         <service
-            android:name=".component.MyMessageIntentService"
+            android:name=".MyMessageIntentService"
+            android:process="@string/aliyun_accs_target_process"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.alibaba.push2.action.NOTIFICATION_OPENED" />
@@ -69,45 +70,6 @@
             </intent-filter>
         </service>
 
-        <service
-            android:name=".FCM.AgooFirebaseMessagingService"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
-        <!-- User Custom Activity -->
-        <activity
-            android:name=".bizactivity.AboutActivity"
-            android:label="@string/title_activity_about_us" />
-        <activity
-            android:name=".bizactivity.HelperActivity"
-            android:label="@string/title_activity_helper_page" />
-        <activity
-            android:name=".bizactivity.DeviceActivity"
-            android:label="@string/title_activity_device_id" />
-        <activity
-            android:name=".bizactivity.SettingNoticeActivity"
-            android:label="@string/title_activity_settings_notice" />
-        <activity
-            android:name=".bizactivity.ThirdPushPopupActivity"
-            android:exported="true"
-            android:label="@string/title_activity_third_push_notice">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="${applicationId}"
-                    android:path="/thirdpush"
-                    android:scheme="agoo" />
-            </intent-filter>
-            <!-- scheme 配置结束  -->
-        </activity>
     </application>
 
 </manifest>

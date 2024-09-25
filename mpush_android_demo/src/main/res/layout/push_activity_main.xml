@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="MainActivityBinding">
+        <variable
+            name="viewModel"
+            type="com.alibaba.push.android.demo.MainViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/llNav"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:onClick="@{()-> viewModel.tabClick(0)}"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/tab_basic"
+                    android:layout_marginBottom="4dp"
+                    android:src="@{viewModel.fragmentIndex == 0?@drawable/push_basic_sel:@drawable/push_basic_def}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_basic"
+                    android:textColor="@{viewModel.fragmentIndex == 0?@color/cloud_blue:@color/push_color_ADC1D1}"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:onClick="@{()-> viewModel.tabClick(1)}"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/tab_advanced"
+                    android:layout_marginBottom="4dp"
+                    android:src="@{viewModel.fragmentIndex == 1?@drawable/push_advanced_sel:@drawable/push_advanced_def}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tab_advanced"
+                    android:textColor="@{viewModel.fragmentIndex == 1?@color/cloud_blue:@color/push_color_ADC1D1}"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:onClick="@{()-> viewModel.tabClick(2)}"
+                android:gravity="center"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:contentDescription="@string/tab_info"
+                    android:layout_marginBottom="4dp"
+                    android:src="@{viewModel.fragmentIndex == 2?@drawable/push_info_sel:@drawable/push_info_def}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@{viewModel.fragmentIndex == 2?@color/cloud_blue:@color/push_color_ADC1D1}"
+                    android:text="@string/tab_info"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/llNav"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="BasicFuncFragmentBinding">
+        <variable
+            name="viewModel"
+            type="com.alibaba.push.android.demo.BasicFuncViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_gray">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/push_logo"
+            android:contentDescription="@string/push_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvHello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="#3D3D3D"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="108dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/push_basic_hint"
+            android:textColor="#607B9C"
+            android:textSize="14sp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/tvHello"
+            app:layout_constraintTop_toBottomOf="@id/tvHello"/>
+        
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/push_register_receive"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:onClick="@{()-> viewModel.register()}"
+            android:layout_marginHorizontal="16dp"
+            android:background="@drawable/push_shape_btn"
+            app:layout_constraintTop_toBottomOf="@+id/ivLogo"/>
+
+        <LinearLayout
+            android:id="@+id/llChannel"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tvRegister"
+            android:layout_marginHorizontal="16dp"
+            android:onClick="@{()-> viewModel.switchPushChannel()}"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:background="@drawable/push_shape_btn_white">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/push_channel"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/content_push_channel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_open_channel"
+                android:layout_marginStart="8dp"
+                android:textSize="16sp"
+                android:textColor="@color/push_color_text_black"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:checked="@{viewModel.channelState}"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llGroup"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            android:onClick="@{()->viewModel.switchDivideGroup()}"
+            app:layout_constraintTop_toBottomOf="@+id/llChannel"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:background="@drawable/push_shape_btn_white">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/push_group"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/content_push_channel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_group_show"
+                android:layout_marginStart="8dp"
+                android:textSize="16sp"
+                android:textColor="@color/push_color_text_black"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/tbToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:checked="@{viewModel.divideGroupState}"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llService"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/llGroup"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:onClick="@{()-> viewModel.switchMsgReceiver()}"
+            android:background="@drawable/push_shape_btn_white">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/push_service_receive_notify"
+                android:layout_marginStart="16dp"
+                android:contentDescription="@string/content_push_channel" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_service_receive_notify"
+                android:layout_marginStart="8dp"
+                android:textSize="16sp"
+                android:textColor="@color/push_color_text_black"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:checked="@{viewModel.msgReceiveByService}"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLogLevel"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:text="@string/push_log_level"
+            android:textColor="@color/push_color_text_black"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/push_shape_btn_white"
+            app:layout_constraintTop_toBottomOf="@id/llService"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/tvClearAllNotification"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tvClearAllNotification"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:onClick="@{()->viewModel.clearAllNotification()}"
+            android:text="@string/push_clear_notification"
+            android:textColor="@color/push_color_text_black"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/push_shape_btn_white"
+            app:layout_constraintTop_toBottomOf="@id/llService"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tvLogLevel"
+            android:gravity="center" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
