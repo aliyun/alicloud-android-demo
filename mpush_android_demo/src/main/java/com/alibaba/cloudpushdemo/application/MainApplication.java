@@ -59,7 +59,7 @@ public class MainApplication extends Application {
         MeizuRegister.register(applicationContext, "appid", "appKey");//接入魅族辅助推送
         OppoRegister.register(applicationContext, "appkey", "appSecret");
         VivoRegister.register(applicationContext);//接入vivo辅助推送
-        GcmRegister.register(applicationContext, "sendId", "applicationId"); // 接入FCM/GCM初始化推送
+//        GcmRegister.register(applicationContext, "sendId", "applicationId"); // 接入FCM/GCM初始化推送
     }
 
     public static void setMainActivity(MainActivity activity) {

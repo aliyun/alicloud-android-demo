@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-
+    namespace "alibaba.httpdns_api_demo"
     defaultConfig {
         applicationId "alibaba.httpdns_api_demo"
-        minSdkVersion 10
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"

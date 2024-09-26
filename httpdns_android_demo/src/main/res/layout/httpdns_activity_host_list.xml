@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="HostListOperationBinding">
+        <variable
+            name="viewModel"
+            type="com.alibaba.httpdns.android.demo.setting.HostListOperationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/httpdns_back_host_list"
+            android:layout_marginTop="14dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="center"
+            android:contentDescription="@string/go_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="预解析域名列表"
+            android:text="@{viewModel.title}"
+            android:textColor="#3D3D3D"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBack" />
+
+        <ImageView
+            android:id="@+id/ivAddHost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/httpdns_host_add"
+            android:contentDescription="@string/add_host"
+            app:layout_constraintTop_toTopOf="@id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/tvExplain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="调用接口会清除本地缓存。下一次请求时，服务端将重新\n向权威服务器发出请求，以获取域名最新的解析IP地址。"
+            android:text="@{viewModel.explainText}"
+            android:layout_marginHorizontal="16dp"
+            android:textSize="12sp"
+            android:textColor="#98A4BA"
+            android:lineSpacingExtra="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/tvOperation"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            tools:text="预解析域名"
+            android:text="@{viewModel.btnText}"
+            android:enabled="@{viewModel.btnEnableClick}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:background="@drawable/httpdns_welcome_resolve_btn" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHost"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tvExplain"
+            app:layout_constraintBottom_toTopOf="@id/tvOperation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

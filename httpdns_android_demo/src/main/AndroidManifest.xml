@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="alibaba.httpdns_android_demo">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name="com.alibaba.httpdns.android.demo.HttpDnsApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/AppTheme"
+        android:hardwareAccelerated="true"
         android:supportsRtl="true">
         <activity
-            android:name=".MainActivity"
+            android:name="com.alibaba.httpdns.android.demo.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HelperActivity"></activity>
-        <activity android:name=".AboutUsActivity"></activity>
-        <activity android:name=".WebviewActivity"></activity>
+
+        <activity android:name="com.alibaba.httpdns.android.demo.search.SearchActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"/>
+
+        <activity android:name="com.alibaba.httpdns.android.demo.setting.HostListOperationActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
+        <activity android:name="com.alibaba.httpdns.android.demo.setting.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
     </application>
 
 </manifest>

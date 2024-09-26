@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="SearchBinding">
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.alibaba.httpdns.android.demo.search.SearchViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="40dp"
+            android:layout_height="61dp"
+            android:src="@drawable/httpdns_back"
+            android:scaleType="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="50dp"/>
+
+        <EditText
+            android:id="@+id/etInputHost"
+            android:layout_width="0dp"
+            android:layout_height="67dp"
+            android:hint="@string/input_host_hint"
+            android:textColorHint="#B6C1D3"
+            android:textSize="14sp"
+            android:textColor="#3E3D46"
+            android:paddingStart="24dp"
+            android:paddingEnd="12dp"
+            app:layout_constraintTop_toTopOf="@id/ivBack"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:scrollHorizontally="true"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:overScrollMode="never"
+            android:maxLines="1"
+            android:drawableEnd="@drawable/httpdns_search"
+            android:background="@drawable/httpdns_host_input"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/ivBack"
+            app:layout_constraintBottom_toBottomOf="parent" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clInputHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:visibility="@{viewModel.inputHistoryEnableVisible ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="@string/input_history"
+                        android:textColor="#1F2024"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tvClear"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="@string/clear_all"
+                        android:textColor="#B6C1D3"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvInputHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@+id/tvClear"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E6EBF3"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@id/rvInputHistory" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clControlHost"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/clInputHistory"
+                    android:layout_marginTop="8dp"
+                    app:layout_goneMarginTop="0dp">
+
+                    <TextView
+                        android:id="@+id/tvControlHostTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:text="@string/control_host_list"
+                        android:textColor="#1F2024"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:gravity="center_vertical"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvControlHost"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tvControlHostTitle"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

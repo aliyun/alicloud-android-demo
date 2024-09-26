@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/region_china"
+        android:title="@string/china" />
+
+    <item
+        android:id="@+id/region_hk"
+        android:title="@string/china_hk" />
+
+    <item
+        android:id="@+id/region_singapore"
+        android:title="@string/singapore" />
+
+</menu>

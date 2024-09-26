@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="ResolveResultBinding">
+        <import type="com.alibaba.httpdns.android.demo.function.ResolveApiType" />
+        <import type="android.view.View" />
+        <import type="android.text.TextUtils" />
+        <variable
+            name="viewModel"
+            type="com.alibaba.httpdns.android.demo.function.ResolveViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eceef3">
+
+        <TextView
+            android:id="@+id/tvHost"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center_vertical"
+            android:text="@{viewModel.host}"
+            android:textSize="14sp"
+            android:textColor="#2A313D"
+            android:paddingStart="24dp"
+            app:drawableEndCompat="@drawable/httpdns_search"
+            android:paddingEnd="12dp"
+            android:background="@drawable/httpdns_bg_input_host"/>
+
+        <TextView
+            android:id="@+id/tvSyncResolve"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:text="@string/resolve_sync"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:paddingHorizontal="14dp"
+            android:onClick="@{()->viewModel.clickResolveTypeBtn(ResolveApiType.RESOLVE_SYNC)}"
+            app:pressed="@{viewModel.currResolveApiType == ResolveApiType.RESOLVE_SYNC}"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintEnd_toStartOf="@id/tvAsyncResolve"
+            app:layout_constraintTop_toBottomOf="@id/tvHost"
+            app:layout_constraintStart_toStartOf="@id/tvHost"
+            android:background="@drawable/httpdns_resolve_api_type_bg" />
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="@id/tvSyncResolve"
+            app:layout_constraintBottom_toBottomOf="@id/tvSyncResolve"
+            android:background="@drawable/httpdns_check_bg"
+            android:contentDescription="@string/resolve_sync_check"
+            tools:visibility="visible"
+            android:visibility="@{viewModel.currResolveApiType == ResolveApiType.RESOLVE_SYNC ? View.VISIBLE : View.GONE}"
+            android:src="@drawable/httpdns_check"
+            android:layout_margin="2dp"/>
+
+        <TextView
+            android:id="@+id/tvAsyncResolve"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:text="@string/resolve_async"
+            android:gravity="center"
+            android:paddingHorizontal="14dp"
+            android:layout_marginHorizontal="9dp"
+            android:onClick="@{()->viewModel.clickResolveTypeBtn(ResolveApiType.RESOLVE_ASYNC)}"
+            app:pressed="@{viewModel.currResolveApiType == ResolveApiType.RESOLVE_ASYNC}"
+            app:layout_constraintEnd_toStartOf="@id/tvAsyncNonBlockingResolve"
+            app:layout_constraintTop_toTopOf="@id/tvSyncResolve"
+            app:layout_constraintStart_toEndOf="@id/tvSyncResolve"
+            android:background="@drawable/httpdns_resolve_api_type_bg"/>
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="@id/tvAsyncResolve"
+            app:layout_constraintBottom_toBottomOf="@id/tvAsyncResolve"
+            android:background="@drawable/httpdns_check_bg"
+            android:src="@drawable/httpdns_check"
+            android:contentDescription="@string/resolve_async_check"
+            tools:visibility="gone"
+            android:visibility="@{viewModel.currResolveApiType == ResolveApiType.RESOLVE_ASYNC ? View.VISIBLE : View.GONE}"
+            android:layout_margin="2dp"/>
+
+        <TextView
+            android:id="@+id/tvAsyncNonBlockingResolve"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:text="@string/resolve_sync_nonblocking"
+            android:gravity="center"
+            android:lines="1"
+            android:ellipsize="end"
+            android:paddingHorizontal="14dp"
+            android:onClick="@{()->viewModel.clickResolveTypeBtn(ResolveApiType.RESOLVE_SYNC_NONBLOCKING)}"
+            app:pressed="@{viewModel.currResolveApiType == ResolveApiType.RESOLVE_SYNC_NONBLOCKING}"
+            app:layout_constraintTop_toTopOf="@id/tvSyncResolve"
+            app:layout_constraintStart_toEndOf="@id/tvAsyncResolve"
+            app:layout_constraintEnd_toEndOf="@id/tvHost"
+            android:background="@drawable/httpdns_resolve_api_type_bg"/>
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            app:layout_constraintEnd_toEndOf="@id/tvAsyncNonBlockingResolve"
+            app:layout_constraintBottom_toBottomOf="@id/tvAsyncNonBlockingResolve"
+            android:background="@drawable/httpdns_check_bg"
+            android:src="@drawable/httpdns_check"
+            android:contentDescription="@string/resolve_nonblocking_check"
+            tools:visibility="gone"
+            android:visibility="@{viewModel.currResolveApiType == ResolveApiType.RESOLVE_SYNC_NONBLOCKING ? View.VISIBLE : View.GONE}"
+            android:layout_margin="2dp"/>
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clOperation"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="12dp"
+            android:paddingHorizontal="4dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="4dp"
+            android:background="@drawable/httpdns_bg_input_host">
+
+            <TextView
+                android:id="@+id/tvResolve"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center"
+                android:text="@string/re_resolve"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:onClick="@{()-> viewModel.resolve()}"
+                android:background="@drawable/httpdns_resolve_btn_sel"/>
+
+            <TextView
+                android:id="@+id/tvPreResolve"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="4dp"
+                android:text="@string/pre_resolve_host"
+                android:textColor="#4B586E"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                android:onClick="@{() -> viewModel.preHost()}"
+                android:background="@drawable/httpdns_resolve_btn_gray"
+                app:layout_constraintTop_toBottomOf="@id/tvResolve"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tvClearHostCache"/>
+
+            <TextView
+                android:id="@+id/tvClearHostCache"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="@string/clear_host_cache"
+                android:textColor="#4B586E"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                android:onClick="@{() -> viewModel.clearHostCache()}"
+                android:background="@drawable/httpdns_resolve_btn_gray"
+                app:layout_constraintTop_toBottomOf="@id/tvResolve"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPreResolve"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="16dp"
+            android:background="@drawable/httpdns_bg_input_host"
+            app:layout_constraintTop_toBottomOf="@id/tvSyncResolve"
+            app:layout_constraintBottom_toTopOf="@id/clOperation">
+
+            <TextView
+                android:id="@+id/tvResolveResultTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resolve_result"
+                android:textColor="#1F2024"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="4dp"
+                android:paddingStart="20dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="13dp"
+                android:paddingBottom="8dp"
+                tools:visibility="gone"
+                android:visibility="@{viewModel.showResolveFailHint?View.GONE:View.VISIBLE}"
+                android:background="@drawable/httpdns_resolve_result_bg">
+
+                <TextView
+                    android:id="@+id/tvHostAndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="www.aliyun.com (38ms)"
+                    android:text="@{viewModel.hostAndTime}"
+                    android:textSize="12sp"
+                    android:textColor="#3D3D3D"/>
+
+                <TextView
+                    android:id="@+id/tvTtl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    tools:text="TTL: 60s"
+                    android:text="@{viewModel.ttl}"
+                    android:textSize="12sp"
+                    android:textColor="#3D3D3D"/>
+
+                <TextView
+                    android:id="@+id/tvIpv4Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/label_ipv4"
+                    tools:visibility="visible"
+                    android:visibility="@{TextUtils.isEmpty(viewModel.ipv4)?View.GONE:View.VISIBLE}"
+                    android:textSize="12sp"
+                    android:textColor="#1B58F4"/>
+
+                <TextView
+                    android:id="@+id/tvIPV4Result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@{viewModel.ipv4}"
+                    tools:text="2233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1.233.1.1.1,233.1.1.1,233.1.1.1"
+                    android:textSize="12sp"
+                    android:textColor="#3D3D3D"/>
+
+                <TextView
+                    android:id="@+id/tvIpv6Label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/label_ipv6"
+                    tools:visibility="visible"
+                    android:visibility="@{TextUtils.isEmpty(viewModel.ipv6)?View.GONE:View.VISIBLE}"
+                    android:textSize="12sp"
+                    android:textColor="#1B58F4"/>
+
+                <TextView
+                    android:id="@+id/tvIPV6Result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@{viewModel.ipv6}"
+                    tools:text="2233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1.233.1.1.1,233.1.1.1,233.1.1.1"
+                    android:textSize="12sp"
+                    android:textColor="#3D3D3D"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/resolve_fail_hint"
+                android:visibility="@{viewModel.showResolveFailHint?View.VISIBLE:View.GONE}"
+                android:textSize="12sp"
+                android:textColor="#98A4BA"
+                android:layout_margin="4dp"
+                android:paddingStart="20dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="13dp"
+                android:paddingBottom="8dp"
+                android:background="@drawable/httpdns_resolve_result_bg"/>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

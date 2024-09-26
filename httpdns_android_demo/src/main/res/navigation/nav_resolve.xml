@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_resolve"
+    app:startDestination="@+id/navigation_resolve_welcome">
+
+    <fragment
+        android:id="@+id/navigation_resolve_welcome"
+        android:name="com.alibaba.httpdns.android.demo.function.ResolveWelcomeFragment"
+        android:label="解析欢迎页"
+        tools:layout="@layout/httpdns_fragment_resolve_welcome" >
+        <action
+            android:id="@+id/action_to_resolve_result"
+            app:destination="@id/navigation_resolve_result" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_resolve_result"
+        android:name="com.alibaba.httpdns.android.demo.function.ResolveResultFragment"
+        android:label="解析结果页"
+        tools:layout="@layout/httpdns_fragment_resolve_result" />
+
+</navigation>

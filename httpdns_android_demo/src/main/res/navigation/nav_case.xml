@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/navigation_okhttp"
+    android:id="@+id/nav_case">
+
+    <fragment
+        android:id="@+id/navigation_okhttp"
+        android:name="com.alibaba.httpdns.android.demo.practice.okhttp.OkHttpCaseFragment"
+        tools:layout="@layout/httpdns_fragment_okhttp_case" />
+
+    <fragment
+        android:id="@+id/navigation_webview"
+        android:name="com.alibaba.httpdns.android.demo.practice.webview.WebViewCaseFragment"
+        tools:layout="@layout/httpdns_fragment_webview_case" />
+
+    <fragment
+        android:id="@+id/navigation_ip_conn"
+        android:name="com.alibaba.httpdns.android.demo.practice.ipconn.IPConnCaseFragment"
+        tools:layout="@layout/httpdns_fragment_ip_conn_case" />
+
+    <fragment
+        android:id="@+id/navigation_exo_player"
+        android:name="com.alibaba.httpdns.android.demo.practice.exoplayer.ExoPlayerCaseFragment"
+        tools:layout="@layout/httpdns_fragment_exo_player_case" />
+
+</navigation>

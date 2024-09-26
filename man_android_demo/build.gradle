@@ -2,10 +2,10 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 30
-
+    namespace "alibaba.man_android_demo"
     defaultConfig {
         applicationId "alibaba.man_android_demo"
-        minSdkVersion 10
+        minSdkVersion 14
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

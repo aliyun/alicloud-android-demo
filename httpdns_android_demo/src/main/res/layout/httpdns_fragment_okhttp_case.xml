@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="OkHttpCaseBinding">
+        <import type="android.text.TextUtils" />
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.alibaba.httpdns.android.demo.practice.okhttp.OkHttpCaseViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/httpdns_bg_input_host"
+            android:layout_margin="16dp">
+
+            <LinearLayout
+                android:id="@+id/llInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="visible"
+                android:visibility="@{viewModel.showRequestAndResolveResult?View.GONE:View.VISIBLE}"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/resolve_host_input_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/white"
+                    android:hint="@string/input_the_resolve_host"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:errorEnabled="true"
+                    app:helperText="@string/input_the_resolve_host_help_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.host}"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/request_api_input_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@color/white"
+                    android:hint="@string/input_the_request_api"
+                    app:boxBackgroundColor="@android:color/transparent"
+                    app:errorEnabled="true"
+                    app:helperText="@string/input_the_request_api_help_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@={viewModel.path}"
+                        android:paddingStart="2dp"
+                        android:paddingEnd="2dp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:padding="5dp"
+                        android:text="@string/schema_type"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <RadioGroup
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:checkedButton="@id/schema_https"
+                        android:onCheckedChanged="@{viewModel::onSchemaTypeChanged}"
+                        android:orientation="horizontal"
+                        tools:ignore="RelativeOverlap">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/schema_https"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/label_https"
+                            android:textSize="14sp" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/schema_http"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:text="@string/label_http"
+                            android:textSize="14sp" />
+
+                    </RadioGroup>
+                </RelativeLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/start_resolve"
+                    style="@style/Widget.MaterialComponents.Button.Icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="@string/resolve_and_request"
+                    android:layout_gravity="center_horizontal"
+                    android:enabled="@{!TextUtils.isEmpty(viewModel.host) &amp;&amp;!TextUtils.isEmpty(viewModel.path)}"
+                    android:onClick="@{() -> viewModel.requestAndResolve()}"
+                    app:cornerRadius="8dp"
+                    app:elevation="0dp"
+                    app:rippleColor="@color/cloud_blue" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="gone"
+                android:visibility="@{viewModel.showRequestAndResolveResult?View.VISIBLE:View.GONE}"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvResolveResultTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/request_resolve_result"
+                        android:textColor="#1F2024"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="12dp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Widget.MaterialComponents.Button.Icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:text="@string/re_input"
+                        android:onClick="@{() -> viewModel.reInput()}"
+                        app:cornerRadius="20dp"
+                        app:rippleColor="@color/cloud_blue" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="4dp"
+                    android:paddingStart="20dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="13dp"
+                    android:paddingBottom="8dp"
+                    android:background="@drawable/httpdns_resolve_result_bg">
+
+                    <TextView
+                        android:id="@+id/tvHostAndTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="www.aliyun.com (38ms)"
+                        android:text="@{viewModel.hostAndTime}"
+                        android:textSize="12sp"
+                        android:textColor="#3D3D3D"/>
+
+                    <TextView
+                        android:id="@+id/tvTtl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        tools:text="TTL: 60s"
+                        android:text="@{viewModel.ttl}"
+                        android:textSize="12sp"
+                        android:textColor="#3D3D3D"/>
+
+                    <TextView
+                        android:id="@+id/tvIpv4Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/label_ipv4"
+                        tools:visibility="visible"
+                        android:visibility="@{TextUtils.isEmpty(viewModel.ipv4)?View.GONE:View.VISIBLE}"
+                        android:textSize="12sp"
+                        android:textColor="#1B58F4"/>
+
+                    <TextView
+                        android:id="@+id/tvIPV4Result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@{viewModel.ipv4}"
+                        tools:text="2233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1.233.1.1.1,233.1.1.1,233.1.1.1"
+                        android:textSize="12sp"
+                        android:textColor="#3D3D3D"/>
+
+                    <TextView
+                        android:id="@+id/tvIpv6Label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/label_ipv6"
+                        tools:visibility="visible"
+                        android:visibility="@{TextUtils.isEmpty(viewModel.ipv6)?View.GONE:View.VISIBLE}"
+                        android:textSize="12sp"
+                        android:textColor="#1B58F4"/>
+
+                    <TextView
+                        android:id="@+id/tvIPV6Result"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@{viewModel.ipv6}"
+                        tools:text="2233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1.233.1.1.1,233.1.1.1,233.1.1.1"
+                        android:textSize="12sp"
+                        android:textColor="#3D3D3D"/>
+
+                    <TextView
+                        android:id="@+id/tvRequestResultLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/request_result"
+                        android:visibility="visible"
+                        android:textSize="12sp"
+                        android:textColor="#1B58F4"/>
+
+                    <androidx.core.widget.NestedScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvRequestResult"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="@{viewModel.responseStr}"
+                            android:scrollbars="vertical"
+                            android:overScrollMode="always"
+                            tools:text="2233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1,233.1.1.1.233.1.1.1,233.1.1.1,233.1.1.1"
+                            android:textSize="12sp"
+                            android:textColor="#3D3D3D"/>
+
+                    </androidx.core.widget.NestedScrollView>
+
+
+
+                    </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </FrameLayout>
+</layout>
