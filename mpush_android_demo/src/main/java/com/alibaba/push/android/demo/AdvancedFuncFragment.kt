@@ -1,10 +1,13 @@
 package com.alibaba.push.android.demo
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.alibaba.push.android.demo.databinding.AdvancedFuncFragmentBinding
@@ -23,6 +26,20 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 class AdvancedFuncFragment : Fragment() {
 
     private lateinit var binding: AdvancedFuncFragmentBinding
+
+    private val requestDataLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val type = result.data?.getIntExtra("type",0)?:0
+                val labels = DataSource.getLabels(type)
+                when(type) {
+                    DataSource.LABEL_DEVICE_TAG -> binding.deviceTagView.setDeviceTagData(labels)
+                    DataSource.LABEL_ALIAS -> binding.aliasSetView.setAliasData(labels)
+                    DataSource.LABEL_ALIAS_TAG -> binding.aliasSetView.setAliasTagData(labels)
+                    DataSource.LABEL_ACCOUNT_TAG -> binding.accountView.setAccountTagData(labels)
+                }
+            }
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +67,25 @@ class AdvancedFuncFragment : Fragment() {
         binding.tvCountLimit.setOnClickListener {
             showCountLimitDialog()
         }
+        binding.deviceTagView.lookAllTag = {
+            lookAllTag(DataSource.LABEL_DEVICE_TAG)
+        }
+        binding.aliasSetView.lookAllTag = {
+            lookAllTag(it)
+        }
+        binding.accountView.lookAllTag = {
+            lookAllTag(DataSource.LABEL_ACCOUNT_TAG)
+        }
+
+        binding.deviceTagView.setDeviceTagData(mutableListOf("1","2","3","4","5","6","7","8","9"))
+
+    }
+
+    private fun lookAllTag(type:Int) {
+        val intent = Intent(requireContext(), AllLabelActivity::class.java).apply {
+            putExtra("type" , type)
+        }
+        requestDataLauncher.launch(intent)
     }
 
     private fun showCountLimitDialog(){

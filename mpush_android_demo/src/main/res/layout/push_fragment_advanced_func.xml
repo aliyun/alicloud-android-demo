@@ -78,7 +78,7 @@
                     android:layout_marginStart="3dp" />
 
                 <com.alibaba.push.android.demo.DeviceTagView
-                    android:id="@+id/deviceLabelView"
+                    android:id="@+id/deviceTagView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:layout_constraintTop_toBottomOf="@id/tvCountLimit"
@@ -90,7 +90,7 @@
                     android:id="@+id/aliasSetView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/deviceLabelView"
+                    app:layout_constraintTop_toBottomOf="@id/deviceTagView"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/push_bg_advanced_func" />

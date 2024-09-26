@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="AllLabelActivityBinding">
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="24dp"
+            android:layout_height="60dp"
+            android:src="@drawable/push_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingTop="2dp"
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="@{title}"
+            android:textSize="20sp"
+            android:textColor="#293138"
+            android:textStyle="bold"
+            tools:text="设备标签"
+            android:layout_marginStart="2dp"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toTopOf="@id/ivBack"
+            app:layout_constraintBottom_toBottomOf="@id/ivBack" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLabel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="24dp" />
+
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/push_add_all_label"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="10dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

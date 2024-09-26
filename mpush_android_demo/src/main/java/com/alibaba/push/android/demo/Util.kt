@@ -74,10 +74,10 @@ fun Context.getAppMetaData(key: String): String? {
             PackageManager.GET_META_DATA
         )
         if (info.metaData.containsKey(key)) {
-            return info.metaData.getString(key , "")
+            return "${info.metaData.get(key)}"
         }
     } catch (e: PackageManager.NameNotFoundException) {
 
     }
-    return null
+    return ""
 }

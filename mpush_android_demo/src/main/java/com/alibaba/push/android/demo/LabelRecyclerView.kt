@@ -58,6 +58,12 @@ class LabelRecyclerView @JvmOverloads constructor(
         updateLabel()
     }
 
+    fun setData(data: MutableList<String>) {
+        labels.clear()
+        labels.addAll(data)
+        updateLabel()
+    }
+
     private fun updateLabel(){
         if (labelAdapter.data.size > maxLabelCount) {
             labelAdapter.data.apply {

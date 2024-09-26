@@ -22,6 +22,8 @@ class DeviceTagView @JvmOverloads constructor(
 
     private var binding: DeviceTagBinding
 
+    var lookAllTag:(()->Unit)? = null
+
     init {
         binding = DeviceTagBinding.inflate(LayoutInflater.from(context), this, true)
         setPadding(0 , 0 , 0 , 8.toDp())
@@ -36,19 +38,17 @@ class DeviceTagView @JvmOverloads constructor(
                 binding.showAllBtn = it
             }
         }
+        binding.tvAll.setOnClickListener {
+            lookAllTag?.invoke()
+        }
     }
 
+
+
     private fun deleteTag(tag: String) {
-        PushServiceFactory.getCloudPushService().unbindTag(CloudPushService.DEVICE_TARGET , arrayOf(tag), null, object:CommonCallback{
-            override fun onSuccess(p0: String?) {
-                binding.rvLabel.deleteLabel(tag)
-            }
-
-            override fun onFailed(erroCode: String?, errorMessage: String?) {
-                context.toast(R.string.push_toast_delete_device_tag_fail, errorMessage)
-            }
-
-        })
+        DataSource.deleteDeviceTag(context, tag) {
+            binding.rvLabel.deleteLabel(tag)
+        }
     }
 
     private fun showTagInputDialog() {
@@ -63,6 +63,7 @@ class DeviceTagView @JvmOverloads constructor(
         PushServiceFactory.getCloudPushService().bindTag(CloudPushService.DEVICE_TARGET , arrayOf(tag), null, object:CommonCallback{
             override fun onSuccess(p0: String?) {
                 binding.rvLabel.addLabel(tag)
+                DataSource.addLabel(DataSource.LABEL_DEVICE_TAG, tag)
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
@@ -70,6 +71,10 @@ class DeviceTagView @JvmOverloads constructor(
             }
 
         })
+    }
+
+    fun setDeviceTagData(data: MutableList<String>) {
+        binding.rvLabel.setData(data)
     }
 
 }

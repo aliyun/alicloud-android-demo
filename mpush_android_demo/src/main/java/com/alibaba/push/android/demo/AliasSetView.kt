@@ -22,11 +22,12 @@ class AliasSetView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding: AliasSetBinding
-    private val aliasTagMap = mutableMapOf<String,String>()
+
+    var lookAllTag: ((Int) -> Unit)? = null
 
     init {
         binding = AliasSetBinding.inflate(LayoutInflater.from(context), this, true)
-        setPadding(0 , 0 , 0 , 8.toDp())
+        setPadding(0, 0, 0, 8.toDp())
         binding.rvLabel.apply {
             addLabelClickCallback = {
                 showAddAliasDialog()
@@ -51,24 +52,41 @@ class AliasSetView @JvmOverloads constructor(
             }
         }
 
+        binding.tvAll.setOnClickListener {
+            lookAllTag?.invoke(DataSource.LABEL_ALIAS)
+        }
+
+        binding.tvAllTag.setOnClickListener {
+            lookAllTag?.invoke(DataSource.LABEL_ALIAS_TAG)
+        }
     }
 
     private fun deleteAliasTag(tag: String) {
-        PushServiceFactory.getCloudPushService().unbindTag(CloudPushService.ALIAS_TARGET, arrayOf(tag), aliasTagMap[tag], object:CommonCallback{
-            override fun onSuccess(p0: String?) {
-                binding.rvLabelTag.addLabel(tag)
-                aliasTagMap.remove(tag)
-            }
+        PushServiceFactory.getCloudPushService().unbindTag(
+            CloudPushService.ALIAS_TARGET,
+            arrayOf(tag),
+            DataSource.getTagOfAlias(tag),
+            object : CommonCallback {
+                override fun onSuccess(p0: String?) {
+                    binding.rvLabelTag.addLabel(tag)
+                    DataSource.removeAliasTag(tag)
+                }
 
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(String.format(context.getString(R.string.push_toast_delete_alias_tag_fail), errorMessage))
-            }
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
+                    context.toast(
+                        String.format(
+                            context.getString(R.string.push_toast_delete_alias_tag_fail),
+                            errorMessage
+                        )
+                    )
+                }
 
-        })
+            })
     }
 
     private fun showAddAliasTagDialog() {
-        context.showInputDialog(R.string.push_add_alias_tag, R.string.push_input_alias_tag_hint,
+        context.showInputDialog(
+            R.string.push_add_alias_tag, R.string.push_input_alias_tag_hint,
             showAlert = true,
             showAliasInput = true
         ) { it, alias ->
@@ -80,18 +98,24 @@ class AliasSetView @JvmOverloads constructor(
         }
     }
 
-    private fun addAliasTag(tag: String, alias: String){
-        PushServiceFactory.getCloudPushService().bindTag(CloudPushService.ALIAS_TARGET, arrayOf(tag), alias, object:CommonCallback{
-            override fun onSuccess(p0: String?) {
-                binding.rvLabelTag.addLabel(tag)
-                aliasTagMap[tag] = alias
-            }
+    private fun addAliasTag(tag: String, alias: String) {
+        PushServiceFactory.getCloudPushService()
+            .bindTag(CloudPushService.ALIAS_TARGET, arrayOf(tag), alias, object : CommonCallback {
+                override fun onSuccess(p0: String?) {
+                    binding.rvLabelTag.addLabel(tag)
+                    DataSource.addAliasTag(alias, tag)
+                }
 
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(String.format(context.getString(R.string.push_toast_add_alias_tag_fail), errorMessage))
-            }
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
+                    context.toast(
+                        String.format(
+                            context.getString(R.string.push_toast_add_alias_tag_fail),
+                            errorMessage
+                        )
+                    )
+                }
 
-        })
+            })
     }
 
 
@@ -99,13 +123,18 @@ class AliasSetView @JvmOverloads constructor(
      * 删除别名
      */
     private fun deleteAlias(alias: String) {
-        PushServiceFactory.getCloudPushService().removeAlias(alias, object: CommonCallback{
+        PushServiceFactory.getCloudPushService().removeAlias(alias, object : CommonCallback {
             override fun onSuccess(p0: String?) {
                 binding.rvLabel.deleteLabel(alias)
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(String.format(context.getString(R.string.push_toast_delete_alias_fail), errorMessage))
+                context.toast(
+                    String.format(
+                        context.getString(R.string.push_toast_delete_alias_fail),
+                        errorMessage
+                    )
+                )
             }
         })
     }
@@ -113,8 +142,9 @@ class AliasSetView @JvmOverloads constructor(
     /**
      * 弹出别名输入弹窗
      */
-    private fun showAddAliasDialog(){
-        context.showInputDialog(R.string.push_add_alias, R.string.push_input_alias_hint,
+    private fun showAddAliasDialog() {
+        context.showInputDialog(
+            R.string.push_add_alias, R.string.push_input_alias_hint,
             showAlert = false,
             showAliasInput = false
         ) { it, _ ->
@@ -125,19 +155,29 @@ class AliasSetView @JvmOverloads constructor(
     /**
      * 添加别名
      */
-    private fun addAlias(alias: String){
-        PushServiceFactory.getCloudPushService().addAlias(alias,object:CommonCallback{
+    private fun addAlias(alias: String) {
+        PushServiceFactory.getCloudPushService().addAlias(alias, object : CommonCallback {
             override fun onSuccess(p0: String?) {
                 binding.rvLabel.addLabel(alias)
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(String.format(context.getString(R.string.push_toast_add_alias_fail), errorMessage))
+                context.toast(
+                    String.format(
+                        context.getString(R.string.push_toast_add_alias_fail),
+                        errorMessage
+                    )
+                )
             }
 
         })
     }
 
+    fun setAliasData(data: MutableList<String>) {
+        binding.rvLabel.setData(data)
+    }
 
-
+    fun setAliasTagData(data: MutableList<String>) {
+        binding.rvLabelTag.setData(data)
+    }
 }

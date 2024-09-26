@@ -4,6 +4,10 @@ plugins {
     id 'kotlin-kapt'
 }
 
+gradle.ext {
+    pushVersion = '3.9.1'
+}
+
 android {
     compileSdk 34
     namespace "com.alibaba.push.android.demo"
@@ -13,6 +17,7 @@ android {
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "PUSH_VERSION", "\"${gradle.pushVersion}\""
     }
 
     compileOptions {
@@ -74,7 +79,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation("androidx.viewpager2:viewpager2:1.0.0")
 
-    implementation 'com.aliyun.ams:alicloud-android-push:3.9.1'
+    implementation "com.aliyun.ams:alicloud-android-push:${gradle.pushVersion}"
 
 
 }

@@ -86,7 +86,8 @@
     <string name="push_app_secret">AppSecret</string>
     <string name="push_info_bg">信息页背景</string>
     <string name="push_info_logo">信息页logo</string>
-    <string name="push_device_id">设置ID</string>
+    <string name="push_device_id">设备ID</string>
     <string name="push_utdid">UTDID</string>
     <string name="push_sdk_version">推送SDK版本号</string>
+    <string name="push_version">v%s</string>
 </resources>

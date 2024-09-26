@@ -33,9 +33,10 @@ class InfoFragment : Fragment() {
         binding.tvAppSecret.text = requireContext().getAppMetaData("com.alibaba.app.appsecret")
         binding.tvDeviceId.text = service.deviceId
         binding.tvUTDID.text = service.utDeviceId
-        binding.tvSDKVersion.text = "v3.9.1"
+        binding.tvSDKVersion.text = String.format(
+            requireContext().getString(R.string.push_version),
+            BuildConfig.PUSH_VERSION
+        )
+        binding.tvPackage.text = requireContext().packageName
     }
-
-
-
 }

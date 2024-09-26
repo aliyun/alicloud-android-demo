@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/ivLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@mipmap/push_info_logo"
             android:layout_marginTop="78dp"
             android:contentDescription="@string/push_info_logo"
@@ -42,9 +42,10 @@
             android:layout_marginStart="16dp" />
 
         <TextView
+            android:id="@+id/tvPackage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/push_package"
+            tools:text="@string/push_package"
             app:layout_constraintStart_toEndOf="@id/ivLogo"
             android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="@id/ivLogo"

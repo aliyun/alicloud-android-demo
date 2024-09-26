@@ -17,6 +17,7 @@ class AccountView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private val binding: AccountBinding
+    var lookAllTag: (() -> Unit)? = null
 
     init {
         binding = AccountBinding.inflate(LayoutInflater.from(context), this, true)
@@ -34,18 +35,25 @@ class AccountView @JvmOverloads constructor(
                 binding.showAllBtn = it
             }
         }
+        binding.tvAllTag.setOnClickListener {
+            lookAllTag?.invoke()
+        }
     }
 
     private fun deleteAccountTag(tag: String) {
-        PushServiceFactory.getCloudPushService().unbindTag(CloudPushService.ACCOUNT_TARGET, arrayOf(tag), null , object:CommonCallback{
-            override fun onSuccess(p0: String?) {
-                binding.rvLabelTag.deleteLabel(tag)
-            }
+        PushServiceFactory.getCloudPushService().unbindTag(
+            CloudPushService.ACCOUNT_TARGET,
+            arrayOf(tag),
+            null,
+            object : CommonCallback {
+                override fun onSuccess(p0: String?) {
+                    binding.rvLabelTag.deleteLabel(tag)
+                }
 
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(R.string.push_unbind_account_tag_fail, errorMessage)
-            }
-        })
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
+                    context.toast(R.string.push_unbind_account_tag_fail, errorMessage)
+                }
+            })
     }
 
     private fun showAccountTagInputDialog() {
@@ -95,6 +103,10 @@ class AccountView @JvmOverloads constructor(
             }
 
         })
+    }
+
+    fun setAccountTagData(data: MutableList<String>) {
+        binding.rvLabelTag.setData(data)
     }
 
 }
