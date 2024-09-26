@@ -65,7 +65,7 @@ class LabelRecyclerView @JvmOverloads constructor(
     }
 
     private fun updateLabel(){
-        if (labelAdapter.data.size > maxLabelCount) {
+        if (labels.size > maxLabelCount) {
             labelAdapter.data.apply {
                 clear()
                 addAll(labels.subList(0, maxLabelCount))

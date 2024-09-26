@@ -10,6 +10,11 @@ import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.CommonCallback
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 
+/**
+ * 账号设置View
+ * @author ren
+ * @date 2024/09/26
+ */
 class AccountView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
@@ -26,7 +31,7 @@ class AccountView @JvmOverloads constructor(
         }
         binding.rvLabelTag.apply {
             addLabelClickCallback = {
-                showAccountTagInputDialog()
+                addAccountTag()
             }
             deleteLabelClickCallback = {
                 deleteAccountTag(it)
@@ -40,47 +45,27 @@ class AccountView @JvmOverloads constructor(
         }
     }
 
-    private fun deleteAccountTag(tag: String) {
-        PushServiceFactory.getCloudPushService().unbindTag(
-            CloudPushService.ACCOUNT_TARGET,
-            arrayOf(tag),
-            null,
-            object : CommonCallback {
-                override fun onSuccess(p0: String?) {
-                    binding.rvLabelTag.deleteLabel(tag)
-                }
-
-                override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    context.toast(R.string.push_unbind_account_tag_fail, errorMessage)
-                }
-            })
-    }
-
-    private fun showAccountTagInputDialog() {
-        context.showInputDialog(
-            R.string.push_bind_account_tag, R.string.push_bind_account_tag_hint,
-            showAlert = true,
-            showAliasInput = false
-        ) { it, _ ->
-            bindAccountTag(it)
+    /**
+     * 添加账号标签
+     */
+    private fun addAccountTag() {
+        DataSource.addAccountTag(context) {
+            binding.rvLabelTag.addLabel(it)
         }
     }
 
-    private fun bindAccountTag(tag: String) {
-        PushServiceFactory.getCloudPushService()
-            .bindTag(CloudPushService.ACCOUNT_TARGET, arrayOf(tag), null, object : CommonCallback {
-                override fun onSuccess(p0: String?) {
-                    binding.rvLabelTag.addLabel(tag)
-                }
-
-                override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    context.toast(R.string.push_bind_account_tag_fail, errorMessage)
-                }
-
-            })
+    /**
+     * 移除账号标签
+     */
+    private fun deleteAccountTag(tag: String) {
+        DataSource.removeAccountTag(context, tag) {
+            binding.rvLabelTag.deleteLabel(tag)
+        }
     }
 
-
+    /**
+     * 弹窗账号输入弹窗
+     */
     private fun showAccountInputDialog() {
         context.showInputDialog(
             R.string.push_bind_account, R.string.push_bind_account_hint,
@@ -91,6 +76,9 @@ class AccountView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * 绑定账号
+     */
     private fun bindAccount(account: String) {
         PushServiceFactory.getCloudPushService().bindAccount(account, object : CommonCallback {
             override fun onSuccess(p0: String?) {
@@ -105,8 +93,10 @@ class AccountView @JvmOverloads constructor(
         })
     }
 
+    /**
+     * 更新账号标签
+     */
     fun setAccountTagData(data: MutableList<String>) {
         binding.rvLabelTag.setData(data)
     }
-
 }

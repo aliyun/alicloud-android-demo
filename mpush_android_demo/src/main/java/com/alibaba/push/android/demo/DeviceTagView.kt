@@ -5,9 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.alibaba.push.android.demo.databinding.DeviceTagBinding
-import com.alibaba.sdk.android.push.CloudPushService
-import com.alibaba.sdk.android.push.CommonCallback
-import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 
 /**
  * 设备标签视图
@@ -29,10 +26,10 @@ class DeviceTagView @JvmOverloads constructor(
         setPadding(0 , 0 , 0 , 8.toDp())
         binding.rvLabel.apply {
             addLabelClickCallback = {
-                showTagInputDialog()
+                addDeviceTag()
             }
             deleteLabelClickCallback = {
-                deleteTag(it)
+                removeDeviceTag(it)
             }
             moreThanMaxLabelCountCallback = {
                 binding.showAllBtn = it
@@ -43,36 +40,27 @@ class DeviceTagView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * 添加设备标签
+     */
+    private fun addDeviceTag(){
+        DataSource.addDeviceTag(context) {
+            binding.rvLabel.addLabel(it)
+        }
+    }
 
-
-    private fun deleteTag(tag: String) {
-        DataSource.deleteDeviceTag(context, tag) {
+    /**
+     * 移除设备标签
+     */
+    private fun removeDeviceTag(tag: String) {
+        DataSource.removeAccountTag(context, tag) {
             binding.rvLabel.deleteLabel(tag)
         }
     }
 
-    private fun showTagInputDialog() {
-        context.showInputDialog(R.string.push_add_device_tag, R.string.push_input_device_tag_hint,
-            showAlert = true,
-            showAliasInput = false) {it,_ ->
-            addTag(it)
-        }
-    }
-
-    private fun addTag(tag: String) {
-        PushServiceFactory.getCloudPushService().bindTag(CloudPushService.DEVICE_TARGET , arrayOf(tag), null, object:CommonCallback{
-            override fun onSuccess(p0: String?) {
-                binding.rvLabel.addLabel(tag)
-                DataSource.addLabel(DataSource.LABEL_DEVICE_TAG, tag)
-            }
-
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(R.string.push_toast_add_device_tag_fail, errorMessage)
-            }
-
-        })
-    }
-
+    /**
+     * 更新设备标签
+     */
     fun setDeviceTagData(data: MutableList<String>) {
         binding.rvLabel.setData(data)
     }
