@@ -20,11 +20,7 @@ fun Int.toDp(): Int {
     ).toInt()
 }
 
-fun Context.toast(msg: String) {
-    Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-}
-
-fun Context.toast(@StringRes res: Int, vararg msg: String?) {
+fun Context.toast(@StringRes res: Int, msg: String? = null) {
     Toast.makeText(this, String.format(getString(res), msg), Toast.LENGTH_SHORT).show()
 }
 
@@ -50,7 +46,7 @@ fun Context.showInputDialog(
     inputDialogBinding.tvConfirm.setOnClickListener {
         val inputText = inputDialogBinding.etInput.text.toString().trim()
         if (TextUtils.isEmpty(inputText)) {
-            toast(getText(R.string.push_input_empty).toString())
+            toast(R.string.push_input_empty)
             return@setOnClickListener
         }
         inputCallback?.invoke(inputText, inputDialogBinding.etAlias.text.toString().trim())
@@ -67,7 +63,7 @@ fun Context.getStatusBarHeight(): Int {
     }
 }
 
-fun Context.getAppMetaData(key: String): String? {
+fun Context.getAppMetaData(key: String): String {
     try {
         val info = packageManager.getApplicationInfo(
             packageName,

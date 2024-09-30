@@ -11,11 +11,11 @@ import com.alibaba.sdk.android.push.notification.CPushMessage
  */
 class MyMessageReceiver: MessageReceiver() {
     override fun onNotificationOpened(p0: Context?, p1: String?, p2: String?, p3: String?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onNotificationRemoved(p0: Context?, p1: String?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onNotification(
@@ -24,11 +24,11 @@ class MyMessageReceiver: MessageReceiver() {
         p2: String?,
         p3: MutableMap<String, String>?
     ) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onMessage(p0: Context?, p1: CPushMessage?) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onNotificationClickedWithNoAction(
@@ -37,7 +37,7 @@ class MyMessageReceiver: MessageReceiver() {
         p2: String?,
         p3: String?
     ) {
-        TODO("Not yet implemented")
+
     }
 
     override fun onNotificationReceivedInApp(
@@ -49,6 +49,6 @@ class MyMessageReceiver: MessageReceiver() {
         p5: String?,
         p6: String?
     ) {
-        TODO("Not yet implemented")
+
     }
 }

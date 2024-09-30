@@ -12,8 +12,6 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.alibaba.push.android.demo.databinding.AdvancedFuncFragmentBinding
 import com.alibaba.push.android.demo.databinding.CountLimitDialogBinding
-import com.alibaba.push.android.demo.databinding.InputDialogBinding
-import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.CommonCallback
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -31,12 +29,11 @@ class AdvancedFuncFragment : Fragment() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val type = result.data?.getIntExtra("type",0)?:0
-                val labels = DataSource.getLabels(type)
                 when(type) {
-                    DataSource.LABEL_DEVICE_TAG -> binding.deviceTagView.setDeviceTagData(labels)
-                    DataSource.LABEL_ALIAS -> binding.aliasSetView.setAliasData(labels)
-                    DataSource.LABEL_ALIAS_TAG -> binding.aliasSetView.setAliasTagData(labels)
-                    DataSource.LABEL_ACCOUNT_TAG -> binding.accountView.setAccountTagData(labels)
+                    DataSource.LABEL_DEVICE_TAG -> binding.deviceTagView.setDeviceTagData()
+                    DataSource.LABEL_ALIAS -> binding.aliasSetView.setAliasData()
+                    DataSource.LABEL_ALIAS_TAG -> binding.aliasSetView.setAliasTagData()
+                    DataSource.LABEL_ACCOUNT_TAG -> binding.accountView.setAccountTagData()
                 }
             }
         }
@@ -76,9 +73,12 @@ class AdvancedFuncFragment : Fragment() {
         binding.accountView.lookAllTag = {
             lookAllTag(DataSource.LABEL_ACCOUNT_TAG)
         }
-
-        binding.deviceTagView.setDeviceTagData(mutableListOf("1","2","3","4","5","6","7","8","9"))
-
+        DataSource.getDeviceTags {
+            binding.deviceTagView.setDeviceTagData()
+        }
+        DataSource.getAlias {
+            binding.aliasSetView.setAliasData()
+        }
     }
 
     private fun lookAllTag(type:Int) {

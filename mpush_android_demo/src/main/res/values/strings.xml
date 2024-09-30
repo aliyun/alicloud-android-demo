@@ -74,7 +74,7 @@
     <string name="push_bind_phone_no">未绑定手机号</string>
     <string name="push_text_notification">短信通知</string>
     <string name="push_text_notification_hint">请输入手机号</string>
-    <string name="push_toast_bind_phone_fail">绑定手机号失败,失败原因:$s</string>
+    <string name="push_toast_bind_phone_fail">绑定手机号失败,失败原因:%s</string>
     <string name="push_tag_limit">标签（tag）</string>
     <string name="push_tag_limit_1">App最多支持定义1万个标签，单个标签支持的最大长度为129字符。</string>
     <string name="push_tag_limit_2">不建议在单个标签上绑定超过十万级设备，否则，发起对该标签的推送可能需要较长的处理时间，无法保障响应速度。此种情况下，建议您采用全推方式，或将设备集合拆分到更细粒度的标签，多次调用推送接口分别推送给这些标签来避免此问题。</string>

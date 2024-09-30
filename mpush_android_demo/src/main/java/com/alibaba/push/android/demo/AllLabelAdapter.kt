@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.push.android.demo.databinding.LabelItemBinding
 
-class AllLabelAdapter(private val labels:MutableList<String>):RecyclerView.Adapter<AllLabelAdapter.ViewHolder>() {
+class AllLabelAdapter(val labels:MutableList<String>):RecyclerView.Adapter<AllLabelAdapter.ViewHolder>() {
 
     var deleteLabelCallback: ((String) -> Unit)? = null
 

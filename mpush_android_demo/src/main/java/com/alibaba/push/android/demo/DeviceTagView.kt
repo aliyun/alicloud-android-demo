@@ -53,7 +53,7 @@ class DeviceTagView @JvmOverloads constructor(
      * 移除设备标签
      */
     private fun removeDeviceTag(tag: String) {
-        DataSource.removeAccountTag(context, tag) {
+        DataSource.removeDeviceTag(context, tag) {
             binding.rvLabel.deleteLabel(tag)
         }
     }
@@ -61,8 +61,8 @@ class DeviceTagView @JvmOverloads constructor(
     /**
      * 更新设备标签
      */
-    fun setDeviceTagData(data: MutableList<String>) {
-        binding.rvLabel.setData(data)
+    fun setDeviceTagData() {
+        binding.rvLabel.setData(DataSource.getLabels(DataSource.LABEL_DEVICE_TAG))
     }
 
 }

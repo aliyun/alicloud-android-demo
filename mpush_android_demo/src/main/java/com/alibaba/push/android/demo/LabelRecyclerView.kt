@@ -45,10 +45,6 @@ class LabelRecyclerView @JvmOverloads constructor(
     }
 
     fun addLabel(label: String) {
-        if(labels.contains(label)) {
-            context.toast(context.getText(R.string.push_already_add).toString())
-            return
-        }
         labels.add(0, label)
         updateLabel()
     }
@@ -65,22 +61,15 @@ class LabelRecyclerView @JvmOverloads constructor(
     }
 
     private fun updateLabel(){
-        if (labels.size > maxLabelCount) {
-            labelAdapter.data.apply {
-                clear()
+        labelAdapter.data.apply {
+            clear()
+            if (labels.size > maxLabelCount) {
                 addAll(labels.subList(0, maxLabelCount))
-                add(addBtnText)
-            }
-            labelAdapter.notifyItemRangeChanged(0 , 9)
-        }else {
-            labelAdapter.data.apply {
-                val lastSize = size
-                clear()
-                labelAdapter.notifyItemRangeRemoved(0, lastSize)
+            }else {
                 addAll(labels)
-                add(addBtnText)
-                labelAdapter.notifyItemRangeChanged(0, size)
             }
+            add(addBtnText)
+            labelAdapter.notifyDataSetChanged()
         }
         moreThanMaxLabelCountCallback?.invoke(labels.size > maxLabelCount)
     }
@@ -144,23 +133,8 @@ class GridSpacingItemDecoration(private val spanCount: Int, private val spacing:
     RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, itemPosition: Int, recyclerView: RecyclerView) {
-        val layoutManager = recyclerView.layoutManager as GridLayoutManager
-
         with(outRect) {
-            top = if (layoutManager.spanSizeLookup.getSpanGroupIndex(
-                    itemPosition,
-                    spanCount
-                ) % spanCount == 0
-            ) {
-                // 左边列的item需要顶部间隔
-                spacing
-            } else {
-                // 其他位置不设置间隔
-                0
-            }
-
             if (itemPosition % spanCount == 0) {
-                // 顶行item需要左间隔
                 left = 0
                 right = 6.toDp()
             }else if (itemPosition % spanCount == 1){
@@ -170,8 +144,6 @@ class GridSpacingItemDecoration(private val spanCount: Int, private val spacing:
                 left = 6.toDp()
                 right = 0
             }
-
-            // 所有的item都设置底部间隔
             bottom = spacing
         }
     }

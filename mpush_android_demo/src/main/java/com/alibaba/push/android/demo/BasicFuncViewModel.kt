@@ -1,7 +1,6 @@
 package com.alibaba.push.android.demo
 
 import android.app.Application
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.CommonCallback
@@ -30,11 +29,11 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         pushService.register(getApplication(), object: CommonCallback{
             override fun onSuccess(response: String?) {
                 channelState.value = true
-                toast(getApplication<MainApplication>().getString(R.string.push_toast_register_success))
+                getApplication<MainApplication>().toast(R.string.push_toast_register_success)
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                toast(String.format(getApplication<MainApplication>().getString(R.string.push_toast_register_fail), errorMessage))
+                toast(R.string.push_toast_register_fail, errorMessage)
             }
 
         })
@@ -45,11 +44,11 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
             pushService.turnOffPushChannel(object:CommonCallback{
                 override fun onSuccess(response: String?) {
                     channelState.value = false
-                    toast(getApplication<MainApplication>().getString(R.string.push_toast_close_push_channel_success))
+                    toast(R.string.push_toast_close_push_channel_success)
                 }
 
                 override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    toast(String.format(getApplication<MainApplication>().getString(R.string.push_toast_close_push_channel_fail),errorMessage))
+                    toast(R.string.push_toast_close_push_channel_fail, errorMessage)
                 }
 
             })
@@ -57,11 +56,11 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
             pushService.turnOnPushChannel(object:CommonCallback{
                 override fun onSuccess(response: String?) {
                     channelState.value = true
-                    toast(getApplication<MainApplication>().getString(R.string.push_toast_open_push_channel_success))
+                    toast(R.string.push_toast_open_push_channel_success)
                 }
 
                 override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    toast(String.format(getApplication<MainApplication>().getString(R.string.push_toast_open_push_channel_fail), errorMessage))
+                    toast(R.string.push_toast_open_push_channel_fail, errorMessage)
                 }
             })
         }
@@ -100,8 +99,8 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         tempLogLevel.value = level
     }
 
-    private fun toast(msg: String) {
-        Toast.makeText(getApplication(),msg,Toast.LENGTH_SHORT).show()
+    private fun toast(res: Int, msg:String? = null) {
+        getApplication<MainApplication>().toast(res, msg)
     }
 
 }

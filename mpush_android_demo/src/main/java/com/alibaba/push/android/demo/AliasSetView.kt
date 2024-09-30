@@ -96,14 +96,14 @@ class AliasSetView @JvmOverloads constructor(
     /**
      * 更新别名数据
      */
-    fun setAliasData(data: MutableList<String>) {
-        binding.rvLabel.setData(data)
+    fun setAliasData() {
+        binding.rvLabel.setData(DataSource.getLabels(DataSource.LABEL_ALIAS))
     }
 
     /**
      * 更新别名标签数据
      */
-    fun setAliasTagData(data: MutableList<String>) {
-        binding.rvLabelTag.setData(data)
+    fun setAliasTagData() {
+        binding.rvLabelTag.setData(DataSource.getLabels(DataSource.LABEL_ALIAS_TAG))
     }
 }

@@ -1,12 +1,10 @@
 package com.alibaba.push.android.demo
 
 import android.content.Context
-import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.alibaba.push.android.demo.databinding.AccountBinding
-import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.CommonCallback
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 
@@ -96,7 +94,7 @@ class AccountView @JvmOverloads constructor(
     /**
      * 更新账号标签
      */
-    fun setAccountTagData(data: MutableList<String>) {
-        binding.rvLabelTag.setData(data)
+    fun setAccountTagData() {
+        binding.rvLabelTag.setData(DataSource.getLabels(DataSource.LABEL_ACCOUNT_TAG))
     }
 }
