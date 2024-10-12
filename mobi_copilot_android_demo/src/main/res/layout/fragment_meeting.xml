@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="会议室"
+        android:padding="8dp"/>
+
+    <Spinner
+        android:id="@+id/meeting_room_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/meeting_rooms"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="会议开始时间"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/start_time_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="年/月/日 时:分"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="none"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="会议结束时间"
+        android:padding="8dp"/>
+
+    <EditText
+        android:id="@+id/end_time_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="年/月/日 时:分"
+        android:focusable="false"
+        android:clickable="true"
+        android:inputType="none"/>
+
+    <Button
+        android:id="@+id/meeting_submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="提交"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/meeting_reset_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="重置"
+        android:layout_marginTop="8dp"/>
+
+</LinearLayout>

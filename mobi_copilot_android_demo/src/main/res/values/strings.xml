@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MobiCopilotSDKDemo</string>
+    <string-array name="leave_types">
+        <item>年假</item>
+        <item>事假</item>
+        <item>病假</item>
+    </string-array>
+    <string-array name="meeting_rooms">
+        <item>晓翠堂</item>
+        <item>梅花岭</item>
+        <item>云林峰</item>
+    </string-array>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_copilot"
+        android:icon="@drawable/copilot"
+        android:title="Copilot" />
+    <item
+        android:id="@+id/nav_leave"
+        android:icon="@drawable/leave"
+        android:title="请假" />
+    <item
+        android:id="@+id/nav_meeting"
+        android:icon="@drawable/meeting"
+        android:title="会议室" />
+</menu>
