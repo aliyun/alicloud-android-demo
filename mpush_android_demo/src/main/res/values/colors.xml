@@ -13,4 +13,5 @@
     <color name="push_color_text_gray">#999CA3</color>
     <color name="push_color_ADC1D1">#ADC1D1</color>
     <color name="push_color_315CFC">#315CFC</color>
+    <color name="push_color_transparent">#00000000</color>
 </resources>
