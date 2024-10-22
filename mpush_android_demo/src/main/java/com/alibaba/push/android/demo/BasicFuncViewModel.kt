@@ -13,6 +13,10 @@ import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
  */
 class BasicFuncViewModel(application: Application): AndroidViewModel(application) {
 
+    companion object {
+        const val RESPONSE_CHANNEL_OPEN = "on"
+    }
+
     val channelState = SingleLiveData<Boolean>().apply { value = false }
 
     val divideGroupState = SingleLiveData<Boolean>().apply { value = false }
@@ -28,12 +32,25 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
     fun register(){
         pushService.register(getApplication(), object: CommonCallback{
             override fun onSuccess(response: String?) {
-                channelState.value = true
                 getApplication<MainApplication>().toast(R.string.push_toast_register_success)
+                getChannelStateFromServer()
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
                 toast(R.string.push_toast_register_fail, errorMessage)
+            }
+
+        })
+    }
+
+    fun getChannelStateFromServer(){
+        pushService.checkPushChannelStatus(object:CommonCallback{
+            override fun onSuccess(response: String?) {
+                channelState.value = RESPONSE_CHANNEL_OPEN == response
+            }
+
+            override fun onFailed(errorCode: String?, errorMessage: String?) {
+
             }
 
         })
@@ -75,13 +92,16 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         msgReceiveByService.value = !msgReceiveByService.value!!
         if (true == msgReceiveByService.value) {
             pushService.setPushIntentService(MyMessageIntentService::class.java)
+            toast(R.string.push_toast_use_service_deal_message)
         }else {
             pushService.setPushIntentService(null)
+            toast(R.string.push_toast_use_receiver_deal_message)
         }
     }
 
     fun clearAllNotification(){
         pushService.clearNotifications()
+        toast(R.string.push_toast_already_clear)
     }
 
     fun setLogLevel(){

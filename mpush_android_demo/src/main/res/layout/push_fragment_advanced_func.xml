@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class="AdvancedFuncFragmentBinding">
-
+        <import type="android.view.View" />
+        <variable
+            name="viewModel"
+            type="com.alibaba.push.android.demo.AdvanceFuncViewModel" />
     </data>
 
     <FrameLayout
@@ -77,39 +81,149 @@
                     android:textSize="14sp"
                     android:layout_marginStart="3dp" />
 
-                <com.alibaba.push.android.demo.DeviceTagView
-                    android:id="@+id/deviceTagView"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTag"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
                     app:layout_constraintTop_toBottomOf="@id/tvCountLimit"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/push_bg_advanced_func" />
+                    android:background="@drawable/push_bg_advanced_func">
 
-                <com.alibaba.push.android.demo.AliasSetView
-                    android:id="@+id/aliasSetView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/deviceTagView"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/push_bg_advanced_func" />
+                    <TextView
+                        android:id="@+id/tagTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="54dp"
+                        android:text="@string/push_tag_set"
+                        android:textColor="@color/push_color_text_black_deep"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
 
-                <com.alibaba.push.android.demo.AccountView
-                    android:id="@+id/accountView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/aliasSetView"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/push_bg_advanced_func" />
+                    <TextView
+                        android:id="@+id/tvAddTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="54dp"
+                        android:text="@string/push_tag_set"
+                        android:textColor="@color/push_color_text_black_deep"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clBindPhone"
+                    android:id="@+id/clAlias"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/clTag"
+                    android:background="@drawable/push_bg_advanced_func">
+
+                    <TextView
+                        android:id="@+id/aliasTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/push_alias_set"
+                        android:textColor="@color/push_color_text_black_deep"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <ImageView
+                        android:id="@+id/aliasMoreIv"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        tools:visibility="visible"
+                        android:layout_marginEnd="8dp"
+                        android:visibility="@{viewModel.showAliasAllBtn ? View.VISIBLE:View.GONE}"
+                        android:src="@drawable/push_more"
+                        app:layout_constraintTop_toTopOf="@id/aliasTitle"
+                        app:layout_constraintBottom_toBottomOf="@id/aliasTitle"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        tools:visibility="visible"
+                        android:visibility="@{viewModel.showAliasAllBtn ?View.VISIBLE:View.GONE}"
+                        android:text="@string/push_look_all"
+                        app:layout_constraintTop_toTopOf="@id/aliasMoreIv"
+                        app:layout_constraintBottom_toBottomOf="@id/aliasMoreIv"
+                        app:layout_constraintEnd_toStartOf="@id/aliasMoreIv"
+                        android:textSize="12sp"
+                        android:textColor="@color/push_color_text_black" />
+
+                    <com.alibaba.push.android.demo.LabelRecyclerView
+                        android:id="@+id/rvLabelAlias"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:paddingHorizontal="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/aliasTitle"
+                        android:layout_marginTop="4dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clAccount"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:background="@drawable/push_bg_advanced_func"
-                    app:layout_constraintTop_toBottomOf="@id/accountView"
+                    app:layout_constraintTop_toBottomOf="@id/clAlias"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/push_account"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/push_color_text_black_deep"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginStart="16dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivAccountMore"
+                        android:layout_width="19dp"
+                        android:layout_height="19dp"
+                        android:layout_marginEnd="8dp"
+                        android:src="@drawable/push_more"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/tvAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="@{viewModel.account}"
+                        app:layout_constraintEnd_toStartOf="@id/ivAccountMore"
+                        android:textSize="16sp"
+                        android:paddingBottom="1dp"
+                        android:textColor="@color/push_color_text_gray" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/push_bg_advanced_func"
+                    app:layout_constraintTop_toBottomOf="@id/clAccount"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp">
 
@@ -138,7 +252,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@string/push_bind_phone_no"
+                        android:text="@{viewModel.phone}"
                         app:layout_constraintEnd_toStartOf="@id/ivPhoneMore"
                         android:textSize="16sp"
                         android:paddingBottom="1dp"

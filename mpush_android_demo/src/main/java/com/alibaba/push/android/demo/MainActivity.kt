@@ -1,13 +1,20 @@
 package com.alibaba.push.android.demo
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.alibaba.push.android.demo.databinding.MainActivityBinding
+
 
 /**
  * main activity
@@ -21,14 +28,31 @@ class MainActivity : AppCompatActivity() {
 
     private var mBackKeyPressedTime = 0L
 
+    private val msgReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            intent?.let {
+                if (it.action == MESSAGE_ACTION) {
+                    this@MainActivity.showMessageDialog(
+                        it.getStringExtra(MESSAGE_TITLE)?:"",
+                        it.getStringExtra(MESSAGE_CONTENT)?:"",
+                        it.getStringExtra(MESSAGE_ID)?:"",
+                        it.getStringExtra(MESSAGE_TRACE_INFO)?:""
+                    )
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         //浸入状态栏
         val controller = WindowCompat.getInsetsController(window, window.decorView)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+//        WindowCompat.setDecorFitsSystemWindows(window, false)
         controller.isAppearanceLightStatusBars = true
         //设置状态栏透明
         window.statusBarColor = Color.TRANSPARENT
+
         binding = MainActivityBinding.inflate(layoutInflater)
         binding.lifecycleOwner = this
         setContentView(binding.root)
@@ -39,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             mutableListOf(BasicFuncFragment(), AdvancedFuncFragment(), InfoFragment())
         )
 
-        binding.viewPager.registerOnPageChangeCallback(object:OnPageChangeCallback(){
+        binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 viewModel.fragmentIndex.value = position
             }
@@ -63,4 +87,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        LocalBroadcastManager.getInstance(this).registerReceiver(msgReceiver, IntentFilter(
+            MESSAGE_ACTION))
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(msgReceiver)
+    }
 }

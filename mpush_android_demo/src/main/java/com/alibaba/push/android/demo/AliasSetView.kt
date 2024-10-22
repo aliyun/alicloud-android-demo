@@ -89,7 +89,7 @@ class AliasSetView @JvmOverloads constructor(
      */
     private fun removeAliasTag(tag: String) {
         DataSource.removeAliasTag(context, tag) {
-            binding.rvLabelTag.addLabel(tag)
+            binding.rvLabelTag.deleteLabel(tag)
         }
     }
 
@@ -97,13 +97,17 @@ class AliasSetView @JvmOverloads constructor(
      * 更新别名数据
      */
     fun setAliasData() {
-        binding.rvLabel.setData(DataSource.getLabels(DataSource.LABEL_ALIAS))
+        binding.rvLabel.setData(mutableListOf<String>().apply {
+            addAll(DataSource.getLabels(DataSource.LABEL_ALIAS))
+        })
     }
 
     /**
      * 更新别名标签数据
      */
     fun setAliasTagData() {
-        binding.rvLabelTag.setData(DataSource.getLabels(DataSource.LABEL_ALIAS_TAG))
+        binding.rvLabelTag.setData(mutableListOf<String>().apply {
+            addAll(DataSource.getLabels(DataSource.LABEL_ALIAS_TAG))
+        })
     }
 }

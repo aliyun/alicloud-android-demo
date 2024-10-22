@@ -110,6 +110,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etInput"/>
 
+        <View
+            android:id="@+id/v_empty"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:visibility="@{showAliasInput?View.GONE:View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/etInput" />
+
 
         <TextView
             android:id="@+id/tvCancel"
@@ -121,7 +128,7 @@
             android:layout_marginTop="116dp"
             android:layout_marginStart="16dp"
             android:background="@drawable/push_shape_btn_cancel"
-            app:layout_constraintTop_toBottomOf="@id/etInput"
+            app:layout_constraintTop_toBottomOf="@id/v_empty"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/tvConfirm"
             android:gravity="center" />

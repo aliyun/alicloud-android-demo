@@ -10,10 +10,9 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.alibaba.push.android.demo.databinding.AdvancedFuncFragmentBinding
 import com.alibaba.push.android.demo.databinding.CountLimitDialogBinding
-import com.alibaba.sdk.android.push.CommonCallback
-import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 /**
@@ -25,18 +24,25 @@ class AdvancedFuncFragment : Fragment() {
 
     private lateinit var binding: AdvancedFuncFragmentBinding
 
+    private lateinit var viewModel: AdvanceFuncViewModel
+
     private val requestDataLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val type = result.data?.getIntExtra("type",0)?:0
                 when(type) {
-                    DataSource.LABEL_DEVICE_TAG -> binding.deviceTagView.setDeviceTagData()
-                    DataSource.LABEL_ALIAS -> binding.aliasSetView.setAliasData()
-                    DataSource.LABEL_ALIAS_TAG -> binding.aliasSetView.setAliasTagData()
-                    DataSource.LABEL_ACCOUNT_TAG -> binding.accountView.setAccountTagData()
+                    DataSource.LABEL_DEVICE_TAG -> {}
+                    DataSource.LABEL_ALIAS -> {}
+                    DataSource.LABEL_ALIAS_TAG -> {}
+                    DataSource.LABEL_ACCOUNT_TAG -> {}
                 }
             }
         }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[AdvanceFuncViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,13 +50,18 @@ class AdvancedFuncFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = AdvancedFuncFragmentBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.clBindPhone.setOnClickListener { showPhoneInputDialog() }
+        initTag()
+        initAlias()
+        binding.clPhone.setOnClickListener { showPhoneInputDialog() }
+        binding.clAccount.setOnClickListener { showAccountInputDialog() }
         val statusBarHeight = requireContext().getStatusBarHeight()
         binding.vStatusBg.layoutParams?.height = statusBarHeight
         binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -64,21 +75,68 @@ class AdvancedFuncFragment : Fragment() {
         binding.tvCountLimit.setOnClickListener {
             showCountLimitDialog()
         }
-        binding.deviceTagView.lookAllTag = {
-            lookAllTag(DataSource.LABEL_DEVICE_TAG)
+
+        viewModel.initData()
+    }
+
+    private fun initAlias(){
+        viewModel.aliasListStr.observe(viewLifecycleOwner){
+            updateAlias()
         }
-        binding.aliasSetView.lookAllTag = {
-            lookAllTag(it)
+        binding.rvLabelAlias.apply {
+            addLabelClickCallback = {
+                addAlias()
+            }
+            deleteLabelClickCallback = {
+                deleteAlias(it)
+            }
         }
-        binding.accountView.lookAllTag = {
-            lookAllTag(DataSource.LABEL_ACCOUNT_TAG)
+    }
+
+    private fun addAlias(){
+        requireContext().showInputDialog(
+            R.string.push_add_alias, R.string.push_input_alias_hint,
+            showAlert = false,
+            showAliasInput = false
+        ) { it, _ ->
+            if (viewModel.alreadyAddAlias(it)) {
+                requireContext().toast(R.string.push_already_add)
+                return@showInputDialog
+            }
+            viewModel.addAlias(requireContext(), it) {
+                updateAlias()
+            }
         }
-        DataSource.getDeviceTags {
-            binding.deviceTagView.setDeviceTagData()
+    }
+
+    private fun deleteAlias(alias: String) {
+        viewModel.removeAlias(requireContext(), alias) {
+            updateAlias()
         }
-        DataSource.getAlias {
-            binding.aliasSetView.setAliasData()
-        }
+    }
+
+    private fun updateAlias(){
+        binding.rvLabelAlias.setData(viewModel.currAliasList)
+    }
+
+    private fun initTag(){
+//        binding.rv.apply {
+//            addLabelClickCallback = {
+//                addTag()
+//            }
+//            deleteLabelClickCallback = {
+//                deleteTag(it)
+//            }
+//        }
+
+    }
+
+    private fun addTag(){
+
+    }
+
+    private fun deleteTag(tag: String){
+
     }
 
     private fun lookAllTag(type:Int) {
@@ -98,25 +156,21 @@ class AdvancedFuncFragment : Fragment() {
         countLimitDialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
     }
 
-    private fun showPhoneInputDialog() {
-        context?.showInputDialog(R.string.push_text_notification, R.string.push_text_notification_hint,
+    private fun showAccountInputDialog() {
+        requireContext().showInputDialog(
+            R.string.push_bind_account, R.string.push_bind_account_hint,
             showAlert = false,
-            showAliasInput = false) {it, _ ->
-            bindPhone(it)
+            showAliasInput = false
+        ) { it, _ ->
+            viewModel.bindAccount(requireContext(), it)
         }
     }
 
-    private fun bindPhone(phone: String) {
-        PushServiceFactory.getCloudPushService().bindPhoneNumber(phone, object:CommonCallback{
-            override fun onSuccess(p0: String?) {
-                binding.tvPhone.text = phone
-            }
-
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context?.toast(R.string.push_toast_bind_phone_fail, errorMessage)
-            }
-        })
+    private fun showPhoneInputDialog() {
+        requireContext().showInputDialog(R.string.push_text_notification, R.string.push_text_notification_hint,
+            showAlert = false,
+            showAliasInput = false) {it, _ ->
+            viewModel.bindPhone(requireContext(), it)
+        }
     }
-
-
 }

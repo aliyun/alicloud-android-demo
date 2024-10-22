@@ -90,4 +90,16 @@
     <string name="push_utdid">UTDID</string>
     <string name="push_sdk_version">推送SDK版本号</string>
     <string name="push_version">v%s</string>
+    <string name="push_toast_service_deal_message">service 收到了消息</string>
+    <string name="push_toast_receiver_deal_message">receiver 收到了消息</string>
+    <string name="push_toast_use_service_deal_message">使用service接收消息</string>
+    <string name="push_toast_use_receiver_deal_message">使用receiver接收消息</string>
+    <string name="push_toast_already_clear">已清除</string>
+    <string name="push_dialog_message_title">下发消息内容</string>
+    <string name="push_message_title">title:%s</string>
+    <string name="push_message_content">content:%s</string>
+    <string name="push_message_id">messageId:%s</string>
+    <string name="push_message_trace_info">traceInfo:%s</string>
+    <string name="btn_text_know">知道了</string>
+    <string name="push_tag_set">标签设置</string>
 </resources>

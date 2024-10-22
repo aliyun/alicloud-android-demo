@@ -6,6 +6,8 @@ import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import android.text.TextUtils
+import com.alibaba.sdk.android.push.noonesdk.PushInitConfig
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 
 
@@ -13,11 +15,21 @@ class MainApplication:Application() {
 
     override fun onCreate() {
         super.onCreate()
+        Config.init(this)
         initPushSdk(this)
     }
 
     private fun initPushSdk(context: Context) {
-        PushServiceFactory.init(context)
+        if (TextUtils.isEmpty(Config.APP_KEY)) {
+            PushServiceFactory.init(context)
+        }else {
+            PushServiceFactory.init(PushInitConfig.Builder()
+                .application(this)
+                .appKey(Config.APP_KEY)
+                .appSecret(Config.APP_SECRET)
+                .build())
+        }
+
         createNotificationChannel()
     }
 

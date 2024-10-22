@@ -95,6 +95,8 @@ class AccountView @JvmOverloads constructor(
      * 更新账号标签
      */
     fun setAccountTagData() {
-        binding.rvLabelTag.setData(DataSource.getLabels(DataSource.LABEL_ACCOUNT_TAG))
+        binding.rvLabelTag.setData(mutableListOf<String>().apply {
+            addAll(DataSource.getLabels(DataSource.LABEL_ACCOUNT_TAG))
+        })
     }
 }

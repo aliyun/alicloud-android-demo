@@ -10,6 +10,8 @@
 
     <style name="RoundedBottomSheetDialog" parent="Theme.Design.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/TransparentBottomSheetStyle</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
     <style name="TransparentBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">

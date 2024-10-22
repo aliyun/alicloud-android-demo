@@ -3,14 +3,20 @@ package com.alibaba.push.android.demo
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 import com.alibaba.push.android.demo.databinding.InputDialogBinding
-import com.alibaba.sdk.android.ams.common.logger.AmsLogger
+import com.alibaba.push.android.demo.databinding.MessageShowDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+
 
 fun Int.toDp(): Int {
     return TypedValue.applyDimension(
@@ -37,6 +43,7 @@ fun Context.showInputDialog(
     inputDialogBinding.showAlert = showAlert
     inputDialogBinding.showAliasInput = showAliasInput
     val dialog = BottomSheetDialog(this, R.style.RoundedBottomSheetDialog).apply {
+
         setContentView(inputDialogBinding.root)
         inputDialogBinding.lifecycleOwner = this
         show()
@@ -52,6 +59,27 @@ fun Context.showInputDialog(
         inputCallback?.invoke(inputText, inputDialogBinding.etAlias.text.toString().trim())
         dialog.dismiss()
     }
+}
+
+/**
+ * 展示下发消息内容
+ */
+fun Context.showMessageDialog(messageTitle: String, messageContent: String, messageId: String, traceInfo: String) {
+
+    val mAlertDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
+
+    val binding = MessageShowDialogBinding.inflate(LayoutInflater.from(this), null, false)
+    binding.title = String.format(getString(R.string.push_message_title), messageTitle)
+    binding.content = String.format(getString(R.string.push_message_content, messageContent))
+    binding.messageId = String.format(getString(R.string.push_message_id), messageId)
+    binding.traceInfo = String.format(getString(R.string.push_message_trace_info), traceInfo)
+    binding.tvKnow.setOnClickListener {
+        mAlertDialog.dismiss()
+    }
+    mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    mAlertDialog.setView(binding.root)
+    mAlertDialog.show()
+
 }
 
 fun Context.getStatusBarHeight(): Int {
@@ -77,3 +105,4 @@ fun Context.getAppMetaData(key: String): String {
     }
     return ""
 }
+
