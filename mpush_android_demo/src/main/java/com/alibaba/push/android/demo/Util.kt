@@ -8,8 +8,6 @@ import android.graphics.drawable.ColorDrawable
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog

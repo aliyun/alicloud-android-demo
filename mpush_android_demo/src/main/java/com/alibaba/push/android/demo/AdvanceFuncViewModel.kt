@@ -12,15 +12,24 @@ import kotlinx.coroutines.launch
 
 class AdvanceFuncViewModel(application: Application): AndroidViewModel(application) {
 
-    private val kBoundAccountKey = "bound_account"
-
-    private val kBoundPhoneKey = "bound_phone"
-
-    val showTagAllBtn = SingleLiveData<Boolean>().apply { value = false }
 
     val showAliasAllBtn = SingleLiveData<Boolean>().apply { value = false }
 
     val aliasListStr = SingleLiveData<String?>().apply { value =  ""}
+
+    val hasTag = SingleLiveData<Boolean>().apply { value = false }
+
+    val hasDeviceTag = SingleLiveData<Boolean>().apply { value = false }
+
+    val hasAliasTag = SingleLiveData<Boolean>().apply { value = false }
+
+    val hasAccountTag = SingleLiveData<Boolean>().apply { value = false }
+
+    val showMoreDeviceTag = SingleLiveData<Boolean>().apply { value = false }
+
+    val showMoreAliasTag = SingleLiveData<Boolean>().apply { value = false }
+
+    val showMoreAccountTag = SingleLiveData<Boolean>().apply { value = false }
 
     val account = SingleLiveData<String?>()
 
@@ -36,8 +45,8 @@ class AdvanceFuncViewModel(application: Application): AndroidViewModel(applicati
     fun initData(){
         getAliasListFromServer()
         viewModelScope.launch {
-            account.value = preferences.getString(kBoundAccountKey, getString(R.string.push_bind_account_no))
-            phone.value = preferences.getString(kBoundPhoneKey, getString(R.string.push_bind_phone_no))
+            account.value = preferences.getString(SP_KEY_BIND_ACCOUNT, getString(R.string.push_bind_account_no))
+            phone.value = preferences.getString(SP_KEY_BIND_PHONE, getString(R.string.push_bind_phone_no))
         }
     }
 
@@ -105,7 +114,7 @@ class AdvanceFuncViewModel(application: Application): AndroidViewModel(applicati
                 phone.value = phoneNumber
                 viewModelScope.launch {
                     val editor = preferences.edit()
-                    editor.putString(kBoundPhoneKey, phoneNumber)
+                    editor.putString(SP_KEY_BIND_PHONE, phoneNumber)
                     editor.apply()
                 }
             }
@@ -125,7 +134,7 @@ class AdvanceFuncViewModel(application: Application): AndroidViewModel(applicati
                 account.value = accountStr
                 viewModelScope.launch {
                     val editor = preferences.edit()
-                    editor.putString(kBoundAccountKey, accountStr)
+                    editor.putString(SP_KEY_BIND_ACCOUNT, accountStr)
                     editor.apply()
                 }
             }

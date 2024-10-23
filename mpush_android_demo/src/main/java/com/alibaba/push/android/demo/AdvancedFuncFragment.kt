@@ -77,7 +77,11 @@ class AdvancedFuncFragment : Fragment() {
         }
 
         viewModel.initData()
+
+        binding.tvAddTagEmpty.setOnClickListener { addTag() }
+
     }
+
 
     private fun initAlias(){
         viewModel.aliasListStr.observe(viewLifecycleOwner){
@@ -132,7 +136,8 @@ class AdvancedFuncFragment : Fragment() {
     }
 
     private fun addTag(){
-
+        val intent = Intent(requireContext(), AddTagActivity::class.java)
+        requestDataLauncher.launch(intent)
     }
 
     private fun deleteTag(tag: String){

@@ -18,4 +18,9 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <style name="TransparentStyle" parent="AppTheme">
+        <item name="android:windowBackground">#33000000</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>

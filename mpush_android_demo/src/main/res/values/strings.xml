@@ -102,4 +102,9 @@
     <string name="push_message_trace_info">traceInfo:%s</string>
     <string name="btn_text_know">知道了</string>
     <string name="push_tag_set">标签设置</string>
+    <string name="push_back">返回</string>
+    <string name="push_tag_name">标签名称</string>
+    <string name="push_input_tag_name">请输入标签名称</string>
+    <string name="push_tag_desc">单个标签最大长度不超过129个字符</string>
+    <string name="push_tag_target_label">添加至</string>
 </resources>

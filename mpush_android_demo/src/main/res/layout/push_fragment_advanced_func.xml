@@ -87,13 +87,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
+                    android:paddingBottom="20dp"
                     app:layout_constraintTop_toBottomOf="@id/tvCountLimit"
                     android:background="@drawable/push_bg_advanced_func">
 
                     <TextView
-                        android:id="@+id/tagTitle"
+                        android:id="@+id/tvTitleTag"
                         android:layout_width="wrap_content"
-                        android:layout_height="54dp"
+                        android:layout_height="52dp"
                         android:text="@string/push_tag_set"
                         android:textColor="@color/push_color_text_black_deep"
                         android:textStyle="bold"
@@ -103,18 +104,240 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"/>
 
+                    <ImageView
+                        android:id="@+id/ivAlreadyAddTag"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:visibility="@{viewModel.hasTag?View.VISIBLE:View.GONE}"
+                        tools:visibility="visible"
+                        android:contentDescription="@string/push_add_tag"
+                        android:src="@drawable/push_add_2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tvTitleTag"
+                        app:layout_constraintBottom_toBottomOf="@id/tvTitleTag"/>
+
                     <TextView
-                        android:id="@+id/tvAddTag"
+                        android:id="@+id/tvAlreadyAddTag"
                         android:layout_width="wrap_content"
-                        android:layout_height="54dp"
-                        android:text="@string/push_tag_set"
-                        android:textColor="@color/push_color_text_black_deep"
-                        android:textStyle="bold"
-                        android:textSize="16sp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/push_add_tag"
+                        android:visibility="@{viewModel.hasTag?View.VISIBLE:View.GONE}"
+                        tools:visibility="visible"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="2dp"
+                        android:textColor="@color/push_color_315CFC"
+                        app:layout_constraintEnd_toStartOf="@id/ivAlreadyAddTag"
+                        app:layout_constraintTop_toTopOf="@id/tvTitleTag"
+                        app:layout_constraintBottom_toBottomOf="@id/tvTitleTag"/>
+
+                    <TextView
+                        android:id="@+id/tvAddTagEmpty"
+                        android:layout_width="96dp"
+                        android:layout_height="36dp"
+                        android:text="@string/push_add_tag"
                         android:gravity="center_vertical"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"/>
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="14sp"
+                        tools:visibility="visible"
+                        android:visibility="@{viewModel.hasTag ? View.GONE:View.VISIBLE}"
+                        android:textColor="@color/push_color_text_black"
+                        android:background="@drawable/push_add_label_bg"
+                        app:layout_constraintStart_toStartOf="@id/tvTitleTag"
+                        app:layout_constraintTop_toBottomOf="@id/tvTitleTag" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/push_add"
+                        android:layout_marginEnd="6dp"
+                        android:contentDescription="@string/push_add_tag"
+                        app:layout_constraintEnd_toEndOf="@id/tvAddTagEmpty"
+                        app:layout_constraintTop_toTopOf="@id/tvAddTagEmpty"
+                        app:layout_constraintBottom_toBottomOf="@id/tvAddTagEmpty"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clDeviceTag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{viewModel.hasDeviceTag?View.VISIBLE:View.GONE}"
+                        app:layout_constraintTop_toBottomOf="@id/tvAddTagEmpty">
+
+                        <TextView
+                            android:id="@+id/tvTitleDeviceTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="@string/push_device_tag"
+                            android:gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:layout_marginStart="16dp"
+                            android:textColor="@color/push_color_text_gray"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <ImageView
+                            android:id="@+id/ivMoreDeviceTag"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:visibility="@{viewModel.showMoreDeviceTag?View.VISIBLE:View.GONE}"
+                            tools:visibility="gone"
+                            android:src="@drawable/push_tag_more"
+                            android:contentDescription="@string/push_look_all"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintTop_toTopOf="@id/tvTitleDeviceTag"
+                            app:layout_constraintBottom_toBottomOf="@id/tvTitleDeviceTag"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMoreDeviceTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/push_look_all"
+                            android:textSize="14sp"
+                            android:visibility="@{viewModel.showMoreDeviceTag?View.VISIBLE:View.GONE}"
+                            tools:visibility="gone"
+                            android:textColor="@color/push_color_text_gray"
+                            app:layout_constraintTop_toTopOf="@id/ivMoreDeviceTag"
+                            app:layout_constraintEnd_toStartOf="@id/ivMoreDeviceTag" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvDeviceTag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            app:layout_constraintTop_toBottomOf="@id/tvTitleDeviceTag" />
+
+                        <View
+                            android:id="@+id/vDividerDeviceTag"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:background="@color/color_gray"
+                            android:layout_marginHorizontal="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvDeviceTag"
+                            android:layout_marginTop="12dp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clAliasTag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{viewModel.hasAliasTag?View.VISIBLE:View.GONE}"
+                        app:layout_constraintTop_toBottomOf="@id/clDeviceTag">
+
+                        <TextView
+                            android:id="@+id/tvTitleAliasTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="@string/push_alias_tag"
+                            android:gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:layout_marginStart="16dp"
+                            android:textColor="@color/push_color_text_gray"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <ImageView
+                            android:id="@+id/ivMoreAliasTag"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/push_tag_more"
+                            android:contentDescription="@string/push_look_all"
+                            android:layout_marginEnd="16dp"
+                            android:visibility="@{viewModel.showMoreAliasTag?View.VISIBLE:View.GONE}"
+                            tools:visibility="gone"
+                            app:layout_constraintTop_toTopOf="@id/tvTitleAliasTag"
+                            app:layout_constraintBottom_toBottomOf="@id/tvTitleAliasTag"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMoreAliasTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/push_look_all"
+                            android:textSize="14sp"
+                            android:visibility="@{viewModel.showMoreAliasTag?View.VISIBLE:View.GONE}"
+                            tools:visibility="gone"
+                            android:textColor="@color/push_color_text_gray"
+                            app:layout_constraintTop_toTopOf="@id/ivMoreAliasTag"
+                            app:layout_constraintEnd_toStartOf="@id/ivMoreAliasTag" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvAliasTag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            app:layout_constraintTop_toBottomOf="@id/tvTitleAliasTag" />
+
+                        <View
+                            android:id="@+id/vDividerAliasTag"
+                            android:layout_width="0dp"
+                            android:layout_height="1dp"
+                            android:background="@color/color_gray"
+                            android:layout_marginHorizontal="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvAliasTag"
+                            android:layout_marginTop="12dp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clAccountTag"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="@{viewModel.hasAccountTag?View.VISIBLE:View.GONE}"
+                        app:layout_constraintTop_toBottomOf="@id/clAliasTag">
+
+                        <TextView
+                            android:id="@+id/tvTitleAccountTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="36dp"
+                            android:text="@string/push_account_tag"
+                            android:gravity="center_vertical"
+                            android:textSize="14sp"
+                            android:layout_marginStart="16dp"
+                            android:textColor="@color/push_color_text_gray"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <ImageView
+                            android:id="@+id/ivMoreAccountTag"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/push_tag_more"
+                            android:contentDescription="@string/push_look_all"
+                            android:layout_marginEnd="16dp"
+                            android:visibility="@{viewModel.showMoreAccountTag?View.VISIBLE:View.GONE}"
+                            tools:visibility="gone"
+                            app:layout_constraintTop_toTopOf="@id/tvTitleAccountTag"
+                            app:layout_constraintBottom_toBottomOf="@id/tvTitleAccountTag"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tvMoreAccountTag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/push_look_all"
+                            android:textSize="14sp"
+                            android:visibility="@{viewModel.showMoreAccountTag?View.VISIBLE:View.GONE}"
+                            tools:visibility="gone"
+                            android:textColor="@color/push_color_text_gray"
+                            app:layout_constraintTop_toTopOf="@id/ivMoreAccountTag"
+                            app:layout_constraintEnd_toStartOf="@id/ivMoreAccountTag" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvAccountTag"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            app:layout_constraintTop_toBottomOf="@id/tvTitleAccountTag" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 
@@ -147,6 +370,7 @@
                         android:layout_width="19dp"
                         android:layout_height="19dp"
                         tools:visibility="visible"
+                        android:contentDescription="@string/push_look_all"
                         android:layout_marginEnd="8dp"
                         android:visibility="@{viewModel.showAliasAllBtn ? View.VISIBLE:View.GONE}"
                         android:src="@drawable/push_more"
@@ -200,6 +424,7 @@
                         android:layout_width="19dp"
                         android:layout_height="19dp"
                         android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/push_look_all"
                         android:src="@drawable/push_more"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -242,6 +467,7 @@
                         android:layout_width="19dp"
                         android:layout_height="19dp"
                         android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/push_look_all"
                         android:src="@drawable/push_more"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
