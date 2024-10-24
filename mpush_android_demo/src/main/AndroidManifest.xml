@@ -54,6 +54,11 @@
             android:screenOrientation="portrait"
             android:exported="false" />
 
+        <activity android:name=".AliasListActivity"
+            android:theme="@style/TransparentStyle"
+            android:screenOrientation="portrait"
+            android:exported="false" />
+
         <receiver
             android:name=".MyMessageReceiver"
             android:process="@string/aliyun_accs_target_process"

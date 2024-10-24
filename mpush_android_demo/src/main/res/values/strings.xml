@@ -47,6 +47,7 @@
     <string name="push_add_device_tag">添加设备标签</string>
     <string name="push_input_tag_hint">请输入标签名称</string>
     <string name="push_toast_add_device_tag_fail">添加设备标签失败,失败原因：%s</string>
+    <string name="push_toast_add_tag_fail">添加标签失败,失败原因：%s</string>
     <string name="push_toast_delete_device_tag_fail">删除设备标签失败,失败原因：%s</string>
     <string name="push_alias_set">别名设置</string>
     <string name="push_add_alias">添加别名</string>
@@ -107,4 +108,6 @@
     <string name="push_input_tag_name">请输入标签名称</string>
     <string name="push_tag_desc">单个标签最大长度不超过129个字符</string>
     <string name="push_tag_target_label">添加至</string>
+    <string name="push_alias_list">别名列表</string>
+    <string name="push_tag_input_not">标签未输入</string>
 </resources>

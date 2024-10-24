@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.push.android.demo.databinding.AllLabelActivityBinding
@@ -13,6 +14,7 @@ import com.alibaba.push.android.demo.databinding.AllLabelActivityBinding
 class AllLabelActivity : AppCompatActivity() {
 
     private lateinit var binding: AllLabelActivityBinding
+    private lateinit var viewModel: AdvanceFuncViewModel
 
     private var labelType: Int = 0
 
@@ -28,7 +30,11 @@ class AllLabelActivity : AppCompatActivity() {
         window.statusBarColor = Color.TRANSPARENT
 
         binding = AllLabelActivityBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = this
+        viewModel = ViewModelProvider(this)[AdvanceFuncViewModel::class.java]
+        viewModel.initData()
         setContentView(binding.root)
+
         labelType = intent.getIntExtra("type", 0)
         binding.title = when (labelType) {
             DataSource.LABEL_DEVICE_TAG -> getString(R.string.push_device_tag)
@@ -40,18 +46,16 @@ class AllLabelActivity : AppCompatActivity() {
             layoutManager =
                 GridLayoutManager(this@AllLabelActivity, 3, RecyclerView.VERTICAL, false)
             addItemDecoration(GridSpacingItemDecoration(3, 8.toDp()))
-            labelAdapter = AllLabelAdapter(mutableListOf<String>().apply {
-                addAll(DataSource.getLabels(labelType))
-            }).apply {
+            labelAdapter = AllLabelAdapter(mutableListOf()).apply {
                 deleteLabelCallback = {
-                    deleteTag(it)
+
                 }
             }
             adapter = labelAdapter
         }
 
         binding.ivAdd.setOnClickListener {
-            addTag()
+
         }
 
         binding.ivBack.setOnClickListener {
@@ -63,33 +67,6 @@ class AllLabelActivity : AppCompatActivity() {
 
     }
 
-    private fun addTag() {
-        when (labelType) {
-            DataSource.LABEL_DEVICE_TAG -> DataSource.addDeviceTag(this, ::addLabel)
-            DataSource.LABEL_ALIAS -> DataSource.addAlias(this, ::addLabel)
-            DataSource.LABEL_ALIAS_TAG -> DataSource.addAliasTag(this, ::addLabel)
-            else -> DataSource.addAccountTag(this, ::addLabel)
-        }
-    }
-
-    private fun addLabel(label: String) {
-        labelAdapter?.labels?.add(0, label)
-        labelAdapter?.notifyDataSetChanged()
-    }
-
-    private fun deleteTag(tag: String) {
-        when (labelType) {
-            DataSource.LABEL_DEVICE_TAG -> DataSource.removeDeviceTag(this, tag, ::deleteLabel)
-            DataSource.LABEL_ALIAS -> DataSource.removeAlias(this, tag, ::deleteLabel)
-            DataSource.LABEL_ALIAS_TAG -> DataSource.removeAliasTag(this, tag, ::deleteLabel)
-            else -> DataSource.removeAccountTag(this, tag, ::deleteLabel)
-        }
-    }
-
-    private fun deleteLabel(label: String) {
-        labelAdapter?.labels?.remove(label)
-        labelAdapter?.notifyDataSetChanged()
-    }
 
     override fun onBackPressed() {
         setResult(RESULT_OK, Intent().apply {
