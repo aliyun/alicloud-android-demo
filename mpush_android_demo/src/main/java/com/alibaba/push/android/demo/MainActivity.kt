@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.alibaba.push.android.demo.databinding.MainActivityBinding
 
 
@@ -30,10 +29,10 @@ class MainActivity : AppCompatActivity() {
             intent?.let {
                 if (it.action == MESSAGE_ACTION) {
                     this@MainActivity.showMessageDialog(
-                        it.getStringExtra(MESSAGE_TITLE)?:"",
-                        it.getStringExtra(MESSAGE_CONTENT)?:"",
-                        it.getStringExtra(MESSAGE_ID)?:"",
-                        it.getStringExtra(MESSAGE_TRACE_INFO)?:""
+                        it.getStringExtra(MESSAGE_TITLE),
+                        it.getStringExtra(MESSAGE_CONTENT),
+                        it.getStringExtra(MESSAGE_ID),
+                        it.getStringExtra(MESSAGE_TRACE_INFO)
                     )
                 }
             }
@@ -60,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 AdvancedFuncFragment(),
                 InfoFragment())
         )
+        binding.viewPager.isUserInputEnabled = false
         binding.navView.itemIconTintList = null
         binding.navView.setOnItemSelectedListener {
             when (it.itemId) {
@@ -78,17 +78,6 @@ class MainActivity : AppCompatActivity() {
             }
             false
         }
-
-        binding.viewPager.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                binding.navView.selectedItemId = when (position) {
-                    0 -> R.id.navigation_basic
-                    1 -> R.id.navigation_advance
-                    2 -> R.id.navigation_info
-                    else ->  R.id.navigation_basic
-                }
-            }
-        })
     }
 
     override fun onBackPressed() {

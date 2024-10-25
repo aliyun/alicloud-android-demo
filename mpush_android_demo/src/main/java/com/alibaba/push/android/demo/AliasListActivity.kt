@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -76,7 +75,7 @@ class AliasListActivity: Activity() {
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-
+                toast(R.string.push_get_alias_list_fail, errorMessage)
             }
 
         })

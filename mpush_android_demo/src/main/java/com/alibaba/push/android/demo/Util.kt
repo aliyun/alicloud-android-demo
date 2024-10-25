@@ -62,7 +62,7 @@ fun Context.showInputDialog(
 /**
  * 展示下发消息内容
  */
-fun Context.showMessageDialog(messageTitle: String, messageContent: String, messageId: String, traceInfo: String) {
+fun Context.showMessageDialog(messageTitle: String?, messageContent: String?, messageId: String?, traceInfo: String?) {
 
     val mAlertDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
 

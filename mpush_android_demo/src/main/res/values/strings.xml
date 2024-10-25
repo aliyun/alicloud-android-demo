@@ -110,4 +110,6 @@
     <string name="push_tag_target_label">添加至</string>
     <string name="push_alias_list">别名列表</string>
     <string name="push_tag_input_not">标签未输入</string>
+    <string name="push_get_alias_list_fail">获取别名列表失败,失败原因：%s</string>
+    <string name="push_get_device_tag_list_fail">获取设备标签列表失败,失败原因：%s</string>
 </resources>

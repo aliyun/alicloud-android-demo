@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.push.android.demo.databinding.LabelItemBinding
 
-class AllLabelAdapter(val labels:MutableList<String>):RecyclerView.Adapter<AllLabelAdapter.ViewHolder>() {
+open class LabelAdapter(val labels:MutableList<String>):RecyclerView.Adapter<LabelAdapter.ViewHolder>() {
 
     var deleteLabelCallback: ((String) -> Unit)? = null
 
@@ -33,7 +33,7 @@ class AllLabelAdapter(val labels:MutableList<String>):RecyclerView.Adapter<AllLa
                 R.color.push_color_424FF7
             )
         )
-        holder.itemView.setOnClickListener {
+        holder.binding.ivDelete.setOnClickListener {
             deleteLabelCallback?.invoke(labels[position])
         }
     }

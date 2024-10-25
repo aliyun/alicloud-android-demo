@@ -349,11 +349,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
+                    android:paddingBottom="16dp"
                     app:layout_constraintTop_toBottomOf="@id/clTag"
                     android:background="@drawable/push_bg_advanced_func">
 
                     <TextView
-                        android:id="@+id/aliasTitle"
+                        android:id="@+id/tvTitleAlias"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/push_alias_set"
@@ -366,16 +367,16 @@
                         app:layout_constraintStart_toStartOf="parent"/>
 
                     <ImageView
-                        android:id="@+id/aliasMoreIv"
+                        android:id="@+id/ivAliasMore"
                         android:layout_width="19dp"
                         android:layout_height="19dp"
                         tools:visibility="visible"
                         android:contentDescription="@string/push_look_all"
                         android:layout_marginEnd="8dp"
-                        android:visibility="@{viewModel.showAliasAllBtn ? View.VISIBLE:View.GONE}"
+                        android:visibility="@{viewModel.showMoreAlias ? View.VISIBLE:View.GONE}"
                         android:src="@drawable/push_more"
-                        app:layout_constraintTop_toTopOf="@id/aliasTitle"
-                        app:layout_constraintBottom_toBottomOf="@id/aliasTitle"
+                        app:layout_constraintTop_toTopOf="@id/tvTitleAlias"
+                        app:layout_constraintBottom_toBottomOf="@id/tvTitleAlias"
                         app:layout_constraintEnd_toEndOf="parent"/>
 
                     <TextView
@@ -383,21 +384,21 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         tools:visibility="visible"
-                        android:visibility="@{viewModel.showAliasAllBtn ?View.VISIBLE:View.GONE}"
+                        android:visibility="@{viewModel.showMoreAlias ?View.VISIBLE:View.GONE}"
                         android:text="@string/push_look_all"
-                        app:layout_constraintTop_toTopOf="@id/aliasMoreIv"
-                        app:layout_constraintBottom_toBottomOf="@id/aliasMoreIv"
-                        app:layout_constraintEnd_toStartOf="@id/aliasMoreIv"
+                        app:layout_constraintTop_toTopOf="@id/ivAliasMore"
+                        app:layout_constraintBottom_toBottomOf="@id/ivAliasMore"
+                        app:layout_constraintEnd_toStartOf="@id/ivAliasMore"
                         android:textSize="12sp"
                         android:textColor="@color/push_color_text_black" />
 
-                    <com.alibaba.push.android.demo.LabelRecyclerView
-                        android:id="@+id/rvLabelAlias"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvAlias"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:paddingHorizontal="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/aliasTitle"
-                        android:layout_marginTop="4dp" />
+                        app:layout_constraintTop_toBottomOf="@id/tvTitleAlias"
+                        android:layout_marginTop="12dp" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

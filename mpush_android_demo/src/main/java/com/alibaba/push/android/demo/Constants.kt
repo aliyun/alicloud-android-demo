@@ -33,3 +33,7 @@ const val LABEL_DEVICE_TAG = 1
 const val LABEL_ALIAS_TAG = 2
 
 const val LABEL_ACCOUNT_TAG = 3
+
+const val TYPE = "type"
+
+const val SP_FILE_NAME = "aliyun_push"

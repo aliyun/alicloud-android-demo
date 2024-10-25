@@ -17,43 +17,34 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
 
     val showMoreTagCount = 9
 
-    val showAliasAllBtn = SingleLiveData<Boolean>().apply { value = false }
-
-    val aliasListStr = SingleLiveData<String?>().apply { value = "" }
+    val showMoreAliasCount = 8
 
     val hasTag = SingleLiveData<Boolean>().apply { value = false }
 
     val hasDeviceTag = SingleLiveData<Boolean>().apply { value = false }
+    val showMoreDeviceTag = SingleLiveData<Boolean>().apply { value = false }
+    val deviceTagData = SingleLiveData<String>().apply { value = "" }
+    val deviceTags = mutableListOf<String>()
 
     val hasAliasTag = SingleLiveData<Boolean>().apply { value = false }
+    val showMoreAliasTag = SingleLiveData<Boolean>().apply { value = false }
+    val aliasTagData = SingleLiveData<String>().apply { value = "" }
+    val aliasTags = mutableListOf<String>()
+    private var aliasTagMap = mutableMapOf<String, String>()
 
     val hasAccountTag = SingleLiveData<Boolean>().apply { value = false }
-
-    val showMoreDeviceTag = SingleLiveData<Boolean>().apply { value = false }
-
-    val showMoreAliasTag = SingleLiveData<Boolean>().apply { value = false }
-
     val showMoreAccountTag = SingleLiveData<Boolean>().apply { value = false }
+    val accountTagData = SingleLiveData<String>().apply { value = "" }
+    val accountTags = mutableListOf<String>()
+
+    val showMoreAlias = SingleLiveData<Boolean>().apply { value = false }
+    val aliasListStr = SingleLiveData<String?>().apply { value = "" }
+    val currAliasList = mutableListOf<String>()
+
 
     val account = SingleLiveData<String?>()
 
     val phone = SingleLiveData<String?>()
-
-    val currAliasList = mutableListOf<String>()
-
-    val deviceTagData = SingleLiveData<String>().apply { value = "" }
-
-    val aliasTagData = SingleLiveData<String>().apply { value = "" }
-
-    val accountTagData = SingleLiveData<String>().apply { value = "" }
-
-    val deviceTags = mutableListOf<String>()
-
-    val aliasTags = mutableListOf<String>()
-
-    val accountTags = mutableListOf<String>()
-
-    private var aliasTagMap = mutableMapOf<String, String>()
 
     val showDividerDeviceTag = SingleLiveData<Boolean>().apply { value = false }
 
@@ -62,11 +53,14 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
     private val gson = Gson()
 
     val preferences: SharedPreferences = getApplication<MainApplication>().getSharedPreferences(
-        "aliyun_push",
+        SP_FILE_NAME,
         Context.MODE_PRIVATE
     )
 
     fun initData() {
+        getDeviceTagFromServer()
+        getAliasTagFromSp()
+        getAccountTagFromSp()
         getAliasListFromServer()
         viewModelScope.launch {
             account.value =
@@ -74,182 +68,93 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             phone.value =
                 preferences.getString(SP_KEY_BIND_PHONE, getString(R.string.push_bind_phone_no))
         }
-        getDeviceTagFromServer()
-        getAliasTagFromSp()
-        getAccountTagFromSp()
     }
 
-    private fun getAccountTagFromSp() {
-        val spAccountTagData = preferences.getString(SP_KEY_ACCOUNT_TAG, "")
-        if (TextUtils.isEmpty(spAccountTagData)) return
-        spAccountTagData!!.split(",").forEach {
-            accountTags.add(0, it)
-        }
-        updateTagStatus()
-        accountTagData.value = spAccountTagData
-    }
-
-    private fun getAliasTagFromSp() {
-        val spAliasTagData = preferences.getString(SP_KEY_ALIAS_TAG, "")
-        if (TextUtils.isEmpty(spAliasTagData)) return
-        spAliasTagData!!.split(",").forEach {
-            aliasTags.add(0, it)
-        }
-        updateTagStatus()
-        aliasTagData.value = spAliasTagData
-        val spAliasTagMap = preferences.getString(SP_KEY_ALIAS_TAG_MAP, "")
-        aliasTagMap =
-            gson.fromJson(spAliasTagMap, object : TypeToken<Map<String, String>>() {}.type)
-
-    }
-
-    private fun getDeviceTagFromServer() {
+    fun getDeviceTagFromServer() {
         PushServiceFactory.getCloudPushService()
             .listTags(CloudPushService.DEVICE_TARGET, object : CommonCallback {
                 override fun onSuccess(response: String?) {
-                    if (TextUtils.isEmpty(response)) return
-                    response?.let {
-                        val tagList = it.split(",")
-                        tagList.forEach { deviceTag ->
-                            deviceTags.add(0, deviceTag)
-                        }
+                    deviceTags.clear()
+                    if (TextUtils.isEmpty(response)){
                         updateTagStatus()
-                        deviceTagData.value = response
-
+                        deviceTagData.value = ""
+                    }else {
+                        response?.let {
+                            it.split(",").forEach { deviceTag ->
+                                deviceTags.add(0, deviceTag)
+                            }
+                            updateTagStatus()
+                            deviceTagData.value = response
+                        }
                     }
                 }
 
-                override fun onFailed(p0: String?, p1: String?) {
-
+                override fun onFailed(p0: String?, errorMessage: String?) {
+                    toast(R.string.push_get_device_tag_list_fail, errorMessage)
                 }
             })
     }
 
-    private fun getAliasListFromServer() {
+    fun getAliasTagFromSp() {
+        val spAliasTagData = preferences.getString(SP_KEY_ALIAS_TAG, "")
+        aliasTags.clear()
+        if (TextUtils.isEmpty(spAliasTagData)) {
+            updateTagStatus()
+            aliasTagData.value = ""
+        }else {
+            spAliasTagData!!.split(",").forEach {
+                aliasTags.add(it)
+            }
+            updateTagStatus()
+            aliasTagData.value = spAliasTagData
+            val spAliasTagMap = preferences.getString(SP_KEY_ALIAS_TAG_MAP, "")
+            aliasTagMap =
+                gson.fromJson(spAliasTagMap, object : TypeToken<Map<String, String>>() {}.type)
+        }
+    }
+
+    fun getAccountTagFromSp() {
+        val spAccountTagData = preferences.getString(SP_KEY_ACCOUNT_TAG, "")
+        accountTags.clear()
+        if (TextUtils.isEmpty(spAccountTagData)) {
+            updateTagStatus()
+            accountTagData.value = ""
+        }else {
+            spAccountTagData!!.split(",").forEach {
+                accountTags.add(it)
+            }
+            updateTagStatus()
+            accountTagData.value = spAccountTagData
+        }
+    }
+
+    fun getAliasListFromServer() {
         PushServiceFactory.getCloudPushService().listAliases(object : CommonCallback {
             override fun onSuccess(response: String?) {
+                currAliasList.clear()
                 if (TextUtils.isEmpty(response)) {
-                    return
-                }
-                val aliasList = response!!.split(",")
-                aliasList.reversed().forEach { alias ->
-                    currAliasList.add(alias)
-                }
-                if (currAliasList.size > 8) {
-                    showAliasAllBtn.value = true
-                }
-                aliasListStr.value = response
-            }
-
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-            }
-
-        })
-    }
-
-    fun addAlias(context: Context, alias: String, callback: () -> Unit) {
-        PushServiceFactory.getCloudPushService().addAlias(alias, object : CommonCallback {
-            override fun onSuccess(p0: String?) {
-                currAliasList.add(0, alias)
-                callback.invoke()
-                if (currAliasList.size > 8) {
-                    showAliasAllBtn.value = true
-                }
-            }
-
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(R.string.push_toast_add_alias_fail, errorMessage)
-            }
-        })
-    }
-
-    fun removeAlias(context: Context, alias: String, callback: () -> Unit) {
-        PushServiceFactory.getCloudPushService().removeAlias(alias, object : CommonCallback {
-            override fun onSuccess(p0: String?) {
-                updateTagAfterRemoveAlias(alias)
-                currAliasList.remove(alias)
-                callback.invoke()
-                if (currAliasList.size <= 8) {
-                    showAliasAllBtn.value = false
-                }
-            }
-
-            override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(R.string.push_toast_delete_alias_fail, errorMessage)
-            }
-        })
-    }
-
-    private fun updateTagAfterRemoveAlias(alias: String){
-        aliasTagMap[alias]?.split(",")?.forEach {
-            aliasTags.remove(it)
-        }
-        aliasTagData.value = aliasTags.joinToString(",")
-        updateTagStatus()
-        aliasTagMap.remove(alias)
-        viewModelScope.launch {
-            val editor = preferences.edit()
-            editor.putString(SP_KEY_ALIAS_TAG, aliasTagData.value)
-            editor.putString(SP_KEY_ALIAS_TAG_MAP, gson.toJson(aliasTagMap))
-            editor.apply()
-        }
-
-    }
-
-    /**
-     * 绑定手机号
-     */
-    fun bindPhone(context: Context, phoneNumber: String) {
-        PushServiceFactory.getCloudPushService()
-            .bindPhoneNumber(phoneNumber, object : CommonCallback {
-                override fun onSuccess(p0: String?) {
-                    phone.value = phoneNumber
-                    viewModelScope.launch {
-                        val editor = preferences.edit()
-                        editor.putString(SP_KEY_BIND_PHONE, phoneNumber)
-                        editor.apply()
+                    showMoreAlias.value = currAliasList.size > showMoreAliasCount
+                    aliasListStr.value = response
+                }else {
+                    response!!.split(",").reversed().forEach { alias ->
+                        currAliasList.add(alias)
                     }
-                }
-
-                override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    context.toast(R.string.push_toast_bind_phone_fail, errorMessage)
-                }
-            })
-    }
-
-    /**
-     * 绑定账号
-     */
-    fun bindAccount(context: Context, accountStr: String) {
-        PushServiceFactory.getCloudPushService().bindAccount(accountStr, object : CommonCallback {
-            override fun onSuccess(p0: String?) {
-                updateTagAfterBindAccount()
-                account.value = accountStr
-                viewModelScope.launch {
-                    val editor = preferences.edit()
-                    editor.putString(SP_KEY_BIND_ACCOUNT, accountStr)
-                    editor.apply()
+                    showMoreAlias.value = currAliasList.size > showMoreAliasCount
+                    aliasListStr.value = response
                 }
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                context.toast(R.string.push_bind_account_fail, errorMessage)
+                toast(R.string.push_get_alias_list_fail, errorMessage)
             }
+
         })
     }
 
-    private fun updateTagAfterBindAccount(){
-        accountTags.clear()
-        accountTagData.value = ""
-        updateTagStatus()
-        viewModelScope.launch {
-            val editor = preferences.edit()
-            editor.putString(SP_KEY_ACCOUNT_TAG, accountTagData.value)
-            editor.apply()
-        }
-    }
+    fun addTag(tag: String?, target: Int, alias: String?) {
 
-    fun addTag(tag: String, target: Int, alias: String?) {
+        if (TextUtils.isEmpty(tag) || tag == null) return
+
         if ((target == CloudPushService.DEVICE_TARGET && deviceTags.contains(tag))
             || (target == CloudPushService.ALIAS_TARGET && aliasTags.contains(tag))
             || (target == CloudPushService.ACCOUNT_TARGET && accountTags.contains(tag))
@@ -257,6 +162,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             getApplication<MainApplication>().toast(
                 R.string.push_already_add
             )
+            return
         }
         PushServiceFactory.getCloudPushService()
             .bindTag(target, arrayOf(tag), alias, object : CommonCallback {
@@ -270,10 +176,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    getApplication<MainApplication>().toast(
-                        R.string.push_toast_add_tag_fail,
-                        errorMessage
-                    )
+                    toast(R.string.push_toast_add_tag_fail, errorMessage)
                 }
 
             })
@@ -321,8 +224,8 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                     removeDeviceTagSuccess(tag)
                 }
 
-                override fun onFailed(p0: String?, p1: String?) {
-
+                override fun onFailed(p0: String?, errorMessage: String?) {
+                    toast(R.string.push_toast_delete_device_tag_fail, errorMessage)
                 }
 
             })
@@ -343,8 +246,8 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                             removeAliasTagSuccess(tag, entry.key)
                         }
 
-                        override fun onFailed(p0: String?, p1: String?) {
-
+                        override fun onFailed(p0: String?, errorMessage: String?) {
+                            toast(R.string.push_toast_delete_alias_tag_fail, errorMessage)
                         }
 
                     })
@@ -381,8 +284,8 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                     removeAccountTagSuccess(tag)
                 }
 
-                override fun onFailed(p0: String?, p1: String?) {
-
+                override fun onFailed(p0: String?, errorMessage: String?) {
+                    toast(R.string.push_unbind_account_tag_fail, errorMessage)
                 }
 
             })
@@ -413,12 +316,113 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         showMoreAccountTag.value = accountTags.size > showMoreTagCount
     }
 
+    fun addAlias(alias: String) {
+        PushServiceFactory.getCloudPushService().addAlias(alias, object : CommonCallback {
+            override fun onSuccess(p0: String?) {
+                currAliasList.add(0, alias)
+                showMoreAlias.value = currAliasList.size > showMoreAliasCount
+                aliasListStr.value = currAliasList.joinToString(",")
+            }
+
+            override fun onFailed(errorCode: String?, errorMessage: String?) {
+                toast(R.string.push_toast_add_alias_fail, errorMessage)
+            }
+        })
+    }
+
+    fun removeAlias(alias: String) {
+        PushServiceFactory.getCloudPushService().removeAlias(alias, object : CommonCallback {
+            override fun onSuccess(p0: String?) {
+                updateTagAfterRemoveAlias(alias)
+                currAliasList.remove(alias)
+                showMoreAlias.value = currAliasList.size > showMoreAliasCount
+                aliasListStr.value = currAliasList.joinToString(",")
+            }
+
+            override fun onFailed(errorCode: String?, errorMessage: String?) {
+                toast(R.string.push_toast_delete_alias_fail, errorMessage)
+            }
+        })
+    }
+
+    private fun updateTagAfterRemoveAlias(alias: String){
+        aliasTagMap[alias]?.split(",")?.forEach {
+            aliasTags.remove(it)
+        }
+        aliasTagData.value = aliasTags.joinToString(",")
+        updateTagStatus()
+        aliasTagMap.remove(alias)
+        viewModelScope.launch {
+            val editor = preferences.edit()
+            editor.putString(SP_KEY_ALIAS_TAG, aliasTagData.value)
+            editor.putString(SP_KEY_ALIAS_TAG_MAP, gson.toJson(aliasTagMap))
+            editor.apply()
+        }
+    }
+
     fun alreadyAddAlias(alias: String): Boolean {
         return currAliasList.contains(alias)
     }
 
+    /**
+     * 绑定账号
+     */
+    fun bindAccount(accountStr: String) {
+        PushServiceFactory.getCloudPushService().bindAccount(accountStr, object : CommonCallback {
+            override fun onSuccess(p0: String?) {
+                updateTagAfterBindAccount()
+                account.value = accountStr
+                viewModelScope.launch {
+                    val editor = preferences.edit()
+                    editor.putString(SP_KEY_BIND_ACCOUNT, accountStr)
+                    editor.apply()
+                }
+            }
+
+            override fun onFailed(errorCode: String?, errorMessage: String?) {
+                toast(R.string.push_bind_account_fail, errorMessage)
+            }
+        })
+    }
+
+    private fun updateTagAfterBindAccount(){
+        accountTags.clear()
+        accountTagData.value = ""
+        updateTagStatus()
+        viewModelScope.launch {
+            val editor = preferences.edit()
+            editor.putString(SP_KEY_ACCOUNT_TAG, accountTagData.value)
+            editor.apply()
+        }
+    }
+
+    /**
+     * 绑定手机号
+     */
+    fun bindPhone(phoneNumber: String) {
+        PushServiceFactory.getCloudPushService()
+            .bindPhoneNumber(phoneNumber, object : CommonCallback {
+                override fun onSuccess(p0: String?) {
+                    phone.value = phoneNumber
+                    viewModelScope.launch {
+                        val editor = preferences.edit()
+                        editor.putString(SP_KEY_BIND_PHONE, phoneNumber)
+                        editor.apply()
+                    }
+                }
+
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
+                    toast(R.string.push_toast_bind_phone_fail, errorMessage)
+                }
+            })
+    }
+
     private fun getString(res: Int): String {
         return getApplication<MainApplication>().getString(res)
+    }
+
+    private fun toast(res: Int, msg: String?) {
+        getApplication<MainApplication>().toast(res, msg)
     }
 
 }

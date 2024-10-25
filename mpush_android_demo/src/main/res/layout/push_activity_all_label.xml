@@ -51,7 +51,7 @@
             android:id="@+id/ivAdd"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/push_add_all_label"
+            android:src="@drawable/push_add_label"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="20dp"
