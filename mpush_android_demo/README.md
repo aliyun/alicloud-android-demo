@@ -6,8 +6,6 @@
 <img src="./assets/logo.png">
 </div>
 
-
-
 阿里移动推送（Alibaba Cloud Mobile Push）是基于大数据的移动智能推送服务，帮助App快速集成移动推送的功能，在实现高效、精确、实时的移动推送的同时，极大地降低了开发成本。让开发者最有效地与用户保持连接，从而提高用户活跃度、提高应用的留存率。
 
 ## 产品特性
@@ -16,7 +14,6 @@
 -   *高到达率*——Android 智能通道保活，多通道支持保证推送高到达率。
 -   *精确推送*——基于阿里大数据处理技术，实现精确推送。
 -   *应用内消息推送*——支持 Android 与 iOS 应用内私有通道，保证透传消息高速抵达。
-
 
 
 ## 使用方法
@@ -61,15 +58,12 @@ mpush_android_demo已经完成了移动推送SDK的集成工作，但我们还�
 <img src="./assets/appkey_location.png">
 </div>
 
-
 在下述`AndroidManifest.xml`代码片段中用您的appkey/appsecret替换`********`字段占据的参数。
 
 ```xml
 <meta-data android:name="com.alibaba.app.appkey" android:value="********"/> <!-- 请填写你自己的- appKey -->
 <meta-data android:name="com.alibaba.app.appsecret" android:value="********"/> <!-- 请填写你自己的appSecret -->
 ```
-
-
 
 #### 3.2 配置包名
 
@@ -90,8 +84,6 @@ android {
 	......
 }
 ```
-
-
 
 ### 4. 运行程序
 
@@ -116,11 +108,6 @@ android {
 #### 4.3 确认deviceId获取正常：在初始化成功后使用cloudPushService.getDeviceId()可以成功获取deviceId。
 
 #### 4.4 如果注册服务器连接失败，则调用callback.onFailed()方法，并且自动进行重新注册，直到onSuccess为止（重试规则会由网络切换等时机自动触发）。
-
-
-
-
-
 
 ## 联系我们
 
