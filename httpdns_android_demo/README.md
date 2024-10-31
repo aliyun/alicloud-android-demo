@@ -40,9 +40,6 @@ HTTPDNS控制台：[链接](https://emas.console.aliyun.com/emasService/platform
 
 控制台上添加的域名，1分钟后会在HTTPDNS服务端生效。
 
-详见[控制台操作文档](https://help.aliyun.com/document_detail/30115.html?spm=5176.doc30113.2.3.zKjrgJ)
-
-
 
 ### 3. 下载Demo工程
 
@@ -62,7 +59,7 @@ git clone https://github.com/aliyun/alicloud-android-demo.git
 
 httpdns_android_demo已经完成了HttpDns SDK的集成工作，但我们还是建议您仔细阅读HttpDns的集成文档
 
->[Android SDK配置文档](https://help.aliyun.com/document_detail/30140.html)
+>[Android SDK配置文档](https://help.aliyun.com/document_detail/435250.html)
 
 **当您在使用您自己的APP集成HttpDns遇到问题时，您可以对比下demo APP的配置情况。**
 
