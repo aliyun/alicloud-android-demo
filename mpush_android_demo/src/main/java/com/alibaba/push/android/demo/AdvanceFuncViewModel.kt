@@ -70,6 +70,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * 获取设备标签
+     */
     fun getDeviceTagFromServer() {
         PushServiceFactory.getCloudPushService()
             .listTags(CloudPushService.DEVICE_TARGET, object : CommonCallback {
@@ -95,6 +98,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             })
     }
 
+    /**
+     * 获取别名标签
+     */
     fun getAliasTagFromSp() {
         val spAliasTagData = preferences.getString(SP_KEY_ALIAS_TAG, "")
         aliasTags.clear()
@@ -113,6 +119,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * 获取账号标签
+     */
     fun getAccountTagFromSp() {
         val spAccountTagData = preferences.getString(SP_KEY_ACCOUNT_TAG, "")
         accountTags.clear()
@@ -128,6 +137,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * 获取别名列表
+     */
     fun getAliasListFromServer() {
         PushServiceFactory.getCloudPushService().listAliases(object : CommonCallback {
             override fun onSuccess(response: String?) {
@@ -151,6 +163,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         })
     }
 
+    /**
+     * 添加标签
+     */
     fun addTag(tag: String?, target: Int, alias: String?) {
 
         if (TextUtils.isEmpty(tag) || tag == null) return
@@ -182,12 +197,14 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             })
     }
 
+    //添加设备标签成功,更新状态
     private fun addDeviceTagSuccess(tag: String) {
         deviceTags.add(0, tag)
         updateTagStatus()
         deviceTagData.value = deviceTags.joinToString(",")
     }
 
+    //添加别名标签成功,更新状态
     private fun addAliasTagSuccess(tag: String, alias: String?) {
         if (TextUtils.isEmpty(alias)) return
         aliasTags.add(0, tag)
@@ -206,6 +223,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    //添加账号标签成功,更新状态
     private fun addAccountTagSuccess(tag: String) {
         accountTags.add(0, tag)
         updateTagStatus()
@@ -217,6 +235,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * 移除设备标签
+     */
     fun removeDeviceTag(tag: String) {
         PushServiceFactory.getCloudPushService()
             .unbindTag(CloudPushService.DEVICE_TARGET, arrayOf(tag), null, object : CommonCallback {
@@ -231,12 +252,16 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             })
     }
 
+    //移除设备标签成功,更新状态
     private fun removeDeviceTagSuccess(tag: String) {
         deviceTags.remove(tag)
         updateTagStatus()
         deviceTagData.value = deviceTags.joinToString(",")
     }
 
+    /**
+     * 移除别名标签
+     */
     fun removeAliasTag(tag: String) {
         for (entry in aliasTagMap) {
             if (entry.value.contains(tag)) {
@@ -256,6 +281,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    //移除别名标签成功,更新状态
     private fun removeAliasTagSuccess(tag: String, alias: String) {
         aliasTags.remove(tag)
         updateTagStatus()
@@ -277,6 +303,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
 
     }
 
+    /**
+     * 移除账号标签
+     */
     fun removeAccountTag(tag: String) {
         PushServiceFactory.getCloudPushService()
             .unbindTag(CloudPushService.ACCOUNT_TARGET, arrayOf(tag), null, object : CommonCallback {
@@ -291,6 +320,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             })
     }
 
+   //移除账号标签成功,更新状态
     private fun removeAccountTagSuccess(tag: String) {
         accountTags.remove(tag)
         updateTagStatus()
@@ -302,6 +332,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
+    /**
+     * 更新UI状态
+     */
     private fun updateTagStatus(){
         hasTag.value = deviceTags.isNotEmpty() || aliasTags.isNotEmpty() || accountTags.isNotEmpty()
         hasDeviceTag.value = deviceTags.isNotEmpty()
@@ -316,6 +349,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         showMoreAccountTag.value = accountTags.size > showMoreTagCount
     }
 
+    /**
+     * 添加别名
+     */
     fun addAlias(alias: String) {
         PushServiceFactory.getCloudPushService().addAlias(alias, object : CommonCallback {
             override fun onSuccess(p0: String?) {
@@ -330,6 +366,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         })
     }
 
+    /**
+     * 移除别名
+     */
     fun removeAlias(alias: String) {
         PushServiceFactory.getCloudPushService().removeAlias(alias, object : CommonCallback {
             override fun onSuccess(p0: String?) {
@@ -345,6 +384,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         })
     }
 
+    /**
+     * 移除别名后,更新标签
+     */
     private fun updateTagAfterRemoveAlias(alias: String){
         aliasTagMap[alias]?.split(",")?.forEach {
             aliasTags.remove(it)
@@ -385,6 +427,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         })
     }
 
+    /**
+     * 绑定账号后,更新账号标签
+     */
     private fun updateTagAfterBindAccount(){
         accountTags.clear()
         accountTagData.value = ""

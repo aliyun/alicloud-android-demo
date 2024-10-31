@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     private var mBackKeyPressedTime = 0L
 
+    //处理透传消息
     private val msgReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             intent?.let {

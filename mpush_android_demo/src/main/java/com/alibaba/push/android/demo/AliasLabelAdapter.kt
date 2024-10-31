@@ -2,6 +2,11 @@ package com.alibaba.push.android.demo
 
 import androidx.core.content.ContextCompat
 
+/**
+ * 别名Label adapter
+ * @author ren
+ * @date 2024-10-31
+ */
 class AliasLabelAdapter(data: MutableList<String>) :
     LabelAdapter(data)  {
 

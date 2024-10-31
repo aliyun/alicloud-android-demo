@@ -34,6 +34,7 @@ class AdvancedFuncFragment : Fragment() {
     private var accountTagAdapter: LabelAdapter? = null
     private var aliasAdapter: AliasLabelAdapter? = null
 
+    //查看全部标签页面启动,接收返回数据
     private val requestDataLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -47,6 +48,7 @@ class AdvancedFuncFragment : Fragment() {
             }
         }
 
+    //添加标签页启动,并接收回调
     private val addTagLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -82,6 +84,7 @@ class AdvancedFuncFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //滚动与状态栏联动
         val statusBarHeight = requireContext().getStatusBarHeight()
         binding.vStatusBg.layoutParams?.height = statusBarHeight
         binding.nestedScrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
@@ -92,6 +95,7 @@ class AdvancedFuncFragment : Fragment() {
             }
             binding.vStatusBg.alpha = alpha
         }
+
         initTag()
         initAlias()
         initObserver()
@@ -108,6 +112,7 @@ class AdvancedFuncFragment : Fragment() {
     }
 
     private fun initTag() {
+        //设备标签
         binding.rvDeviceTag.apply {
             layoutManager =
                 GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
@@ -120,6 +125,7 @@ class AdvancedFuncFragment : Fragment() {
             adapter = deviceTagAdapter
         }
 
+        //别名标签
         binding.rvAliasTag.apply {
             layoutManager =
                 GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
@@ -132,6 +138,7 @@ class AdvancedFuncFragment : Fragment() {
             adapter = aliasTagAdapter
         }
 
+        //账号标签
         binding.rvAccountTag.apply {
             layoutManager =
                 GridLayoutManager(context, 3, RecyclerView.VERTICAL, false)
@@ -163,6 +170,7 @@ class AdvancedFuncFragment : Fragment() {
     }
 
     private fun initObserver() {
+        //设备别名数据改变监听
         viewModel.deviceTagData.observe(viewLifecycleOwner) {
             deviceTagAdapter?.labels?.clear()
             deviceTagAdapter?.labels?.addAll(
@@ -174,6 +182,7 @@ class AdvancedFuncFragment : Fragment() {
             deviceTagAdapter?.notifyDataSetChanged()
         }
 
+        //别名标签数据改变监听
         viewModel.aliasTagData.observe(viewLifecycleOwner) {
             aliasTagAdapter?.labels?.clear()
             aliasTagAdapter?.labels?.addAll(if (true == viewModel.showMoreAliasTag.value) viewModel.aliasTags.subList(
@@ -183,6 +192,7 @@ class AdvancedFuncFragment : Fragment() {
             aliasTagAdapter?.notifyDataSetChanged()
         }
 
+        //账号标签数据改变监听
         viewModel.accountTagData.observe(viewLifecycleOwner) {
             accountTagAdapter?.labels?.clear()
             accountTagAdapter?.labels?.addAll(if (true == viewModel.showMoreAccountTag.value) viewModel.accountTags.subList(
@@ -192,6 +202,7 @@ class AdvancedFuncFragment : Fragment() {
             accountTagAdapter?.notifyDataSetChanged()
         }
 
+        //别名数据改变监听
         viewModel.aliasListStr.observe(viewLifecycleOwner) {
             val showAliasData = mutableListOf<String>().apply {
                 if (true == viewModel.showMoreAlias.value){
@@ -207,6 +218,9 @@ class AdvancedFuncFragment : Fragment() {
         }
     }
 
+    /**
+     * 展示设备标签和别名数量限制说明dialog
+     */
     private fun showCountLimitDialog() {
         val countLimitDialogBinding =
             CountLimitDialogBinding.inflate(LayoutInflater.from(requireContext()))
@@ -218,11 +232,13 @@ class AdvancedFuncFragment : Fragment() {
         countLimitDialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
     }
 
+    //打开添加标签页面
     private fun addTag() {
         val intent = Intent(requireContext(), AddTagActivity::class.java)
         addTagLauncher.launch(intent)
     }
 
+    //跳转查看全部标签页面
     private fun lookAllTag(type: Int) {
         val intent = Intent(requireContext(), AllLabelActivity::class.java).apply {
             putExtra("type", type)
@@ -230,6 +246,7 @@ class AdvancedFuncFragment : Fragment() {
         requestDataLauncher.launch(intent)
     }
 
+    //添加别名
     private fun addAlias() {
         requireContext().showInputDialog(
             R.string.push_add_alias, R.string.push_input_alias_hint,
@@ -244,6 +261,7 @@ class AdvancedFuncFragment : Fragment() {
         }
     }
 
+    //账号输入弹窗弹出
     private fun showAccountInputDialog() {
         requireContext().showInputDialog(
             R.string.push_bind_account, R.string.push_bind_account_hint,
@@ -254,6 +272,7 @@ class AdvancedFuncFragment : Fragment() {
         }
     }
 
+    //手机号输入弹窗弹出
     private fun showPhoneInputDialog() {
         requireContext().showInputDialog(
             R.string.push_text_notification, R.string.push_text_notification_hint,

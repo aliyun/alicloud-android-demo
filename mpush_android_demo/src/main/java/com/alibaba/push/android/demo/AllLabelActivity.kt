@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.push.android.demo.databinding.AllLabelActivityBinding
 import com.alibaba.sdk.android.push.CloudPushService
 
+/**
+ * 全部标签页面
+ * @author ren
+ * @date 2024-10-31
+ */
 class AllLabelActivity : AppCompatActivity() {
 
     private lateinit var binding: AllLabelActivityBinding
@@ -23,6 +28,7 @@ class AllLabelActivity : AppCompatActivity() {
 
     private var labelAdapter: LabelAdapter? = null
 
+    //添加标签启动器,并接收返回的标签数据
     private val addTagLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -57,9 +63,7 @@ class AllLabelActivity : AppCompatActivity() {
         labelType = intent.getIntExtra(TYPE, 0)
 
         initView()
-
         initObserver()
-
     }
 
     private fun initView(){

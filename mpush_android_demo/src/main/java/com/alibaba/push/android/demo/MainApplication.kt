@@ -7,9 +7,9 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.text.TextUtils
+import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.noonesdk.PushInitConfig
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
-
 
 class MainApplication:Application() {
 
@@ -29,7 +29,8 @@ class MainApplication:Application() {
                 .appSecret(Config.APP_SECRET)
                 .build())
         }
-
+        PushServiceFactory.getCloudPushService().setDebug(true)
+        PushServiceFactory.getCloudPushService().setLogLevel(CloudPushService.LOG_DEBUG)
         createNotificationChannel()
     }
 

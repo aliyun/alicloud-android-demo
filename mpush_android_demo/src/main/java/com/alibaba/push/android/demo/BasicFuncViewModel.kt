@@ -29,6 +29,9 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
 
     var tempLogLevel = SingleLiveData<Int>().apply { value = CloudPushService.LOG_OFF }
 
+    /**
+     * 注册
+     */
     fun register(){
         pushService.register(getApplication(), object: CommonCallback{
             override fun onSuccess(response: String?) {
@@ -43,6 +46,9 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         })
     }
 
+    /**
+     * 获取通道状态
+     */
     fun getChannelStateFromServer(){
         pushService.checkPushChannelStatus(object:CommonCallback{
             override fun onSuccess(response: String?) {
@@ -56,6 +62,9 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         })
     }
 
+    /**
+     * 打开/关闭通知通道
+     */
     fun switchPushChannel(){
         if (true == channelState.value) {
             pushService.turnOffPushChannel(object:CommonCallback{
@@ -83,11 +92,17 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         }
     }
 
+    /**
+     * 是否分组展示通知
+     */
     fun switchDivideGroup(){
         divideGroupState.value = !(divideGroupState.value!!)
         pushService.setNotificationShowInGroup(divideGroupState.value!!)
     }
 
+    /**
+     * 改变通知接收方式
+     */
     fun switchMsgReceiver(){
         msgReceiveByService.value = !msgReceiveByService.value!!
         if (true == msgReceiveByService.value) {
@@ -99,11 +114,17 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         }
     }
 
+    /**
+     * 清除通知
+     */
     fun clearAllNotification(){
         pushService.clearNotifications()
         toast(R.string.push_toast_already_clear)
     }
 
+    /**
+     * 设置日志输出等级
+     */
     fun setLogLevel(){
         if (tempLogLevel.value == logLevel.value) {
             return

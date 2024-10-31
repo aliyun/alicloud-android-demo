@@ -49,6 +49,7 @@ class AliasListActivity: Activity() {
         getAlias()
     }
 
+    //点击别名,返回
     private fun clickAliasCallback(alias: String) {
         setResult(RESULT_OK, Intent().apply {
             putExtra(KEY_ALIAS, alias)
@@ -56,6 +57,7 @@ class AliasListActivity: Activity() {
         finish()
     }
 
+    //获取别名列表
     private fun getAlias(){
         PushServiceFactory.getCloudPushService().listAliases(object : CommonCallback {
             override fun onSuccess(response: String?) {
