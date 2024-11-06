@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class="BasicFuncFragmentBinding">
         <variable
@@ -50,7 +51,9 @@
             android:id="@+id/tvRegister"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/push_register_receive"
+            android:text="@{viewModel.registerBtnText}"
+            tools:text="@string/push_register_receive"
+            android:alpha="@{viewModel.registerBtnAlpha}"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:gravity="center"
@@ -59,23 +62,25 @@
             android:background="@drawable/push_shape_btn"
             app:layout_constraintTop_toBottomOf="@+id/ivLogo"/>
 
-        <LinearLayout
-            android:id="@+id/llChannel"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clChannel"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:gravity="center_vertical"
+            android:layout_height="84dp"
             app:layout_constraintTop_toBottomOf="@+id/tvRegister"
             android:layout_marginHorizontal="16dp"
             android:onClick="@{()-> viewModel.switchPushChannel()}"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
             android:background="@drawable/push_shape_btn_white">
 
             <ImageView
+                android:id="@+id/ivChannelIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/push_channel"
                 android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/content_push_channel" />
 
             <TextView
@@ -83,40 +88,54 @@
                 android:layout_height="wrap_content"
                 android:text="@string/push_open_channel"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivChannelIcon"
+                app:layout_constraintBottom_toBottomOf="@id/ivChannelIcon"
                 android:textColor="@color/push_color_text_black"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:checked="@{viewModel.channelState}"/>
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_useful"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:textSize="14sp"
+                app:layout_constraintStart_toEndOf="@id/ivChannelIcon"
+                app:layout_constraintTop_toBottomOf="@id/ivChannelIcon"
+                android:textColor="@color/push_color_text_gray"/>
 
-        <LinearLayout
-            android:id="@+id/llGroup"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clGroup"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:gravity="center_vertical"
+            android:layout_height="84dp"
             android:onClick="@{()->viewModel.switchDivideGroup()}"
-            app:layout_constraintTop_toBottomOf="@+id/llChannel"
+            app:layout_constraintTop_toBottomOf="@+id/clChannel"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
-            android:orientation="horizontal"
             android:background="@drawable/push_shape_btn_white">
 
             <ImageView
+                android:id="@+id/ivGroupIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/push_group"
                 android:layout_marginStart="16dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
                 android:contentDescription="@string/content_push_channel" />
 
             <TextView
@@ -124,13 +143,11 @@
                 android:layout_height="wrap_content"
                 android:text="@string/push_group_show"
                 android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/ivGroupIcon"
+                app:layout_constraintTop_toTopOf="@id/ivGroupIcon"
+                app:layout_constraintBottom_toBottomOf="@id/ivGroupIcon"
                 android:textSize="16sp"
                 android:textColor="@color/push_color_text_black"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/tbToggle"
@@ -138,16 +155,29 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:checked="@{viewModel.divideGroupState}"/>
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_usefut_emas"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toEndOf="@id/ivGroupIcon"
+                app:layout_constraintTop_toBottomOf="@id/ivGroupIcon"
+                android:textSize="14sp"
+                android:textColor="@color/push_color_text_gray"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:id="@+id/llService"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@+id/llGroup"
+            app:layout_constraintTop_toBottomOf="@+id/clGroup"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"

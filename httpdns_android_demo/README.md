@@ -1,5 +1,5 @@
 # 阿里云HttpDns Demo APP Android版
-[![maven version](https://img.shields.io/badge/Maven-2.4.2-brightgreen.svg)](https://mhub.console.aliyun.com/#/download) [![platform](https://img.shields.io/badge/platform-android-lightgrey.svg)](https://developer.android.com/index.html) [![language](https://img.shields.io/badge/language-java-orange.svg)](http://www.oracle.com/technetwork/java/index.html) [![website](https://img.shields.io/badge/website-HttpDns-red.svg)](https://www.aliyun.com/product/httpdns)
+[![maven version](https://img.shields.io/badge/Maven-2.4.2-brightgreen.svg)](https://mhub.console.aliyun.com/downloadSdk) [![platform](https://img.shields.io/badge/platform-android-lightgrey.svg)](https://developer.android.com/index.html) [![language](https://img.shields.io/badge/language-java-orange.svg)](http://www.oracle.com/technetwork/java/index.html) [![website](https://img.shields.io/badge/website-HttpDns-red.svg)](https://www.aliyun.com/product/httpdns)
 
 
 <div align="center">
@@ -78,7 +78,7 @@ HttpDns Demo可以直接运行，体验相关功能。同时您也可以把相�
 
 ### 4. 运行程序
 
-运行程序，程序启动后，在输入框输入您在控制台配置的域名，点击`开始解析`按钮，如果解析结果不为空，则说明解析成功：
+运行程序，程序启动后，在输入框输入您在控制台配置的域名，点击`开始解析`按钮，如果解析结果不为空，则说明解析成功
 
 
 ## 联系我们

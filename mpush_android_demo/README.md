@@ -1,5 +1,5 @@
 # 阿里云移动推送Demo APP Android版
-[![maven version](https://img.shields.io/badge/Maven-3.9.2-brightgreen.svg)](https://mhub.console.aliyun.com/#/download) [![platform](https://img.shields.io/badge/platform-android-lightgrey.svg)](https://developer.android.com/index.html) [![language](https://img.shields.io/badge/language-java-orange.svg)](http://www.oracle.com/technetwork/java/index.html) [![website](https://img.shields.io/badge/website-CloudPush-red.svg)](https://www.aliyun.com/product/cps)
+[![maven version](https://img.shields.io/badge/Maven-3.9.2-brightgreen.svg)](https://mhub.console.aliyun.com/downloadSdk) [![platform](https://img.shields.io/badge/platform-android-lightgrey.svg)](https://developer.android.com/index.html) [![language](https://img.shields.io/badge/language-java-orange.svg)](http://www.oracle.com/technetwork/java/index.html) [![website](https://img.shields.io/badge/website-CloudPush-red.svg)](https://www.aliyun.com/product/cps)
 
 
 <div align="center">

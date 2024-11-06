@@ -4,6 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data class="AddTagBinding">
+        <variable
+            name="deviceTagEnable"
+            type="Boolean" />
+
+        <variable
+            name="aliasTagEnable"
+            type="Boolean" />
+
+
+        <variable
+            name="accountTagEnable"
+            type="Boolean" />
 
     </data>
 
@@ -120,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/push_device_tag"
                     android:textSize="16sp"
-                    android:textColor="@color/push_color_text_black"
+                    android:textColor="@{deviceTagEnable ? @color/push_color_text_black : @color/push_color_B8BBC2}"
                     android:layout_marginStart="8dp" />
 
             </LinearLayout>
@@ -155,7 +167,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/push_alias_tag"
                     android:textSize="16sp"
-                    android:textColor="@color/push_color_text_black"
+                    android:textColor="@{aliasTagEnable ? @color/push_color_text_black : @color/push_color_B8BBC2}"
                     android:layout_marginStart="8dp" />
 
                 <View
@@ -167,7 +179,7 @@
                     android:id="@+id/tvAlias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="111111111"
+                    android:text="@string/push_alias_no_choose"
                     android:textColor="@color/push_color_text_gray"
                     android:maxWidth="200dp"
                     android:lines="1"
@@ -213,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/push_account_tag"
                     android:textSize="16sp"
-                    android:textColor="@color/push_color_text_black"
+                    android:textColor="@{accountTagEnable ? @color/push_color_text_black : @color/push_color_B8BBC2}"
                     android:layout_marginStart="8dp" />
 
                 <View

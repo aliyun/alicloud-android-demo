@@ -29,12 +29,24 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
 
     var tempLogLevel = SingleLiveData<Int>().apply { value = CloudPushService.LOG_OFF }
 
+    var hasRegistered = SingleLiveData<Boolean>().apply { value = false }
+
+    var registerBtnText = SingleLiveData<String>()
+
+    val registerBtnAlpha = SingleLiveData<Float>().apply { value = 1.0f }
+
     /**
      * 注册
      */
     fun register(){
+        if (true == hasRegistered.value) {
+            return
+        }
         pushService.register(getApplication(), object: CommonCallback{
             override fun onSuccess(response: String?) {
+                hasRegistered.value = true
+                registerBtnText.value = getApplication<Application>().getString(R.string.push_register_btn_success)
+                registerBtnAlpha.value = 0.6f
                 getApplication<MainApplication>().toast(R.string.push_toast_register_success)
                 getChannelStateFromServer()
             }
@@ -44,6 +56,9 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
             }
 
         })
+
+
+
     }
 
     /**

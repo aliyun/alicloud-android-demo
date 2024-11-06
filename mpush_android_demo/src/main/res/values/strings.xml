@@ -15,11 +15,11 @@
     <string name="push_register_receive">注册并接收推送</string>
     <string name="content_push_channel">打开推送通道</string>
     <string name="push_logo">移动推送logo</string>
-    <string name="push_open_channel">打开推送通道</string>
+    <string name="push_open_channel">打开推送功能</string>
     <string name="push_group_show">分组展示通知</string>
     <string name="push_service_receive_notify">使用Service接收推送</string>
     <string name="push_log_level">设置日志等级</string>
-    <string name="push_clear_notification">清除所有通知</string>
+    <string name="push_clear_notification">清除自有通道通知</string>
     <string name="push_toast_open_push_channel_success">打开推送通道成功</string>
     <string name="push_toast_open_push_channel_fail">打开推送通道失败，失败原因：%s</string>
     <string name="push_toast_close_push_channel_success">关闭推送通道成功</string>
@@ -112,4 +112,13 @@
     <string name="push_tag_input_not">标签未输入</string>
     <string name="push_get_alias_list_fail">获取别名列表失败,失败原因：%s</string>
     <string name="push_get_device_tag_list_fail">获取设备标签列表失败,失败原因：%s</string>
+    <string name="push_useful">对自有通道、厂商通道生效</string>
+    <string name="push_usefut_emas">只对自有通道生效</string>
+    <string name="push_register_btn_success">已注册</string>
+    <string name="push_alias_no_choose">未选择别名</string>
+    <string name="push_brand_type">厂商通道类型</string>
+    <string name="push_toast_already_copy">已复制</string>
+    <string name="push_token">token</string>
+    <string name="push_unknow_brand">未知厂商</string>
+    <string name="push_cannot_get_token">未获取到token,需要去开放平台注册应用</string>
 </resources>

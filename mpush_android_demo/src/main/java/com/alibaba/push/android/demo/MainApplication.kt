@@ -8,8 +8,14 @@ import android.graphics.Color
 import android.os.Build
 import android.text.TextUtils
 import com.alibaba.sdk.android.push.CloudPushService
+import com.alibaba.sdk.android.push.HonorRegister
+import com.alibaba.sdk.android.push.huawei.HuaWeiRegister
 import com.alibaba.sdk.android.push.noonesdk.PushInitConfig
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
+import com.alibaba.sdk.android.push.register.MeizuRegister
+import com.alibaba.sdk.android.push.register.MiPushRegister
+import com.alibaba.sdk.android.push.register.OppoRegister
+import com.alibaba.sdk.android.push.register.VivoRegister
 
 class MainApplication:Application() {
 
@@ -32,7 +38,18 @@ class MainApplication:Application() {
         PushServiceFactory.getCloudPushService().setDebug(true)
         PushServiceFactory.getCloudPushService().setLogLevel(CloudPushService.LOG_DEBUG)
         createNotificationChannel()
+        initOthers()
     }
+
+    private fun initOthers() {
+        HuaWeiRegister.register(this) // 接入华为辅助推送
+        HonorRegister.register(this)  //荣耀推送
+        MiPushRegister.register(this, "", "") // 初始化小米辅助推送
+        VivoRegister.registerAsync(applicationContext) //接入vivo辅助推送
+        OppoRegister.registerAsync(applicationContext, "", "") //OPPO辅助推送
+        MeizuRegister.registerAsync(applicationContext, "", "") //接入魅族辅助推送
+    }
+
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

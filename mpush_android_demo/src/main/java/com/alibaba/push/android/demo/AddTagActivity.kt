@@ -13,15 +13,17 @@ import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.CommonCallback
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
 
+/**
+ * 添加标签页面
+ * @author ren
+ * @date 2024-11-1
+ */
 class AddTagActivity: Activity() {
 
     private lateinit var binding: AddTagBinding
 
     private var target = CloudPushService.DEVICE_TARGET
     private var alias: String? = null
-    private var deviceTargetEnable = false
-    private var aliasTargetEnable = false
-    private var accountTargetEnable = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,54 +39,56 @@ class AddTagActivity: Activity() {
         binding.tvCancel.setOnClickListener { finish() }
         when(intent.getIntExtra(KEY_TAG_TARGET_TYPE, -1)) {
             CloudPushService.DEVICE_TARGET -> {
-                deviceTargetEnable = true
+                binding.deviceTagEnable = true
                 binding.ivDeviceTagStatus.setImageResource(R.drawable.push_check)
-                aliasTargetEnable = false
+                binding.aliasTagEnable = false
                 binding.ivAliasTagStatus.setImageResource(R.drawable.push_unable_check)
-                accountTargetEnable = false
+                binding.accountTagEnable = false
                 binding.ivAccountTagStatus.setImageResource(R.drawable.push_unable_check)
                 target = CloudPushService.DEVICE_TARGET
             }
             CloudPushService.ALIAS_TARGET -> {
-                deviceTargetEnable = false
+                binding.deviceTagEnable = false
                 binding.ivDeviceTagStatus.setImageResource(R.drawable.push_unable_check)
-                aliasTargetEnable = true
+                binding.aliasTagEnable = true
                 binding.ivAliasTagStatus.setImageResource(R.drawable.push_check)
-                accountTargetEnable = false
+                binding.accountTagEnable = false
                 binding.ivAccountTagStatus.setImageResource(R.drawable.push_unable_check)
                 target = CloudPushService.ALIAS_TARGET
             }
             CloudPushService.ACCOUNT_TARGET -> {
-                deviceTargetEnable = false
+                binding.deviceTagEnable = false
                 binding.ivDeviceTagStatus.setImageResource(R.drawable.push_unable_check)
-                aliasTargetEnable = false
+                binding.aliasTagEnable = false
                 binding.ivAliasTagStatus.setImageResource(R.drawable.push_unable_check)
-                accountTargetEnable = false
+                binding.accountTagEnable = true
                 binding.ivAccountTagStatus.setImageResource(R.drawable.push_check)
                 target = CloudPushService.ACCOUNT_TARGET
             }
             else -> {
-                deviceTargetEnable = true
+                binding.deviceTagEnable = true
                 binding.ivDeviceTagStatus.setImageResource(R.drawable.push_check)
                 getAlias()
-                getAccount()
+                initAccount()
             }
         }
 
+        binding.tvAccount.text = getAccount()?:""
+
         binding.llDeviceTag.setOnClickListener {
-            if (!deviceTargetEnable || target == CloudPushService.DEVICE_TARGET) return@setOnClickListener
+            if (true != binding.deviceTagEnable || target == CloudPushService.DEVICE_TARGET) return@setOnClickListener
             target = CloudPushService.DEVICE_TARGET
             resetCheckStatus()
             binding.ivDeviceTagStatus.setImageResource(R.drawable.push_check)
         }
 
         binding.llAliasTag.setOnClickListener {
-            if (!aliasTargetEnable || target == CloudPushService.ALIAS_TARGET) return@setOnClickListener
+            if (true != binding.aliasTagEnable) return@setOnClickListener
             val intent = Intent(this, AliasListActivity::class.java)
             startActivityForResult(intent, 100)
         }
         binding.llAccountTag.setOnClickListener {
-            if (!accountTargetEnable || target == CloudPushService.ACCOUNT_TARGET) return@setOnClickListener
+            if (true != binding.accountTagEnable || target == CloudPushService.ACCOUNT_TARGET) return@setOnClickListener
             target = CloudPushService.ACCOUNT_TARGET
             resetCheckStatus()
             binding.ivAccountTagStatus.setImageResource(R.drawable.push_check)
@@ -101,6 +105,10 @@ class AddTagActivity: Activity() {
             toast(R.string.push_tag_input_not)
             return
         }
+        if (target == CloudPushService.ALIAS_TARGET && TextUtils.isEmpty(alias)) {
+            toast(R.string.push_alias_no_choose)
+            return
+        }
         setResult(RESULT_OK, Intent().apply {
             putExtra(KEY_TAG, tag)
             putExtra(KEY_TAG_TARGET_TYPE, target)
@@ -112,13 +120,13 @@ class AddTagActivity: Activity() {
     }
 
     private fun resetCheckStatus(){
-        if (deviceTargetEnable){
+        if (true == binding.deviceTagEnable){
             binding.ivDeviceTagStatus.setImageResource(R.drawable.push_uncheck)
         }
-        if (aliasTargetEnable){
+        if (true == binding.aliasTagEnable){
             binding.ivAliasTagStatus.setImageResource(R.drawable.push_uncheck)
         }
-        if (accountTargetEnable){
+        if (true == binding.accountTagEnable){
             binding.ivAccountTagStatus.setImageResource(R.drawable.push_uncheck)
         }
     }
@@ -126,8 +134,8 @@ class AddTagActivity: Activity() {
     private fun getAlias(){
         PushServiceFactory.getCloudPushService().listAliases(object : CommonCallback {
             override fun onSuccess(response: String?) {
-                aliasTargetEnable = !TextUtils.isEmpty(response)
-                if (aliasTargetEnable) {
+                binding.aliasTagEnable = !TextUtils.isEmpty(response)
+                if (true == binding.aliasTagEnable) {
                     binding.ivAliasTagStatus.setImageResource(R.drawable.push_uncheck)
                 }else {
                     binding.ivAliasTagStatus.setImageResource(R.drawable.push_unable_check)
@@ -136,25 +144,28 @@ class AddTagActivity: Activity() {
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                aliasTargetEnable = false
+                binding.aliasTagEnable = false
                 binding.ivAliasTagStatus.setImageResource(R.drawable.push_unable_check)
             }
 
         })
     }
 
-    private fun getAccount(){
-        val account = getSharedPreferences(
-            SP_FILE_NAME,
-            Context.MODE_PRIVATE
-        ).getString(SP_KEY_BIND_ACCOUNT, "")
-        accountTargetEnable = !TextUtils.isEmpty(account)
-        if (accountTargetEnable) {
+    private fun initAccount(){
+        val account = getAccount()
+        binding.accountTagEnable = !TextUtils.isEmpty(account)
+        if (true == binding.accountTagEnable) {
             binding.ivAccountTagStatus.setImageResource(R.drawable.push_uncheck)
-            binding.tvAccount.text = account
         }else {
             binding.ivAccountTagStatus.setImageResource(R.drawable.push_unable_check)
         }
+    }
+
+    private fun getAccount():String?{
+        return getSharedPreferences(
+            SP_FILE_NAME,
+            Context.MODE_PRIVATE
+        ).getString(SP_KEY_BIND_ACCOUNT, "")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

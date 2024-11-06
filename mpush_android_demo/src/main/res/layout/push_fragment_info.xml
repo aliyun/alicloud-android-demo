@@ -69,7 +69,7 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="21dp" />
+                android:layout_marginTop="12dp" />
 
             <TextView
                 android:id="@+id/tvAppKey"
@@ -87,7 +87,7 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="22dp" />
+                android:layout_marginTop="12dp" />
 
             <TextView
                 android:id="@+id/tvAppSecret"
@@ -105,16 +105,30 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="22dp" />
-
-            <TextView
-                android:id="@+id/tvDeviceId"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="12dp" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="-"
-                android:textColor="@color/push_color_text_gray"
-                android:textSize="16sp"
-                android:layout_marginTop="6dp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvDeviceId"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="-"
+                    android:textColor="@color/push_color_text_gray"
+                    android:textSize="16sp" />
+                
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/push_copy"
+                    android:layout_marginStart="4dp"/>
+                
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,16 +137,30 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="22dp" />
+                android:layout_marginTop="12dp" />
 
-            <TextView
-                android:id="@+id/tvUTDID"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="ZsxODwq26psojfkslgksfgklghsaklg7h"
-                android:textColor="@color/push_color_text_gray"
-                android:textSize="16sp"
-                android:layout_marginTop="6dp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvUTDID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="ZsxODwq26psojfkslgksfgklghsaklg7h"
+                    android:textColor="@color/push_color_text_gray"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/push_copy"
+                    android:layout_marginStart="4dp"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,7 +169,7 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="22dp" />
+                android:layout_marginTop="12dp" />
 
             <TextView
                 android:id="@+id/tvSDKVersion"
@@ -152,10 +180,65 @@
                 android:textSize="16sp"
                 android:layout_marginTop="6dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_D8D8D8"
+                android:layout_marginTop="12dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_brand_type"
+                android:textColor="@color/push_color_text_black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
+
+            <TextView
+                android:id="@+id/tvBrand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="huawei"
+                android:textColor="@color/push_color_text_gray"
+                android:textSize="16sp"
+                android:layout_marginTop="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_token"
+                android:textColor="@color/push_color_text_black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvToken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="ZsxODwq26psojfkslgksfgklghsaklg7h"
+                    android:textColor="@color/push_color_text_gray"
+                    android:textSize="16sp"/>
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@drawable/push_copy"
+                    android:layout_marginStart="4dp"/>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

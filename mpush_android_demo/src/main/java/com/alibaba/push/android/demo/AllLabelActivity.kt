@@ -76,6 +76,12 @@ class AllLabelActivity : AppCompatActivity() {
             else -> getString(R.string.push_device_tag)
         }
 
+        binding.tvAdd.text = if (labelType == LABEL_ALIAS) {
+            getString(R.string.push_add_alias)
+        }else {
+            getString(R.string.push_add_tag)
+        }
+
         binding.ivBack.setOnClickListener {
             back()
         }
@@ -97,7 +103,7 @@ class AllLabelActivity : AppCompatActivity() {
             adapter = labelAdapter
         }
 
-        binding.ivAdd.setOnClickListener {
+        binding.tvAdd.setOnClickListener {
             if (labelType == LABEL_ALIAS) addAlias() else addTag()
         }
     }

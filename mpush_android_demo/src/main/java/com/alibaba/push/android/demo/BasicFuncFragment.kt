@@ -32,6 +32,7 @@ class BasicFuncFragment : Fragment() {
         binding = BasicFuncFragmentBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        viewModel.registerBtnText.value = getString(R.string.push_register_receive)
         binding.tvLogLevel.setOnClickListener { showLogLevelDialog() }
         return binding.root
     }
