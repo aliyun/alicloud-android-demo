@@ -257,6 +257,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         deviceTags.remove(tag)
         updateTagStatus()
         deviceTagData.value = deviceTags.joinToString(",")
+        toast(R.string.push_toast_delete_tag_success)
     }
 
     /**
@@ -299,7 +300,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             editor.putString(SP_KEY_ALIAS_TAG_MAP, gson.toJson(aliasTagMap))
             editor.apply()
         }
-
+        toast(R.string.push_toast_delete_tag_success)
 
     }
 
@@ -330,6 +331,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             editor.putString(SP_KEY_ACCOUNT_TAG, accountTagData.value)
             editor.apply()
         }
+       toast(R.string.push_toast_delete_tag_success)
     }
 
     /**
@@ -376,6 +378,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 currAliasList.remove(alias)
                 showMoreAlias.value = currAliasList.size > showMoreAliasCount
                 aliasListStr.value = currAliasList.joinToString(",")
+                toast(R.string.push_toast_delete_alias_success)
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
@@ -466,7 +469,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         return getApplication<MainApplication>().getString(res)
     }
 
-    private fun toast(res: Int, msg: String?) {
+    private fun toast(res: Int, msg: String? = null) {
         getApplication<MainApplication>().toast(res, msg)
     }
 

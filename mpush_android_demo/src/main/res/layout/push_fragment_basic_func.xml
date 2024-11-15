@@ -65,11 +65,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clChannel"
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/tvRegister"
             android:layout_marginHorizontal="16dp"
             android:onClick="@{()-> viewModel.switchPushChannel()}"
             android:layout_marginTop="8dp"
+            android:paddingBottom="16dp"
             android:background="@drawable/push_shape_btn_white">
 
             <ImageView
@@ -96,10 +97,13 @@
                 android:textColor="@color/push_color_text_black"/>
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scPushOpen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:clickable="false"
+                app:trackTint="#E9E9E9"
+                app:thumbTint="@drawable/push_selector_switch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:checked="@{viewModel.channelState}"/>
@@ -120,11 +124,12 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clGroup"
             android:layout_width="match_parent"
-            android:layout_height="84dp"
+            android:layout_height="wrap_content"
             android:onClick="@{()->viewModel.switchDivideGroup()}"
             app:layout_constraintTop_toBottomOf="@+id/clChannel"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="8dp"
+            android:paddingBottom="16dp"
             android:background="@drawable/push_shape_btn_white">
 
             <ImageView
@@ -155,6 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:clickable="false"
+                app:trackTint="#E9E9E9"
+                app:thumbTint="@drawable/push_selector_switch"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:checked="@{viewModel.divideGroupState}"/>
@@ -208,6 +215,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
+                app:trackTint="#E9E9E9"
+                app:thumbTint="@drawable/push_selector_switch"
                 android:checked="@{viewModel.msgReceiveByService}"/>
 
         </LinearLayout>

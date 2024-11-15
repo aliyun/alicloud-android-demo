@@ -117,8 +117,11 @@
     <string name="push_register_btn_success">已注册</string>
     <string name="push_alias_no_choose">未选择别名</string>
     <string name="push_brand_type">厂商通道类型</string>
-    <string name="push_toast_already_copy">已复制</string>
+    <string name="push_toast_already_copy">复制成功</string>
     <string name="push_token">token</string>
     <string name="push_unknow_brand">未知厂商</string>
     <string name="push_cannot_get_token">未获取到token,需要去开放平台注册应用</string>
+    <string name="push_toast_no_register">未注册</string>
+    <string name="push_toast_delete_tag_success">删除标签成功</string>
+    <string name="push_toast_delete_alias_success">删除别名成功</string>
 </resources>

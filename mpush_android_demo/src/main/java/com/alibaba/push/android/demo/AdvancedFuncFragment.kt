@@ -2,6 +2,7 @@ package com.alibaba.push.android.demo
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -109,6 +110,11 @@ class AdvancedFuncFragment : Fragment() {
         binding.tvAliasMore.setOnClickListener { lookAllTag(LABEL_ALIAS) }
         binding.clAccount.setOnClickListener { showAccountInputDialog() }
         binding.clPhone.setOnClickListener { showPhoneInputDialog() }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.tvAddTagEmpty.layoutParams.width = (Resources.getSystem().displayMetrics.widthPixels - 80.toPx())/3
     }
 
     private fun initTag() {

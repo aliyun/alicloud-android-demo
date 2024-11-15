@@ -71,21 +71,6 @@ class InfoFragment : Fragment() {
 //            PushManufacturerUtil.supportMEIZUPush(requireContext()) -> setToken(PushManufacturerUtil.getMEIZUToken(requireContext()))
 //            else -> setToken(null)
 //        }
-
-        setToken(null)
-
-        binding.tvToken.setOnClickListener {
-            copy(binding.tvToken.text)
-        }
-
-    }
-
-    private fun setToken(token: String?) {
-        binding.tvToken.text = if (TextUtils.isEmpty(token)) {
-            getString(R.string.push_cannot_get_token)
-        }else {
-            token
-        }
     }
 
     private fun copy(text: CharSequence?) {

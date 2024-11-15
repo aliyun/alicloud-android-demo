@@ -1,5 +1,7 @@
 package com.alibaba.push.android.demo
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.alibaba.push.android.demo.databinding.BasicFuncFragmentBinding
 import com.alibaba.push.android.demo.databinding.LogLevelDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+
 
 /**
  * 基础功能fragment
@@ -53,4 +56,7 @@ class BasicFuncFragment : Fragment() {
             dialog.dismiss()
         }
     }
+
+    fun isRegistered() = viewModel.hasRegistered.value
+
 }

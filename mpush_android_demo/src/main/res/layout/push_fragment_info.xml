@@ -31,14 +31,16 @@
             android:layout_marginStart="16dp" />
 
         <TextView
+            android:id="@+id/tvAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/ivLogo"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/ivLogo"
             android:text="@string/app_name"
             android:textSize="20sp"
             android:textColor="@color/push_color_text_black_deep"
             android:textStyle="bold"
+            android:layout_marginTop="72dp"
             android:layout_marginStart="16dp" />
 
         <TextView
@@ -48,7 +50,8 @@
             tools:text="@string/push_package"
             app:layout_constraintStart_toEndOf="@id/ivLogo"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="@id/ivLogo"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@id/tvAppName"
             android:textColor="@color/push_color_text_gray"
             android:textSize="16sp" />
 
@@ -87,7 +90,7 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:id="@+id/tvAppSecret"
@@ -105,30 +108,41 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="20dp" />
             
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical">
+                android:layout_marginTop="6dp">
 
                 <TextView
                     android:id="@+id/tvDeviceId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="-"
+                    tools:text="11111111"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivCopyDeviceId"
                     android:textColor="@color/push_color_text_gray"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constrainedWidth="true"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textSize="16sp" />
                 
                 <ImageView
+                    android:id="@+id/ivCopyDeviceId"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvDeviceId"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:src="@drawable/push_copy"
                     android:layout_marginStart="4dp"/>
                 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -137,30 +151,41 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="20dp" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical">
+                android:layout_marginTop="6dp">
 
                 <TextView
                     android:id="@+id/tvUTDID"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="ZsxODwq26psojfkslgksfgklghsaklg7h"
+                    tools:text="-"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivCopyUTDID"
                     android:textColor="@color/push_color_text_gray"
-                    android:textSize="16sp"/>
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constrainedWidth="true"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:textSize="16sp" />
 
                 <ImageView
+                    android:id="@+id/ivCopyUTDID"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvUTDID"
+                    app:layout_constraintEnd_toEndOf="parent"
                     android:src="@drawable/push_copy"
                     android:layout_marginStart="4dp"/>
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -169,7 +194,7 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:id="@+id/tvSDKVersion"
@@ -184,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/color_D8D8D8"
-                android:layout_marginTop="12dp"/>
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -193,7 +218,7 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="20dp" />
 
             <TextView
                 android:id="@+id/tvBrand"
@@ -203,40 +228,6 @@
                 android:textColor="@color/push_color_text_gray"
                 android:textSize="16sp"
                 android:layout_marginTop="6dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/push_token"
-                android:textColor="@color/push_color_text_black"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="12dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="6dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/tvToken"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="ZsxODwq26psojfkslgksfgklghsaklg7h"
-                    android:textColor="@color/push_color_text_gray"
-                    android:textSize="16sp"/>
-
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@drawable/push_copy"
-                    android:layout_marginStart="4dp"/>
-
-            </LinearLayout>
-
-
 
         </LinearLayout>
 

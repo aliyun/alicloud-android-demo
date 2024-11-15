@@ -24,6 +24,11 @@ fun Int.toDp(): Int {
     ).toInt()
 }
 
+fun Int.toPx():Int {
+    val metrics = Resources.getSystem().displayMetrics
+    return Math.round(this * (metrics.densityDpi / 160f))
+}
+
 fun Context.toast(@StringRes res: Int, msg: String? = null) {
     Toast.makeText(this, String.format(getString(res), msg), Toast.LENGTH_SHORT).show()
 }

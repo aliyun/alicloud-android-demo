@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: MainActivityBinding
 
+    private var basicFragment: BasicFuncFragment? = null
+
     private var mBackKeyPressedTime = 0L
 
     //处理透传消息
@@ -56,7 +58,9 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = MainFragmentStateAdapter(
             this,
             mutableListOf(
-                BasicFuncFragment(),
+                BasicFuncFragment().apply {
+                      basicFragment = this
+                },
                 AdvancedFuncFragment(),
                 InfoFragment())
         )
@@ -69,12 +73,21 @@ class MainActivity : AppCompatActivity() {
                     binding.viewPager.setCurrentItem(0, false)
                 }
                 R.id.navigation_advance -> {
-                    it.setChecked(true)
-                    binding.viewPager.setCurrentItem(1, false)
+                    if (true == basicFragment?.isRegistered()) {
+                        it.setChecked(true)
+                        binding.viewPager.setCurrentItem(1, false)
+                    }else {
+                        Toast.makeText(this, getString(R.string.push_toast_no_register), Toast.LENGTH_SHORT).show()
+                    }
+
                 }
                 R.id.navigation_info -> {
-                    it.setChecked(true)
-                    binding.viewPager.setCurrentItem(2, false)
+                    if (true == basicFragment?.isRegistered()) {
+                        it.setChecked(true)
+                        binding.viewPager.setCurrentItem(2, false)
+                    }else {
+                        Toast.makeText(this, getString(R.string.push_toast_no_register), Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             false
