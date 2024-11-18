@@ -72,7 +72,7 @@
                 android:textColor="@color/push_color_text_black"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginTop="12dp" />
+                android:layout_marginTop="25dp" />
 
             <TextView
                 android:id="@+id/tvAppKey"

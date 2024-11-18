@@ -136,7 +136,7 @@
                         android:layout_height="36dp"
                         android:text="@string/push_add_tag"
                         android:gravity="center_vertical"
-                        android:paddingStart="12dp"
+                        android:paddingStart="6dp"
                         android:paddingEnd="0dp"
                         android:textSize="14sp"
                         tools:visibility="visible"
@@ -147,10 +147,10 @@
                         app:layout_constraintTop_toBottomOf="@id/tvTitleTag" />
 
                     <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
+                        android:layout_width="28dp"
+                        android:layout_height="36dp"
+                        android:paddingHorizontal="4dp"
                         android:src="@drawable/push_add"
-                        android:layout_marginEnd="6dp"
                         android:visibility="@{viewModel.hasTag ? View.GONE:View.VISIBLE}"
                         android:contentDescription="@string/push_add_tag"
                         app:layout_constraintEnd_toEndOf="@id/tvAddTagEmpty"
