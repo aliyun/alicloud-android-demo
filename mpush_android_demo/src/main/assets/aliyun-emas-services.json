@@ -1,6 +1,6 @@
 {
   "config": {
-    "push.appkey":"334974253",
-    "push.appsecret":"0d8edc3298da4864a64f6f89f08f00be"
+    "push.appkey":"",
+    "push.appsecret":""
   }
 }

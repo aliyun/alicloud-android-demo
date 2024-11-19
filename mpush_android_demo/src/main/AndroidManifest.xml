@@ -18,11 +18,11 @@
         <!-- 请填写你自己的- appKey EMASDemo空间 23793506 -->
         <meta-data
             android:name="com.alibaba.app.appkey"
-            android:value="334974253" />
+            android:value="XXX" />
         <!-- 请填写你自己的appSecret -->
         <meta-data
             android:name="com.alibaba.app.appsecret"
-            android:value="0d8edc3298da4864a64f6f89f08f00be" />
+            android:value="XXX" />
         <meta-data
             android:name="com.huawei.hms.client.appid"
             android:value="appid=XXXXX" />
