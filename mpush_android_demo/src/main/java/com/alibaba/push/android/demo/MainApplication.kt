@@ -37,6 +37,7 @@ class MainApplication:Application() {
         }
         PushServiceFactory.getCloudPushService().setDebug(true)
         PushServiceFactory.getCloudPushService().setLogLevel(CloudPushService.LOG_DEBUG)
+        PushServiceFactory.getCloudPushService().setNotificationSmallIcon(R.mipmap.ic_launcher)
         createNotificationChannel()
         initOthers()
     }
@@ -55,7 +56,7 @@ class MainApplication:Application() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val mNotificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             // 通知渠道的id
-            val id = "1"
+            val id = "8.0up"
             // 用户可以看到的通知渠道的名字.
             val name: CharSequence = "notification channel"
             val mChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH)
