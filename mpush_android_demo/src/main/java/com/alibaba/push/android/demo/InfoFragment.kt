@@ -52,6 +52,14 @@ class InfoFragment : Fragment() {
             copy(binding.tvUTDID.text)
         }
 
+        binding.ivCopyDeviceId.setOnClickListener {
+            copy(binding.tvDeviceId.text)
+        }
+
+        binding.ivCopyUTDID.setOnClickListener {
+            copy(binding.tvUTDID.text)
+        }
+
         binding.tvBrand.text = when {
             PushManufacturerUtil.supportHuaweiPush() -> PushManufacturerUtil.PUSH_HUAWEI
             PushManufacturerUtil.supportHonorPush(requireContext()) -> PushManufacturerUtil.PUSH_HONOR
