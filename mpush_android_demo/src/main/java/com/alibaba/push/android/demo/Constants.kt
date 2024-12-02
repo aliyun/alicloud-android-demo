@@ -37,3 +37,5 @@ const val LABEL_ACCOUNT_TAG = 3
 const val TYPE = "type"
 
 const val SP_FILE_NAME = "aliyun_push"
+
+const val SP_KEY_LOG_LEVEL = "sp_log_level"

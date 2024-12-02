@@ -1,10 +1,14 @@
 package com.alibaba.push.android.demo
 
 import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.CommonCallback
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
+import kotlinx.coroutines.launch
 
 /**
  * 基础功能的ViewModel
@@ -35,6 +39,18 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
 
     val registerBtnAlpha = SingleLiveData<Float>().apply { value = 1.0f }
 
+    var showCustomToast: ((String, Int) ->Unit)? = null
+
+    private val preferences: SharedPreferences = getApplication<MainApplication>().getSharedPreferences(
+        SP_FILE_NAME,
+        Context.MODE_PRIVATE
+    )
+
+    fun init(){
+        logLevel.value = preferences.getInt(SP_KEY_LOG_LEVEL, CloudPushService.LOG_OFF)
+        pushService.setLogLevel(logLevel.value?:CloudPushService.LOG_OFF)
+    }
+
     /**
      * 注册
      */
@@ -42,23 +58,20 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         if (true == hasRegistered.value) {
             return
         }
+        hasRegistered.value = true
+        registerBtnText.value = getApplication<Application>().getString(R.string.push_register_btn_success)
+        registerBtnAlpha.value = 0.6f
         pushService.register(getApplication(), object: CommonCallback{
             override fun onSuccess(response: String?) {
-                hasRegistered.value = true
-                registerBtnText.value = getApplication<Application>().getString(R.string.push_register_btn_success)
-                registerBtnAlpha.value = 0.6f
-                getApplication<MainApplication>().toast(R.string.push_toast_register_success)
+                showCustomToast?.invoke(getString(R.string.push_toast_register_success), R.drawable.push_success)
                 getChannelStateFromServer()
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                toast(R.string.push_toast_register_fail, errorMessage)
+                showCustomToast?.invoke(String.format(getString(R.string.push_toast_register_fail), errorMessage), R.drawable.push_fail)
             }
 
         })
-
-
-
     }
 
     /**
@@ -85,11 +98,11 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
             pushService.turnOffPushChannel(object:CommonCallback{
                 override fun onSuccess(response: String?) {
                     channelState.value = false
-                    toast(R.string.push_toast_close_push_channel_success)
+                    showCustomToast?.invoke(getString(R.string.push_toast_close_push_channel_success), R.drawable.push_success)
                 }
 
                 override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    toast(R.string.push_toast_close_push_channel_fail, errorMessage)
+                    showCustomToast?.invoke(String.format(getString(R.string.push_toast_close_push_channel_fail), errorMessage), R.drawable.push_fail)
                 }
 
             })
@@ -97,11 +110,11 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
             pushService.turnOnPushChannel(object:CommonCallback{
                 override fun onSuccess(response: String?) {
                     channelState.value = true
-                    toast(R.string.push_toast_open_push_channel_success)
+                    showCustomToast?.invoke(getString(R.string.push_toast_open_push_channel_success), R.drawable.push_success)
                 }
 
                 override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    toast(R.string.push_toast_open_push_channel_fail, errorMessage)
+                    showCustomToast?.invoke(String.format(getString(R.string.push_toast_open_push_channel_fail), errorMessage), R.drawable.push_fail)
                 }
             })
         }
@@ -111,21 +124,40 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
      * 是否分组展示通知
      */
     fun switchDivideGroup(){
-        divideGroupState.value = !(divideGroupState.value!!)
-        pushService.setNotificationShowInGroup(divideGroupState.value!!)
+        toggleGroupShowNotification(!(divideGroupState.value!!))
+    }
+
+    /**
+     * 点击是否分组展示通知开关
+     */
+    fun toggleGroupShowNotification(checked: Boolean) {
+        divideGroupState.value = checked
+        pushService.setNotificationShowInGroup(checked)
+        if (true == divideGroupState.value) {
+            showCustomToast?.invoke(getString(R.string.push_open_group_show_notificaion), R.drawable.push_success)
+        }else {
+            showCustomToast?.invoke(getString(R.string.push_close_group_show_notificaion), R.drawable.push_success)
+        }
     }
 
     /**
      * 改变通知接收方式
      */
     fun switchMsgReceiver(){
-        msgReceiveByService.value = !msgReceiveByService.value!!
+        toggleMessageReceiver(!msgReceiveByService.value!!)
+    }
+
+    /**
+     * 点击使用Service接收推送开关
+     */
+    fun toggleMessageReceiver(checked: Boolean) {
+        msgReceiveByService.value = checked
         if (true == msgReceiveByService.value) {
             pushService.setPushIntentService(MyMessageIntentService::class.java)
-            toast(R.string.push_toast_use_service_deal_message)
+            showCustomToast?.invoke(getString(R.string.push_toast_use_service_deal_message), R.drawable.push_success)
         }else {
             pushService.setPushIntentService(null)
-            toast(R.string.push_toast_use_receiver_deal_message)
+            showCustomToast?.invoke(getString(R.string.push_toast_use_receiver_deal_message), R.drawable.push_success)
         }
     }
 
@@ -134,7 +166,7 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
      */
     fun clearAllNotification(){
         pushService.clearNotifications()
-        toast(R.string.push_toast_already_clear)
+        showCustomToast?.invoke(getString(R.string.push_toast_already_clear), R.drawable.push_success)
     }
 
     /**
@@ -146,6 +178,11 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         }
         logLevel.value = tempLogLevel.value
         pushService.setLogLevel(tempLogLevel.value?:CloudPushService.LOG_OFF)
+        viewModelScope.launch {
+            val editor = preferences.edit()
+            editor.putInt(SP_KEY_LOG_LEVEL, logLevel.value?:CloudPushService.LOG_OFF)
+            editor.apply()
+        }
     }
 
     fun setTempLogLevel(level: Int) {
@@ -155,8 +192,8 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
         tempLogLevel.value = level
     }
 
-    private fun toast(res: Int, msg:String? = null) {
-        getApplication<MainApplication>().toast(res, msg)
+    private fun getString(res: Int): String {
+        return getApplication<MainApplication>().getString(res)
     }
 
 }

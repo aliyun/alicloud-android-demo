@@ -5,9 +5,11 @@ import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -110,6 +112,9 @@ class AdvancedFuncFragment : Fragment() {
         binding.tvAliasMore.setOnClickListener { lookAllTag(LABEL_ALIAS) }
         binding.clAccount.setOnClickListener { showAccountInputDialog() }
         binding.clPhone.setOnClickListener { showPhoneInputDialog() }
+        viewModel.showCustomToast = {message, icon ->
+            requireContext().showCustomToast(message, icon)
+        }
     }
 
     override fun onResume() {
@@ -256,11 +261,11 @@ class AdvancedFuncFragment : Fragment() {
     private fun addAlias() {
         requireContext().showInputDialog(
             R.string.push_add_alias, R.string.push_input_alias_hint,
-            showAlert = false,
+            showAlert = true,
             showAliasInput = false
         ) { it, _ ->
             if (viewModel.alreadyAddAlias(it)) {
-                requireContext().toast(R.string.push_already_add)
+                Toast.makeText(requireContext(), getString(R.string.push_already_add), Toast.LENGTH_SHORT).show()
                 return@showInputDialog
             }
             viewModel.addAlias(it)
@@ -269,23 +274,39 @@ class AdvancedFuncFragment : Fragment() {
 
     //账号输入弹窗弹出
     private fun showAccountInputDialog() {
-        requireContext().showInputDialog(
-            R.string.push_bind_account, R.string.push_bind_account_hint,
-            showAlert = false,
-            showAliasInput = false
-        ) { it, _ ->
-            viewModel.bindAccount(it)
+        if (TextUtils.isEmpty(viewModel.account.value)) {
+            requireContext().showInputDialog(
+                R.string.push_bind_account, R.string.push_bind_account_hint,
+                showAlert = false,
+                showAliasInput = false
+            ) { it, _ ->
+                viewModel.bindAccount(it)
+            }
+        }else {
+            requireContext().showBindDialog(
+                R.string.push_bind_account, R.string.push_bind_account_hint, viewModel) {
+                viewModel.bindAccount(it)
+            }
         }
+
     }
 
     //手机号输入弹窗弹出
     private fun showPhoneInputDialog() {
-        requireContext().showInputDialog(
-            R.string.push_text_notification, R.string.push_text_notification_hint,
-            showAlert = false,
-            showAliasInput = false
-        ) { it, _ ->
-            viewModel.bindPhone(it)
+        if (TextUtils.isEmpty(viewModel.phone.value)) {
+            requireContext().showInputDialog(
+                R.string.push_text_notification, R.string.push_text_notification_hint,
+                showAlert = false,
+                showAliasInput = false
+            ) { it, _ ->
+                viewModel.bindPhone(it)
+            }
+        }else {
+            requireContext().showBindDialog(
+                R.string.push_text_notification, R.string.push_text_notification_hint, viewModel, isBindAccount = false) {
+                viewModel.bindPhone(it)
+            }
         }
+
     }
 }

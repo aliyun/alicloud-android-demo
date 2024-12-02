@@ -87,6 +87,6 @@ class InfoFragment : Fragment() {
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("Mimic Text", text)
         clipboard.setPrimaryClip(clip)
-        requireContext().toast(R.string.push_toast_already_copy)
+        requireContext().showCustomToast(getString(R.string.push_toast_already_copy), R.drawable.push_success)
     }
 }

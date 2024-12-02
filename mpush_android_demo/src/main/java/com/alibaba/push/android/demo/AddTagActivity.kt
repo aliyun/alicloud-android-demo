@@ -22,7 +22,7 @@ class AddTagActivity: Activity() {
 
     private lateinit var binding: AddTagBinding
 
-    private var target = CloudPushService.DEVICE_TARGET
+    private var target = 0
     private var alias: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +55,7 @@ class AddTagActivity: Activity() {
                 binding.accountTagEnable = false
                 binding.ivAccountTagStatus.setImageResource(R.drawable.push_unable_check)
                 target = CloudPushService.ALIAS_TARGET
+                binding.tvAlias.text = getString(R.string.push_alias_no_choose)
             }
             CloudPushService.ACCOUNT_TARGET -> {
                 binding.deviceTagEnable = false
@@ -67,7 +68,7 @@ class AddTagActivity: Activity() {
             }
             else -> {
                 binding.deviceTagEnable = true
-                binding.ivDeviceTagStatus.setImageResource(R.drawable.push_check)
+                binding.ivDeviceTagStatus.setImageResource(R.drawable.push_uncheck)
                 getAlias()
                 initAccount()
             }
@@ -102,11 +103,15 @@ class AddTagActivity: Activity() {
     private fun clickConfirm(){
         val tag = binding.etTag.text.toString().trim()
         if (TextUtils.isEmpty(tag)) {
-            toast(R.string.push_tag_input_not)
+            showCustomToast(getString(R.string.push_tag_input_not), R.drawable.push_fail)
+            return
+        }
+        if (target == 0) {
+            showCustomToast(getString(R.string.push_tag_type_no_choose), R.drawable.push_fail)
             return
         }
         if (target == CloudPushService.ALIAS_TARGET && TextUtils.isEmpty(alias)) {
-            toast(R.string.push_alias_no_choose)
+            showCustomToast(getString(R.string.push_alias_no_choose), R.drawable.push_fail)
             return
         }
         setResult(RESULT_OK, Intent().apply {

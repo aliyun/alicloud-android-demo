@@ -2,6 +2,7 @@ package com.alibaba.push.android.demo
 
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.alibaba.sdk.android.push.AliyunMessageIntentService
 import com.alibaba.sdk.android.push.MessageReceiver
@@ -27,7 +28,9 @@ class MyMessageIntentService: AliyunMessageIntentService() {
         p2: String?,
         p3: MutableMap<String, String>?
     ) {
-        context?.toast(R.string.push_toast_service_deal_message)
+        context?.let {
+            Toast.makeText(it, it.getString(R.string.push_toast_service_deal_message), Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onMessage(context: Context?, p1: CPushMessage?) {

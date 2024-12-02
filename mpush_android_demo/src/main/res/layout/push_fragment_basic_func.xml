@@ -155,7 +155,7 @@
                 android:textColor="@color/push_color_text_black"/>
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/tbToggle"
+                android:id="@+id/scToggleGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -212,6 +212,7 @@
                 android:layout_weight="1" />
 
             <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/scMessageReceiver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"

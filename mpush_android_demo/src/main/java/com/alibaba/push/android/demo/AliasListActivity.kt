@@ -77,7 +77,7 @@ class AliasListActivity: Activity() {
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                toast(R.string.push_get_alias_list_fail, errorMessage)
+                showCustomToast(String.format(getString(R.string.push_get_alias_list_fail), errorMessage), R.drawable.push_fail)
             }
 
         })

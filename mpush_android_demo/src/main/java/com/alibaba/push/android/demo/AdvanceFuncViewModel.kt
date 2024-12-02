@@ -57,6 +57,8 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         Context.MODE_PRIVATE
     )
 
+    var showCustomToast: ((String, Int) -> Unit)? = null
+
     fun initData() {
         getDeviceTagFromServer()
         getAliasTagFromSp()
@@ -64,9 +66,9 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         getAliasListFromServer()
         viewModelScope.launch {
             account.value =
-                preferences.getString(SP_KEY_BIND_ACCOUNT, getString(R.string.push_bind_account_no))
+                preferences.getString(SP_KEY_BIND_ACCOUNT, "")
             phone.value =
-                preferences.getString(SP_KEY_BIND_PHONE, getString(R.string.push_bind_phone_no))
+                preferences.getString(SP_KEY_BIND_PHONE, "")
         }
     }
 
@@ -93,7 +95,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailed(p0: String?, errorMessage: String?) {
-                    toast(R.string.push_get_device_tag_list_fail, errorMessage)
+                    showCustomToast?.invoke(String.format(getString(R.string.push_get_device_tag_list_fail), errorMessage), R.drawable.push_fail)
                 }
             })
     }
@@ -157,7 +159,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                toast(R.string.push_get_alias_list_fail, errorMessage)
+                showCustomToast?.invoke(String.format(getString(R.string.push_get_alias_list_fail), errorMessage), R.drawable.push_fail)
             }
 
         })
@@ -174,9 +176,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             || (target == CloudPushService.ALIAS_TARGET && aliasTags.contains(tag))
             || (target == CloudPushService.ACCOUNT_TARGET && accountTags.contains(tag))
         ) {
-            getApplication<MainApplication>().toast(
-                R.string.push_already_add
-            )
+            showCustomToast?.invoke(getString(R.string.push_already_add), R.drawable.push_fail)
             return
         }
         PushServiceFactory.getCloudPushService()
@@ -191,7 +191,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    toast(R.string.push_toast_add_tag_fail, errorMessage)
+                    showCustomToast?.invoke(String.format(getString(R.string.push_toast_add_tag_fail), errorMessage), R.drawable.push_fail)
                 }
 
             })
@@ -246,7 +246,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailed(p0: String?, errorMessage: String?) {
-                    toast(R.string.push_toast_delete_device_tag_fail, errorMessage)
+                    showCustomToast?.invoke(String.format(getString(R.string.push_toast_delete_device_tag_fail), errorMessage), R.drawable.push_fail)
                 }
 
             })
@@ -257,7 +257,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         deviceTags.remove(tag)
         updateTagStatus()
         deviceTagData.value = deviceTags.joinToString(",")
-        toast(R.string.push_toast_delete_tag_success)
+        showCustomToast?.invoke(getString(R.string.push_toast_delete_tag_success), R.drawable.push_success)
     }
 
     /**
@@ -273,7 +273,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                         }
 
                         override fun onFailed(p0: String?, errorMessage: String?) {
-                            toast(R.string.push_toast_delete_alias_tag_fail, errorMessage)
+                            showCustomToast?.invoke(String.format(getString(R.string.push_toast_delete_alias_tag_fail), errorMessage), R.drawable.push_fail)
                         }
 
                     })
@@ -300,8 +300,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             editor.putString(SP_KEY_ALIAS_TAG_MAP, gson.toJson(aliasTagMap))
             editor.apply()
         }
-        toast(R.string.push_toast_delete_tag_success)
-
+        showCustomToast?.invoke(getString(R.string.push_toast_delete_tag_success), R.drawable.push_success)
     }
 
     /**
@@ -315,7 +314,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailed(p0: String?, errorMessage: String?) {
-                    toast(R.string.push_unbind_account_tag_fail, errorMessage)
+                    showCustomToast?.invoke(String.format(getString(R.string.push_unbind_account_tag_fail), errorMessage), R.drawable.push_fail)
                 }
 
             })
@@ -331,7 +330,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             editor.putString(SP_KEY_ACCOUNT_TAG, accountTagData.value)
             editor.apply()
         }
-       toast(R.string.push_toast_delete_tag_success)
+       showCustomToast?.invoke(getString(R.string.push_toast_delete_tag_success), R.drawable.push_success)
     }
 
     /**
@@ -363,7 +362,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                toast(R.string.push_toast_add_alias_fail, errorMessage)
+                showCustomToast?.invoke(String.format(getString(R.string.push_toast_add_alias_fail), errorMessage), R.drawable.push_fail)
             }
         })
     }
@@ -378,11 +377,11 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 currAliasList.remove(alias)
                 showMoreAlias.value = currAliasList.size > showMoreAliasCount
                 aliasListStr.value = currAliasList.joinToString(",")
-                toast(R.string.push_toast_delete_alias_success)
+                showCustomToast?.invoke(getString(R.string.push_toast_delete_alias_success), R.drawable.push_success)
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                toast(R.string.push_toast_delete_alias_fail, errorMessage)
+                showCustomToast?.invoke(String.format(getString(R.string.push_toast_delete_alias_fail), errorMessage), R.drawable.push_fail)
             }
         })
     }
@@ -425,7 +424,26 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
-                toast(R.string.push_bind_account_fail, errorMessage)
+                showCustomToast?.invoke(String.format(getString(R.string.push_bind_account_fail), errorMessage), R.drawable.push_fail)
+            }
+        })
+    }
+
+    fun unbindAccount() {
+        account.value = ""
+        viewModelScope.launch {
+            val editor = preferences.edit()
+            editor.putString(SP_KEY_BIND_ACCOUNT, "")
+            editor.apply()
+        }
+        updateTagAfterBindAccount()
+        PushServiceFactory.getCloudPushService().unbindAccount(object : CommonCallback {
+            override fun onSuccess(p0: String?) {
+
+            }
+
+            override fun onFailed(errorCode: String?, errorMessage: String?) {
+                showCustomToast?.invoke(String.format(getString(R.string.push_unbind_account_fail), errorMessage), R.drawable.push_fail)
             }
         })
     }
@@ -460,17 +478,34 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                 }
 
                 override fun onFailed(errorCode: String?, errorMessage: String?) {
-                    toast(R.string.push_toast_bind_phone_fail, errorMessage)
+                    showCustomToast?.invoke(String.format(getString(R.string.push_toast_bind_phone_fail), errorMessage), R.drawable.push_fail)
                 }
             })
     }
 
-    private fun getString(res: Int): String {
+    /**
+     * 解绑手机号
+     */
+    fun unbindPhone() {
+        phone.value = ""
+        viewModelScope.launch {
+            val editor = preferences.edit()
+            editor.putString(SP_KEY_BIND_PHONE, "")
+            editor.apply()
+        }
+        PushServiceFactory.getCloudPushService()
+            .unbindPhoneNumber(object : CommonCallback {
+                override fun onSuccess(p0: String?) {
+
+                }
+
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
+                    showCustomToast?.invoke(String.format(getString(R.string.push_toast_unbind_phone_fail), errorMessage), R.drawable.push_fail)
+                }
+            })
+    }
+
+    private fun getString(res: Int, ): String {
         return getApplication<MainApplication>().getString(res)
     }
-
-    private fun toast(res: Int, msg: String? = null) {
-        getApplication<MainApplication>().toast(res, msg)
-    }
-
 }

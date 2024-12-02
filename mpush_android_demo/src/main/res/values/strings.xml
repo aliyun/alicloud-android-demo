@@ -66,6 +66,7 @@
     <string name="push_bind_account">绑定账号</string>
     <string name="push_bind_account_hint">请输入账号</string>
     <string name="push_bind_account_fail">绑定账号失败，失败原因：%s</string>
+    <string name="push_unbind_account_fail">解绑账号失败，失败原因：%s</string>
     <string name="push_bind_account_tag">绑定账号标签</string>
     <string name="push_bind_account_tag_hint">请输入账号标签</string>
     <string name="push_bind_account_tag_fail">绑定账号标签失败,失败原因: %s</string>
@@ -76,8 +77,9 @@
     <string name="push_text_notification">短信通知</string>
     <string name="push_text_notification_hint">请输入手机号</string>
     <string name="push_toast_bind_phone_fail">绑定手机号失败,失败原因:%s</string>
+    <string name="push_toast_unbind_phone_fail">解绑手机号失败,失败原因:%s</string>
     <string name="push_tag_limit">标签（tag）</string>
-    <string name="push_tag_limit_1">App最多支持定义1万个标签，单个标签支持的最大长度为129字符。</string>
+    <string name="push_tag_limit_1">App最多支持定义1万个标签，单个标签支持的最大长度为128字符。</string>
     <string name="push_tag_limit_2">不建议在单个标签上绑定超过十万级设备，否则，发起对该标签的推送可能需要较长的处理时间，无法保障响应速度。此种情况下，建议您采用全推方式，或将设备集合拆分到更细粒度的标签，多次调用推送接口分别推送给这些标签来避免此问题。</string>
     <string name="push_alias_limit">别名（alias）</string>
     <string name="push_alias_limit_1">单个设备最多添加128个别名，同一个别名最多可被添加到128个设备。</string>
@@ -106,7 +108,7 @@
     <string name="push_back">返回</string>
     <string name="push_tag_name">标签名称</string>
     <string name="push_input_tag_name">请输入标签名称</string>
-    <string name="push_tag_desc">单个标签最大长度不超过129个字符</string>
+    <string name="push_tag_desc">单个标签最大长度不超过128个字符</string>
     <string name="push_tag_target_label">添加至</string>
     <string name="push_alias_list">别名列表</string>
     <string name="push_tag_input_not">标签未输入</string>
@@ -124,4 +126,11 @@
     <string name="push_toast_no_register">未注册</string>
     <string name="push_toast_delete_tag_success">删除标签成功</string>
     <string name="push_toast_delete_alias_success">删除别名成功</string>
+    <string name="push_open_group_show_notificaion">打开分组展示通知</string>
+    <string name="push_close_group_show_notificaion">关闭分组展示通知</string>
+    <string name="push_dialog_limit_desc">限制说明</string>
+    <string name="push_unbind_first">请先解除绑定</string>
+    <string name="push_unbind">解除绑定</string>
+    <string name="push_tag_type_no_choose">未选择标签类型</string>
+    <string name="push_add_alias_alert">单个别名最大长度不超过128字节</string>
 </resources>

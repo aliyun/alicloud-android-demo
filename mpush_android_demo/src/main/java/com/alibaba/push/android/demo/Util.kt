@@ -8,12 +8,18 @@ import android.graphics.drawable.ColorDrawable
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import com.alibaba.push.android.demo.databinding.BindDialogBinding
 import com.alibaba.push.android.demo.databinding.InputDialogBinding
 import com.alibaba.push.android.demo.databinding.MessageShowDialogBinding
+import com.alibaba.push.android.demo.databinding.ToastDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import java.util.Objects
 
 
 fun Int.toDp(): Int {
@@ -27,10 +33,6 @@ fun Int.toDp(): Int {
 fun Int.toPx():Int {
     val metrics = Resources.getSystem().displayMetrics
     return Math.round(this * (metrics.densityDpi / 160f))
-}
-
-fun Context.toast(@StringRes res: Int, msg: String? = null) {
-    Toast.makeText(this, String.format(getString(res), msg), Toast.LENGTH_SHORT).show()
 }
 
 fun Context.showInputDialog(
@@ -56,7 +58,7 @@ fun Context.showInputDialog(
     inputDialogBinding.tvConfirm.setOnClickListener {
         val inputText = inputDialogBinding.etInput.text.toString().trim()
         if (TextUtils.isEmpty(inputText)) {
-            toast(R.string.push_input_empty)
+            Toast.makeText(this, getString(R.string.push_input_empty), Toast.LENGTH_SHORT).show()
             return@setOnClickListener
         }
         inputCallback?.invoke(inputText, inputDialogBinding.etAlias.text.toString().trim())
@@ -107,5 +109,73 @@ fun Context.getAppMetaData(key: String): String {
 
     }
     return ""
+}
+
+fun Context.showCustomToast(message: String, icon: Int) {
+    val toastDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
+    val binding = ToastDialogBinding.inflate(LayoutInflater.from(this), null, false)
+    binding.tvMessage.text = message
+    binding.ivIcon.setImageResource(icon)
+    toastDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+    toastDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    toastDialog.window?.setDimAmount(0f)
+    toastDialog.setView(binding.root)
+    toastDialog.setCanceledOnTouchOutside(false)
+    toastDialog.window?.addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+    toastDialog.show()
+    binding.root.postDelayed({ toastDialog.dismiss() }, 3000)
+}
+
+fun Context.showBindDialog(
+    title: Int,
+    hint: Int,
+    viewModel: AdvanceFuncViewModel,isBindAccount: Boolean = true,
+    inputCallback: ((String) -> Unit)? = null
+) {
+    val bindDialogBinding = BindDialogBinding.inflate(LayoutInflater.from(this))
+
+    bindDialogBinding.title = getString(title)
+    bindDialogBinding.hint = getString(hint)
+    bindDialogBinding.etInput.setBackgroundResource(R.drawable.push_bind_data_bg)
+    bindDialogBinding.etInput.setText(if (isBindAccount) {viewModel.account.value} else {viewModel.phone.value})
+    bindDialogBinding.etInput.setTextColor(ContextCompat.getColor(this, R.color.push_color_text_gray))
+    bindDialogBinding.etInput.isEnabled = false
+    bindDialogBinding.leftBtnText = getString(R.string.push_unbind)
+    val dialog = BottomSheetDialog(this, R.style.RoundedBottomSheetDialog).apply {
+        setContentView(bindDialogBinding.root)
+        bindDialogBinding.lifecycleOwner = this
+        show()
+    }
+    bindDialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
+    bindDialogBinding.tvCancel.setOnClickListener {
+        if (TextUtils.isEmpty(viewModel.account.value)) {
+            dialog.dismiss()
+        }else {
+            if (isBindAccount) {
+                viewModel.unbindAccount()
+            }else {
+                viewModel.unbindPhone()
+            }
+            bindDialogBinding.etInput.setBackgroundResource(R.drawable.push_bg_input)
+            bindDialogBinding.etInput.setText("")
+            bindDialogBinding.leftBtnText = getString(R.string.push_cancel)
+            bindDialogBinding.etInput.isEnabled = true
+        }
+
+    }
+    bindDialogBinding.tvConfirm.setOnClickListener {
+        val data = if (isBindAccount) {viewModel.account.value } else {viewModel.phone.value}
+        if (!TextUtils.isEmpty(data)){
+            Toast.makeText(this, getString(R.string.push_unbind_first), Toast.LENGTH_SHORT).show()
+            return@setOnClickListener
+        }
+        val inputText = bindDialogBinding.etInput.text.toString().trim()
+        if (TextUtils.isEmpty(inputText)) {
+            Toast.makeText(this, getString(R.string.push_input_empty), Toast.LENGTH_SHORT).show()
+            return@setOnClickListener
+        }
+        inputCallback?.invoke(inputText)
+        dialog.dismiss()
+    }
 }
 

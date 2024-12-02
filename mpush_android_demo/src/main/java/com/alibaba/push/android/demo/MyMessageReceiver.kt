@@ -2,6 +2,7 @@ package com.alibaba.push.android.demo
 
 import android.content.Context
 import android.content.Intent
+import android.widget.Toast
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.alibaba.sdk.android.push.MessageReceiver
 import com.alibaba.sdk.android.push.notification.CPushMessage
@@ -26,7 +27,9 @@ class MyMessageReceiver: MessageReceiver() {
         p2: String?,
         p3: MutableMap<String, String>?
     ) {
-        context?.toast(R.string.push_toast_receiver_deal_message)
+        context?.let {
+            Toast.makeText(it, it.getString(R.string.push_toast_receiver_deal_message), Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onMessage(context: Context?, p1: CPushMessage?) {

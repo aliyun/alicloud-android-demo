@@ -8,6 +8,9 @@
         <variable
             name="viewModel"
             type="com.alibaba.push.android.demo.AdvanceFuncViewModel" />
+
+        <import type="android.text.TextUtils" />
+
     </data>
 
     <FrameLayout
@@ -411,13 +414,15 @@
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/tvAccountLabel"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@string/push_account"
                         android:gravity="center_vertical"
                         android:textColor="@color/push_color_text_black_deep"
                         android:textStyle="bold"
                         android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="16dp"/>
 
                     <ImageView
@@ -436,8 +441,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@{viewModel.account}"
+                        android:layout_marginStart="24dp"
+                        tools:text="1111111111111111111111111111111111111111111111111111111111111"
+                        android:text="@{TextUtils.isEmpty(viewModel.account)? @string/push_bind_account_no : viewModel.account}"
                         app:layout_constraintEnd_toStartOf="@id/ivAccountMore"
+                        app:layout_constraintStart_toEndOf="@id/tvAccountLabel"
+                        app:layout_constraintHorizontal_bias="1"
+                        app:layout_constrainedWidth="true"
+                        android:lines="1"
+                        android:ellipsize="end"
                         android:textSize="16sp"
                         android:paddingBottom="1dp"
                         android:textColor="@color/push_color_text_gray" />
@@ -454,13 +466,15 @@
                     android:layout_marginTop="8dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:id="@+id/tvPhoneLabel"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="@string/push_message"
                         android:gravity="center_vertical"
                         android:textColor="@color/push_color_text_black_deep"
                         android:textStyle="bold"
                         android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="16dp"/>
 
                     <ImageView
@@ -479,8 +493,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@{viewModel.phone}"
+                        tools:text="13264497440000"
+                        android:maxWidth="134dp"
+                        android:lines="1"
+                        android:ellipsize="end"
+                        android:text="@{TextUtils.isEmpty(viewModel.phone)? @string/push_bind_phone_no : viewModel.phone}"
                         app:layout_constraintEnd_toStartOf="@id/ivPhoneMore"
+
                         android:textSize="16sp"
                         android:paddingBottom="1dp"
                         android:textColor="@color/push_color_text_gray" />

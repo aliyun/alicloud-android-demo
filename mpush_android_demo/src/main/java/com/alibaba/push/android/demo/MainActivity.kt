@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -77,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                         it.setChecked(true)
                         binding.viewPager.setCurrentItem(1, false)
                     }else {
-                        Toast.makeText(this, getString(R.string.push_toast_no_register), Toast.LENGTH_SHORT).show()
+                        showCustomToast(getString(R.string.push_toast_no_register), R.drawable.push_fail)
                     }
 
                 }
@@ -86,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                         it.setChecked(true)
                         binding.viewPager.setCurrentItem(2, false)
                     }else {
-                        Toast.makeText(this, getString(R.string.push_toast_no_register), Toast.LENGTH_SHORT).show()
+                        showCustomToast(getString(R.string.push_toast_no_register), R.drawable.push_fail)
                     }
                 }
             }
@@ -96,11 +95,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (System.currentTimeMillis() - mBackKeyPressedTime > 2000) {
-            Toast.makeText(
-                this@MainActivity,
-                getString(R.string.toast_double_click_exit),
-                Toast.LENGTH_SHORT
-            ).show()
+            showCustomToast(getString(R.string.toast_double_click_exit), R.drawable.push_success)
             mBackKeyPressedTime = System.currentTimeMillis()
         } else {
             finish()

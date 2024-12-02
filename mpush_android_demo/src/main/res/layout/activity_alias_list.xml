@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:text="@string/push_alias_list"
-                android:textColor="@color/push_color_text_black"
+                android:textColor="@color/push_color_text_black_deep"
                 android:textSize="18sp"
                 android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"

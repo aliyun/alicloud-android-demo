@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -147,11 +148,11 @@ class AllLabelActivity : AppCompatActivity() {
     private fun addAlias(){
         showInputDialog(
             R.string.push_add_alias, R.string.push_input_alias_hint,
-            showAlert = false,
+            showAlert = true,
             showAliasInput = false
         ) { it, _ ->
             if (viewModel.alreadyAddAlias(it)) {
-                toast(R.string.push_already_add)
+                Toast.makeText(this, getString(R.string.push_already_add), Toast.LENGTH_SHORT).show()
                 return@showInputDialog
             }
             viewModel.addAlias(it)

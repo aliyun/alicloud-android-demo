@@ -16,7 +16,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/push_dialog_set_log_level"
+            android:text="@string/push_dialog_limit_desc"
             android:gravity="center"
             app:layout_constraintTop_toTopOf="parent"
             android:textColor="@color/push_color_text_black"

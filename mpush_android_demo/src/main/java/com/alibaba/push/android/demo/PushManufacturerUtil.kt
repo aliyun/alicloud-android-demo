@@ -1,20 +1,15 @@
 package com.alibaba.push.android.demo
 
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.text.TextUtils
-import com.alibaba.sdk.android.push.register.ThirdPushManager
-import com.alibaba.sdk.android.push.register.ThirdPushManager.ThirdPushReportKeyword
-import com.alibaba.sdk.android.push.register.VivoRegister
 import com.heytap.msp.push.HeytapPushManager
 import com.hihonor.push.sdk.HonorPushCallback
 import com.hihonor.push.sdk.HonorPushClient
 import com.huawei.hms.aaid.HmsInstanceId
 import com.meizu.cloud.pushsdk.PushManager
 import com.meizu.cloud.pushsdk.utils.MzSystemUtils
-import com.taobao.accs.utl.ALog
 import com.vivo.push.PushClient
 import com.vivo.push.listener.IPushQueryActionListener
 import kotlinx.coroutines.Dispatchers

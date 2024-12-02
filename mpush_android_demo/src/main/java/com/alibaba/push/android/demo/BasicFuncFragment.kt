@@ -1,7 +1,5 @@
 package com.alibaba.push.android.demo
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +24,7 @@ class BasicFuncFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[BasicFuncViewModel::class.java]
+        viewModel.init()
     }
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,8 +35,23 @@ class BasicFuncFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         viewModel.registerBtnText.value = getString(R.string.push_register_receive)
-        binding.tvLogLevel.setOnClickListener { showLogLevelDialog() }
+        binding.tvLogLevel.setOnClickListener {
+            showLogLevelDialog()
+        }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.showCustomToast = {message, icon ->
+            requireContext().showCustomToast(message, icon)
+        }
+        binding.scMessageReceiver.setOnCheckedChangeListener {_, isChecked ->
+            viewModel.toggleMessageReceiver(isChecked)
+        }
+        binding.scToggleGroup.setOnCheckedChangeListener{_, isChecked ->
+            viewModel.toggleGroupShowNotification(isChecked)
+        }
     }
 
     private fun showLogLevelDialog(){
