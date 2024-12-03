@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.alibaba.push.android.demo.databinding.BasicFuncFragmentBinding
 import com.alibaba.push.android.demo.databinding.LogLevelDialogBinding
@@ -16,7 +15,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
  * @author ren
  * @date 2024/09/20
  */
-class BasicFuncFragment : Fragment() {
+class BasicFuncFragment : BaseFragment() {
 
     private lateinit var binding: BasicFuncFragmentBinding
     private lateinit var viewModel: BasicFuncViewModel
@@ -44,7 +43,7 @@ class BasicFuncFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.showCustomToast = {message, icon ->
-            requireContext().showCustomToast(message, icon)
+            showCustomToast(message, icon)
         }
         binding.scMessageReceiver.setOnCheckedChangeListener {_, isChecked ->
             viewModel.toggleMessageReceiver(isChecked)
@@ -72,5 +71,4 @@ class BasicFuncFragment : Fragment() {
     }
 
     fun isRegistered() = viewModel.hasRegistered.value
-
 }

@@ -5,11 +5,19 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.Window
+import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.alibaba.push.android.demo.databinding.MainActivityBinding
+import com.alibaba.push.android.demo.databinding.ToastDialogBinding
+import java.util.Timer
+import java.util.TimerTask
 
 
 /**
@@ -24,6 +32,12 @@ class MainActivity : AppCompatActivity() {
     private var basicFragment: BasicFuncFragment? = null
 
     private var mBackKeyPressedTime = 0L
+
+    private var toastDialog: AlertDialog? = null
+    private var toastTimer: Timer? = null
+    private var toastBinding: ToastDialogBinding? = null
+    private var toastTimerTask: TimerTask? = null
+    private var isResume: Boolean = false
 
     //处理透传消息
     private val msgReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -104,12 +118,56 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        isResume = true
         LocalBroadcastManager.getInstance(this).registerReceiver(msgReceiver, IntentFilter(
             MESSAGE_ACTION))
     }
 
     override fun onPause() {
         super.onPause()
+        isResume = false
         LocalBroadcastManager.getInstance(this).unregisterReceiver(msgReceiver)
+    }
+
+    private fun showCustomToast(message: String, icon: Int) {
+        if (!isResume) {
+            return
+        }
+        toastTimerTask?.cancel()
+        if (toastDialog == null) {
+            toastDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
+            toastBinding = ToastDialogBinding.inflate(LayoutInflater.from(this), null, false)
+            toastBinding?.tvMessage?.text = message
+            toastBinding?.ivIcon?.setImageResource(icon)
+            toastDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            toastDialog?.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            toastDialog?.window?.setDimAmount(0f)
+            toastDialog?.setView(toastBinding?.root)
+            toastDialog?.setCanceledOnTouchOutside(false)
+            toastDialog?.window?.addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+            toastDialog?.show()
+            toastTimer = Timer()
+        } else if (true == toastDialog?.isShowing) {
+            toastBinding?.tvMessage?.text = message
+            toastBinding?.ivIcon?.setImageResource(icon)
+        }else {
+            toastBinding?.tvMessage?.text = message
+            toastBinding?.ivIcon?.setImageResource(icon)
+            toastDialog?.show()
+        }
+        toastTimerTask = object: TimerTask(){
+            override fun run() {
+                toastDialog?.dismiss()
+            }
+        }
+        toastTimer?.schedule(toastTimerTask, 3000)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        toastTimerTask?.cancel()
+        if (true == toastDialog?.isShowing) {
+            toastDialog?.dismiss()
+        }
     }
 }

@@ -8,17 +8,15 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.alibaba.push.android.demo.databinding.InfoFragmentBinding
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
-
 
 /**
  * 信息Fragment
  * @author ren
  * @date 2024/09/20
  */
-class InfoFragment : Fragment() {
+class InfoFragment : BaseFragment() {
 
     private lateinit var binding: InfoFragmentBinding
 
@@ -87,6 +85,6 @@ class InfoFragment : Fragment() {
             requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clip = ClipData.newPlainText("Mimic Text", text)
         clipboard.setPrimaryClip(clip)
-        requireContext().showCustomToast(getString(R.string.push_toast_already_copy), R.drawable.push_success)
+        showCustomToast(getString(R.string.push_toast_already_copy), R.drawable.push_success)
     }
 }

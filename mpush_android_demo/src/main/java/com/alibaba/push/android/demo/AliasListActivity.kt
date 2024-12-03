@@ -1,6 +1,5 @@
 package com.alibaba.push.android.demo
 
-import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -20,7 +19,7 @@ import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
  * @author ren
  * @date 2024-10-24
  */
-class AliasListActivity: Activity() {
+class AliasListActivity: BaseActivity() {
 
     private lateinit var binding: AliasListBinding
     private var aliasListAdapter: AliasListAdapter? = null
@@ -82,5 +81,4 @@ class AliasListActivity: Activity() {
 
         })
     }
-
 }

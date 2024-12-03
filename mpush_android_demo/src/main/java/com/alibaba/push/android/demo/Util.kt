@@ -20,6 +20,7 @@ import com.alibaba.push.android.demo.databinding.MessageShowDialogBinding
 import com.alibaba.push.android.demo.databinding.ToastDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.util.Objects
+import java.util.Timer
 
 
 fun Int.toDp(): Int {
@@ -109,21 +110,6 @@ fun Context.getAppMetaData(key: String): String {
 
     }
     return ""
-}
-
-fun Context.showCustomToast(message: String, icon: Int) {
-    val toastDialog = AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert).create()
-    val binding = ToastDialogBinding.inflate(LayoutInflater.from(this), null, false)
-    binding.tvMessage.text = message
-    binding.ivIcon.setImageResource(icon)
-    toastDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-    toastDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-    toastDialog.window?.setDimAmount(0f)
-    toastDialog.setView(binding.root)
-    toastDialog.setCanceledOnTouchOutside(false)
-    toastDialog.window?.addFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
-    toastDialog.show()
-    binding.root.postDelayed({ toastDialog.dismiss() }, 3000)
 }
 
 fun Context.showBindDialog(

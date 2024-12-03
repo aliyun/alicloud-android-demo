@@ -4,21 +4,29 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.WindowCompat
 import com.alibaba.push.android.demo.databinding.AddTagBinding
+import com.alibaba.push.android.demo.databinding.ToastDialogBinding
 import com.alibaba.sdk.android.push.CloudPushService
 import com.alibaba.sdk.android.push.CommonCallback
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
+import java.util.Timer
+import java.util.TimerTask
 
 /**
  * 添加标签页面
  * @author ren
  * @date 2024-11-1
  */
-class AddTagActivity: Activity() {
+class AddTagActivity: BaseActivity() {
 
     private lateinit var binding: AddTagBinding
 
@@ -186,7 +194,6 @@ class AddTagActivity: Activity() {
 
         }
     }
-
 }
 
 

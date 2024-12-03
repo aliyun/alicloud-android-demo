@@ -45,10 +45,10 @@ class MainApplication:Application() {
     private fun initOthers() {
         HuaWeiRegister.register(this) // 接入华为辅助推送
         HonorRegister.register(this)  //荣耀推送
-        MiPushRegister.register(this, "", "") // 初始化小米辅助推送
+        MiPushRegister.register(this, "2882303761520226056", "5882022666056") // 初始化小米辅助推送
         VivoRegister.registerAsync(applicationContext) //接入vivo辅助推送
-        OppoRegister.registerAsync(applicationContext, "", "") //OPPO辅助推送
-        MeizuRegister.registerAsync(applicationContext, "", "") //接入魅族辅助推送
+        OppoRegister.registerAsync(applicationContext, "9a2d869058e94b3b9ef8ad254d45d722", "e519313fd30545afb8338810b6b941f7") //OPPO辅助推送
+        MeizuRegister.registerAsync(applicationContext, "121026", "ba7cd1a355d8416dab0142e390170e5a") //接入魅族辅助推送
     }
 
 

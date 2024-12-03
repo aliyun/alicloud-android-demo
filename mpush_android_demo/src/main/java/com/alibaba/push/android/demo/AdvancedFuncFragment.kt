@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +25,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
  * @author ren
  * @date 2024/09/20
  */
-class AdvancedFuncFragment : Fragment() {
+class AdvancedFuncFragment : BaseFragment() {
 
     private lateinit var binding: AdvancedFuncFragmentBinding
 
@@ -113,7 +112,7 @@ class AdvancedFuncFragment : Fragment() {
         binding.clAccount.setOnClickListener { showAccountInputDialog() }
         binding.clPhone.setOnClickListener { showPhoneInputDialog() }
         viewModel.showCustomToast = {message, icon ->
-            requireContext().showCustomToast(message, icon)
+            showCustomToast(message, icon)
         }
     }
 
@@ -307,6 +306,5 @@ class AdvancedFuncFragment : Fragment() {
                 viewModel.bindPhone(it)
             }
         }
-
     }
 }
