@@ -295,6 +295,7 @@ class AdvancedFuncFragment : BaseFragment() {
         if (TextUtils.isEmpty(viewModel.phone.value)) {
             requireContext().showInputDialog(
                 R.string.push_text_notification, R.string.push_text_notification_hint,
+                inputMaxLength = 11,
                 showAlert = false,
                 showAliasInput = false
             ) { it, _ ->
@@ -302,7 +303,10 @@ class AdvancedFuncFragment : BaseFragment() {
             }
         }else {
             requireContext().showBindDialog(
-                R.string.push_text_notification, R.string.push_text_notification_hint, viewModel, isBindAccount = false) {
+                R.string.push_text_notification, R.string.push_text_notification_hint,
+                viewModel = viewModel,
+                isBindAccount = false,
+                inputMaxLength = 11) {
                 viewModel.bindPhone(it)
             }
         }

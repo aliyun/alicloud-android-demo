@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
 import android.text.TextUtils
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -41,12 +43,16 @@ fun Context.showInputDialog(
     hint: Int,
     showAlert: Boolean,
     showAliasInput: Boolean,
+    inputMaxLength:Int = 0,
     inputCallback: ((String, String?) -> Unit)? = null
 ) {
     val inputDialogBinding = InputDialogBinding.inflate(LayoutInflater.from(this))
     inputDialogBinding.title = getString(title)
     inputDialogBinding.hint = getString(hint)
     inputDialogBinding.showAlert = showAlert
+    if (inputMaxLength != 0) {
+        inputDialogBinding.etInput.filters = arrayOf(LengthFilter(inputMaxLength))
+    }
     inputDialogBinding.showAliasInput = showAliasInput
     val dialog = BottomSheetDialog(this, R.style.RoundedBottomSheetDialog).apply {
 
@@ -115,13 +121,18 @@ fun Context.getAppMetaData(key: String): String {
 fun Context.showBindDialog(
     title: Int,
     hint: Int,
-    viewModel: AdvanceFuncViewModel,isBindAccount: Boolean = true,
+    viewModel: AdvanceFuncViewModel,
+    isBindAccount: Boolean = true,
+    inputMaxLength: Int = 0,
     inputCallback: ((String) -> Unit)? = null
 ) {
     val bindDialogBinding = BindDialogBinding.inflate(LayoutInflater.from(this))
 
     bindDialogBinding.title = getString(title)
     bindDialogBinding.hint = getString(hint)
+    if (inputMaxLength != 0) {
+        bindDialogBinding.etInput.filters = arrayOf(LengthFilter(inputMaxLength))
+    }
     bindDialogBinding.etInput.setBackgroundResource(R.drawable.push_bind_data_bg)
     bindDialogBinding.etInput.setText(if (isBindAccount) {viewModel.account.value} else {viewModel.phone.value})
     bindDialogBinding.etInput.setTextColor(ContextCompat.getColor(this, R.color.push_color_text_gray))

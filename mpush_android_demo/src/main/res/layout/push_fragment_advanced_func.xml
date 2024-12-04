@@ -448,6 +448,7 @@
                         app:layout_constraintStart_toEndOf="@id/tvAccountLabel"
                         app:layout_constraintHorizontal_bias="1"
                         app:layout_constrainedWidth="true"
+                        android:maxWidth="180dp"
                         android:lines="1"
                         android:ellipsize="end"
                         android:textSize="16sp"
