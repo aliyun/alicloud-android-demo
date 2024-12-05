@@ -145,7 +145,8 @@ fun Context.showBindDialog(
     }
     bindDialogBinding.ivClose.setOnClickListener { dialog.dismiss() }
     bindDialogBinding.tvCancel.setOnClickListener {
-        if (TextUtils.isEmpty(viewModel.account.value)) {
+        val data = if (isBindAccount) {viewModel.account.value} else {viewModel.phone.value}
+        if (TextUtils.isEmpty(data)) {
             dialog.dismiss()
         }else {
             if (isBindAccount) {

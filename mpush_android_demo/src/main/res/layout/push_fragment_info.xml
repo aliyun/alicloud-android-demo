@@ -229,6 +229,48 @@
                 android:textSize="16sp"
                 android:layout_marginTop="6dp" />
 
+            <TextView
+                android:id="@+id/tvTokenLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/push_token"
+                android:textColor="@color/push_color_text_black"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp">
+
+                <TextView
+                    android:id="@+id/tvToken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="111111111111"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivCopyToken"
+                    android:textColor="@color/push_color_text_gray"
+                    app:layout_constraintHorizontal_bias="0"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constrainedWidth="true"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/ivCopyToken"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvToken"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:src="@drawable/push_copy"
+                    android:layout_marginStart="4dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

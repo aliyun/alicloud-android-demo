@@ -59,15 +59,17 @@ class BasicFuncViewModel(application: Application): AndroidViewModel(application
             return
         }
         hasRegistered.value = true
-        registerBtnText.value = getApplication<Application>().getString(R.string.push_register_btn_success)
         registerBtnAlpha.value = 0.6f
+        registerBtnText.value = getApplication<Application>().getString(R.string.push_registering)
         pushService.register(getApplication(), object: CommonCallback{
             override fun onSuccess(response: String?) {
+                registerBtnText.value = getApplication<Application>().getString(R.string.push_register_btn_success)
                 showCustomToast?.invoke(getString(R.string.push_toast_register_success), R.drawable.push_success)
                 getChannelStateFromServer()
             }
 
             override fun onFailed(errorCode: String?, errorMessage: String?) {
+                registerBtnText.value = getApplication<Application>().getString(R.string.push_register_btn_fail)
                 showCustomToast?.invoke(String.format(getString(R.string.push_toast_register_fail), errorMessage), R.drawable.push_fail)
             }
 

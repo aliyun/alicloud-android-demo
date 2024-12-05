@@ -8,8 +8,10 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.alibaba.push.android.demo.databinding.InfoFragmentBinding
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
+import com.xiaomi.mipush.sdk.MiPushClient
 
 /**
  * 信息Fragment
@@ -68,15 +70,40 @@ class InfoFragment : BaseFragment() {
             else -> getString(R.string.push_unknow_brand)
         }
 
-//        when{
-//            PushManufacturerUtil.supportHuaweiPush() -> PushManufacturerUtil.getHuaweiToken(requireContext(), ::setToken)
-//            PushManufacturerUtil.supportHonorPush(requireContext()) -> PushManufacturerUtil.getHonorToken(::setToken)
-//            PushManufacturerUtil.supportXIAOMIPush() -> binding.tvToken.text = getString(R.string.push_cannot_get_token)
-//            PushManufacturerUtil.supportVIVOPush(requireContext()) -> PushManufacturerUtil.getVIVOToken(requireContext(), ::setToken)
-//            PushManufacturerUtil.supportOPPOPush(requireContext()) -> setToken(PushManufacturerUtil.getOPPOToken())
-//            PushManufacturerUtil.supportMEIZUPush(requireContext()) -> setToken(PushManufacturerUtil.getMEIZUToken(requireContext()))
-//            else -> setToken(null)
-//        }
+        when{
+            PushManufacturerUtil.supportHuaweiPush() -> PushManufacturerUtil.getHuaweiToken(requireContext()) {
+                setToken(it)
+            }
+            PushManufacturerUtil.supportHonorPush(requireContext()) -> PushManufacturerUtil.getHonorToken {
+                setToken(it)
+            }
+            PushManufacturerUtil.supportXIAOMIPush() -> setToken(MiPushClient.getRegId(requireContext()))
+            PushManufacturerUtil.supportVIVOPush(requireContext()) -> PushManufacturerUtil.getVIVOToken(requireContext()) {
+                setToken(it)
+            }
+            PushManufacturerUtil.supportOPPOPush(requireContext()) -> setToken(PushManufacturerUtil.getOPPOToken())
+            PushManufacturerUtil.supportMEIZUPush(requireContext()) -> setToken(PushManufacturerUtil.getMEIZUToken(requireContext()))
+            else -> setToken(null)
+        }
+
+        binding.tvToken.setOnClickListener {
+            copy(binding.tvToken.text)
+        }
+
+        binding.ivCopyToken.setOnClickListener {
+            copy(binding.tvToken.text)
+        }
+    }
+
+    private fun setToken(token: String?) {
+        if (TextUtils.isEmpty(token)) {
+            binding.tvToken.isVisible = false
+            binding.ivCopyToken.isVisible = false
+        }else {
+            binding.tvToken.text = token
+            binding.tvToken.isVisible = true
+            binding.ivCopyToken.isVisible = true
+        }
     }
 
     private fun copy(text: CharSequence?) {
