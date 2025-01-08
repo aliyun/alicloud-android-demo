@@ -56,9 +56,6 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                 }
 
                 override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-                    for (i in 1 .. 3) {
-                        CookieManager.getInstance().setCookie(url.toString(), "name$i=value$i")
-                    }
                     cookies.forEach {
                         CookieManager.getInstance().setCookie(url.toString(), "${it.name}=${it.value}")
                     }
