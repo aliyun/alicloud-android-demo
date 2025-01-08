@@ -5,35 +5,26 @@ import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.WebViewCaseBinding
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.alibaba.httpdns.android.demo.HTTP_COOKIE
-import com.alibaba.httpdns.android.demo.HTTP_REQUEST_GET
-import com.alibaba.httpdns.android.demo.HTTP_SCHEME_HEADER_HOST
-import com.alibaba.httpdns.android.demo.LOCATION
-import com.alibaba.httpdns.android.demo.LOCATION_UP
-import com.alibaba.httpdns.android.demo.SCHEME_DIVIDE
-import com.alibaba.httpdns.android.demo.SCHEME_HTTP
-import com.alibaba.httpdns.android.demo.SCHEME_HTTPS
-import com.alibaba.httpdns.android.demo.log
 import com.alibaba.httpdns.android.demo.practice.ResolveResultViewModel
-import com.alibaba.sdk.android.httpdns.RequestIpType
+import com.alibaba.sdk.android.httpdns.HTTPDNSResult
+import com.alibaba.sdk.android.httpdns.NetType
+import com.alibaba.sdk.android.httpdns.net.HttpDnsNetworkDetector
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import java.io.IOException
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
+import okhttp3.Dns
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import java.net.InetAddress
 import java.net.URL
-import java.net.URLConnection
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.HttpsURLConnection
 
 /**
  * WebView最佳实践
@@ -42,8 +33,62 @@ import javax.net.ssl.HttpsURLConnection
  */
 class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
 
+    companion object {
+        const val TAG = "WebViewCaseFragment"
+    }
+
     private lateinit var viewModel: ResolveResultViewModel
     private var url: String = ""
+
+    private val okHttpClient by lazy {
+        OkHttpClient.Builder()
+            .dns(object : Dns {
+                override fun lookup(hostname: String): List<InetAddress> {
+                    val currMills = System.currentTimeMillis()
+                    val inetAddresses = mutableListOf<InetAddress>()
+                    viewModel.resolveSync(hostname)?.apply {
+                        if (hostname == viewModel.host.value) {
+                            viewModel.showResolveResult(this, currMills)
+                        }
+                        processDnsResult(this, inetAddresses)
+                    }
+
+                    if (inetAddresses.isEmpty()) {
+                        try {
+                            val localResolveResult = Dns.SYSTEM.lookup(hostname)
+                            inetAddresses.addAll(localResolveResult)
+                        }catch (e: Exception) {
+                        }
+                    }
+                    return inetAddresses
+                }
+            })
+            .build()
+    }
+
+    /**
+     * 根据网络环境,返回ip
+     */
+    fun processDnsResult(httpDnsResult: HTTPDNSResult, inetAddresses: MutableList<InetAddress>) {
+        val ipStackType = HttpDnsNetworkDetector.getInstance().getNetType(requireContext())
+        val isV6 = ipStackType == NetType.v6 || ipStackType == NetType.both
+        val isV4 = ipStackType == NetType.v4 || ipStackType == NetType.both
+
+        if (httpDnsResult.ipv6s != null && httpDnsResult.ipv6s.isNotEmpty() && isV6) {
+            for (i in httpDnsResult.ipv6s.indices) {
+                inetAddresses.addAll(
+                    InetAddress.getAllByName(httpDnsResult.ipv6s[i]).toList()
+                )
+            }
+        } else if (httpDnsResult.ips != null && httpDnsResult.ips.isNotEmpty() && isV4) {
+            for (i in httpDnsResult.ips.indices) {
+                inetAddresses.addAll(
+                    InetAddress.getAllByName(httpDnsResult.ips[i]).toList()
+                )
+            }
+        }
+    }
+
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_webview_case
     }
@@ -84,60 +129,73 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): WebResourceResponse? {
-                val url = request?.url.toString()
-                val schema = request?.url?.scheme?.trim()
-                val method = request?.method
-                //WebResourceRequest 不包含body信息 , 所以只拦截Get请求
-                if (!HTTP_REQUEST_GET.equals(method, true)) {
-                    return super.shouldInterceptRequest(view, request)
-                }
-
-                schema?.let {
-                    //非http协议不拦截
-                    if (!SCHEME_HTTPS.startsWith(schema) && !SCHEME_HTTP.startsWith(schema)) {
-                        return super.shouldInterceptRequest(view, request)
-                    }
-                    val headers = request.requestHeaders
-                    try {
-                        //获取资源失败不拦截,还是走原来的请求
-                        val urlConnection = recursiveRequest(url, headers)
-                            ?: return super.shouldInterceptRequest(view, request)
-                        //实例化 WebResourceResponse 需要入参 mimeType
-                        val contentType = urlConnection.contentType
-                        val mimeType = contentType?.split(";")?.get(0)
-                        //实例化 WebResourceResponse 需要入参 charset
-                        val charset = getCharset(contentType)
-                        val httpURLConnection = urlConnection as HttpURLConnection
-                        val statusCode = httpURLConnection.responseCode
-                        var response = httpURLConnection.responseMessage
-                        val headerFields = httpURLConnection.headerFields
-
-                        val resourceResponse = WebResourceResponse(
-                            mimeType,
-                            charset,
-                            httpURLConnection.inputStream
-                        )
-                        if (TextUtils.isEmpty(response)) {
-                            response = "OK"
-                        }
-                        //设置statusCode 和 response
-                        resourceResponse.setStatusCodeAndReasonPhrase(statusCode, response)
-                        //构造响应头
-                        val responseHeader: MutableMap<String?, String> = HashMap()
-                        for ((key) in headerFields) {
-                            // HttpUrlConnection可能包含key为null的报头，指向该http请求状态码
-                            responseHeader[key] = httpURLConnection.getHeaderField(key)
-                        }
-                        resourceResponse.responseHeaders = responseHeader
-                        return resourceResponse
-
-                    } catch (e: Exception) {
-                        log(this@WebViewCaseFragment, e.message)
-                    }
+                if (toProxy(request)) {
+                    return getHttpResource(request)
                 }
                 return super.shouldInterceptRequest(view, request)
             }
         }
+    }
+
+    private fun toProxy(webResourceRequest: WebResourceRequest?): Boolean {
+        if (webResourceRequest == null) {
+            return false
+        }
+        val url = webResourceRequest.url ?: return false
+        if (!webResourceRequest.method.equals("GET", true)) {
+            return false
+        }
+        if (url.scheme == "https" || url.scheme == "http") {
+            return true
+        }
+        return false
+    }
+
+    private fun getHttpResource(webResourceRequest: WebResourceRequest?): WebResourceResponse? {
+        if (webResourceRequest == null) {return null}
+        try {
+            val url = webResourceRequest.url.toString()
+            val requestBuilder =
+                Request.Builder().url(url).method(webResourceRequest.method, null)
+            val requestHeaders = webResourceRequest.requestHeaders
+            if (!requestHeaders.isNullOrEmpty()) {
+                requestHeaders.forEach {
+                    requestBuilder.addHeader(it.key, it.value)
+                }
+            }
+
+            val response = okHttpClient.newCall(requestBuilder.build()).execute()
+            val code = response.code
+            if (code != 200) {
+                return null
+            }
+            val body = response.body
+            if (body != null) {
+                val mimeType = response.header(
+                    "content-type", body.contentType()?.type
+                )
+                val encoding = response.header(
+                    "content-encoding",
+                    "utf-8"
+                )
+                val responseHeaders = mutableMapOf<String, String>()
+                for (header in response.headers) {
+                    responseHeaders[header.first] = header.second
+                }
+                var message = response.message
+                if (message.isBlank()) {
+                    message = "OK"
+                }
+                val resourceResponse =
+                    WebResourceResponse(mimeType, encoding, body.byteStream())
+                resourceResponse.responseHeaders = responseHeaders
+                resourceResponse.setStatusCodeAndReasonPhrase(code, message)
+                return resourceResponse
+            }
+        } catch (e: Throwable) {
+            e.printStackTrace()
+        }
+        return null
     }
 
     private fun clickLoad() {
@@ -150,8 +208,7 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
         val url = URL(urlStr)
         val host = url.host
         if (TextUtils.isEmpty(host)) {
-            Toast.makeText(context, getString(R.string.toast_url_mistake), Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(context, getString(R.string.toast_url_mistake), Toast.LENGTH_SHORT).show()
             return
         }
         if (urlStr != this.url) {
@@ -163,114 +220,4 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
         binding.clLoadContent.isVisible = true
         binding.tlWebViewCase.selectTab(binding.tlWebViewCase.getTabAt(0))
     }
-
-    private fun getCharset(contentType: String?): String? {
-        if (contentType == null) {
-            return null
-        }
-        val fields = contentType.split(";")
-        if (fields.size <= 1) {
-            return null
-        }
-        var charset = fields[1]
-        if (!charset.contains("=")) {
-            return null
-        }
-        charset = charset.substring(charset.indexOf("=") + 1)
-        return charset
-    }
-
-    private fun recursiveRequest(path: String, headers: Map<String, String>?): URLConnection? {
-        try {
-            val url = URL(path)
-            val currMill = System.currentTimeMillis()
-            val result =
-                viewModel.httpDnsService?.getHttpDnsResultForHostSync(url.host, RequestIpType.auto)
-                    ?.apply {
-                        log(this@WebViewCaseFragment, this.toString())
-                        if (url.host == viewModel.host.value) {
-                            //展示loadUrl的解析结果
-                            viewModel.showResolveResult(this, currMill)
-                        }
-                    }
-
-            val hostIP = viewModel.getIp(result)
-            if (TextUtils.isEmpty(hostIP)) {
-                return null
-            }
-
-            //host 替换为 ip 之后的 url
-            val newUrl = path.replaceFirst(url.host, hostIP!!)
-            val urlConnection: HttpURLConnection = URL(newUrl).openConnection() as HttpURLConnection
-            if (headers != null) {
-                for ((key, value) in headers) {
-                    urlConnection.setRequestProperty(key, value)
-                }
-            }
-            //用于证书校验
-            urlConnection.setRequestProperty(HTTP_SCHEME_HEADER_HOST, url.host)
-            urlConnection.connectTimeout = 30000
-            urlConnection.readTimeout = 30000
-            //禁止重定向,抛出异常,通过异常code , 处理重定向
-            urlConnection.instanceFollowRedirects = false
-            if (urlConnection is HttpsURLConnection) {
-                //https场景 , 证书校验
-                val sniFactory = SNISocketFactory(urlConnection)
-                urlConnection.sslSocketFactory = sniFactory
-                urlConnection.hostnameVerifier = HostnameVerifier { _, session ->
-                    var host: String? = urlConnection.getRequestProperty(HTTP_SCHEME_HEADER_HOST)
-                    if (null == host) {
-                        host = urlConnection.getURL().host
-                    }
-                    HttpsURLConnection.getDefaultHostnameVerifier().verify(host, session)
-                }
-            }
-
-            val responseCode = urlConnection.responseCode
-            if (responseCode in 300..399) {
-                //有缓存, 不发起请求, 没有解析必要 , 返回空
-                if (containCookie(headers)) {
-                    return null
-                }
-                //处理重定向逻辑
-                var location: String? = urlConnection.getHeaderField(LOCATION_UP)
-                if (location == null) {
-                    location = urlConnection.getHeaderField(LOCATION)
-                }
-
-                return if (location != null) {
-                    if (!(location.startsWith(SCHEME_HTTP) || location.startsWith(SCHEME_HTTPS))) {
-                        //某些时候会省略host，只返回后面的path，所以需要补全url
-                        val originalUrl = URL(path)
-                        location =
-                            (originalUrl.protocol + SCHEME_DIVIDE + originalUrl.host + location)
-                    }
-                    recursiveRequest(location, headers)
-                } else {
-                    null
-                }
-            } else {
-                return urlConnection
-            }
-        } catch (e: MalformedURLException) {
-            log(this, e.message)
-        } catch (e: IOException) {
-            log(this, e.message)
-        }
-        return null
-    }
-
-    private fun containCookie(headers: Map<String, String>?): Boolean {
-        if (headers == null) {
-            return false
-        }
-        for ((key) in headers) {
-            if (key.contains(HTTP_COOKIE)) {
-                return true
-            }
-        }
-        return false
-    }
-
-
 }
