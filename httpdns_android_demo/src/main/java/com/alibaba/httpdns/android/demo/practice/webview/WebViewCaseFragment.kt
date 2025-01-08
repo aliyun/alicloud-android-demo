@@ -5,8 +5,8 @@ import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.WebViewCaseBinding
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
+import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
@@ -20,7 +20,9 @@ import com.alibaba.sdk.android.httpdns.NetType
 import com.alibaba.sdk.android.httpdns.net.HttpDnsNetworkDetector
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import okhttp3.Cookie
 import okhttp3.Dns
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import java.net.InetAddress
@@ -33,15 +35,37 @@ import java.net.URL
  */
 class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
 
-    companion object {
-        const val TAG = "WebViewCaseFragment"
-    }
-
     private lateinit var viewModel: ResolveResultViewModel
     private var url: String = ""
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
+            .cookieJar(object: okhttp3.CookieJar {
+                override fun loadForRequest(url: HttpUrl): List<Cookie> {
+                    val cookies = mutableListOf<Cookie>()
+                    val cookieStr =  CookieManager.getInstance().getCookie(url.toString())
+                    if (TextUtils.isEmpty(cookieStr)) {
+                        return cookies
+                    }
+                    cookieStr.split("; ").forEach {
+                        Cookie.parse(url, it)?.apply {
+                            cookies.add(this)
+                        }
+                    }
+                    return cookies
+                }
+
+                override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+                    for (i in 1 .. 3) {
+                        CookieManager.getInstance().setCookie(url.toString(), "name$i=value$i")
+                    }
+                    cookies.forEach {
+                        CookieManager.getInstance().setCookie(url.toString(), "${it.name}=${it.value}")
+                    }
+                    CookieManager.getInstance().flush()
+                }
+
+            })
             .dns(object : Dns {
                 override fun lookup(hostname: String): List<InetAddress> {
                     val currMills = System.currentTimeMillis()
@@ -163,7 +187,6 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                     requestBuilder.addHeader(it.key, it.value)
                 }
             }
-
             val response = okHttpClient.newCall(requestBuilder.build()).execute()
             val code = response.code
             if (code != 200) {
@@ -211,6 +234,7 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
             Toast.makeText(context, getString(R.string.toast_url_mistake), Toast.LENGTH_SHORT).show()
             return
         }
+
         if (urlStr != this.url) {
             viewModel.host.value = host
             binding.httpdnsWebview.loadUrl(urlStr)
