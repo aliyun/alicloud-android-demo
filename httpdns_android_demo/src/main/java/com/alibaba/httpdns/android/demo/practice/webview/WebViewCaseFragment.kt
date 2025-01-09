@@ -5,6 +5,7 @@ import alibaba.httpdns_android_demo.R
 import alibaba.httpdns_android_demo.databinding.WebViewCaseBinding
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebResourceRequest
@@ -47,8 +48,8 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                     if (TextUtils.isEmpty(cookieStr)) {
                         return cookies
                     }
-                    cookieStr.split("; ").forEach {
-                        Cookie.parse(url, it)?.apply {
+                    cookieStr.split(";").forEach {
+                        Cookie.parse(url, it.trim())?.apply {
                             cookies.add(this)
                         }
                     }
@@ -150,29 +151,30 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                 view: WebView?,
                 request: WebResourceRequest?
             ): WebResourceResponse? {
-                if (toProxy(request)) {
-                    return getHttpResource(request)
+                if (shouldIntercept(request)) {
+                    return getResponseByOkHttp(request)
                 }
                 return super.shouldInterceptRequest(view, request)
             }
         }
     }
 
-    private fun toProxy(webResourceRequest: WebResourceRequest?): Boolean {
+    private fun shouldIntercept(webResourceRequest: WebResourceRequest?): Boolean {
         if (webResourceRequest == null) {
             return false
         }
         val url = webResourceRequest.url ?: return false
-        if (!webResourceRequest.method.equals("GET", true)) {
+        if (!"GET".equals(webResourceRequest.method, true)) {
             return false
         }
-        if (url.scheme == "https" || url.scheme == "http") {
+
+        if ("https" == url.scheme || "http" == url.scheme) {
             return true
         }
         return false
     }
 
-    private fun getHttpResource(webResourceRequest: WebResourceRequest?): WebResourceResponse? {
+    private fun getResponseByOkHttp(webResourceRequest: WebResourceRequest?): WebResourceResponse? {
         if (webResourceRequest == null) {return null}
         try {
             val url = webResourceRequest.url.toString()
@@ -191,13 +193,16 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
             }
             val body = response.body
             if (body != null) {
-                val mimeType = response.header(
-                    "content-type", body.contentType()?.type
-                )
-                val encoding = response.header(
-                    "content-encoding",
-                    "utf-8"
-                )
+                val contentType = body.contentType()
+                val encoding = contentType?.charset()
+                val mediaType = contentType?.toString()
+                var mimeType = "text/plain"
+                if (!TextUtils.isEmpty(mediaType)) {
+                    val mediaTypeElements = mediaType?.split(";")
+                    if (!mediaTypeElements.isNullOrEmpty()) {
+                        mimeType = mediaTypeElements[0]
+                    }
+                }
                 val responseHeaders = mutableMapOf<String, String>()
                 for (header in response.headers) {
                     responseHeaders[header.first] = header.second
@@ -207,7 +212,7 @@ class WebViewCaseFragment : BaseFragment<WebViewCaseBinding>() {
                     message = "OK"
                 }
                 val resourceResponse =
-                    WebResourceResponse(mimeType, encoding, body.byteStream())
+                    WebResourceResponse(mimeType, encoding?.name(), body.byteStream())
                 resourceResponse.responseHeaders = responseHeaders
                 resourceResponse.setStatusCodeAndReasonPhrase(code, message)
                 return resourceResponse
