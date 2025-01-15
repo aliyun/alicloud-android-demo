@@ -72,15 +72,23 @@ class WebViewOkHttpCaseFragment : BaseFragment<WebViewCaseBinding>() {
                         if (hostname == viewModel.host.value) {
                             viewModel.showResolveResult(this, currMills)
                         }
-                        processDnsResult(this, inetAddresses)
+                        if (!ipv6s.isNullOrEmpty()) {
+                            for (i in ipv6s.indices) {
+                                inetAddresses.addAll(
+                                    InetAddress.getAllByName(ipv6s[i]).toList()
+                                )
+                            }
+                        } else if (!ips.isNullOrEmpty()) {
+                            for (i in ips.indices) {
+                                inetAddresses.addAll(
+                                    InetAddress.getAllByName(ips[i]).toList()
+                                )
+                            }
+                        }
                     }
 
                     if (inetAddresses.isEmpty()) {
-                        try {
-                            val localResolveResult = Dns.SYSTEM.lookup(hostname)
-                            inetAddresses.addAll(localResolveResult)
-                        }catch (e: Exception) {
-                        }
+                        inetAddresses.addAll(Dns.SYSTEM.lookup(hostname))
                     }
                     return inetAddresses
                 }
@@ -96,13 +104,13 @@ class WebViewOkHttpCaseFragment : BaseFragment<WebViewCaseBinding>() {
         val isV6 = ipStackType == NetType.v6 || ipStackType == NetType.both
         val isV4 = ipStackType == NetType.v4 || ipStackType == NetType.both
 
-        if (httpDnsResult.ipv6s != null && httpDnsResult.ipv6s.isNotEmpty() && isV6) {
+        if (httpDnsResult.ipv6s != null && httpDnsResult.ipv6s.isNotEmpty()) {
             for (i in httpDnsResult.ipv6s.indices) {
                 inetAddresses.addAll(
                     InetAddress.getAllByName(httpDnsResult.ipv6s[i]).toList()
                 )
             }
-        } else if (httpDnsResult.ips != null && httpDnsResult.ips.isNotEmpty() && isV4) {
+        } else if (httpDnsResult.ips != null && httpDnsResult.ips.isNotEmpty()) {
             for (i in httpDnsResult.ips.indices) {
                 inetAddresses.addAll(
                     InetAddress.getAllByName(httpDnsResult.ips[i]).toList()
@@ -164,13 +172,14 @@ class WebViewOkHttpCaseFragment : BaseFragment<WebViewCaseBinding>() {
             return false
         }
         val url = webResourceRequest.url ?: return false
-        if (!"GET".equals(webResourceRequest.method, true)) {
+        if ("https" != url.scheme && "http" != url.scheme) {
             return false
         }
 
-        if ("https" == url.scheme || "http" == url.scheme) {
+        if ("GET".equals(webResourceRequest.method, true)) {
             return true
         }
+
         return false
     }
 
