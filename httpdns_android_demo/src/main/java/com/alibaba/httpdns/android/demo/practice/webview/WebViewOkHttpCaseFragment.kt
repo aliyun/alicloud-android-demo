@@ -96,29 +96,6 @@ class WebViewOkHttpCaseFragment : BaseFragment<WebViewCaseBinding>() {
             .build()
     }
 
-    /**
-     * 根据网络环境,返回ip
-     */
-    fun processDnsResult(httpDnsResult: HTTPDNSResult, inetAddresses: MutableList<InetAddress>) {
-        val ipStackType = HttpDnsNetworkDetector.getInstance().getNetType(requireContext())
-        val isV6 = ipStackType == NetType.v6 || ipStackType == NetType.both
-        val isV4 = ipStackType == NetType.v4 || ipStackType == NetType.both
-
-        if (httpDnsResult.ipv6s != null && httpDnsResult.ipv6s.isNotEmpty()) {
-            for (i in httpDnsResult.ipv6s.indices) {
-                inetAddresses.addAll(
-                    InetAddress.getAllByName(httpDnsResult.ipv6s[i]).toList()
-                )
-            }
-        } else if (httpDnsResult.ips != null && httpDnsResult.ips.isNotEmpty()) {
-            for (i in httpDnsResult.ips.indices) {
-                inetAddresses.addAll(
-                    InetAddress.getAllByName(httpDnsResult.ips[i]).toList()
-                )
-            }
-        }
-    }
-
     override fun getLayoutId(): Int {
         return R.layout.httpdns_fragment_webview_case
     }
