@@ -13,8 +13,10 @@ import com.meizu.cloud.pushsdk.utils.MzSystemUtils
 import com.vivo.push.PushClient
 import com.vivo.push.listener.IPushQueryActionListener
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
 object PushManufacturerUtil {
 
@@ -79,8 +81,9 @@ object PushManufacturerUtil {
         }
     }
 
-    fun getHuaweiToken(context: Context, callback: (String?) -> Unit) = runBlocking{
-        launch(Dispatchers.IO) {
+    fun getHuaweiToken(context: Context, callback: (String?) -> Unit) {
+        Thread {
+            print("currentThread ${Thread.currentThread().name}")
             val appInfo = context.packageManager.getApplicationInfo(
                 context.packageName, PackageManager.GET_META_DATA
             )
@@ -95,8 +98,8 @@ object PushManufacturerUtil {
                 HmsInstanceId.getInstance(context).getToken(appId, "HCM")
             }
             callback.invoke(token)
-        }
 
+        }.start()
     }
 
     fun getHonorToken(callback: (String?)->Unit){
