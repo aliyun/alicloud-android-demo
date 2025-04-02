@@ -94,7 +94,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
                     }
                 }
 
-                override fun onFailed(p0: String?, errorMessage: String?) {
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
                     showCustomToast?.invoke(String.format(getString(R.string.push_get_device_tag_list_fail), errorMessage), R.drawable.push_fail)
                 }
             })
@@ -181,7 +181,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
         PushServiceFactory.getCloudPushService()
             .bindTag(target, arrayOf(tag), alias, object : CommonCallback {
-                override fun onSuccess(p0: String?) {
+                override fun onSuccess(response: String?) {
                     hasTag.value = true
                     when (target) {
                         CloudPushService.DEVICE_TARGET -> addDeviceTagSuccess(tag)
@@ -241,11 +241,11 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
     fun removeDeviceTag(tag: String) {
         PushServiceFactory.getCloudPushService()
             .unbindTag(CloudPushService.DEVICE_TARGET, arrayOf(tag), null, object : CommonCallback {
-                override fun onSuccess(p0: String?) {
+                override fun onSuccess(response: String?) {
                     removeDeviceTagSuccess(tag)
                 }
 
-                override fun onFailed(p0: String?, errorMessage: String?) {
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
                     showCustomToast?.invoke(String.format(getString(R.string.push_toast_delete_device_tag_fail), errorMessage), R.drawable.push_fail)
                 }
 
@@ -268,11 +268,11 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
             if (entry.value.contains(tag)) {
                 PushServiceFactory.getCloudPushService()
                     .unbindTag(CloudPushService.ALIAS_TARGET, arrayOf(tag), entry.key, object : CommonCallback {
-                        override fun onSuccess(p0: String?) {
+                        override fun onSuccess(response: String?) {
                             removeAliasTagSuccess(tag, entry.key)
                         }
 
-                        override fun onFailed(p0: String?, errorMessage: String?) {
+                        override fun onFailed(errorCode: String?, errorMessage: String?) {
                             showCustomToast?.invoke(String.format(getString(R.string.push_toast_delete_alias_tag_fail), errorMessage), R.drawable.push_fail)
                         }
 
@@ -309,11 +309,11 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
     fun removeAccountTag(tag: String) {
         PushServiceFactory.getCloudPushService()
             .unbindTag(CloudPushService.ACCOUNT_TARGET, arrayOf(tag), null, object : CommonCallback {
-                override fun onSuccess(p0: String?) {
+                override fun onSuccess(response: String?) {
                     removeAccountTagSuccess(tag)
                 }
 
-                override fun onFailed(p0: String?, errorMessage: String?) {
+                override fun onFailed(errorCode: String?, errorMessage: String?) {
                     showCustomToast?.invoke(String.format(getString(R.string.push_unbind_account_tag_fail), errorMessage), R.drawable.push_fail)
                 }
 
@@ -355,7 +355,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
      */
     fun addAlias(alias: String) {
         PushServiceFactory.getCloudPushService().addAlias(alias, object : CommonCallback {
-            override fun onSuccess(p0: String?) {
+            override fun onSuccess(response: String?) {
                 currAliasList.add(0, alias)
                 showMoreAlias.value = currAliasList.size > showMoreAliasCount
                 aliasListStr.value = currAliasList.joinToString(",")
@@ -372,7 +372,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
      */
     fun removeAlias(alias: String) {
         PushServiceFactory.getCloudPushService().removeAlias(alias, object : CommonCallback {
-            override fun onSuccess(p0: String?) {
+            override fun onSuccess(response: String?) {
                 updateTagAfterRemoveAlias(alias)
                 currAliasList.remove(alias)
                 showMoreAlias.value = currAliasList.size > showMoreAliasCount
@@ -413,7 +413,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
      */
     fun bindAccount(accountStr: String) {
         PushServiceFactory.getCloudPushService().bindAccount(accountStr, object : CommonCallback {
-            override fun onSuccess(p0: String?) {
+            override fun onSuccess(response: String?) {
                 updateTagAfterBindAccount()
                 account.value = accountStr
                 viewModelScope.launch {
@@ -438,7 +438,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
         updateTagAfterBindAccount()
         PushServiceFactory.getCloudPushService().unbindAccount(object : CommonCallback {
-            override fun onSuccess(p0: String?) {
+            override fun onSuccess(response: String?) {
 
             }
 
@@ -468,7 +468,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
     fun bindPhone(phoneNumber: String) {
         PushServiceFactory.getCloudPushService()
             .bindPhoneNumber(phoneNumber, object : CommonCallback {
-                override fun onSuccess(p0: String?) {
+                override fun onSuccess(response: String?) {
                     phone.value = phoneNumber
                     viewModelScope.launch {
                         val editor = preferences.edit()
@@ -495,7 +495,7 @@ class AdvanceFuncViewModel(application: Application) : AndroidViewModel(applicat
         }
         PushServiceFactory.getCloudPushService()
             .unbindPhoneNumber(object : CommonCallback {
-                override fun onSuccess(p0: String?) {
+                override fun onSuccess(response: String?) {
 
                 }
 

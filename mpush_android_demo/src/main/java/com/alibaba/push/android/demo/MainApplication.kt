@@ -12,6 +12,7 @@ import com.alibaba.sdk.android.push.HonorRegister
 import com.alibaba.sdk.android.push.huawei.HuaWeiRegister
 import com.alibaba.sdk.android.push.noonesdk.PushInitConfig
 import com.alibaba.sdk.android.push.noonesdk.PushServiceFactory
+import com.alibaba.sdk.android.push.register.GcmRegister
 import com.alibaba.sdk.android.push.register.MeizuRegister
 import com.alibaba.sdk.android.push.register.MiPushRegister
 import com.alibaba.sdk.android.push.register.OppoRegister
@@ -49,6 +50,7 @@ class MainApplication:Application() {
         VivoRegister.registerAsync(applicationContext) //接入vivo辅助推送
         OppoRegister.registerAsync(applicationContext, "", "") //OPPO辅助推送
         MeizuRegister.registerAsync(applicationContext, "", "") //接入魅族辅助推送
+        GcmRegister.register(this, "", "", "", "") //GCM推送
     }
 
 

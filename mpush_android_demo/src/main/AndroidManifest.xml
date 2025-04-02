@@ -24,15 +24,21 @@
         <meta-data
             android:name="com.alibaba.app.appsecret"
             android:value="XXX" />
+        <!--huawei厂商通道参数配置-->
         <meta-data
             android:name="com.huawei.hms.client.appid"
             android:value="appid=XXXXX" />
+        <!--vivo厂商通道参数配置-->
         <meta-data
             android:name="com.vivo.push.api_key"
             android:value="XXXXX" />
         <meta-data
             android:name="com.vivo.push.app_id"
             android:value="XXXXX" />
+        <!--荣耀厂商通道配置-->
+        <meta-data
+            android:name="com.hihonor.push.app_id"
+            android:value="XXX" />
 
         <activity
             android:name=".MainActivity"
@@ -81,6 +87,28 @@
             </intent-filter>
             <!-- scheme 配置结束  -->
         </activity>
+
+        <activity
+            android:name="com.alibaba.push.android.demo.ThirdPushReceiveActivity"
+            android:process="@string/aliyun_accs_target_process"
+            android:exported="true"
+            android:launchMode="singleInstance">
+
+            <!-- scheme 配置开始  -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="${applicationId}"
+                    android:path="/thirdpush"
+                    android:scheme="agoo" />
+            </intent-filter>
+            <!-- scheme 配置结束  -->
+        </activity>
+
 
         <receiver
             android:name=".MyMessageReceiver"
