@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="hello world"
+        android:textSize="18sp"
+        android:textColor="@color/push_color_text_black"
+        android:gravity="center" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

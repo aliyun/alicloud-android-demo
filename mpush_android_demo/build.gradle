@@ -1,0 +1,95 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+
+gradle.ext {
+    pushVersion = '3.9.2'
+    thirdPushVersion = '3.9.2'
+}
+
+android {
+    compileSdk 34
+    defaultConfig {
+        applicationId "com.aliyun.emas.pocdemo"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+        buildConfigField "String", "PUSH_VERSION", "\"${gradle.pushVersion}\""
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    signingConfigs {
+        release {
+            storeFile file("Test.jks")
+            storePassword "test1234"
+            keyAlias "test"
+            keyPassword "test1234"
+        }
+        debugConfig {
+            storeFile file("Test.jks")
+            storePassword "test1234"
+            keyAlias "test"
+            keyPassword "test1234"
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debugConfig
+        }
+    }
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
+    implementation("androidx.viewpager2:viewpager2:1.0.0")
+
+    implementation "com.aliyun.ams:alicloud-android-push:${gradle.pushVersion}"
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    api "com.aliyun.ams:alicloud-android-third-push:${gradle.thirdPushVersion}"
+    api "com.aliyun.ams:alicloud-android-third-push-meizu:${gradle.thirdPushVersion}"
+    api "com.aliyun.ams:alicloud-android-third-push-vivo:${gradle.thirdPushVersion}"
+    api "com.aliyun.ams:alicloud-android-third-push-oppo:${gradle.thirdPushVersion}"
+    api "com.aliyun.ams:alicloud-android-third-push-xiaomi:${gradle.thirdPushVersion}"
+    api "com.aliyun.ams:alicloud-android-third-push-huawei:${gradle.thirdPushVersion}"
+    api "com.aliyun.ams:alicloud-android-third-push-honor:${gradle.thirdPushVersion}"
+    api "com.aliyun.ams:alicloud-android-third-push-fcm:${gradle.thirdPushVersion}"
+
+}
+

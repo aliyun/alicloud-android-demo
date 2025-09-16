@@ -1,0 +1,59 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+            name 'jcenter'
+            allowInsecureProtocol = true
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+            name 'google'
+        }
+    }
+}
+
+dependencyResolutionManagement {
+
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        mavenLocal()
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
+        maven {
+            url "http://maven.aliyun.com/nexus/content/groups/public/"
+            name 'jcenter'
+            allowInsecureProtocol = true
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+            name 'google'
+        }
+
+        maven {
+            url 'https://developer.huawei.com/repo/'
+        }
+    }
+
+    ext.loggerVersion = '1.2.0'
+    ext.senderVersion = '1.1.6'
+    ext.crashDefendVersion = '0.0.6'
+    ext.utdidVersion = '2.6.0'
+    ext.beaconVersion = '1.0.8'
+    ext.ipdetectorVersion = '1.0.0'
+}
+
+
+include ':devops_android_demo',
+        ':httpdns_android_demo',
+        ':mpush_android_demo',
+        ':feedback_android_demo',
+        ':apm_android_demo',
+        ':hotfix_android_demo'

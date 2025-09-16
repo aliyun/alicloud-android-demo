@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_function"
+        android:icon="@drawable/httpdns_function"
+        android:title="@string/tab_basic" />
+
+    <item
+        android:id="@+id/navigation_case"
+        android:icon="@drawable/httpdns_case"
+        android:title="@string/tab_practice" />
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/httpdns_setting"
+        android:title="@string/tab_setting" />
+
+</menu>

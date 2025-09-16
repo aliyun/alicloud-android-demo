@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools" tools:context=".LZLMainActivity">
+
+    <item
+            android:id="@+id/action_about_us"
+            android:title="关于我们"/>
+    <item
+            android:id="@+id/action_helper"
+            android:title="帮助中心"/>
+</menu>

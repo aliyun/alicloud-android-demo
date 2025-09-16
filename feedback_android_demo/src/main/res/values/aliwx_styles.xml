@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <style name="ContentOverlay" parent="@android:style/Theme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@null</item>
+    </style>
+
+    <style name="button_allgrade_content">
+        <item name="android:layout_margin">1dip</item>
+        <item name="android:background">#ffffff</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">#413d41</item>
+    </style>
+    <dimen name="activity_horizontal_margin">0dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <!--应用程序信息文本-->
+    <string name="app_name">【阿里云移动用户反馈】Demo程序</string>
+    <string name="app_version">v3.1.1</string>
+    <!--关于我们页面-->
+    <string name="layout_aboutus_arr">All Rights Reserved.</string>
+    <string name="layout_aboutus_company">阿里云(软件)有限公司版权所有</string>
+    <string name="layout_aboutus_copyright">Copyright © 2009 - 2016 Aliyun.com</string>
+    <!--帮助中心页面-->
+    <string name="layout_helpus_content">Q : 什么是用户体验Demo？\nA : 用户体验Demo就是阿里云平台为您自动创建的、用来体验移动用户反馈用的一个小Demo。\n\nQ : 如何联系我们？\nA : App Demo相关问题，请搜索钉钉群号：11711519</string>
+</resources>

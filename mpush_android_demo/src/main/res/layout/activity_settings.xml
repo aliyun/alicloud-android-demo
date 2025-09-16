@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="130dp">
+
+            <ImageView
+                android:id="@+id/ivLogo"
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/push_logo"
+                android:contentDescription="@string/push_logo"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_back_dark"
+                android:contentDescription="返回"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="50dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="推送配置设置"
+                android:textColor="#3D3D3D"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="108dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="配置您的AppKey和AppSecret"
+                android:textColor="#607B9C"
+                android:textSize="14sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/tvHello"
+                app:layout_constraintTop_toBottomOf="@id/tvHello"/>
+
+            <ImageView
+                android:id="@+id/ivCountAlert"
+                android:layout_width="14dp"
+                android:layout_height="20dp"
+                android:paddingTop="3dp"
+                android:contentDescription="@string/push_alert"
+                android:src="@drawable/push_alert"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/ivCountAlert"
+                app:layout_constraintTop_toTopOf="@id/ivCountAlert"
+                app:layout_constraintBottom_toBottomOf="@id/ivCountAlert"
+                android:text="当前使用默认配置"
+                android:textColor="@color/push_color_315CFC"
+                android:textSize="14sp"
+                android:layout_marginStart="3dp" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clConfig"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_status"
+                android:background="@drawable/push_bg_advanced_func">
+
+                <TextView
+                    android:id="@+id/tvTitleConfig"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:text="配置信息"
+                    android:textColor="@color/push_color_text_black_deep"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <TextView
+                    android:id="@+id/tvAppKeyLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AppKey"
+                    android:textColor="@color/push_color_text_black"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitleConfig" />
+
+                <EditText
+                    android:id="@+id/et_app_key"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/push_edit_text_bg"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/push_color_text_black"
+                    android:hint="请输入AppKey"
+                    android:textColorHint="@color/push_color_text_gray"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    app:layout_constraintTop_toBottomOf="@id/tvAppKeyLabel" />
+
+                <TextView
+                    android:id="@+id/tvAppSecretLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AppSecret"
+                    android:textColor="@color/push_color_text_black"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_app_key" />
+
+                <EditText
+                    android:id="@+id/et_app_secret"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/push_edit_text_bg"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/push_color_text_black"
+                    android:hint="请输入AppSecret"
+                    android:textColorHint="@color/push_color_text_gray"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    app:layout_constraintTop_toBottomOf="@id/tvAppSecretLabel" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clActions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:paddingVertical="20dp"
+                app:layout_constraintTop_toBottomOf="@id/clConfig"
+                android:background="@drawable/push_bg_advanced_func">
+
+                <TextView
+                    android:id="@+id/tvTitleActions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="操作"
+                    android:textColor="@color/push_color_text_black_deep"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitleActions">
+
+                    <TextView
+                        android:id="@+id/btn_save"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/push_button_bg"
+                        android:gravity="center"
+                        android:text="保存配置"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/btn_clear"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/push_button_clear_bg"
+                        android:gravity="center"
+                        android:text="清除配置"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/vStatusBg"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:background="@color/color_transparent"
+        android:alpha="0"/>
+
+</FrameLayout>

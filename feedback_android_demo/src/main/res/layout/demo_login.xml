@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/background_dark">
+
+    <TableLayout
+            android:id="@+id/tlSetting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#EAEAEA"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:stretchColumns="3">
+
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            <Button
+                    android:id="@+id/btnOpenActivity"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="查看线上版本"
+            />
+
+            <Button
+                    android:id="@+id/btnScan"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="扫码实时预览"
+            />
+
+            <Button
+                    android:id="@+id/btnUnread"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="未读消息数"
+            />
+
+        </TableRow>
+        <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+            <Button
+                    android:id="@+id/btnOpenFragment"
+                    style="@style/button_allgrade_content"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="查看线上版本(Fragment)"
+            />
+
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+            android:id="@+id/tvConsoleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/tlSetting"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:padding="5dp"
+            android:background="@drawable/aliyun_bg"
+    />
+
+</RelativeLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ConfigItemView">
+        <attr name="title" format="string" />
+        <attr name="desc" format="string" />
+        <attr name="rightBtnIsImage" format="boolean" />
+    </declare-styleable>
+
+</resources>

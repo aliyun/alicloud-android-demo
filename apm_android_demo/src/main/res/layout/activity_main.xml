@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/javaCrash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myNewTheme"
+            android:text="点击崩溃（java）"/>
+
+        <Button
+            android:id="@+id/nativeCrash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myNewTheme"
+            android:text="点击崩溃（native）" />
+
+        <Button
+            android:id="@+id/stuck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myNewTheme"
+            android:text="主线程卡顿" />
+
+        <Button
+            android:id="@+id/customError"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myNewTheme"
+            android:text="自定义错误" />
+
+        <Button
+            android:id="@+id/logPrint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myNewTheme"
+            android:text="打日志" />
+
+        <Button
+            android:id="@+id/logUpload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/myNewTheme"
+            android:text="主动上报日志" />
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:text="切换后台自动上报性能数据" />
+
+    </LinearLayout>
+</ScrollView>

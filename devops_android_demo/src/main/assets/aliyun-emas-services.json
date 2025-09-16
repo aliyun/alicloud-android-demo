@@ -1,0 +1,30 @@
+{
+    "private_cloud_config":{
+        "AppKey": "345647",
+        "AppSecret": "c3f2f2b30f4440f6d507d5da73e3ac31",
+        "ChannelID": "600000@DemoApp_Android_1.0.0",
+        "UseHTTP": "true",
+        "StartActivity": "com.taobao.demo.WelcomActivity",
+        "ACCS":{
+            "Domain": "accs-paas.emas-poc.com"
+        },
+        "Network":{
+            "IPStrategy": {"accs-paas.emas-poc.com":"139.129.199.57:32280"}
+        },
+        "MTOP":{
+            "Domain": "139.129.199.57:32280",
+            "APIDomain": "139.129.199.57:32480"
+        },
+        "ZCache":{
+            "URL": "https://ceph-paas.emas-poc.com/validate-emas"
+        },
+        "HA":{
+            "OSSBucketName": "validate-emas-ha",
+            "UniversalHost": "139.129.199.57:32380",
+            "RSAPublicKey": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnRUFjCCVxzYatQ8LC0lYiShmYOPiyjuBqVo5VRGZGNuzbl2li4ECtiCPdbQSoKDKg3EiTHC80KawwQaO6UCM6RKh6XVjVFMQUdQo01dREc16pG/V9RvyA3VQ6UJkPNnjNCmh9p8IWyidmsKe3GECLFInP2aREuPq8/PoZ2ofgpQIDAQAB"
+        },
+        "RemoteConfig":{
+            "Domain": "139.129.199.57:32280"
+        }
+    }
+}

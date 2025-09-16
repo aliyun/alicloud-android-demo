@@ -1,0 +1,64 @@
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor
+*.swp
+*.swo
+*~
+
+# Gradle
+build/
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# IntelliJ IDEA
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+# Android Studio
+.navigation/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Android
+local.properties
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+proguard/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Log Files
+*.log
+
+# NDK
+obj/
+
+# Lint
+lint-results.xml
+lint-results_files/
+
+# Others
+nohup.out
+*.tmp
+*.temp
+
+# Kiro IDE
+.kiro/

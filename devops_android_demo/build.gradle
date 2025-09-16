@@ -1,0 +1,30 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    namespace "com.aliyun.emas.android.devops.demo"
+    defaultConfig {
+        applicationId "com.aliyun.emas.android.devops.demo"
+        minSdkVersion 20
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+
+    implementation('com.alibaba:fastjson:1.2.66@jar') { transitive true }
+    implementation 'com.taobao.android:update-main:1.1.7-open'
+    implementation 'com.aliyun.ams:alicloud-android-tool:1.0.0'
+
+}

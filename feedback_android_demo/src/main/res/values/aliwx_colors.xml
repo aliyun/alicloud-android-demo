@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="button_bckground_color">#0089cd</color>
+
+    <color name="aliwx_common_bg_white_color">#f9f9f9</color>
+    <color name="aliwx_bg_color_white">#ffffff</color>
+    <color name="aliwx_common_bg_blue_color">#00b4ff</color>
+    <color name="aliwx_halftransparent">#7F000000</color>
+    <color name="aliwx_black">#ff000000</color>
+    <color name="aliwx_cv_content_color">#d0d0d0</color>
+    <color name="aliwx_common_bg_color">#F0F0F0</color>
+    <color name="aliwx_title_bar_shadow_color">#cccccc</color>
+    <color name="aliwx_second_grade_color">#7F7F7F</color>
+    <color name="aliwx_top_grade_color">#ffffff</color>
+    <color name="aliwx_chatting_detail_sysmsg_color">#FFFFFFFF</color>
+    <color name="aliwx_record_color">#d7d7d7</color>
+    <color name="aliwx_record_bottom_text_color">#6d6d6d</color>
+    <color name="aliwx_refresh_head_color">#505253</color>
+    <color name="aliwx_common_alpha_black">#99000000</color>
+    <color name="aliwx_share_form_color">#8A8B8C</color>
+    <color name="aliwx_tab_normal_color">#666666</color>
+    <color name="aliwx_right_sliding_text_color">#ff333333</color>
+    <color name="aliwx_transparent_bg_gray_color">#303234</color>
+    <color name="aliwx_conversation_pressed_bg_color">#f5f5f5</color>
+    <color name="aliwx_conversation_unpressed_bg_color">#ffffff</color>
+    <color name="aliwx_top_conversation_pressed_bg_color">#f5f5f5</color>
+
+    <!-- 2014新颜色 -->
+
+    <color name="aliwx_setting_bg_nor">#ffffff</color>
+    <color name="aliwx_setting_bg_p">#f5f5f5</color>
+    <color name="aliwx_common_text_color">#ff333333</color>
+    <color name="aliwx_common_text_color2">#ff666666</color>
+    <color name="aliwx_common_text_color3">#999999</color>
+    <color name="aliwx_common_text_color4">#999999</color>
+    <color name="aliwx_common_text_color_blue">#00b4ff</color>
+    <color name="aliwx_third_text_color">#999999</color>
+    <color name="aliwx_common_line_color">#cccccc</color>
+    <color name="aliwx_multi_image_title_bg">#B2f9f9f9</color>
+    <color name="aliwx_multi_image_line">#7fcccccc</color>
+    <color name="aliwx_text_color_link">#3366FF</color>
+    <color name="aliwx_time_text_background">#dddddd</color>
+    <color name="aliwx_rim_color">#80626262</color>
+    <color name="aliwx_circle_color">#80000000</color>
+    <color name="aliwx_holo_orange_light">#ffffbb33</color>
+    <color name="aliwx_divider_color">#E9E9E9</color>
+    
+      <!-- 相册多图选择相关颜色 -->
+      
+    <color name="aliwx_wq_common_grey_button_color">#cccccc</color>
+    <color name="aliwx_wq_common_grey_button_press_color">#acacac</color>
+    <color name="aliwx_wq_common_button_disable_color">#e6e6e6</color>
+    <color name="aliwx_contacts_tab_color">#f8f8f8</color>
+    <color name="aliwx_maintab_background">#373b3b</color>
+    <color name="aliwx_default_image_color">#ffc2c5cb</color>
+    <color name="aliwx_common_button_disable_text_color">#bbbbbb</color>
+    <color name="aliwx_wq_common_green_button_color">#5dc4cb</color>
+    <color name="aliwx_wq_common_green_button_press_color">#339ba3</color>
+    <color name="aliwx_grey_btn_default">#cccccc</color>
+    <color name="aliwx_common_color_blue">#0894ec</color>
+
+    <!-- 商品详情交易焦点 -->
+    <color name="aliwx_order_grey_color">#FFA9A9A9</color>
+    <color name="aliwx_order_price_color">#ff0000</color>
+    <color name="aliwx_white">#ffffffff</color>
+
+
+    <!--@消息相关颜色值-->
+    <color name="aliwx_text_color_blue">#00b4ff</color>
+    <color name="aliwx_text_color_black">#000000</color>
+    <color name="aliwx_text_color_gray">#bebec0</color>
+    <color name="aliwx_text_color_at_notify">#dd191d</color>
+    <color name="aliwx_text_color_at_unread">#00b4ff</color>
+
+
+    <color name="aliwx_column_bg_color_pressed">#dddddd</color>
+
+    <color name="aliwx_first_grade_color">#000000</color>
+    <color name="aliwx_third_grade_color">#A9A9A9</color>
+    <color name="aliwx_white_btn_text_color">#8E8E8E</color>
+    <!--<color name="aliwx_white">#ffffffff</color>-->
+    <color name="aliwx_wxtribe_title_color">#333333</color>
+
+
+    <!--原图相关色值-->
+    <color name="aliwx_color_blue">#00b4ff</color>
+    <color name="aliwx_color_blue_light">#535A60</color>
+    <color name="aliwx_color_blue_dark">#212c33</color>
+    <color name="aliwx_color_gray_01">#525252</color>
+    <color name="aliwx_color_gray_02">#999999</color>
+    <color name="aliwx_color_gray_03">#CCCCCC</color>
+    <color name="aliwx_color_white">#ffffff</color>
+
+
+
+    <color name="halftransparentwhite">#7FFFFFFF</color>
+    <color name="aliwx_normal_title_bg">#00b4ff</color>
+
+
+</resources>

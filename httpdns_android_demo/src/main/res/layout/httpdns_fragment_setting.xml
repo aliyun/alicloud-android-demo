@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data class="SettingBinding">
+        <variable
+            name="viewModel"
+            type="com.alibaba.httpdns.android.demo.setting.SettingViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="50dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/common"
+                    android:textStyle="bold"
+                    android:textColor="#3D3D3D"
+                    android:textSize="20sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvHint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/setting_hint"
+                    android:textColor="#98A4BA"
+                    android:textSize="12sp"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civExpireIp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="20dp"
+                    android:onCheckedChanged="@{viewModel::toggleEnableExpiredIp}"
+                    android:checked="@{viewModel.enableExpiredIP}"
+                    app:title="@string/promise_expire_ip"
+                    app:desc="@string/promise_expire_ip"
+                    app:layout_constraintTop_toBottomOf="@+id/tvHint"/>
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civDegrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:checked="@{viewModel.enableDegrade}"
+                    android:onCheckedChanged="@{viewModel::toggleEnableDegrade}"
+                    app:title="@string/promise_degrade"
+                    app:desc="@string/promise_degrade_desc"
+                    app:layout_constraintTop_toBottomOf="@+id/civExpireIp"/>
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civCacheIp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:checked="@{viewModel.enableCacheIP}"
+                    android:onCheckedChanged="@{viewModel::toggleEnableCacheIp}"
+                    app:title="@string/launch_perpetuation_cache_ip"
+                    app:desc="@string/host_save_desc"
+                    app:layout_constraintTop_toBottomOf="@+id/civDegrade"/>
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civHttps"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:checked="@{viewModel.enableHttps}"
+                    android:onCheckedChanged="@{viewModel::toggleEnableHttps}"
+                    app:title="@string/promise_https"
+                    app:desc="@string/use_https_resolve"
+                    app:layout_constraintTop_toBottomOf="@+id/civCacheIp"/>
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civChangeNetworkRefresh"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:checked="@{viewModel.enableAutoRefresh}"
+                    android:onCheckedChanged="@{viewModel::toggleEnableAutoRefresh}"
+                    app:title="@string/net_change_auto_refresh"
+                    app:desc="@string/net_change_refresh_desc"
+                    app:layout_constraintTop_toBottomOf="@+id/civHttps"/>
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civPrintLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:checked="@{viewModel.enableLog}"
+                    android:onCheckedChanged="@{viewModel::toggleEnableLog}"
+                    app:title="@string/promise_sdk_print_log"
+                    app:desc="@string/launch_sdk_print_log"
+                    app:layout_constraintTop_toBottomOf="@+id/civChangeNetworkRefresh"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clTimeout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/civPrintLog" >
+
+                    <TextView
+                        android:id="@+id/tvTimeoutTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tvTimeoutDesc"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        android:gravity="center_vertical"
+                        android:text="@string/timeout"
+                        android:textSize="16sp"
+                        android:textColor="#3D3D3D" />
+
+                    <TextView
+                        android:id="@+id/tvTimeoutDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvTimeoutTitle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:gravity="center_vertical"
+                        android:text="@string/setting_resolve_timeout"
+                        android:textSize="12sp"
+                        android:textColor="#98A4BA" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text="@{String.valueOf(viewModel.currentTimeout)}"
+                        tools:text="2000 ms"
+                        android:textColor="#2A313D"
+                        android:textSize="16sp"
+                        android:drawablePadding="4dp"
+                        app:drawableEndCompat="@drawable/httpdns_edit"
+                        android:onClick="@{()-> viewModel.showTimeoutSettingDialog()}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvHighConfig"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/high_setting"
+                    android:textColor="#3D3D3D"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="52dp"
+                    app:layout_constraintTop_toBottomOf="@id/clTimeout" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clRegion"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/tvHighConfig" >
+
+                    <TextView
+                        android:id="@+id/tvRegionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tvRegionDesc"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed"
+                        android:gravity="center_vertical"
+                        android:text="@string/region"
+                        android:textSize="16sp"
+                        android:textColor="#3D3D3D" />
+
+                    <TextView
+                        android:id="@+id/tvRegionDesc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="22dp"
+                        app:layout_constraintTop_toBottomOf="@id/tvRegionTitle"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:gravity="center_vertical"
+                        android:text="@string/set_region"
+                        android:textSize="12sp"
+                        android:textColor="#98A4BA" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{String.valueOf(viewModel.currentRegion)}"
+                        android:textColor="#2A313D"
+                        android:textSize="16sp"
+                        android:contentDescription="@string/region_editor"
+                        android:drawablePadding="4dp"
+                        app:regionIcon="@{viewModel.regionPopupShow ? @drawable/httpdns_up : @drawable/httpdns_down}"
+                        android:onClick="@{(v) -> viewModel.setRegion(v)}"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civHostPreResolve"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    app:rightBtnIsImage="true"
+                    app:title="@string/pre_resolve_host_host"
+                    app:desc="@string/set_pre_resolve_host_list"
+                    app:layout_constraintTop_toBottomOf="@+id/clRegion"/>
+
+                <com.alibaba.httpdns.android.demo.view.ConfigItemView
+                    android:id="@+id/civClearHostCache"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    app:rightBtnIsImage="true"
+                    app:title="@string/clear_appointed_host_cache"
+                    app:desc="@string/clear_cache_host_list"
+                    app:layout_constraintTop_toBottomOf="@+id/civHostPreResolve"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clHelpCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="54dp"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/civClearHostCache" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/help_center"
+                        android:textStyle="bold"
+                        android:textColor="#3D3D3D"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/httpdns_help"
+                        android:contentDescription="@string/jump_help_center"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clAboutUs"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/clHelpCenter" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/about_us"
+                        android:textStyle="bold"
+                        android:textColor="#3D3D3D"
+                        android:textSize="20sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/httpdns_more"
+                        android:layout_marginTop="6dp"
+                        android:contentDescription="@string/jump_to_about_us"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textColor="#424FF7"
+                    android:text="@string/reset"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="0dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:onClick="@{()->viewModel.reset()}"
+                    app:layout_constraintTop_toBottomOf="@id/clAboutUs" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <View
+            android:id="@+id/vStatusBg"
+            android:layout_width="match_parent"
+            android:layout_height="22dp"
+            android:background="#FFFFFF" />
+
+    </FrameLayout>
+</layout>

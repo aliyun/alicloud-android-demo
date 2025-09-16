@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <application
+        android:name=".DemoApplication"
+        android:allowBackup="false">
+        <activity
+            android:name="com.alibaba.openim.feedbackdemo.DemoLoginActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="keyboardHidden|orientation"
+            android:icon="@drawable/app_logo"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
+
+        <activity android:name="com.alibaba.openim.feedbackdemo.DemoFragmentActivity" />
+        <activity android:name="com.alibaba.openim.feedbackdemo.AboutActivity"
+            android:label="关于我们"/>
+        <activity android:name="com.alibaba.openim.feedbackdemo.HelperActivity"
+            android:label="帮助中心"/>
+    </application>
+
+</manifest>
