@@ -14,7 +14,9 @@
    - 详细的集成说明请查看各产品目录下的README.md
 
 3. **配置密钥**
-   - HTTPDNS无需创建应用，其他产品可以在[EMAS控制台](https://emas.console.aliyun.com/)创建应用，并获取对应的AppKey、AppSecret等配置信息
+   - HTTPDNS无需创建应用，请按照[README](httpdns_android_demo/README.md)说明进行配置
+   - 登录[EMAS控制台](https://emas.console.aliyun.com/)创建应用
+   - 获取对应的AppKey、AppSecret等配置信息
    - 按照各Demo的README说明进行配置
 
 
