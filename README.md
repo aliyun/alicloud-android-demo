@@ -58,10 +58,6 @@ HTTPDNS是面向多端应用（移动端APP，PC客户端应用）的域名解�
 ### 三、应用性能监控
 ------
 
-<div align="center">
-<img src="./assets/apm_logo.png">
-</div>
-
 EMAS 应用监控是面向客户端的全方位监控服务平台，覆盖移动端和Web/H5端。基于阿里巴巴深厚的技术沉淀，提供稳定高效的监控服务，帮助开发者实时掌握应用性能与稳定性情况，快速构建"感知 > 定位 > 修复"运维闭环，保障应用质量，优化用户体验。
 
 - **Android Demo**: [apm_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/apm_android_demo)
@@ -73,10 +69,6 @@ EMAS 应用监控是面向客户端的全方位监控服务平台，覆盖移动
 ### 四、移动用户反馈
 ------
 
-<div align="center">
-<img src="./assets/feedback_logo.png">
-</div>
-
 移动用户反馈服务（Mobile Feedback）面向企业客户和移动开发者的移动应用提供 App 运营服务，用于设置 App 内部用户反馈页面、收集/管理 App 内部及外部市场的用户反馈，以便及时响应、解决用户问题、提升服务质量和用户满意度。
 
 - **Android Demo**: [feedback_android_demo](https://github.com/aliyun/alicloud-android-demo/tree/master/feedback_android_demo)
@@ -87,10 +79,6 @@ EMAS 应用监控是面向客户端的全方位监控服务平台，覆盖移动
 
 ### 五、移动热修复
 ------
-
-<div align="center">
-<img src="./assets/sophix_logo.png">
-</div>
 
 移动热修复（Mobile Hotfix）是面向Android应用提供的在线热修复服务方案，产品基于阿里巴巴的Sophix技术，提供细粒度热修复能力，无需等待发版即可实时修复应用线上问题，用户全程无感知。
 
