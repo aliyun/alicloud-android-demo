@@ -14,8 +14,7 @@
    - 详细的集成说明请查看各产品目录下的README.md
 
 3. **配置密钥**
-   - 在[EMAS控制台](https://emas.console.aliyun.com/)创建应用
-   - 获取对应的AppKey、AppSecret等配置信息
+   - HTTPDNS无需创建应用，其他产品可以在[EMAS控制台](https://emas.console.aliyun.com/)创建应用，并获取对应的AppKey、AppSecret等配置信息
    - 按照各Demo的README说明进行配置
 
 
@@ -38,6 +37,8 @@ HTTPDNS是面向多端应用（移动端APP，PC客户端应用）的域名解�
 - **Flutter Demo**: [alicloud-flutter-demo](https://github.com/aliyun/alicloud-flutter-demo)
 
 - **产品官网**: [地址](https://www.aliyun.com/product/httpdns)
+
+- **配置说明**: 请阅读`httpdns_android_demo/README.md`，Demo无需在控制台单独创建应用，也无需获取AppKey、AppSecret即可体验
 
 
 
