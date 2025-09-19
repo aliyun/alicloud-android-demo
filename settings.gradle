@@ -56,4 +56,5 @@ include ':devops_android_demo',
         ':mpush_android_demo',
         ':feedback_android_demo',
         ':apm_android_demo',
-        ':hotfix_android_demo'
+        ':hotfix_android_demo',
+        ':httpdns_android_demo_webview'

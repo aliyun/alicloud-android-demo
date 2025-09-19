@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorSecondary">#03DAC6</color>
+    <color name="colorSecondaryVariant">#018786</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorError">#B00020</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorBackground">#FAFAFA</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOutline">#E0E0E0</color>
+    
+    <!-- 状态颜色 -->
+    <color name="statusRunning">#4CAF50</color>
+    <color name="statusStopped">#F44336</color>
+    <color name="textSecondary">#757575</color>
+</resources>
