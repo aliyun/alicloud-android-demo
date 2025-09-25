@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HTTPDNS WebView代理演示</string>
+    <string name="proxy_status">代理状态</string>
+    <string name="start_proxy">启动代理</string>
+    <string name="stop_proxy">停止代理</string>
+    <string name="proxy_running">代理运行中</string>
+    <string name="proxy_stopped">代理已停止</string>
+    <string name="enter_url">输入网址...</string>
+    <string name="load_url">加载网址</string>
+    <string name="test_urls">测试网址</string>
+    <string name="proxy_address">代理地址</string>
+    <string name="packets_intercepted">拦截包数</string>
+    <string name="last_host">最近访问</string>
+    <string name="uptime">运行时间</string>
+    <string name="data_transferred">传输数据</string>
+    <string name="reset_stats">重置统计</string>
+    <string name="refresh_status">刷新状态</string>
+    <string name="close">关闭</string>
+    <string name="select_test_url">选择测试URL</string>
+</resources>
