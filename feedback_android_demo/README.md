@@ -67,4 +67,5 @@ FeedbackAPI.init(application, appkey, appSecret);
 ## 联系我们
 
 -   官网：[移动用户反馈](https://www.aliyun.com/product/feedback)
+-   钉钉技术支持：35248489（钉钉群号）
 
