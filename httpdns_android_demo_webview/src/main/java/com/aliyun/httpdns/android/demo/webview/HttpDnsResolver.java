@@ -7,7 +7,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.net.InetAddress;
 
-import java.util.Set;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
@@ -29,11 +29,15 @@ import com.alibaba.sdk.android.httpdns.HTTPDNSResult;
 public class HttpDnsResolver implements HostResolver {
 
     private static final String TAG = "HttpDnsResolver";
+    private static final long UNAVAILABLE_IP_EXPIRE_MS = 60 * 1000; // 黑名单过期时间：1分钟
 
     private HttpDnsService httpDnsService;
 
-    // 只记录每个域名的不可用IP集合
-    private final ConcurrentHashMap<String, Set<String>> unavailableIps = new ConcurrentHashMap<>();
+    // 记录每个域名的不可用IP及其过期时间
+    private final ConcurrentHashMap<String, Map<String, Long>> unavailableIps = new ConcurrentHashMap<>();
+
+    // 记录每个域名最近一次resolve返回的IP
+    private final ConcurrentHashMap<String, String> lastResolvedIp = new ConcurrentHashMap<>();
 
     private final ExecutorService dnsExecutor = Executors.newCachedThreadPool(runnable -> {
         Thread thread = new Thread(runnable, "DNS-Resolver");
@@ -58,10 +62,11 @@ public class HttpDnsResolver implements HostResolver {
                 if (!httpdnsIps.isEmpty()) {
                     Log.i(TAG, "HTTPDNS resolved " + host + " to " + httpdnsIps.size() + " IPs");
 
-                    Set<String> unavailable = unavailableIps.get(host);
+                    Map<String, Long> unavailable = unavailableIps.get(host);
                     for (String ip : httpdnsIps) {
-                        if (unavailable == null || !unavailable.contains(ip)) {
+                        if (unavailable == null || !isIpUnavailable(unavailable, ip)) {
                             Log.d(TAG, "Using HTTPDNS IP: " + host + " -> " + ip);
+                            lastResolvedIp.put(host, ip);
                             return new InetSocketAddress(ip, port);
                         }
                     }
@@ -214,7 +219,35 @@ public class HttpDnsResolver implements HostResolver {
         Log.i(TAG, "HttpDnsResolver resources cleaned up");
     }
     public void markIpUnavailable(String host, String ip) {
-        unavailableIps.computeIfAbsent(host, k -> ConcurrentHashMap.newKeySet()).add(ip);
-        Log.w(TAG, "Marked IP as unavailable: " + host + " -> " + ip);
+        unavailableIps.computeIfAbsent(host, k -> new ConcurrentHashMap<>())
+            .put(ip, System.currentTimeMillis() + UNAVAILABLE_IP_EXPIRE_MS);
+        Log.w(TAG, "Marked IP as unavailable: " + host + " -> " + ip + " (expires in " + UNAVAILABLE_IP_EXPIRE_MS / 1000 + "s)");
+    }
+
+    /**
+     * 业务层标记某个host连接失败，将上次resolve返回的IP加入黑名单
+     */
+    public void markHostFailed(String host) {
+        String ip = lastResolvedIp.get(host);
+        if (ip != null) {
+            markIpUnavailable(host, ip);
+        } else {
+            Log.w(TAG, "No last resolved IP found for " + host + ", skip marking");
+        }
+    }
+
+    /**
+     * 检查IP是否在黑名单中且未过期
+     */
+    private boolean isIpUnavailable(Map<String, Long> unavailable, String ip) {
+        Long expireTime = unavailable.get(ip);
+        if (expireTime == null) {
+            return false;
+        }
+        if (System.currentTimeMillis() > expireTime) {
+            unavailable.remove(ip);
+            return false;
+        }
+        return true;
     }
 }

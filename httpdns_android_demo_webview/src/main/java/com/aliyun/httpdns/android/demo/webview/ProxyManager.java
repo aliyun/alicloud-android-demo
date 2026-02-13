@@ -188,6 +188,18 @@ public class ProxyManager {
     }
 
     /**
+     * 标记某个host连接失败，触发DNS降级
+     */
+    public void markHostFailed(String host) {
+        if (proxyService != null) {
+            HttpDnsResolver resolver = proxyService.getHttpDnsResolver();
+            if (resolver != null) {
+                resolver.markHostFailed(host);
+            }
+        }
+    }
+
+    /**
      * 检查并恢复代理服务（热启动时调用）
      */
     public void checkAndRecoverProxy() {

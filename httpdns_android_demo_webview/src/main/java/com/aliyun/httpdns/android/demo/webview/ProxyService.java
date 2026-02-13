@@ -5,16 +5,10 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import org.littleshoot.proxy.HttpFilters;
-import org.littleshoot.proxy.HttpFiltersAdapter;
-import org.littleshoot.proxy.HttpFiltersSourceAdapter;
 import org.littleshoot.proxy.HttpProxyServer;
 import org.littleshoot.proxy.impl.DefaultHttpProxyServer;
 
 import java.net.InetSocketAddress;
-import io.netty.handler.codec.http.HttpObject;
-import io.netty.handler.codec.http.HttpRequest;
-import io.netty.handler.codec.http.HttpResponse;
 
 /**
  * 代理服务类，提供本地HTTP代理服务器功能
@@ -119,40 +113,6 @@ public class ProxyService extends Service {
                 .withServerResolver(httpDnsResolver)
                 .withConnectTimeout(10000)
                 .withIdleConnectionTimeout(30000)
-                .withFiltersSource(new HttpFiltersSourceAdapter() {
-                    public HttpFilters filterRequest(HttpRequest originalRequest, InetSocketAddress clientAddress) {
-                        return new HttpFiltersAdapter(originalRequest) {
-                            @Override
-                            public HttpResponse clientToProxyRequest(HttpObject httpObject) {
-                                if (httpObject instanceof HttpRequest) {
-                                    HttpRequest request = (HttpRequest) httpObject;
-                                    String method = request.method().name();
-                                    String uri = request.uri();
-                                    String host = getHostFromRequest(request);
-                                    Log.i(TAG, "[Proxy Request] " + method + " " + uri + " (Host: " + host + ")");
-                                }
-                                return null;
-                            }
-
-                            @Override
-                            public HttpObject serverToProxyResponse(HttpObject httpObject) {
-                                if (httpObject instanceof HttpResponse) {
-                                    HttpResponse response = (HttpResponse) httpObject;
-                                    if (response.status().code() >= 400) {
-                                        Log.w(TAG, "[Server Response ERROR] " + response.status().code() + " " + response.status().reasonPhrase());
-                                    }
-                                }
-                                return httpObject;
-                            }
-
-                            @Override
-                            public void proxyToServerConnectionFailed() {
-                                Log.e(TAG, "[Proxy Connection Failed] " + originalRequest.uri());
-                                super.proxyToServerConnectionFailed();
-                            }
-                        };
-                    }
-                })
                 .start();
 
             isRunning = true;
@@ -209,28 +169,6 @@ public class ProxyService extends Service {
     }
 
     /**
-     * 从HTTP请求中提取Host
-     */
-    private String getHostFromRequest(HttpRequest request) {
-        String host = request.headers().get("Host");
-        if (host == null || host.isEmpty()) {
-            // 尝试从URI中提取
-            String uri = request.uri();
-            if (uri != null && uri.startsWith("http")) {
-                try {
-                    java.net.URL url = new java.net.URL(uri);
-                    host = url.getHost();
-                } catch (Exception e) {
-                    host = "unknown";
-                }
-            } else {
-                host = "unknown";
-            }
-        }
-        return host;
-    }
-
-    /**
      * 检查代理是否运行中
      */
     public boolean isProxyRunning() {
@@ -249,5 +187,12 @@ public class ProxyService extends Service {
      */
     public String getProxyAddress() {
         return isRunning ? "127.0.0.1:" + currentPort : "";
+    }
+
+    /**
+     * 获取DNS解析器
+     */
+    public HttpDnsResolver getHttpDnsResolver() {
+        return httpDnsResolver;
     }
 }

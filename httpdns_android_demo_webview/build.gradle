@@ -37,7 +37,7 @@ dependencies {
     implementation 'androidx.webkit:webkit:1.7.0'
     
     // LittleProxy代理相关依赖 - 使用2.0.13版本
-    implementation('io.github.littleproxy:littleproxy:2.0.13') {
+    implementation('xyz.rogfam:littleproxy:2.0.13') {
         exclude group: 'com.google.guava', module: 'guava'
         exclude group: 'io.netty', module: 'netty-all'
         exclude group: 'org.slf4j', module: 'slf4j-api'

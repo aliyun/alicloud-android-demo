@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import androidx.webkit.ProxyConfig;
 import androidx.webkit.ProxyController;
 import androidx.webkit.WebViewFeature;
 import java.util.concurrent.Executor;
+import java.net.URI;
 
 /**
  * 主Activity，提供WebView代理演示功能
@@ -85,6 +88,29 @@ public class MainActivity extends AppCompatActivity implements ProxyManager.Stat
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 Log.d(TAG, "Page finished loading: " + url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                if (request.isForMainFrame() && isProxyRunning && proxyManager != null) {
+                    int errorCode = error.getErrorCode();
+                    // 只对网络连接类错误触发IP黑名单
+                    if (errorCode == WebViewClient.ERROR_TIMEOUT
+                            || errorCode == WebViewClient.ERROR_CONNECT
+                            || errorCode == WebViewClient.ERROR_HOST_LOOKUP) {
+                        try {
+                            String host = URI.create(request.getUrl().toString()).getHost();
+                            if (host != null) {
+                                Log.w(TAG, "WebView load failed for " + host
+                                        + " (errorCode=" + errorCode + "), marking host failed for DNS fallback");
+                                proxyManager.markHostFailed(host);
+                            }
+                        } catch (Exception e) {
+                            Log.w(TAG, "Failed to parse host from error URL", e);
+                        }
+                    }
+                }
             }
         });
     }
@@ -227,6 +253,7 @@ public class MainActivity extends AppCompatActivity implements ProxyManager.Stat
     protected void onDestroy() {
         super.onDestroy();
         if (proxyManager != null) {
+            proxyManager.stopProxy();
             proxyManager.unbindService();
         }
     }

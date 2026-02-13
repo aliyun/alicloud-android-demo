@@ -16,9 +16,7 @@ public class WebviewProxyApplication extends Application {
     public static String accountId = "139450";
     public static String secretKey = "807a19762f8eaefa8563489baf198535";
     public static boolean enabled = true;
-    public static int connectTimeout = 5000;
-    public static int readTimeout = 5000;
-    public static long cacheTtl = 300_000L;
+    public static int resolveTimeout = 5000;
 
     @Override
     public void onCreate() {
@@ -43,8 +41,7 @@ public class WebviewProxyApplication extends Application {
         return "HTTPDNS Configuration:\n" +
                "- Enabled: " + enabled + "\n" +
                "- AccountID: " + (accountId.equals("YOUR_ACCOUNT_ID") ? "NOT_CONFIGURED" : "***") + "\n" +
-               "- Timeout: " + connectTimeout + "ms / " + readTimeout + "ms\n" +
-               "- Cache TTL: " + (cacheTtl / 1000) + "s";
+               "- Timeout: " + resolveTimeout + "ms\n";
     }
 
     /**
@@ -62,7 +59,7 @@ public class WebviewProxyApplication extends Application {
 
             InitConfig.Builder configBuilder = new InitConfig.Builder()
                 .setContext(this)
-                .setTimeout(connectTimeout)
+                .setTimeoutMillis(resolveTimeout)
                 .setEnableCacheIp(true)
                 .setEnableExpiredIp(true);
 

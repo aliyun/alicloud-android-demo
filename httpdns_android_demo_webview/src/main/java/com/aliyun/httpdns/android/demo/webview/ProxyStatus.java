@@ -20,4 +20,12 @@ public class ProxyStatus {
     public void setRunning(boolean running) {
         isRunning = running;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProxyStatus that = (ProxyStatus) o;
+        return isRunning == that.isRunning;
+    }
 }
