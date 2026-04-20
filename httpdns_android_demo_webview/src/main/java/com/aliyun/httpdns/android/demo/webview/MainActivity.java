@@ -148,8 +148,8 @@ public class MainActivity extends AppCompatActivity implements ProxyManager.Stat
         }
 
         Log.i(TAG, "Loading URL: " + url);
-        webView.loadUrl(url);
         configureWebViewProxy();
+        webView.loadUrl(url);
     }
 
     /**
