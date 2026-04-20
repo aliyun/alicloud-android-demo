@@ -41,29 +41,8 @@ class WebViewOkHttpCaseFragment : BaseFragment<WebViewCaseBinding>() {
 
     private val okHttpClient by lazy {
         OkHttpClient.Builder()
-            .cookieJar(object: okhttp3.CookieJar {
-                override fun loadForRequest(url: HttpUrl): List<Cookie> {
-                    val cookies = mutableListOf<Cookie>()
-                    val cookieStr =  CookieManager.getInstance().getCookie(url.toString())
-                    if (TextUtils.isEmpty(cookieStr)) {
-                        return cookies
-                    }
-                    cookieStr.split(";").forEach {
-                        Cookie.parse(url, it.trim())?.apply {
-                            cookies.add(this)
-                        }
-                    }
-                    return cookies
-                }
-
-                override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-                    cookies.forEach {
-                        CookieManager.getInstance().setCookie(url.toString(), "${it.name}=${it.value}")
-                    }
-                    CookieManager.getInstance().flush()
-                }
-
-            })
+            .followRedirects(false)      // 禁用HTTP重定向
+            .followSslRedirects(false)   // 禁用HTTPS重定向
             .dns(object : Dns {
                 override fun lookup(hostname: String): List<InetAddress> {
                     val currMills = System.currentTimeMillis()
