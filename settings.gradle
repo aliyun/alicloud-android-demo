@@ -13,6 +13,9 @@ pluginManagement {
             url "https://maven.aliyun.com/repository/google"
             name 'google'
         }
+        maven {
+            url 'https://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
     }
 }
 

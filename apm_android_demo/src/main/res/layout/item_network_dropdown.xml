@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/demo_spacing_network_menu_item_horizontal_padding"
+    android:paddingTop="@dimen/demo_spacing_network_menu_item_vertical_padding"
+    android:paddingEnd="@dimen/demo_spacing_network_menu_item_horizontal_padding"
+    android:paddingBottom="@dimen/demo_spacing_network_menu_item_vertical_padding">
+
+    <TextView
+        android:id="@+id/textOption"
+        style="@style/DemoTextStyle.TextFieldInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <View
+        android:id="@+id/selectedIndicator"
+        android:layout_width="@dimen/demo_size_network_menu_selected_indicator"
+        android:layout_height="@dimen/demo_size_network_menu_selected_indicator"
+        android:background="@drawable/bg_network_selected_indicator"
+        android:visibility="gone" />
+</LinearLayout>

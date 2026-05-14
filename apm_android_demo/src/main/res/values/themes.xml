@@ -1,0 +1,24 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Apmandroiddemo" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="Theme.Apmandroiddemo" parent="Base.Theme.Apmandroiddemo" />
+
+    <!-- BottomSheet dialog theme -->
+    <style name="DemoBottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/DemoBottomSheetStyle</item>
+    </style>
+
+    <style name="DemoBottomSheetStyle" parent="Widget.Material3.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/DemoBottomSheetShapeOverlay</item>
+    </style>
+
+    <style name="DemoBottomSheetShapeOverlay">
+        <item name="cornerSizeTopLeft">@dimen/demo_size_sheet_corner</item>
+        <item name="cornerSizeTopRight">@dimen/demo_size_sheet_corner</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+</resources>

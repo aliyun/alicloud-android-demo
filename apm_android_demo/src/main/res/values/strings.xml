@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">HA-Demo</string>
+    <string name="app_name">apm-android-demo</string>
+    <string name="back">返回</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <string name="acknowledge">知道了</string>
+    <string name="settings">设置</string>
+    <string name="sheet_remote_log_recall_title">日志回捞</string>
+    <string name="sheet_positive_upload_title">主动上报</string>
+    <string name="sheet_log_success">打日志成功</string>
+    <string name="sheet_acknowledge">我知道了</string>
+    <string name="sheet_step_1">在 EMAS控制台 「远程日志」模块，根据当前设备，创建回捞任务</string>
+    <string name="sheet_step_2">Demo App切换前后台上报日志</string>
+    <string name="sheet_step_3">等待1-2分钟，在控制台查看日志</string>
+    <string name="sheet_positive_upload_instruction">等待1-2分钟，在 EMAS控制台 「远程日志」模块查看日志</string>
 </resources>

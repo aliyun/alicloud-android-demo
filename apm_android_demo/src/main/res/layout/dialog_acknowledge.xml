@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/demo_spacing_dialog_text_horizontal"
+        android:paddingTop="@dimen/demo_spacing_dialog_text_vertical"
+        android:paddingEnd="@dimen/demo_spacing_dialog_text_horizontal"
+        android:paddingBottom="@dimen/demo_spacing_dialog_text_vertical">
+
+        <TextView
+            android:id="@+id/dialogTitle"
+            style="@style/DemoTextStyle.DialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/dialogMessage"
+            style="@style/DemoTextStyle.DialogMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/demo_spacing_dialog_title_to_text"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_size_separator_line_width"
+        android:background="@color/demo_border" />
+
+    <TextView
+        android:id="@+id/btnAcknowledge"
+        style="@style/DemoTextStyle.DialogActionPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_size_dialog_action_height"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/acknowledge" />
+</LinearLayout>

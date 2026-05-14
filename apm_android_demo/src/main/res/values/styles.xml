@@ -1,17 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <!-- Base text style with includeFontPadding=false -->
+    <style name="DemoTextBase">
+        <item name="android:includeFontPadding">false</item>
     </style>
 
-    <style name="myNewTheme">
-        <item name="android:background">@color/color_bg_one</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:layout_marginTop">16dp</item>
+    <style name="DemoTextStyle.HeaderTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_header_title_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_header_title_line_height</item>
+        <item name="android:textColor">@color/demo_primary_black</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="DemoTextStyle.HeaderSubtitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_header_subtitle_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_header_subtitle_line_height</item>
+        <item name="android:textColor">@color/demo_text_blue</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.HeaderSetting" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_header_setting_size</item>
+        <item name="android:textColor">@color/demo_text_gray</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.SectionTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_section_title_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_section_title_line_height</item>
+        <item name="android:textColor">@color/demo_primary_black</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.ButtonText" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_button_size</item>
+        <item name="android:textColor">@color/demo_button_text_color</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.DialogTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_dialog_title_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_dialog_title_line_height</item>
+        <item name="android:textColor">@color/demo_true_black</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.DialogMessage" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_dialog_message_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_dialog_message_line_height</item>
+        <item name="android:textColor">@color/demo_text_gray</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.DialogActionSecondary" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_dialog_action_secondary_size</item>
+        <item name="android:textColor">@color/demo_mutable_gray</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.DialogActionPrimary" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_dialog_action_primary_size</item>
+        <item name="android:textColor">@color/demo_mutable_blue</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.AdvancedDialogSectionTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_advanced_dialog_section_title_size</item>
+        <item name="android:textColor">@color/demo_text_gray</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.AdvancedDialogSectionDescription" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_advanced_dialog_section_desc_size</item>
+        <item name="android:textColor">@color/demo_mutable_gray</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.PageTopBarTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_page_top_bar_title_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_page_top_bar_title_line_height</item>
+        <item name="android:textColor">@color/demo_primary_black</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.PageAnalysisTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_page_analysis_title_size</item>
+        <item name="android:textColor">@color/demo_button_text_color</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.PageAnalysisParagraph" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_page_analysis_paragraph_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_page_analysis_paragraph_line_height</item>
+        <item name="android:textColor">@color/demo_primary_black</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.PageAnalysisSectionTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_page_analysis_section_title_size</item>
+        <item name="android:textColor">@color/demo_button_text_color</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.PageAnalysisItemTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_page_analysis_item_title_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_page_analysis_item_title_line_height</item>
+        <item name="android:textColor">@color/demo_button_text_color</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.SheetTitle" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_sheet_title_size</item>
+        <item name="android:textColor">@color/demo_primary_black</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.SheetStatus" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_sheet_status_size</item>
+        <item name="android:textColor">@color/demo_sheet_success_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.SheetInstruction" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_sheet_instruction_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_sheet_instruction_line_height</item>
+        <item name="android:textColor">@color/demo_sheet_instruction_text</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.SheetPrimaryButtonText" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_sheet_primary_button_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_sheet_primary_button_line_height</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.StepIndex" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_step_index_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="DemoTextStyle.NoticeBannerText" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_notice_banner_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_notice_banner_line_height</item>
+        <item name="android:textColor">@color/demo_text_blue</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.FieldLabel" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_field_label_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_field_label_line_height</item>
+        <item name="android:textColor">@color/demo_secondary_gray</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.TextFieldInput" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_field_input_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_field_input_line_height</item>
+        <item name="android:textColor">@color/demo_primary_black</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.TextFieldPlaceholder" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_field_placeholder_size</item>
+        <item name="android:textColor">@color/demo_placeholder_color</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="DemoTextStyle.PrimaryButtonText" parent="DemoTextBase">
+        <item name="android:textSize">@dimen/demo_text_primary_button_size</item>
+        <item name="android:lineHeight">@dimen/demo_text_primary_button_line_height</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
 </resources>

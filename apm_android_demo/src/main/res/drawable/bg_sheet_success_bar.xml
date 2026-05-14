@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/demo_sheet_success_bg" />
+    <corners android:radius="@dimen/demo_size_sheet_status_corner" />
+</shape>

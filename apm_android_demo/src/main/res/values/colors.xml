@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="color_bg_one">#0d668fff</color>
+    <color name="demo_page_background">#FFF3F4F8</color>
+    <color name="demo_page_white">#FFFFFFFF</color>
+    <color name="demo_true_black">#FF000000</color>
+    <color name="demo_primary_black">#FF4B4D52</color>
+    <color name="demo_secondary_gray">#FF999CA3</color>
+    <color name="demo_button_text_color">#FF1F2024</color>
+    <color name="demo_text_blue">#FF607B9C</color>
+    <color name="demo_text_gray">#FF384153</color>
+    <color name="demo_highlight_black">#FF2A313D</color>
+    <color name="demo_ack_button_blue">#FF4360F9</color>
+    <color name="demo_mutable_blue">#FF315CFC</color>
+    <color name="demo_mutable_gray">#FF7A8AA4</color>
+    <color name="demo_border">#FFE6E8EB</color>
+    <color name="demo_field_background">#FFF0F2F5</color>
+    <color name="demo_readonly_field_background">#FFE1E5EB</color>
+    <color name="demo_network_field_active_bg">#FFF4F7FD</color>
+    <color name="demo_network_field_active_border">#FF6A7CFA</color>
+    <color name="demo_network_menu_selected_bg">#FFE9EEFF</color>
+    <color name="demo_network_menu_pressed_bg">#FFEFF3FA</color>
+    <color name="demo_placeholder_color">#FF98A4BA</color>
+    <color name="demo_secondary_action_button_bg">#FFF0F2F5</color>
+    <color name="demo_light_blue">#FFEBF0FF</color>
+    <color name="demo_step_line">#FFE6E8FD</color>
+    <color name="demo_sheet_success_bg">#FFDAFBE1</color>
+    <color name="demo_sheet_success_text">#FF29A64E</color>
+    <color name="demo_sheet_instruction_text">#FF5F6E87</color>
+    <color name="demo_sheet_step_badge_blue">#FF4154F7</color>
+    <color name="demo_sheet_step_line_fill">#FFD8D8D8</color>
 </resources>

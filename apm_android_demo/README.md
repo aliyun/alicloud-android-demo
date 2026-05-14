@@ -36,59 +36,79 @@ apm_android_demo已经完成了应用性能监控SDK的集成工作，但我们�
 
 ### 3. 配置APP信息
 
-#### 3.1 配置AppKey、AppSecret
+#### 3.1 配置AppKey、AppSecret、AppRsaSecret
 
-为了使Demo APP能够正常运行，您还需要配置您的 AppKey / AppSecret 信息。您可以在EMAS控制台，您在第一步创建的APP中找到它们。
+为了使Demo APP能够正常运行，您还需要配置您的 AppKey / AppSecret / AppRsaSecret 信息。您可以在EMAS控制台，您在第一步创建的APP中找到它们。
 
->[如何获取您的 AppKey / AppSecret](https://help.aliyun.com/document_detail/436513.html)
+>[如何获取您的 AppKey / AppSecret](https://help.aliyun.com/zh/document_detail/436513.html#51afd0e8508wo)
 
-在Application的onCreate方法中初始化：
+在 `apm_android_demo/src/main/java/com/aliyun/apm/android/demo/MainApplication.kt` 中替换以下占位内容：
 
-```java
-// 初始化公共组件
-AliHaAdapter.getInstance().openDebug(true);
-AliHaConfig config = new AliHaConfig();
-config.appKey = "your_app_key";
-config.appVersion = "your_app_version";
-config.channel = "your_channel";
-AliHaAdapter.getInstance().start(config);
+```kotlin
+val appKey = "your app key" // 请把这里改成控制台上的 "AppKey"
+val appSecret = "your app secret" // 请把这里改成控制台上的 "AppSecret"
+val appRsaSecret = "your app rsa secret" // 请把这里改成控制台上的 "AppRsaSecret"
 ```
 
-#### 3.2 Maven依赖配置
+Demo 会在 `MainApplication.onCreate()` 中通过 `ApmOptions` 初始化移动监控 SDK，并启用崩溃分析、内存分析、远程日志和性能分析组件。
 
-在app的build.gradle文件中添加以下依赖：
+#### 3.2 配置包名
+
+将 `apm_android_demo/build.gradle` 文件中的 `applicationId` 参数改成所创建App的包名：
 
 ```gradle
-dependencies {
-    // 1、公共依赖
-    implementation('com.aliyun.ams:alicloud-android-ha-adapter:1.1.5.4-open') { transitive = true }
-    
-    // 2、崩溃分析，不接入可注释掉
-    implementation('com.aliyun.ams:alicloud-android-ha-crashreporter:1.3.0') { transitive = true }
-    
-    // 3、移动日志，不接入可注释掉
-    implementation('com.aliyun.ams:alicloud-android-tlog:1.1.4.5-open') { transitive = true }
-    
-    // 4、性能监控，不接入可注释掉
-    implementation('com.aliyun.ams:alicloud-android-apm:1.1.1.0-open') { transitive = true }
+android {
+    namespace 'com.aliyun.apm.android.demo'
+
+    defaultConfig {
+        applicationId "com.aliyun.apm.android.demo" // 填写所创建App的包名
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+    ......
 }
 ```
 
+如果控制台应用绑定了签名，请同步使用匹配的签名配置。
+
+#### 3.3 Maven依赖配置
+
+当前Demo已在 `apm_android_demo/build.gradle` 中完成移动监控SDK和Gradle插件配置：
+
+```gradle
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'com.aliyun.emas.apm' version '3.2.0'
+}
+
+def apmSdkVersion = "2.8.0"
+
+dependencies {
+    implementation("com.aliyun.ams:alicloud-apm:${apmSdkVersion}")
+}
+```
+
+Gradle插件用于网络监控、符号化文件处理等构建期能力；`alicloud-apm` 是当前Demo使用的移动监控SDK依赖。
 
 ### 4. 功能验证
 
 #### 4.1 崩溃分析验证
-- 点击Demo中的"模拟崩溃"按钮
-- 重启应用后，崩溃信息会自动上报到控制台
+- 点击Demo中的 `Java崩溃-空指针`、`Native崩溃-SIGSEGV`、`卡顿` 或 `自定义异常` 按钮
+- 也可以进入 `其他类型错误` 页面，触发 IllegalState、数组越界、类型转换、SIGABRT、SIGBUS、SIGILL、ANR、OOM 等异常
+- 崩溃类事件会导致应用退出，重启应用后崩溃信息会自动上报到控制台
 
 #### 4.2 性能监控验证
-- 应用启动时会自动收集启动性能数据
-- 网络请求会自动监控响应时间和成功率
-- 页面切换会记录页面加载时间
+- 点击 `启动分析` 查看冷启动、热启动验证说明，热启动需要将App切到后台再切回前台
+- 点击 `页面分析` 进入页面并上下滑动，页面分析数据会在App退至后台时统一上报
+- 点击 `网络分析` 进入网络分析页，可选择 OkHttp 或 HttpUrlConnection 发起请求，也可以触发网络错误和HTTP错误
 
 #### 4.3 日志收集验证
-- 应用运行过程中的日志会自动收集
-- 可在控制台查看实时日志信息
+- 点击 `日志回捞` 写入一条可回捞日志，并在EMAS控制台远程日志模块按设备创建回捞任务
+- 点击 `主动上报` 写入日志并主动上报
+- 部分数据会在App退至后台后统一上报，通常需要等待1到2分钟后在控制台查看
 
 ## 控制台功能
 

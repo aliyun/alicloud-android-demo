@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+    android:paddingTop="@dimen/demo_spacing_sheet_top"
+    android:paddingEnd="@dimen/demo_spacing_screen_horizontal"
+    android:paddingBottom="@dimen/demo_spacing_sheet_bottom">
+
+    <TextView
+        style="@style/DemoTextStyle.SheetTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/sheet_positive_upload_title" />
+
+    <!-- Success status bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_size_sheet_status_height"
+        android:layout_marginTop="@dimen/demo_spacing_sheet_title_to_status"
+        android:background="@drawable/bg_sheet_success_bar"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/demo_size_sheet_status_icon"
+            android:layout_height="@dimen/demo_size_sheet_status_icon"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_checkbox" />
+
+        <android.widget.Space
+            android:layout_width="@dimen/demo_spacing_sheet_status_icon_gap"
+            android:layout_height="0dp" />
+
+        <TextView
+            style="@style/DemoTextStyle.SheetStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sheet_log_success" />
+    </LinearLayout>
+
+    <!-- Instruction text -->
+    <TextView
+        style="@style/DemoTextStyle.SheetInstruction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/demo_spacing_sheet_status_to_content"
+        android:text="@string/sheet_positive_upload_instruction" />
+
+    <!-- Primary button -->
+    <TextView
+        android:id="@+id/btnAcknowledge"
+        style="@style/DemoTextStyle.SheetPrimaryButtonText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_size_sheet_primary_button_height"
+        android:layout_marginTop="@dimen/demo_spacing_sheet_button_top"
+        android:background="@drawable/bg_primary_button"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/sheet_acknowledge" />
+</LinearLayout>

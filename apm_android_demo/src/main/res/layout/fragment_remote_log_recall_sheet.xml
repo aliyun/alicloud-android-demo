@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+    android:paddingTop="@dimen/demo_spacing_sheet_top"
+    android:paddingEnd="@dimen/demo_spacing_screen_horizontal"
+    android:paddingBottom="@dimen/demo_spacing_sheet_bottom">
+
+    <TextView
+        style="@style/DemoTextStyle.SheetTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/sheet_remote_log_recall_title" />
+
+    <!-- Success status bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_size_sheet_status_height"
+        android:layout_marginTop="@dimen/demo_spacing_sheet_title_to_status"
+        android:background="@drawable/bg_sheet_success_bar"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/demo_size_sheet_status_icon"
+            android:layout_height="@dimen/demo_size_sheet_status_icon"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_checkbox" />
+
+        <android.widget.Space
+            android:layout_width="@dimen/demo_spacing_sheet_status_icon_gap"
+            android:layout_height="0dp" />
+
+        <TextView
+            style="@style/DemoTextStyle.SheetStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sheet_log_success" />
+    </LinearLayout>
+
+    <!-- Steps -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/demo_spacing_sheet_status_to_content"
+        android:orientation="vertical">
+
+        <!-- Step 1 (with line alongside text) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/demo_size_sheet_step_badge"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/DemoTextStyle.StepIndex"
+                    android:layout_width="@dimen/demo_size_sheet_step_badge"
+                    android:layout_height="@dimen/demo_size_sheet_step_badge"
+                    android:background="@drawable/bg_step_badge"
+                    android:gravity="center"
+                    android:text="1" />
+
+                <View
+                    android:layout_width="@dimen/demo_size_sheet_step_line_width"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/demo_step_line" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.SheetInstruction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_sheet_step_badge_to_text"
+                android:layout_weight="1"
+                android:text="@string/sheet_step_1" />
+        </LinearLayout>
+
+        <!-- Gap line between step 1 and 2 -->
+        <View
+            android:layout_width="@dimen/demo_size_sheet_step_line_width"
+            android:layout_height="@dimen/demo_spacing_sheet_step_gap"
+            android:layout_marginStart="8.5dp"
+            android:background="@color/demo_step_line" />
+
+        <!-- Step 2 (with line alongside text) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/demo_size_sheet_step_badge"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/DemoTextStyle.StepIndex"
+                    android:layout_width="@dimen/demo_size_sheet_step_badge"
+                    android:layout_height="@dimen/demo_size_sheet_step_badge"
+                    android:background="@drawable/bg_step_badge"
+                    android:gravity="center"
+                    android:text="2" />
+
+                <View
+                    android:layout_width="@dimen/demo_size_sheet_step_line_width"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/demo_step_line" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.SheetInstruction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_sheet_step_badge_to_text"
+                android:layout_weight="1"
+                android:text="@string/sheet_step_2" />
+        </LinearLayout>
+
+        <!-- Gap line between step 2 and 3 -->
+        <View
+            android:layout_width="@dimen/demo_size_sheet_step_line_width"
+            android:layout_height="@dimen/demo_spacing_sheet_step_gap"
+            android:layout_marginStart="8.5dp"
+            android:background="@color/demo_step_line" />
+
+        <!-- Step 3 (no line) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/DemoTextStyle.StepIndex"
+                android:layout_width="@dimen/demo_size_sheet_step_badge"
+                android:layout_height="@dimen/demo_size_sheet_step_badge"
+                android:background="@drawable/bg_step_badge"
+                android:gravity="center"
+                android:text="3" />
+
+            <TextView
+                style="@style/DemoTextStyle.SheetInstruction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_sheet_step_badge_to_text"
+                android:layout_weight="1"
+                android:text="@string/sheet_step_3" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Primary button -->
+    <TextView
+        android:id="@+id/btnAcknowledge"
+        style="@style/DemoTextStyle.SheetPrimaryButtonText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_size_sheet_primary_button_height"
+        android:layout_marginTop="@dimen/demo_spacing_sheet_button_top"
+        android:background="@drawable/bg_primary_button"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="@string/sheet_acknowledge" />
+</LinearLayout>

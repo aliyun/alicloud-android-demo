@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/demo_page_white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/topBar"
+            layout="@layout/layout_back_top_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+            <!-- Notice banner -->
+            <TextView
+                style="@style/DemoTextStyle.NoticeBannerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_notice_banner"
+                android:paddingStart="@dimen/demo_spacing_notice_content_horizontal"
+                android:paddingTop="@dimen/demo_spacing_notice_content_vertical"
+                android:paddingEnd="@dimen/demo_spacing_notice_content_horizontal"
+                android:paddingBottom="@dimen/demo_spacing_notice_content_vertical"
+                android:text="请触发不同类型的网络请求。网络分析数据在App退至后台时统一上报，之后即可在 EMAS控制台 查看。" />
+
+            <!-- 网络请求 Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_network_section_top"
+                android:orientation="vertical">
+
+                <!-- Section title -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/demo_size_section_indicator_width"
+                        android:layout_height="@dimen/demo_size_section_indicator_height"
+                        android:background="@drawable/bg_section_indicator" />
+
+                    <android.widget.Space
+                        android:layout_width="@dimen/demo_spacing_section_indicator_gap"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        style="@style/DemoTextStyle.SectionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="网络请求" />
+                </LinearLayout>
+
+                <!-- 网络库 label -->
+                <TextView
+                    style="@style/DemoTextStyle.FieldLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/demo_spacing_network_field_group_top"
+                    android:text="网络库" />
+
+                <!-- Network library dropdown -->
+                <FrameLayout
+                    android:id="@+id/networkLibraryContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/demo_size_field_height"
+                    android:layout_marginTop="@dimen/demo_spacing_network_field_label_to_control"
+                    android:background="@drawable/bg_network_dropdown">
+
+                    <TextView
+                        android:id="@+id/networkLibraryText"
+                        style="@style/DemoTextStyle.TextFieldInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/demo_spacing_field_horizontal_padding"
+                        android:paddingEnd="40dp" />
+
+                    <ImageView
+                        android:id="@+id/dropdownArrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="@dimen/demo_spacing_field_horizontal_padding"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_dropdown_arrow" />
+                </FrameLayout>
+
+                <!-- URL label -->
+                <TextView
+                    style="@style/DemoTextStyle.FieldLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/demo_spacing_network_field_to_field"
+                    android:text="URL" />
+
+                <!-- URL input -->
+                <EditText
+                    android:id="@+id/editUrl"
+                    style="@style/DemoTextStyle.TextFieldInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/demo_size_field_height"
+                    android:layout_marginTop="@dimen/demo_spacing_network_field_label_to_control"
+                    android:background="@drawable/bg_edittext"
+                    android:importantForAutofill="no"
+                    android:inputType="textUri"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/demo_spacing_field_horizontal_padding"
+                    android:paddingEnd="@dimen/demo_spacing_field_horizontal_padding"
+                    android:textColorHint="@color/demo_placeholder_color" />
+
+                <!-- Send request button -->
+                <TextView
+                    android:id="@+id/btnSendRequest"
+                    style="@style/DemoTextStyle.PrimaryButtonText"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/demo_size_primary_button_height"
+                    android:layout_marginTop="@dimen/demo_spacing_network_field_to_button"
+                    android:background="@drawable/bg_primary_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="发送请求" />
+            </LinearLayout>
+
+            <!-- 网络错误 Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_network_button_to_section"
+                android:layout_marginBottom="@dimen/demo_spacing_network_content_bottom"
+                android:orientation="vertical">
+
+                <!-- Section title -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="@dimen/demo_size_section_indicator_width"
+                        android:layout_height="@dimen/demo_size_section_indicator_height"
+                        android:background="@drawable/bg_section_indicator" />
+
+                    <android.widget.Space
+                        android:layout_width="@dimen/demo_spacing_section_indicator_gap"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        style="@style/DemoTextStyle.SectionTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="网络错误" />
+                </LinearLayout>
+
+                <!-- Error buttons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/demo_size_button_height"
+                    android:layout_marginTop="@dimen/demo_spacing_network_error_title_to_buttons"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/btnNetworkError"
+                        style="@style/DemoTextStyle.ButtonText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_action_button_network"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="网络错误" />
+
+                    <android.widget.Space
+                        android:layout_width="@dimen/demo_spacing_button_columns"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/btnHttpError"
+                        style="@style/DemoTextStyle.ButtonText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/bg_action_button_network"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center"
+                        android:text="HTTP错误" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

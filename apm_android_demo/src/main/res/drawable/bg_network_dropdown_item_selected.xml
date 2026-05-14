@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/demo_network_menu_pressed_bg" />
+            <corners android:radius="@dimen/demo_size_field_corner" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/demo_network_menu_selected_bg" />
+            <corners android:radius="@dimen/demo_size_field_corner" />
+        </shape>
+    </item>
+</selector>

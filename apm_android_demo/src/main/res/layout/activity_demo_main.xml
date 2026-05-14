@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/demo_page_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header with ConstraintLayout for proportional positioning -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/demo_size_header_height">
+
+            <ImageView
+                android:id="@+id/headerBg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_main_header"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headerContentOverlay"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/headerBg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/headerBg">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineTitleTop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.4345" />
+
+                <LinearLayout
+                    android:id="@+id/headerTitleContainer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/guidelineTitleTop">
+
+                    <TextView
+                        style="@style/DemoTextStyle.HeaderTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="移动监控Demo" />
+
+                    <TextView
+                        android:id="@+id/headerSubtitle"
+                        style="@style/DemoTextStyle.HeaderSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/demo_spacing_title_to_subtitle"
+                        android:maxWidth="162dp"
+                        android:minWidth="152dp"
+                        android:text="欢迎来到阿里云移动监控Demo，开始你的调试吧~" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/demo_spacing_header_settings_top"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingEnd="@dimen/demo_spacing_screen_horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/demo_size_header_setting_icon"
+                        android:layout_height="@dimen/demo_size_header_setting_icon"
+                        android:contentDescription="@string/settings"
+                        android:src="@drawable/ic_setting" />
+
+                    <android.widget.Space
+                        android:layout_width="@dimen/demo_spacing_header_setting_gap"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        style="@style/DemoTextStyle.HeaderSetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Notice banner -->
+        <TextView
+            android:id="@+id/noticeBanner"
+            style="@style/DemoTextStyle.NoticeBannerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/demo_spacing_screen_horizontal"
+            android:layout_marginTop="@dimen/demo_spacing_header_notice_top"
+            android:layout_marginEnd="@dimen/demo_spacing_screen_horizontal"
+            android:background="@drawable/bg_notice_banner"
+            android:paddingStart="@dimen/demo_spacing_notice_content_horizontal"
+            android:paddingTop="@dimen/demo_spacing_notice_content_vertical"
+            android:paddingEnd="@dimen/demo_spacing_notice_content_horizontal"
+            android:paddingBottom="@dimen/demo_spacing_notice_content_vertical" />
+
+        <!-- Section: 崩溃分析 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/demo_spacing_header_notice_to_section"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/demo_spacing_title_to_first_row"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_section_indicator_width"
+                    android:layout_height="@dimen/demo_size_section_indicator_height"
+                    android:background="@drawable/bg_section_indicator" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_section_indicator_gap"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="崩溃分析" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnJavaCrashNpe"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Java崩溃-空指针" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnNativeCrashSigSegv"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Native崩溃-SIGSEGV" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_row_to_row"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnLag"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="卡顿" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnCustomException"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="自定义异常" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnOtherErrorTypes"
+                style="@style/DemoTextStyle.ButtonText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_row_to_row"
+                android:background="@drawable/bg_action_button"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="其他类型错误" />
+        </LinearLayout>
+
+        <!-- Section: 性能分析 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/demo_spacing_module_top"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/demo_spacing_title_to_first_row"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_section_indicator_width"
+                    android:layout_height="@dimen/demo_size_section_indicator_height"
+                    android:background="@drawable/bg_section_indicator" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_section_indicator_gap"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性能分析" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnLaunchAnalysis"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="启动分析" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnPageAnalysis"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="页面分析" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_row_to_row"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnNetworkAnalysis"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="网络分析" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <android.widget.Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Section: 内存分析 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/demo_spacing_module_top"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/demo_spacing_title_to_first_row"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_section_indicator_width"
+                    android:layout_height="@dimen/demo_size_section_indicator_height"
+                    android:background="@drawable/bg_section_indicator" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_section_indicator_gap"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="内存分析" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnOom"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="OOM" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnMemoryIssues"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="内存泄漏/大对象" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Section: 远程日志 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/demo_spacing_module_top"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/demo_spacing_title_to_first_row"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_section_indicator_width"
+                    android:layout_height="@dimen/demo_size_section_indicator_height"
+                    android:background="@drawable/bg_section_indicator" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_section_indicator_gap"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="远程日志" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnRemoteLogPull"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="日志回捞" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnPositiveUpload"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="主动上报" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Bottom spacing -->
+        <android.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/demo_spacing_module_top" />
+    </LinearLayout>
+</ScrollView>

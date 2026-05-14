@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/demo_page_white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/topBar"
+            layout="@layout/layout_back_top_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+            <!-- UserID section -->
+            <TextView
+                style="@style/DemoTextStyle.FieldLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_settings_title_top"
+                android:text="UserID" />
+
+            <EditText
+                android:id="@+id/editUserId"
+                style="@style/DemoTextStyle.TextFieldInput"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_field_height"
+                android:layout_marginTop="@dimen/demo_spacing_settings_label_to_field"
+                android:background="@drawable/bg_edittext"
+                android:hint="请输入 UserID"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="@dimen/demo_spacing_field_horizontal_padding"
+                android:paddingEnd="@dimen/demo_spacing_field_horizontal_padding"
+                android:textColorHint="@color/demo_placeholder_color" />
+
+            <!-- 用户昵称 section -->
+            <TextView
+                style="@style/DemoTextStyle.FieldLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_settings_section_to_section"
+                android:text="用户昵称" />
+
+            <EditText
+                android:id="@+id/editUserNick"
+                style="@style/DemoTextStyle.TextFieldInput"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_field_height"
+                android:layout_marginTop="@dimen/demo_spacing_settings_label_to_field"
+                android:background="@drawable/bg_edittext"
+                android:hint="请输入用户昵称"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="@dimen/demo_spacing_field_horizontal_padding"
+                android:paddingEnd="@dimen/demo_spacing_field_horizontal_padding"
+                android:textColorHint="@color/demo_placeholder_color" />
+
+            <!-- UTDID section -->
+            <TextView
+                style="@style/DemoTextStyle.FieldLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_settings_section_to_section"
+                android:text="UTDID" />
+
+            <TextView
+                android:id="@+id/textUtdid"
+                style="@style/DemoTextStyle.TextFieldInput"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_field_height"
+                android:layout_marginTop="@dimen/demo_spacing_settings_label_to_field"
+                android:background="@drawable/bg_edittext_readonly"
+                android:gravity="center_vertical"
+                android:paddingStart="@dimen/demo_spacing_field_horizontal_padding"
+                android:paddingEnd="@dimen/demo_spacing_field_horizontal_padding" />
+
+            <!-- Save button -->
+            <TextView
+                android:id="@+id/btnSave"
+                style="@style/DemoTextStyle.PrimaryButtonText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_primary_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_settings_button_top"
+                android:background="@drawable/bg_primary_button"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="保存设置" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

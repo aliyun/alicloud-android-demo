@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/topBarRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/demo_page_white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_size_top_bar_height"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/demo_spacing_page_top_bar_start"
+        android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/demo_size_page_back_icon"
+            android:layout_height="@dimen/demo_size_page_back_icon"
+            android:contentDescription="@string/back"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back" />
+
+        <android.widget.Space
+            android:layout_width="@dimen/demo_spacing_page_top_bar_icon_to_title"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/topBarTitle"
+            style="@style/DemoTextStyle.PageTopBarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <android.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/demo_spacing_page_top_bar_bottom" />
+</LinearLayout>

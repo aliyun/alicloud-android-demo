@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/demo_page_white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/topBar"
+            layout="@layout/layout_back_top_bar" />
+
+        <!-- Notice banner -->
+        <TextView
+            style="@style/DemoTextStyle.NoticeBannerText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/demo_spacing_screen_horizontal"
+            android:layout_marginEnd="@dimen/demo_spacing_screen_horizontal"
+            android:background="@drawable/bg_notice_banner"
+            android:paddingStart="@dimen/demo_spacing_notice_content_horizontal"
+            android:paddingTop="@dimen/demo_spacing_notice_content_vertical"
+            android:paddingEnd="@dimen/demo_spacing_notice_content_horizontal"
+            android:paddingBottom="@dimen/demo_spacing_notice_content_vertical"
+            android:text="更多崩溃和错误类型，点击按钮触发对应类型的异常。触发后请前往 EMAS控制台 查看崩溃详情和堆栈信息。" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingTop="@dimen/demo_spacing_other_error_notice_to_section"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal"
+            android:paddingBottom="@dimen/demo_spacing_other_error_content_bottom">
+
+            <!-- Section title -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_section_indicator_width"
+                    android:layout_height="@dimen/demo_size_section_indicator_height"
+                    android:background="@drawable/bg_section_indicator" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_section_indicator_gap"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.SectionTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="错误列表" />
+            </LinearLayout>
+
+            <!-- Row 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_other_error_section_title_to_buttons"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnJavaCrashIllegalState"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Java崩溃-状态异常" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnNativeCrashSigAbrt"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Native崩溃-SIGABRT" />
+            </LinearLayout>
+
+            <!-- Row 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_row_to_row"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnJavaCrashArrayIndex"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Java崩溃-数组越界" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnNativeCrashSigBus"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Native崩溃-SIGBUS" />
+            </LinearLayout>
+
+            <!-- Row 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_row_to_row"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnJavaCrashClassCast"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Java崩溃-类型转换" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnNativeCrashSigIll"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="Native崩溃-SIGILL" />
+            </LinearLayout>
+
+            <!-- Row 4 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/demo_size_button_height"
+                android:layout_marginTop="@dimen/demo_spacing_row_to_row"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnAnr"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="ANR" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_button_columns"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    android:id="@+id/btnOom"
+                    style="@style/DemoTextStyle.ButtonText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_action_button_secondary"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:text="OOM" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

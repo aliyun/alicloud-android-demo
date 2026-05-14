@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/demo_page_white"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/topBar"
+            layout="@layout/layout_back_top_bar" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/demo_spacing_screen_horizontal"
+            android:paddingEnd="@dimen/demo_spacing_screen_horizontal">
+
+            <!-- Notice banner -->
+            <TextView
+                android:id="@+id/noticeBanner"
+                style="@style/DemoTextStyle.NoticeBannerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_notice_banner"
+                android:paddingStart="@dimen/demo_spacing_notice_content_horizontal"
+                android:paddingTop="@dimen/demo_spacing_notice_content_vertical"
+                android:paddingEnd="@dimen/demo_spacing_notice_content_horizontal"
+                android:paddingBottom="@dimen/demo_spacing_notice_content_vertical"
+                android:text="请滑动页面。页面分析数据在App退至后台时统一上报，之后即可在 EMAS控制台 查看。" />
+
+            <!-- Brand title row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_notice_to_title"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="@dimen/demo_size_page_analysis_brand_icon"
+                    android:layout_height="@dimen/demo_size_page_analysis_brand_icon"
+                    android:contentDescription="EMAS"
+                    android:src="@drawable/ic_emas" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_page_analysis_brand_icon_to_title"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.PageAnalysisTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="阿里云EMAS" />
+            </LinearLayout>
+
+            <!-- Paragraph 1 -->
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_title_to_paragraph"
+                android:text="阿里云推出的企业级移动应用研发平台（Enterprise Mobile Application Studio，简称 EMAS），源自手淘无线团队在移动应用研发领域的多年积累，采用与手淘同一套技术架构体系，旨在为企业提供全面的移动应用开发、测试、运维及运营支持，帮助企业在复杂的市场环境中保持竞争力。" />
+
+            <!-- Paragraph 2 -->
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_paragraph_gap"
+                android:text="在移动监控方面，EMAS 提供了全面的崩溃分析、性能分析、远程日志能力。通过崩溃分析，开发者可以实时捕获应用崩溃信息，生成详细的崩溃报告，帮助迅速定位和修复问题。性能分析工具则能够监控应用的关键性能指标，确保应用在各种场景下都能稳定、高效运行。远程日志功能使开发者可以在无需用户干预的情况下获取应用日志，远程排查问题，大幅缩短问题解决时间。" />
+
+            <!-- Section: 核心特性 -->
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisSectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_paragraph_gap"
+                android:text="核心特性" />
+
+            <!-- Item 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_section_title_to_item_title"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_page_analysis_item_dot"
+                    android:layout_height="@dimen/demo_size_page_analysis_item_dot"
+                    android:background="@drawable/bg_bullet_dot" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_page_analysis_item_dot_to_title"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.PageAnalysisItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="多端协同，高效接入" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_page_analysis_item_text_start"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_title_to_body"
+                android:text="支持Android、iOS和鸿蒙三端，业务场景快速复用，降低接入难度，提升开发速度。" />
+
+            <!-- Item 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_gap"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_page_analysis_item_dot"
+                    android:layout_height="@dimen/demo_size_page_analysis_item_dot"
+                    android:background="@drawable/bg_bullet_dot" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_page_analysis_item_dot_to_title"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.PageAnalysisItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="技术成熟，稳定安全" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_page_analysis_item_text_start"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_title_to_body"
+                android:text="集成阿里巴巴积累的成熟稳定的技术框架与终端的安全经验，解决终端兼容适配性问题和开发协作管理。" />
+
+            <!-- Item 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_gap"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_page_analysis_item_dot"
+                    android:layout_height="@dimen/demo_size_page_analysis_item_dot"
+                    android:background="@drawable/bg_bullet_dot" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_page_analysis_item_dot_to_title"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.PageAnalysisItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性能优越，高可用性" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_page_analysis_item_text_start"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_title_to_body"
+                android:text="通过多地域部署和集群化服务，支持全球调度，保证服务的高可用性。" />
+
+            <!-- Section: 客户案例 -->
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisSectionTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_paragraph_gap"
+                android:text="客户案例" />
+
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_section_title_to_item_title"
+                android:text="某证券业移动应用通过接入移动性能监控，降低崩溃率提升用户体验。" />
+
+            <!-- 业务痛点 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_section_title_to_item_title"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_page_analysis_item_dot"
+                    android:layout_height="@dimen/demo_size_page_analysis_item_dot"
+                    android:background="@drawable/bg_bullet_dot" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_page_analysis_item_dot_to_title"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.PageAnalysisItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="业务痛点" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_page_analysis_item_text_start"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_title_to_body"
+                android:text="某证券业移动应用某日线上Crash率出现大幅度上升，难以定位排查和修复。" />
+
+            <!-- 产品方案 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_gap"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_page_analysis_item_dot"
+                    android:layout_height="@dimen/demo_size_page_analysis_item_dot"
+                    android:background="@drawable/bg_bullet_dot" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_page_analysis_item_dot_to_title"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.PageAnalysisItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="产品方案" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_page_analysis_item_text_start"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_title_to_body"
+                android:text="1. 通过崩溃分析，定位Crash主因为聚类后的topN关联Crash。\n2. 通过崩溃分析，查询Crash的特征分析，即相关日志。\n3. 通过远程日志，进一步获取Crash上下文相关的用户日志。\n4. 根据核心操作，发现崩溃路径和代码根因。\n5. 准备补丁，快速发布新的灰度版本。\n6. 观察灰度发布后的Crash数据，验证修复效果。" />
+
+            <!-- 价值收益 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_gap"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/demo_size_page_analysis_item_dot"
+                    android:layout_height="@dimen/demo_size_page_analysis_item_dot"
+                    android:background="@drawable/bg_bullet_dot" />
+
+                <android.widget.Space
+                    android:layout_width="@dimen/demo_spacing_page_analysis_item_dot_to_title"
+                    android:layout_height="0dp" />
+
+                <TextView
+                    style="@style/DemoTextStyle.PageAnalysisItemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="价值收益" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/DemoTextStyle.PageAnalysisParagraph"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/demo_spacing_page_analysis_item_text_start"
+                android:layout_marginTop="@dimen/demo_spacing_page_analysis_item_title_to_body"
+                android:paddingBottom="@dimen/demo_spacing_page_analysis_bottom"
+                android:text="协助客户快速定位和修复问题，提升应用性能并优化客户体验。" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
